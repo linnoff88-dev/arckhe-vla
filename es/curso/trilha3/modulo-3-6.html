@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Módulo 3.6 — Hoja de ruta 2027-2030: el futuro de la IA incorporada | VLA Course</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: { 600:'#374151', 700:'#1f2937', 800:'#1a1a2e', 900:'#111827' },
+                        primary: '#f59e0b'
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .dark body { background-color: #111827; }
+
+        /* Light mode base */
+        html:not(.dark) body { background-color: #f8fafc; }
+        html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+        html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+        html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+        html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+        html:not(.dark) .text-neutral-100 { color: #111827; }
+        html:not(.dark) .text-neutral-300 { color: #4b5563; }
+        html:not(.dark) .text-neutral-400 { color: #6b7280; }
+        html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+        html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+        html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+
+        /* Light mode — cores de acento purple */
+        html:not(.dark) .text-purple-400 { color: #7c3aed; }
+        html:not(.dark) .bg-purple-500\/20 { background-color: rgba(124, 58, 237, 0.12); }
+        html:not(.dark) .bg-purple-500\/10 { background-color: rgba(124, 58, 237, 0.08); }
+        html:not(.dark) .bg-purple-900\/20 { background-color: rgba(124, 58, 237, 0.08); }
+        html:not(.dark) .border-purple-500\/30 { border-color: rgba(124, 58, 237, 0.25); }
+        html:not(.dark) .hover\:bg-purple-500\/30:hover { background-color: rgba(124, 58, 237, 0.18); }
+        html:not(.dark) .bg-red-900\/20 { background-color: rgba(220, 38, 38, 0.07); }
+        html:not(.dark) .border-red-500\/30 { border-color: rgba(220, 38, 38, 0.25); }
+
+        /* Light mode — remove gradientes */
+        html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+
+        /* Light mode — cores especiais */
+        html:not(.dark) .text-primary { color: #a16207; }
+        html:not(.dark) .bg-primary\/10 { background-color: rgba(161, 98, 7, 0.08); }
+        html:not(.dark) .border-primary\/40 { border-color: rgba(161, 98, 7, 0.25); }
+        html:not(.dark) .text-sky-400 { color: #0369a1; }
+        html:not(.dark) .text-yellow-400 { color: #a16207; }
+        html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+        html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+
+        /* Light mode — nav */
+        html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255,255,255,0.95); }
+
+        /* Dark mode — bordas suavizadas */
+        .dark .border-dark-600 { border-color: #374151; }
+        .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+
+        /* SVG light mode */
+        html:not(.dark) svg[role="img"] { filter: saturate(0.82) brightness(0.96); }
+
+        /* Animações SVG */
+        @media (prefers-reduced-motion: no-preference) {
+            .svg-pulse { animation: svgPulse 3s ease-in-out infinite; }
+            .svg-float { animation: svgFloat 4s ease-in-out infinite; }
+            .svg-drift { animation: svgDrift 6s ease-in-out infinite; }
+            @keyframes svgPulse { 0%,100%{opacity:0.7} 50%{opacity:1} }
+            @keyframes svgFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-4px)} }
+            @keyframes svgDrift { 0%,100%{transform:translateX(0)} 50%{transform:translateX(3px)} }
+        }
+    </style>
+<link href="https://linnoff88-dev.github.io/arckhe-vla/curso/trilha3/modulo-3-6.html" hreflang="pt-BR" rel="alternate"/><link href="https://linnoff88-dev.github.io/arckhe-vla/en/curso/trilha3/modulo-3-6.html" hreflang="en" rel="alternate"/><link href="https://linnoff88-dev.github.io/arckhe-vla/es/curso/trilha3/modulo-3-6.html" hreflang="es" rel="alternate"/></head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="ARCKHÉ-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../../../curso/trilha3/modulo-3-6.html" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="../../../en/curso/trilha3/modulo-3-6.html" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">EN</a><a href="modulo-3-6.html" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">ES</a></div>
+<!-- NAV — cópia exata de curso/trilha3/index.html -->
+<nav class="fixed top-0 w-full bg-dark-900/95 backdrop-blur border-b border-dark-600 z-50">
+<div class="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<a class="text-primary font-bold text-lg" href="../../">VLA</a>
+<span class="text-neutral-500">|</span>
+<a class="text-sky-400 hover:text-sky-300 text-sm font-medium" href="https://ARCKHÉ AI" target="_blank">ARCKHÉ AI</a>
+</div>
+<div class="flex items-center gap-2">
+<a class="px-3 py-1.5 rounded text-sm text-emerald-400 hover:bg-emerald-500/10" href="../trilha1/">Fundamentos</a>
+<a class="px-3 py-1.5 rounded text-sm text-blue-400 hover:bg-blue-500/10" href="../trilha2/">Técnico</a>
+<a class="px-3 py-1.5 rounded text-sm text-purple-400 bg-purple-500/20 border border-purple-500/30 font-medium" href="./">Avanzado</a>
+<button class="ml-2 p-2 rounded hover:bg-dark-700 text-neutral-400" onclick="document.documentElement.classList.toggle('dark')" title="Cambiar tema">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+</div>
+</div>
+</nav>
+<main class="max-w-4xl mx-auto px-4 pt-24 pb-16">
+<!-- BREADCRUMB -->
+<nav aria-label="Navegación estructural" class="mb-8 text-sm text-neutral-500">
+<ol class="flex items-center gap-2 flex-wrap">
+<li><a class="hover:text-neutral-300 transition-colors" href="../../">Inicio</a></li>
+<li><span class="text-neutral-600">/</span></li>
+<li><a class="text-purple-400 hover:text-purple-300 transition-colors" href="./">Avanzado</a></li>
+<li><span class="text-neutral-600">/</span></li>
+<li class="text-neutral-300 font-medium">Módulo 3.6</li>
+</ol>
+</nav>
+<!-- HEADER -->
+<header class="mb-16">
+<div class="bg-gradient-to-br from-purple-900/40 via-dark-800 to-dark-800 rounded-2xl border border-purple-500/30 p-8 mb-8">
+<div class="mb-4">
+<span class="inline-block text-xs font-bold text-purple-400 bg-purple-500/20 border border-purple-500/30 px-3 py-1 rounded-full uppercase tracking-wider">Módulo 3.6</span>
+</div>
+<h1 class="text-3xl sm:text-4xl font-extrabold mb-4 leading-tight">
+                🔭 Roadmap 2027-2030: el futuro de la IA incorporada
+            </h1>
+<p class="text-neutral-400 text-lg mb-8 max-w-2xl">
+                Humanoides comerciales, scaling laws para robótica y los desafíos pendientes que definirán la próxima década de la IA física.
+            </p>
+<!-- SVG HERO — Timeline 2025→2030 -->
+<div class="rounded-2xl border border-purple-500/30 bg-dark-900/40 p-4 mb-8">
+<svg aria-label="Cronología ilustrativa de 2025 a 2030: de pilotos industriales a humanoides de uso general" class="w-full h-auto" fill="none" font-family="Inter,sans-serif" role="img" viewbox="0 0 720 220" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<filter id="m36-glow-hero"><fegaussianblur result="blur" stddeviation="1.8"></fegaussianblur><femerge><femergenode in="blur"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge></filter>
+<pattern height="18" id="m36-grid-hero" patternunits="userSpaceOnUse" width="18">
+<path d="M 18 0 L 0 0 0 18" fill="none" stroke="#c084fc" stroke-opacity="0.06" stroke-width="0.5"></path>
+</pattern>
+<lineargradient id="m36-axis-grad" x1="0%" x2="100%" y1="0%" y2="0%">
+<stop offset="0%" stop-color="#c084fc" stop-opacity="0.3"></stop>
+<stop offset="100%" stop-color="#38bdf8" stop-opacity="0.8"></stop>
+</lineargradient>
+</defs>
+<rect fill="url(#m36-grid-hero)" height="220" rx="12" width="720"></rect>
+<!-- Eixo -->
+<line stroke="url(#m36-axis-grad)" stroke-width="2.5" x1="60" x2="670" y1="110" y2="110"></line>
+<polygon fill="#38bdf8" fill-opacity="0.7" points="666,103 680,110 666,117"></polygon>
+<!-- 2025 -->
+<g class="svg-pulse" filter="url(#m36-glow-hero)">
+<circle cx="110" cy="110" fill="#c084fc" r="8" stroke="#1a1230" stroke-width="2"></circle>
+<text fill="#c084fc" font-size="12" font-weight="600" text-anchor="middle" x="110" y="88">2025</text>
+<text fill="#c084fc" font-size="10" opacity="0.8" text-anchor="middle" x="110" y="136">pilotos</text>
+<text fill="#c084fc" font-size="10" opacity="0.8" text-anchor="middle" x="110" y="149">industriales</text>
+</g>
+<!-- 2026 -->
+<circle cx="230" cy="110" fill="#c084fc" opacity="0.4" r="5"></circle>
+<text fill="#c084fc" font-size="11" opacity="0.5" text-anchor="middle" x="230" y="91">2026</text>
+<text fill="#c084fc" font-size="9" opacity="0.5" text-anchor="middle" x="230" y="130">expansión</text>
+<!-- 2027 -->
+<g class="svg-pulse" filter="url(#m36-glow-hero)" style="animation-delay:0.8s">
+<circle cx="360" cy="110" fill="#c084fc" r="8" stroke="#1a1230" stroke-width="2"></circle>
+<text fill="#c084fc" font-size="12" font-weight="600" text-anchor="middle" x="360" y="88">2027</text>
+<text fill="#c084fc" font-size="10" opacity="0.8" text-anchor="middle" x="360" y="136">deploy en</text>
+<text fill="#c084fc" font-size="10" opacity="0.8" text-anchor="middle" x="360" y="149">escala</text>
+</g>
+<!-- 2028-29 -->
+<g class="svg-pulse" filter="url(#m36-glow-hero)" style="animation-delay:1.6s">
+<circle cx="510" cy="110" fill="#38bdf8" r="8" stroke="#1a1230" stroke-width="2"></circle>
+<text fill="#38bdf8" font-size="11" font-weight="600" text-anchor="middle" x="510" y="88">2028-29</text>
+<text fill="#38bdf8" font-size="10" opacity="0.8" text-anchor="middle" x="510" y="136">foundation</text>
+<text fill="#38bdf8" font-size="10" opacity="0.8" text-anchor="middle" x="510" y="149">modelos generales</text>
+</g>
+<!-- 2030 -->
+<g filter="url(#m36-glow-hero)">
+<circle cx="650" cy="110" fill="#38bdf8" r="11" stroke="#1a1230" stroke-width="2"></circle>
+<text fill="#38bdf8" font-size="13" font-weight="600" text-anchor="middle" x="650" y="85">2030</text>
+<text fill="#38bdf8" font-size="10" opacity="0.9" text-anchor="middle" x="650" y="136">uso general</text>
+</g>
+<!-- Legenda -->
+<text fill="#c084fc" font-size="11" font-weight="600" opacity="0.55" text-anchor="middle" x="360" y="200">Escalado de datos, cómputo y modelos — proyección ilustrativa</text>
+</svg>
+</div>
+<!-- Stats -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+<div class="bg-dark-800/60 rounded-xl p-4 text-center border border-dark-600">
+<div class="text-2xl font-bold text-purple-400">6</div>
+<div class="text-xs text-neutral-500 mt-1">Temas</div>
+</div>
+<div class="bg-dark-800/60 rounded-xl p-4 text-center border border-dark-600">
+<div class="text-2xl font-bold text-purple-400">~55</div>
+<div class="text-xs text-neutral-500 mt-1">Minutos</div>
+</div>
+<div class="bg-dark-800/60 rounded-xl p-4 text-center border border-dark-600">
+<div class="text-2xl font-bold text-purple-400">Avanzado</div>
+<div class="text-xs text-neutral-500 mt-1">Nivel</div>
+</div>
+<div class="bg-dark-800/60 rounded-xl p-4 text-center border border-dark-600">
+<div class="text-2xl font-bold text-purple-400">Último</div>
+<div class="text-xs text-neutral-500 mt-1">del Curso</div>
+</div>
+</div>
+</div>
+</header>
+<!-- ══════════════════════════════════════════════════════════════ -->
+<!-- TÓPICO 1: Trajetória dos humanoides comerciais                 -->
+<!-- ══════════════════════════════════════════════════════════════ -->
+<section class="mb-16" id="topico-1">
+<div class="flex items-center gap-4 mb-6">
+<span class="w-12 h-12 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-lg font-bold text-purple-400 shrink-0">1</span>
+<h2 class="text-2xl font-bold">🤖 Trayectoria de los humanoides comerciales (2025→2030)</h2>
+</div>
+<p class="text-neutral-400 mb-6 leading-relaxed">
+            La trayectoria de los humanoides comerciales es un arco de cinco años que va desde pilotos controlados en fábricas hasta las primeras unidades en entornos domésticos. Cada etapa depende de la confiabilidad, el costo unitario y la madurez del software de control, y cada cuello de botella tiene una naturaleza diferente.
+        </p>
+<!-- Timeline de fases -->
+<div class="space-y-4 mb-6">
+<h3 class="text-sm font-semibold text-neutral-500 uppercase tracking-wider mb-4">Fases de adopción</h3>
+<div class="flex gap-4">
+<div class="flex flex-col items-center">
+<div class="w-10 h-10 rounded-full bg-purple-500/20 border-2 border-purple-500/30 flex items-center justify-center text-purple-400 font-bold shrink-0">1</div>
+<div class="w-0.5 h-12 bg-purple-500/20 mt-1"></div>
+</div>
+<div class="pb-6">
+<div class="flex items-center gap-2 mb-1">
+<span class="text-purple-400 font-semibold">2025 — Pilotos industriales</span>
+<span class="text-xs bg-purple-500/20 text-purple-400 px-2 py-0.5 rounded">Actual</span>
+</div>
+<p class="text-neutral-400 text-sm">Entornos controlados (almacenes, fábricas), tareas repetitivas, supervisión constante. Figure 02, Optimus, 1X Eve en pruebas reales con operadores cerca.</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="flex flex-col items-center">
+<div class="w-10 h-10 rounded-full bg-purple-500/20 border-2 border-purple-500/30 flex items-center justify-center text-purple-400 font-bold shrink-0">2</div>
+<div class="w-0.5 h-12 bg-purple-500/20 mt-1"></div>
+</div>
+<div class="pb-6">
+<div class="mb-1"><span class="text-purple-400 font-semibold">2027 — Deploy a escala</span></div>
+<p class="text-neutral-400 text-sm">Flota de decenas a cientos de unidades en un solo sitio. La economía de escala empieza a reducir el costo unitario. La confiabilidad (MTBF) se convierte en el KPI dominante.</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="flex flex-col items-center">
+<div class="w-10 h-10 rounded-full bg-purple-500/20 border-2 border-purple-500/30 flex items-center justify-center text-purple-400 font-bold shrink-0">3</div>
+<div class="w-0.5 h-8 bg-purple-500/20 mt-1"></div>
+</div>
+<div class="pb-6">
+<div class="mb-1"><span class="text-purple-400 font-semibold">2028-29 — Modelos fundacionales generalistas</span></div>
+<p class="text-neutral-400 text-sm">Un modelo que controla múltiples embodiments con una adaptación mínima. La transferencia cross-embodiment sale del laboratorio y llega a producción.</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="flex flex-col items-center">
+<div class="w-10 h-10 rounded-full bg-blue-500/20 border-2 border-blue-500/30 flex items-center justify-center text-blue-400 font-bold shrink-0">4</div>
+</div>
+<div>
+<div class="mb-1"><span class="text-blue-400 font-semibold">2030 — Uso general</span></div>
+<p class="text-neutral-400 text-sm">Primeras unidades en entornos menos estructurados (hospitales, comercios). Costo inferior a USD 30k/unidad. La regulación empieza a madurar.</p>
+</div>
+</div>
+</div>
+<!-- Box conceito principal -->
+<div class="bg-gradient-to-r from-purple-900/40 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-4">
+<h3 class="font-semibold text-purple-400 mb-3">📌 El cuello de botella dominante cambia según la fase</h3>
+<p class="text-neutral-300 text-sm leading-relaxed">
+                En 2025, el cuello de botella es <strong>software</strong> — los robots existen, pero el VLA aún falla en tareas imprevistas. En 2027, se convierte en <strong>confiabilidad</strong> — el hardware debe funcionar más de 2 000 horas sin fallas críticas. En 2030, será <strong>costo y regulación</strong>. Cada fase tiene una ecuación diferente, y las decisiones de inversión que confunden las fases tienden a estar mal calibradas.
+            </p>
+</div>
+<!-- Grid conceitos-chave -->
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600">
+<div class="text-purple-400 font-semibold text-sm mb-1">Curva de adopción</div>
+<p class="text-neutral-400 text-xs">Difusión de tecnología en S-curve: lento-rápido-saturación.</p>
+</div>
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600">
+<div class="text-purple-400 font-semibold text-sm mb-1">MTBF</div>
+<p class="text-neutral-400 text-xs">Mean Time Between Failures — métrica de confiabilidad industrial.</p>
+</div>
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600">
+<div class="text-purple-400 font-semibold text-sm mb-1">Costo unitario</div>
+<p class="text-neutral-400 text-xs">Determinante del mercado direccionable: por debajo de USD 30k abre el mercado minorista.</p>
+</div>
+</div>
+</section>
+<!-- ══════════════════════════════════════════════════════════════ -->
+<!-- TÓPICO 2: Scaling laws para robótica                          -->
+<!-- ══════════════════════════════════════════════════════════════ -->
+<section class="mb-16" id="topico-2">
+<div class="flex items-center gap-4 mb-6">
+<span class="w-12 h-12 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-lg font-bold text-purple-400 shrink-0">2</span>
+<h2 class="text-2xl font-bold">📈 Scaling laws para robótica</h2>
+</div>
+<p class="text-neutral-400 mb-6 leading-relaxed">
+            En los LLM, más datos + más cómputo + un modelo más grande = mejor rendimiento de forma predecible. La pregunta central de la robótica es: ¿se aplica este mismo principio? La respuesta no es obvia: los datos de acción son costosos, escasos y difíciles de recopilar a gran escala.
+        </p>
+<!-- Grid Fazer vs Evitar -->
+<div class="grid sm:grid-cols-2 gap-4 mb-6">
+<div class="bg-purple-900/20 rounded-xl p-5 border border-purple-500/30">
+<h3 class="font-semibold text-purple-400 mb-3 flex items-center gap-2">✓ Lo que funciona igual que en los LLM</h3>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-purple-400 mt-0.5">✓</span> Los modelos más grandes generalizan mejor entre tareas</li>
+<li class="flex items-start gap-2"><span class="text-purple-400 mt-0.5">✓</span> Los datos de video de la web ayudan en el preentrenamiento visual</li>
+<li class="flex items-start gap-2"><span class="text-purple-400 mt-0.5">✓</span> El ajuste fino con datos específicos mejora las políticas</li>
+<li class="flex items-start gap-2"><span class="text-purple-400 mt-0.5">✓</span> Capacidades emergentes con el aumento de escala</li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl p-5 border border-red-500/30">
+<h3 class="font-semibold text-red-400 mb-3 flex items-center gap-2">✗ Diferencias críticas frente a los LLM</h3>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Los datos de acción no existen a escala web</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Cada robot/tarea requiere datos propios costosos</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> La curva de scaling aún no se ha establecido empíricamente</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> La simulación todavía tiene una brecha sim-to-real relevante</li>
+</ul>
+</div>
+</div>
+<!-- Box dica -->
+<div class="bg-primary/10 border border-primary/40 rounded-xl p-5 mb-6">
+<h3 class="font-semibold text-primary mb-2">💡 La apuesta de los world models</h3>
+<p class="text-neutral-300 text-sm leading-relaxed">
+                Si el cuello de botella es la falta de datos de acción, una solución candidata es entrenar un <strong>world model</strong> que aprende física a partir de video (abundante) y luego genera trayectorias de acción sintéticas. Sora, Genie 2 y UniSim exploran esta dirección. Si funciona, el cuello de botella de datos de la robótica puede resolverse de la misma forma que el texto lo resolvió para los LLM: con datos de la web.
+            </p>
+</div>
+<!-- Grid conceitos-chave -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600">
+<div class="text-purple-400 font-semibold text-sm mb-1">Scaling laws</div>
+<p class="text-neutral-400 text-xs">Relación de ley de potencia entre el cómputo/datos/parámetros y el rendimiento.</p>
+</div>
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600">
+<div class="text-purple-400 font-semibold text-sm mb-1">Cuello de botella de datos</div>
+<p class="text-neutral-400 text-xs">La escasez de datos de acción es el principal obstáculo para el escalamiento.</p>
+</div>
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600">
+<div class="text-purple-400 font-semibold text-sm mb-1">Modelo del mundo</div>
+<p class="text-neutral-400 text-xs">Modelo que simula la física del mundo para generar datos sintéticos.</p>
+</div>
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600">
+<div class="text-purple-400 font-semibold text-sm mb-1">Brecha sim-to-real</div>
+<p class="text-neutral-400 text-xs">Diferencia de rendimiento entre la simulación y el mundo real.</p>
+</div>
+</div>
+</section>
+<!-- ══════════════════════════════════════════════════════════════ -->
+<!-- TÓPICO 3: Foundation models generalistas                       -->
+<!-- ══════════════════════════════════════════════════════════════ -->
+<section class="mb-16" id="topico-3">
+<div class="flex items-center gap-4 mb-6">
+<span class="w-12 h-12 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-lg font-bold text-purple-400 shrink-0">3</span>
+<h2 class="text-2xl font-bold">🧠 Hacia foundation models verdaderamente generalistas</h2>
+</div>
+<p class="text-neutral-400 mb-6 leading-relaxed">
+            El objetivo final es un solo modelo que controle cualquier robot, en cualquier tarea, con una adaptación mínima: el "GPT de la robótica". Esto exige unir percepción robusta, razonamiento de lenguaje y control fino en una sola arquitectura, entrenada con datos masivos y heterogéneos.
+        </p>
+<!-- SVG 2 — diagrama de unificação (aninhamento) -->
+<div class="rounded-2xl border border-purple-500/30 bg-dark-900/40 p-4 mb-6">
+<svg aria-label="Diagrama ilustrativo que muestra un foundation model unificado con percepción visual, razonamiento de lenguaje y control motor" class="w-full h-auto" fill="none" font-family="Inter,sans-serif" role="img" viewbox="0 0 680 240" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<filter id="m36-glow2"><fegaussianblur result="blur" stddeviation="1.8"></fegaussianblur><femerge><femergenode in="blur"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge></filter>
+<pattern height="18" id="m36-grid2" patternunits="userSpaceOnUse" width="18">
+<path d="M 18 0 L 0 0 0 18" fill="none" stroke="#c084fc" stroke-opacity="0.06" stroke-width="0.5"></path>
+</pattern>
+<lineargradient id="m36-grad-outer" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#7c3aed" stop-opacity="0.25"></stop>
+<stop offset="100%" stop-color="#a855f7" stop-opacity="0.1"></stop>
+</lineargradient>
+</defs>
+<rect fill="url(#m36-grid2)" height="240" rx="12" width="680"></rect>
+<!-- Caixa outer — Foundation Model -->
+<rect fill="url(#m36-grad-outer)" filter="url(#m36-glow2)" height="195" rx="14" stroke="#c084fc" stroke-width="2" width="620" x="30" y="20"></rect>
+<text fill="#c084fc" font-size="13" font-weight="600" text-anchor="middle" x="340" y="46">Foundation Model generalista</text>
+<!-- Caixa 1 — Percepção visual -->
+<rect fill="#1a1230" height="120" rx="10" stroke="#38bdf8" stroke-width="2" width="170" x="55" y="62"></rect>
+<text fill="#38bdf8" font-size="11" font-weight="600" text-anchor="middle" x="140" y="88">Percepción visual</text>
+<text fill="#94a3b8" font-size="9" text-anchor="middle" x="140" y="107">cámaras RGB-D</text>
+<text fill="#94a3b8" font-size="9" text-anchor="middle" x="140" y="121">profundidad</text>
+<text fill="#94a3b8" font-size="9" text-anchor="middle" x="140" y="135">detección de objetos</text>
+<text fill="#38bdf8" font-size="9" opacity="0.6" text-anchor="middle" x="140" y="152">ViT / CNN</text>
+<!-- Caixa 2 — Raciocínio -->
+<rect fill="#1a1230" filter="url(#m36-glow2)" height="120" rx="10" stroke="#c084fc" stroke-width="2" width="170" x="255" y="62"></rect>
+<text fill="#c084fc" font-size="11" font-weight="600" text-anchor="middle" x="340" y="88">Razonamiento de LLM</text>
+<text fill="#94a3b8" font-size="9" text-anchor="middle" x="340" y="107">instrucción en lenguaje</text>
+<text fill="#94a3b8" font-size="9" text-anchor="middle" x="340" y="121">planificación de tareas</text>
+<text fill="#94a3b8" font-size="9" text-anchor="middle" x="340" y="135">chain-of-thought</text>
+<text fill="#c084fc" font-size="9" opacity="0.6" text-anchor="middle" x="340" y="152">Transformer</text>
+<!-- Caixa 3 — Controle -->
+<rect fill="#1a1230" height="120" rx="10" stroke="#38bdf8" stroke-width="2" width="170" x="455" y="62"></rect>
+<text fill="#38bdf8" font-size="11" font-weight="600" text-anchor="middle" x="540" y="88">Control Motor</text>
+<text fill="#94a3b8" font-size="9" text-anchor="middle" x="540" y="107">token de acción</text>
+<text fill="#94a3b8" font-size="9" text-anchor="middle" x="540" y="121">difusión de política</text>
+<text fill="#94a3b8" font-size="9" text-anchor="middle" x="540" y="135">cross-embodiment</text>
+<text fill="#38bdf8" font-size="9" opacity="0.6" text-anchor="middle" x="540" y="152">Action Head</text>
+<!-- Texto rodapé -->
+<text fill="#c084fc" font-size="10" font-weight="600" opacity="0.55" text-anchor="middle" x="340" y="204">entrenamiento unificado con datos heterogéneos — ilustrativo</text>
+</svg>
+</div>
+<!-- Box conceito -->
+<div class="bg-gradient-to-r from-purple-900/40 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-4">
+<h3 class="font-semibold text-purple-400 mb-3">Qué hace falta para llegar allí</h3>
+<div class="space-y-3 text-sm text-neutral-300">
+<div class="flex items-start gap-3">
+<span class="text-purple-400 mt-0.5 shrink-0">→</span>
+<div><strong>Datos de acción a escala:</strong> necesita órdenes de magnitud más datos de acciones anotados de múltiples robots.</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="text-purple-400 mt-0.5 shrink-0">→</span>
+<div><strong>Representación unificada del cuerpo:</strong> normalización de espacios de acción para cruzar embodiments.</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="text-purple-400 mt-0.5 shrink-0">→</span>
+<div><strong>Razonamiento a largo plazo:</strong> encadenar decenas de pasos sin desviarse del objetivo.</div>
+</div>
+</div>
+</div>
+<!-- Grid conceitos-chave -->
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600">
+<div class="text-purple-400 font-semibold text-sm mb-1">Política generalista</div>
+<p class="text-neutral-400 text-xs">Política que opera en múltiples tareas sin reentrenamiento.</p>
+</div>
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600">
+<div class="text-purple-400 font-semibold text-sm mb-1">Transferencia zero-shot</div>
+<p class="text-neutral-400 text-xs">Ejecutar tareas no vistas sin ejemplos de demostración.</p>
+</div>
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600">
+<div class="text-purple-400 font-semibold text-sm mb-1">Entrenamiento conjunto</div>
+<p class="text-neutral-400 text-xs">Entrenar simultáneamente con datos web + datos de robots.</p>
+</div>
+</div>
+</section>
+<!-- ══════════════════════════════════════════════════════════════ -->
+<!-- TÓPICO 4: Desafios abertos                                     -->
+<!-- ══════════════════════════════════════════════════════════════ -->
+<section class="mb-16" id="topico-4">
+<div class="flex items-center gap-4 mb-6">
+<span class="w-12 h-12 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-lg font-bold text-purple-400 shrink-0">4</span>
+<h2 class="text-2xl font-bold">🚧 Desafíos abiertos</h2>
+</div>
+<p class="text-neutral-400 mb-6 leading-relaxed">
+            A pesar del progreso acelerado, cuatro categorías de problemas siguen genuinamente sin resolverse. Cada una puede ser el cuello de botella dominante en los próximos años — y cualquiera de ellas, si se ignora, puede frenar el camino de un proyecto hacia producción.
+        </p>
+<!-- Grid 2x2 de desafios -->
+<div class="grid sm:grid-cols-2 gap-4 mb-6">
+<div class="bg-purple-900/20 rounded-xl p-5 border border-purple-500/30">
+<div class="flex items-center gap-2 mb-3">
+<span class="text-2xl">✋</span>
+<h3 class="font-semibold text-purple-400">Destreza fina</h3>
+</div>
+<p class="text-sm text-neutral-300 leading-relaxed">La mano humana ejecuta más de 25 grados de libertad con retroalimentación táctil continua. Los robots aún fallan en tareas sencillas como desempacar envolturas de plástico, apretar tornillos pequeños o manipular telas. Ningún sistema actual se acerca a la destreza humana en tareas arbitrarias.</p>
+</div>
+<div class="bg-purple-900/20 rounded-xl p-5 border border-purple-500/30">
+<div class="flex items-center gap-2 mb-3">
+<span class="text-2xl">🗺️</span>
+<h3 class="font-semibold text-purple-400">Razonamiento a largo plazo</h3>
+</div>
+<p class="text-sm text-neutral-300 leading-relaxed">Las tareas de muchos pasos (p. ej., preparar una comida) exigen mantener el objetivo durante decenas de acciones, volver a planificar cuando algo falla y recuperarse de estados inesperados. Los modelos actuales acumulan errores y se desvían del objetivo en horizontes largos.</p>
+</div>
+<div class="bg-purple-900/20 rounded-xl p-5 border border-purple-500/30">
+<div class="flex items-center gap-2 mb-3">
+<span class="text-2xl">🛡️</span>
+<h3 class="font-semibold text-purple-400">Seguridad verificable</h3>
+</div>
+<p class="text-sm text-neutral-300 leading-relaxed">En entornos con personas, un error físico puede causar daños reales. Aún no existen garantías formales de seguridad (barreras, vías de escape, paradas de emergencia inteligentes) para sistemas basados en redes neuronales de extremo a extremo.</p>
+</div>
+<div class="bg-purple-900/20 rounded-xl p-5 border border-purple-500/30">
+<div class="flex items-center gap-2 mb-3">
+<span class="text-2xl">⚡</span>
+<h3 class="font-semibold text-purple-400">Costo del hardware y la energía</h3>
+</div>
+<p class="text-sm text-neutral-300 leading-relaxed">Los humanoides actuales cuestan USD 150k–300k por unidad y tienen una autonomía de 2–4 horas por carga. Para el uso comercial a gran escala, el costo debe bajar 10x y la autonomía aumentar 3x: son desafíos de ingeniería mecánica y baterías, no de IA.</p>
+</div>
+</div>
+<!-- Box dica -->
+<div class="bg-primary/10 border border-primary/40 rounded-xl p-5">
+<h3 class="font-semibold text-primary mb-2">💡 Dónde están las oportunidades</h3>
+<p class="text-neutral-300 text-sm leading-relaxed">
+                Los problemas no resueltos son exactamente donde están las oportunidades de diferenciación. Los sistemas de destreza táctil, la planificación jerárquica a largo plazo, los monitores de seguridad en tiempo de ejecución y el hardware de actuación eficiente son áreas de gran valor con pocos actores. Si quieres encontrar un nicho defendible, identifica los cuellos de botella reales, no los aspectos que ya se han convertido en commodities.
+            </p>
+</div>
+</section>
+<!-- ══════════════════════════════════════════════════════════════ -->
+<!-- TÓPICO 5: Impacto socioeconômico                              -->
+<!-- ══════════════════════════════════════════════════════════════ -->
+<section class="mb-16" id="topico-5">
+<div class="flex items-center gap-4 mb-6">
+<span class="w-12 h-12 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-lg font-bold text-purple-400 shrink-0">5</span>
+<h2 class="text-2xl font-bold">🌍 Impacto socioeconómico y trabajo</h2>
+</div>
+<p class="text-neutral-400 mb-6 leading-relaxed">
+            La automatización física a gran escala plantea cuestiones que van más allá de la tecnología. El desplazamiento de empleos, la recapacitación, la distribución de las ganancias de productividad y la regulación son variables que moldean el espacio en el que se implementará esta tecnología; ignorarlas es un error estratégico.
+        </p>
+<!-- Grid Fazer vs Evitar (perspectiva) -->
+<div class="grid sm:grid-cols-2 gap-4 mb-6">
+<div class="bg-purple-900/20 rounded-xl p-5 border border-purple-500/30">
+<h3 class="font-semibold text-purple-400 mb-3">✓ Lo que sugieren las evidencias</h3>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-purple-400 mt-0.5">✓</span> Las automatizaciones históricas transforman tareas más de lo que eliminan profesiones enteras</li>
+<li class="flex items-start gap-2"><span class="text-purple-400 mt-0.5">✓</span> Las mejoras de productividad suelen crear nuevas categorías de empleo</li>
+<li class="flex items-start gap-2"><span class="text-purple-400 mt-0.5">✓</span> Los trabajadores que aprenden a colaborar con robots reciben un salario más alto</li>
+<li class="flex items-start gap-2"><span class="text-purple-400 mt-0.5">✓</span> Los sectores con déficit de mano de obra se benefician más (construcción, logística, salud)</li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl p-5 border border-red-500/30">
+<h3 class="font-semibold text-red-400 mb-3">✗ Riesgos reales que debes monitorear</h3>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> El desplazamiento se concentra en grupos con menor movilidad (bajo nivel educativo, regiones específicas)</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> El ritmo de transición puede superar la capacidad de reentrenamiento</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Concentración de valor en unos pocos players de plataforma</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Una regulación inmadura puede crear vacíos de responsabilidad</li>
+</ul>
+</div>
+</div>
+<!-- Box conceito -->
+<div class="bg-gradient-to-r from-purple-900/40 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-4">
+<h3 class="font-semibold text-purple-400 mb-3">🏭 Sectores y horizontes de impacto</h3>
+<div class="grid sm:grid-cols-3 gap-4 text-sm">
+<div>
+<div class="text-purple-400 font-semibold mb-1">Corto plazo (2025-27)</div>
+<p class="text-neutral-400">Manufactura, logística de almacén, ensamblaje repetitivo — donde el entorno ya es semiestructurado.</p>
+</div>
+<div>
+<div class="text-purple-400 font-semibold mb-1">Mediano plazo (2028-30)</div>
+<p class="text-neutral-400">Comercio minorista, construcción civil sencilla, salud de apoyo (logística hospitalaria, transporte de insumos).</p>
+</div>
+<div>
+<div class="text-purple-400 font-semibold mb-1">Largo plazo (+2030)</div>
+<p class="text-neutral-400">Entornos domésticos, asistencia a personas mayores, servicios con alta variabilidad contextual.</p>
+</div>
+</div>
+</div>
+<!-- Grid conceitos-chave -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600">
+<div class="text-purple-400 font-semibold text-sm mb-1">Habilidades T-shaped</div>
+<p class="text-neutral-400 text-xs">Profundidad en un nicho + amplitud para colaborar con robots.</p>
+</div>
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600">
+<div class="text-purple-400 font-semibold text-sm mb-1">Transición justa</div>
+<p class="text-neutral-400 text-xs">Programas activos de recapacitación, no reactivos al desplazamiento laboral.</p>
+</div>
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600">
+<div class="text-purple-400 font-semibold text-sm mb-1">Regulación laboral</div>
+<p class="text-neutral-400 text-xs">Frameworks que definen la responsabilidad por errores de robots.</p>
+</div>
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600">
+<div class="text-purple-400 font-semibold text-sm mb-1">Ética de la automatización</div>
+<p class="text-neutral-400 text-xs">Quién decide qué automatizar y cómo distribuir las ganancias.</p>
+</div>
+</div>
+</section>
+<!-- ══════════════════════════════════════════════════════════════ -->
+<!-- TÓPICO 6: Como se preparar — carreira de longo prazo          -->
+<!-- ══════════════════════════════════════════════════════════════ -->
+<section class="mb-16" id="topico-6">
+<div class="flex items-center gap-4 mb-6">
+<span class="w-12 h-12 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-lg font-bold text-purple-400 shrink-0">6</span>
+<h2 class="text-2xl font-bold">🧭 Cómo prepararte — perspectiva de carrera a largo plazo</h2>
+</div>
+<p class="text-neutral-400 mb-6 leading-relaxed">
+            Un área que cambia rápidamente recompensa a quienes combinan fundamentos duraderos con adaptación continua. Tener un plan deliberado — en lugar de seguir simplemente el hype — es lo que transforma el interés en VLA en una posición relevante en el mercado que se está formando ahora.
+        </p>
+<!-- Box conceito principal -->
+<div class="bg-gradient-to-r from-purple-900/40 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-6">
+<h3 class="font-semibold text-purple-400 mb-4">📐 Fundamentos duraderos frente a herramientas pasajeras</h3>
+<div class="grid sm:grid-cols-2 gap-4 text-sm">
+<div>
+<div class="text-purple-400 font-semibold mb-2">Invertir ahora (durará 10+ años)</div>
+<ul class="space-y-1.5 text-neutral-300">
+<li class="flex items-center gap-2"><span class="text-purple-400">●</span> Matemáticas: álgebra lineal, optimización, probabilidad</li>
+<li class="flex items-center gap-2"><span class="text-purple-400">●</span> Fundamentos de ML y deep learning (gradiente, atención, regularización)</li>
+<li class="flex items-center gap-2"><span class="text-purple-400">●</span> Control y cinemática (para entender qué controla el modelo)</li>
+<li class="flex items-center gap-2"><span class="text-purple-400">●</span> Lectura de papers — inglés técnico, metodología</li>
+</ul>
+</div>
+<div>
+<div class="text-neutral-500 font-semibold mb-2">Aprender cuando sea necesario (cambian rápido)</div>
+<ul class="space-y-1.5 text-neutral-400">
+<li class="flex items-center gap-2"><span class="text-neutral-500">●</span> Frameworks específicos (LeRobot, RoboAgent, π0)</li>
+<li class="flex items-center gap-2"><span class="text-neutral-500">●</span> APIs y SDKs de modelos específicos</li>
+<li class="flex items-center gap-2"><span class="text-neutral-500">●</span> Simuladores (MuJoCo, Isaac Sim evolucionan constantemente)</li>
+<li class="flex items-center gap-2"><span class="text-neutral-500">●</span> Hardware de robots específicos (los ecosistemas cambian)</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Box dica -->
+<div class="bg-primary/10 border border-primary/40 rounded-xl p-5 mb-6">
+<h3 class="font-semibold text-primary mb-2">💡 Portafolio público y especialización</h3>
+<p class="text-neutral-300 text-sm leading-relaxed mb-3">
+                Los proyectos reproducibles publicados en GitHub (con un README que explique la motivación, los datos y los resultados) valen más que los certificados. Elige un nicho en el que profundizar —percepción, control, datos o deploy— y domínalo, manteniendo la visión del sistema. Quienes conocen solo una parte, pero entienden el conjunto, son poco comunes y valiosos.
+            </p>
+<div class="grid sm:grid-cols-4 gap-3 text-xs">
+<div class="bg-dark-800/60 rounded-lg p-3 border border-dark-600 text-center">
+<div class="text-purple-400 font-bold mb-1">Percepción</div>
+<p class="text-neutral-400">Detección 3D, estimación de pose, segmentación de escenas</p>
+</div>
+<div class="bg-dark-800/60 rounded-lg p-3 border border-dark-600 text-center">
+<div class="text-purple-400 font-bold mb-1">Control</div>
+<p class="text-neutral-400">Políticas de bajo nivel, difusión, planificación</p>
+</div>
+<div class="bg-dark-800/60 rounded-lg p-3 border border-dark-600 text-center">
+<div class="text-purple-400 font-bold mb-1">Datos</div>
+<p class="text-neutral-400">Teleoperación, RLDS, pipelines de recopilación y calidad</p>
+</div>
+<div class="bg-dark-800/60 rounded-lg p-3 border border-dark-600 text-center">
+<div class="text-purple-400 font-bold mb-1">Deploy</div>
+<p class="text-neutral-400">Inferencia rápida, cuantización, monitoreo en producción</p>
+</div>
+</div>
+</div>
+<!-- Grid conceitos-chave -->
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600">
+<div class="text-purple-400 font-semibold text-sm mb-1">Aprendizaje continuo</div>
+<p class="text-neutral-400 text-xs">Seguir Papers With Code, arXiv y lanzamientos semanales.</p>
+</div>
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600">
+<div class="text-purple-400 font-semibold text-sm mb-1">T-shaped</div>
+<p class="text-neutral-400 text-xs">Profundidad en 1 nicho + visión amplia del sistema VLA.</p>
+</div>
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600">
+<div class="text-purple-400 font-semibold text-sm mb-1">Comunidad</div>
+<p class="text-neutral-400 text-xs">Contribuir al open-source y hacer networking activo generan retornos asimétricos.</p>
+</div>
+</div>
+</section>
+<!-- ══════════════════════════════════════════════════════════════ -->
+<!-- RESUMO FINAL                                                   -->
+<!-- ══════════════════════════════════════════════════════════════ -->
+<section class="mb-12">
+<div class="bg-gradient-to-br from-purple-900/40 via-dark-800 to-dark-800 rounded-xl border border-purple-500/30 p-8">
+<h2 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">✅</span> Resumen del módulo</h2>
+<div class="space-y-4 mb-8">
+<div class="flex items-start gap-3">
+<span class="text-purple-400 mt-1 shrink-0">✓</span>
+<div>
+<strong>Trayectoria realista</strong>
+<span class="text-neutral-400"> — pilotos en 2025, escala en 2027, foundation models generalistas en 2028-29, uso general en 2030. Cada fase tiene un cuello de botella distinto.</span>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="text-purple-400 mt-1 shrink-0">✓</span>
+<div>
+<strong>Scaling laws inciertas</strong>
+<span class="text-neutral-400"> — el camino de «solo escalar» depende de resolver el cuello de botella de datos robóticos mediante modelos del mundo o recolección masiva.</span>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="text-purple-400 mt-1 shrink-0">✓</span>
+<div>
+<strong>Desafíos reales pendientes</strong>
+<span class="text-neutral-400"> — la destreza fina, el razonamiento a largo plazo, la seguridad verificable y el costo del hardware aún no están resueltos y representan oportunidades.</span>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="text-purple-400 mt-1 shrink-0">✓</span>
+<div>
+<strong>Los fundamentos duraderos prevalecen</strong>
+<span class="text-neutral-400"> — ML, control y lectura de papers son inversiones a 10 años; los frameworks son detalles de 2 años.</span>
+</div>
+</div>
+</div>
+<!-- Bloco parabéns — último módulo do curso -->
+<div class="bg-gradient-to-r from-purple-900/50 to-dark-800 rounded-xl border border-purple-500/40 p-6 mb-8">
+<div class="flex items-center gap-3 mb-3">
+<span class="text-3xl">🎓</span>
+<h3 class="text-xl font-bold text-purple-400">¡Completaste el curso VLA!</h3>
+</div>
+<p class="text-neutral-300 text-sm leading-relaxed mb-4">
+                    Recorriste las 3 rutas del curso — desde <strong>Fundamentos</strong> (qué es un VLA y cómo nació), pasando por la ruta <strong>Técnica</strong> (arquitecturas, datos y entrenamiento), hasta llegar aquí en la ruta <strong>Avanzada</strong> (evaluación, seguridad, deploy y el futuro). Esto representa una visión completa y actualizada del estado del arte en Vision-Language-Action models.
+                </p>
+<p class="text-neutral-400 text-sm">
+                    El campo avanza rápido. Vuelve a este curso cuando quieras repasar los fundamentos y aplica lo que aprendiste construyendo, experimentando y contribuyendo a la comunidad. Así es como el conocimiento se convierte en experiencia.
+                </p>
+</div>
+<!-- Botões -->
+<div class="flex flex-col sm:flex-row gap-4">
+<a class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors" href="./">← Volver a la Ruta</a>
+<a class="flex-1 text-center px-6 py-3 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-500 transition-colors" href="../../">Volver al inicio →</a>
+</div>
+</div>
+</section>
+</main>
+<footer class="border-t border-dark-600 py-8">
+<div class="max-w-6xl mx-auto px-4 text-center text-neutral-500 text-sm">
+<p>VLA Course — Vision-Language-Action · <a class="text-sky-400 hover:text-sky-300" href="https://ARCKHÉ AI" target="_blank">ARCKHÉ AI</a></p>
+</div>
+</footer>
+</body>
+</html>

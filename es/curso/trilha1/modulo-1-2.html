@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Módulo 1.2 — Anatomía de un VLA | VLA Course</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: { 600:'#374151', 700:'#1f2937', 800:'#1a1a2e', 900:'#111827' },
+                        primary: '#f59e0b'
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .dark body { background-color: #111827; }
+        html:not(.dark) body { background-color: #f8fafc; }
+        html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+        html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+        html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+        html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+        html:not(.dark) .text-neutral-100 { color: #111827; }
+        html:not(.dark) .text-neutral-300 { color: #4b5563; }
+        html:not(.dark) .text-neutral-400 { color: #6b7280; }
+        html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+        html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+        html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+        html:not(.dark) .text-emerald-400 { color: #059669; }
+        html:not(.dark) .text-blue-400 { color: #2563eb; }
+        html:not(.dark) .text-purple-400 { color: #7c3aed; }
+        html:not(.dark) .bg-emerald-500\/20 { background-color: rgba(5, 150, 105, 0.12); }
+        html:not(.dark) .bg-emerald-500\/10 { background-color: rgba(5, 150, 105, 0.08); }
+        html:not(.dark) .bg-emerald-900\/20 { background-color: rgba(5, 150, 105, 0.08); }
+        html:not(.dark) .bg-blue-500\/20 { background-color: rgba(37, 99, 235, 0.12); }
+        html:not(.dark) .bg-blue-900\/20 { background-color: rgba(37, 99, 235, 0.08); }
+        html:not(.dark) .bg-purple-500\/20 { background-color: rgba(124, 58, 237, 0.12); }
+        html:not(.dark) .bg-red-900\/20 { background-color: rgba(220, 38, 38, 0.07); }
+        html:not(.dark) .border-emerald-500\/30 { border-color: rgba(5, 150, 105, 0.25); }
+        html:not(.dark) .border-blue-500\/30 { border-color: rgba(37, 99, 235, 0.25); }
+        html:not(.dark) .border-purple-500\/30 { border-color: rgba(124, 58, 237, 0.25); }
+        html:not(.dark) .border-red-500\/30 { border-color: rgba(220, 38, 38, 0.25); }
+        html:not(.dark) .hover\:border-emerald-500\/50:hover { border-color: rgba(5, 150, 105, 0.4); }
+        html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+        html:not(.dark) .text-primary { color: #a16207; }
+        html:not(.dark) .bg-primary\/10 { background-color: rgba(161, 98, 7, 0.08); }
+        html:not(.dark) .border-primary\/30 { border-color: rgba(161, 98, 7, 0.25); }
+        html:not(.dark) .border-primary\/40 { border-color: rgba(161, 98, 7, 0.25); }
+        html:not(.dark) .text-sky-400 { color: #0369a1; }
+        html:not(.dark) .text-yellow-400 { color: #a16207; }
+        html:not(.dark) .text-red-400 { color: #dc2626; }
+        html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+        html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255, 255, 255, 0.95); }
+        html:not(.dark) svg[role="img"] { filter: saturate(0.82) brightness(0.96); }
+        .dark .border-dark-600 { border-color: #374151; }
+        .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+        @keyframes m12-pulse { 0%,100% { opacity:.55 } 50% { opacity:1 } }
+        @media (prefers-reduced-motion: no-preference) {
+          .m12-a { animation: m12-pulse 2.8s ease-in-out infinite; }
+          .m12-a:nth-child(2){animation-delay:.3s} .m12-a:nth-child(3){animation-delay:.6s}
+        }
+    </style>
+<link href="https://linnoff88-dev.github.io/arckhe-vla/curso/trilha1/modulo-1-2.html" hreflang="pt-BR" rel="alternate"/><link href="https://linnoff88-dev.github.io/arckhe-vla/en/curso/trilha1/modulo-1-2.html" hreflang="en" rel="alternate"/><link href="https://linnoff88-dev.github.io/arckhe-vla/es/curso/trilha1/modulo-1-2.html" hreflang="es" rel="alternate"/></head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="ARCKHÉ-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../../../curso/trilha1/modulo-1-2.html" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="../../../en/curso/trilha1/modulo-1-2.html" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">EN</a><a href="modulo-1-2.html" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">ES</a></div>
+<!-- NAV -->
+<nav class="fixed top-0 w-full bg-dark-900/95 backdrop-blur border-b border-dark-600 z-50">
+<div class="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<a class="text-primary font-bold text-lg" href="../../">VLA</a>
+<span class="text-neutral-500">|</span>
+<a class="text-sky-400 hover:text-sky-300 text-sm font-medium" href="https://ARCKHÉ AI" target="_blank">ARCKHÉ AI</a>
+</div>
+<div class="flex items-center gap-2">
+<a class="px-3 py-1.5 rounded text-sm text-emerald-400 bg-emerald-500/20 border border-emerald-500/30 font-medium" href="./">Fundamentos</a>
+<a class="px-3 py-1.5 rounded text-sm text-blue-400 hover:bg-blue-500/10" href="../trilha2/">Técnico</a>
+<a class="px-3 py-1.5 rounded text-sm text-purple-400 hover:bg-purple-500/10" href="../trilha3/">Avanzado</a>
+<button class="ml-2 p-2 rounded hover:bg-dark-700 text-neutral-400" onclick="document.documentElement.classList.toggle('dark')" title="Cambiar tema">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+</div>
+</div>
+</nav>
+<!-- BREADCRUMB -->
+<div class="max-w-4xl mx-auto px-4 pt-20">
+<div class="flex items-center gap-2 text-sm text-neutral-400">
+<a class="hover:text-emerald-400" href="../../">Inicio</a>
+<span>/</span>
+<a class="hover:text-emerald-400" href="./">Fundamentos</a>
+<span>/</span>
+<span class="text-emerald-400">Módulo 1.2</span>
+</div>
+</div>
+<main class="max-w-4xl mx-auto px-4 pt-6 pb-16">
+<!-- HEADER -->
+<header class="mb-12">
+<span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 mb-4">MÓDULO 1.2</span>
+<h1 class="text-3xl sm:text-4xl font-extrabold mb-4">🔬 Anatomía de un VLA: visión + lenguaje + acción</h1>
+<p class="text-lg text-neutral-400 max-w-3xl">Desarmando la arquitectura por dentro: cómo se conectan el encoder visual, el backbone de lenguaje y el decodificador de acciones para transformar píxeles y palabras en movimiento físico.</p>
+<!-- Stats -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8">
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-emerald-400">6</div>
+<div class="text-xs text-neutral-400">Temas</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-emerald-400">~40</div>
+<div class="text-xs text-neutral-400">Minutos</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-emerald-400">Básico</div>
+<div class="text-xs text-neutral-400">Nivel</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-emerald-400">Teoría</div>
+<div class="text-xs text-neutral-400">Tipo</div>
+</div>
+</div>
+</header>
+<!-- HERO SVG: VLA Architecture Pipeline -->
+<div class="rounded-2xl border border-emerald-500/30 bg-dark-900/40 p-3 sm:p-4 mb-12 overflow-hidden">
+<svg aria-label="Arquitectura completa de un VLA: la cámara y la instrucción entran en el encoder visual y el backbone LLM, que produce tokens de acción convertidos en movimiento por el action head" class="w-full h-auto" role="img" viewbox="0 0 780 260" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<pattern height="28" id="m12-grid" patternunits="userSpaceOnUse" width="28">
+<circle cx="1.2" cy="1.2" fill="#34d399" opacity="0.10" r="1.2"></circle>
+</pattern>
+<lineargradient id="m12-grad" x1="0" x2="1" y1="0" y2="1">
+<stop offset="0" stop-color="#34d399"></stop><stop offset="1" stop-color="#10b981"></stop>
+</lineargradient>
+<filter height="180%" id="m12-glow" width="180%" x="-40%" y="-40%">
+<fegaussianblur result="b" stddeviation="1.8"></fegaussianblur><femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge>
+</filter>
+<marker id="m12-ah" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#34d399"></path></marker>
+<marker id="m12-ahc" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#38bdf8"></path></marker>
+</defs>
+<rect fill="url(#m12-grid)" height="260" width="780"></rect>
+<!-- Title -->
+<text fill="#34d399" font-family="Inter,sans-serif" font-size="13" font-weight="600" opacity="0.85" text-anchor="middle" x="390" y="26">Pipeline VLA: Percepción → Razonamiento → Acción física</text>
+<!-- Input: Camera -->
+<rect fill="#111827" height="70" rx="9" stroke="#34d399" stroke-opacity="0.3" stroke-width="1.5" width="88" x="18" y="90"></rect>
+<text fill="#9ca3af" font-family="Inter,sans-serif" font-size="10" text-anchor="middle" x="62" y="121">📷 Cámara</text>
+<text fill="#6b7280" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="62" y="138">224×224 RGB</text>
+<!-- Input: Text -->
+<rect fill="#111827" height="48" rx="9" stroke="#34d399" stroke-opacity="0.3" stroke-width="1.5" width="88" x="18" y="175"></rect>
+<text fill="#9ca3af" font-family="Inter,sans-serif" font-size="10" text-anchor="middle" x="62" y="197">💬 Instrucción</text>
+<text fill="#6b7280" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="62" y="213">"Toma el vaso"</text>
+<!-- Arrow cam → encoder -->
+<line marker-end="url(#m12-ah)" stroke="#34d399" stroke-opacity="0.5" stroke-width="1.5" x1="108" x2="150" y1="125" y2="125"></line>
+<!-- Vision Encoder -->
+<g class="m12-a" filter="url(#m12-glow)">
+<rect fill="#111827" height="118" rx="13" stroke="url(#m12-grad)" stroke-width="2" width="140" x="154" y="68"></rect>
+<text fill="#34d399" font-family="Inter,sans-serif" font-size="12" font-weight="700" text-anchor="middle" x="224" y="98">Vision Encoder</text>
+<text fill="#9ca3af" font-family="Inter,sans-serif" font-size="9" text-anchor="middle" x="224" y="116">SigLIP · DINOv2 · ViT</text>
+<line stroke="#34d399" stroke-opacity="0.15" stroke-width="1" x1="172" x2="276" y1="128" y2="128"></line>
+<text fill="#6b7280" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="224" y="147">Embeddings de parches</text>
+<text fill="#6b7280" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="224" y="162">→ tokens visuales</text>
+</g>
+<!-- Arrow text → LLM (dashed) -->
+<line marker-end="url(#m12-ah)" stroke="#34d399" stroke-dasharray="5,3" stroke-opacity="0.3" stroke-width="1" x1="108" x2="355" y1="199" y2="168"></line>
+<!-- Arrow encoder → LLM -->
+<line marker-end="url(#m12-ah)" stroke="#34d399" stroke-opacity="0.5" stroke-width="1.5" x1="296" x2="345" y1="125" y2="125"></line>
+<!-- LLM Backbone -->
+<g class="m12-a" filter="url(#m12-glow)">
+<rect fill="#111827" height="142" rx="13" stroke="#059669" stroke-opacity="0.75" stroke-width="2.2" width="158" x="349" y="55"></rect>
+<text fill="#34d399" font-family="Inter,sans-serif" font-size="12" font-weight="700" text-anchor="middle" x="428" y="86">Backbone LLM</text>
+<text fill="#9ca3af" font-family="Inter,sans-serif" font-size="9" text-anchor="middle" x="428" y="104">Llama · Gemma · Qwen</text>
+<line stroke="#059669" stroke-opacity="0.15" stroke-width="1" x1="368" x2="488" y1="115" y2="115"></line>
+<text fill="#6b7280" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="428" y="134">visual tokens</text>
+<text fill="#6b7280" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="428" y="148">+ text tokens</text>
+<text fill="#6b7280" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="428" y="162">→ repr. fusionada</text>
+<text fill="#059669" font-family="Inter,sans-serif" font-size="9" opacity="0.5" text-anchor="middle" x="428" y="184">7B parámetros</text>
+</g>
+<!-- Arrow LLM → Action Head -->
+<line marker-end="url(#m12-ahc)" stroke="#38bdf8" stroke-opacity="0.6" stroke-width="1.8" x1="509" x2="556" y1="126" y2="126"></line>
+<!-- Action Head -->
+<g class="m12-a" filter="url(#m12-glow)">
+<rect fill="#111827" height="108" rx="13" stroke="#38bdf8" stroke-opacity="0.75" stroke-width="2" width="148" x="560" y="72"></rect>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="12" font-weight="700" text-anchor="middle" x="634" y="100">Action Head</text>
+<text fill="#9ca3af" font-family="Inter,sans-serif" font-size="9" text-anchor="middle" x="634" y="118">MLP · Diffusion · Flow</text>
+<line stroke="#38bdf8" stroke-opacity="0.15" stroke-width="1" x1="578" x2="690" y1="130" y2="130"></line>
+<text fill="#6b7280" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="634" y="150">(x,y,z,rx,ry,rz,grip)</text>
+<text fill="#6b7280" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="634" y="165">7-DoF action tokens</text>
+</g>
+<!-- Output: Robot -->
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="11" opacity="0.7" text-anchor="middle" x="634" y="210">🦾 Brazo robótico</text>
+<!-- Legend -->
+<rect fill="#34d399" height="9" opacity="0.6" rx="2" width="9" x="190" y="232"></rect>
+<text fill="#9ca3af" font-family="Inter,sans-serif" font-size="9" x="205" y="240">Percepción</text>
+<rect fill="#059669" height="9" opacity="0.6" rx="2" width="9" x="310" y="232"></rect>
+<text fill="#9ca3af" font-family="Inter,sans-serif" font-size="9" x="325" y="240">Razonamiento</text>
+<rect fill="#38bdf8" height="9" opacity="0.6" rx="2" width="9" x="430" y="232"></rect>
+<text fill="#9ca3af" font-family="Inter,sans-serif" font-size="9" x="445" y="240">Acción</text>
+</svg>
+</div>
+<!-- ===== TÓPICO 1 ===== -->
+<section class="mb-14" id="topico-1">
+<div class="flex items-center gap-4 mb-6">
+<span class="w-12 h-12 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-xl font-bold text-emerald-400 shrink-0">1</span>
+<h2 class="text-2xl font-bold">👁️ Codificador visual: SigLIP, DINOv2, ViT</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">El encoder visual es el primer paso de la percepción: convierte cada frame de la cámara en vectores densos que el backbone de lenguaje puede "leer". La elección del encoder —SigLIP, DINOv2 o ViT puro— define lo que el robot es capaz de ver con precisión.</p>
+<!-- Conceito Principal -->
+<div class="bg-gradient-to-br from-emerald-900/30 via-dark-800 to-dark-800 rounded-xl border border-emerald-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-emerald-400 mb-3 flex items-center gap-2">🔍 Cómo funciona el patch embedding</h3>
+<p class="text-neutral-300 leading-relaxed mb-3">La imagen de 224×224 píxeles se divide en patches de 14×14 o 16×16 píxeles. Cada patch se proyecta linealmente en un vector denso de alta dimensión (normalmente de 768 o 1024 dimensiones). Estos vectores —los <em>visual tokens</em> — son el lenguaje interno que el encoder usa para comunicarse con el backbone LLM.</p>
+<p class="text-neutral-300 leading-relaxed">Una imagen de 224×224 con parches de 14×14 genera 256 visual tokens. Cada token contiene información local sobre textura, color y bordes; en conjunto, representan la estructura espacial de toda la escena.</p>
+</div>
+<!-- Grid Fazer vs Evitar -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+<div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-5">
+<h4 class="font-semibold text-emerald-400 mb-3 flex items-center gap-2">✓ SigLIP y DINOv2 destacan cuando</h4>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span>SigLIP: la tarea exige alinear objetos con nombres ("toma el vaso azul")</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span>DINOv2: la tarea exige estimación de profundidad o segmentación implícita</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span>Dual encoder (SigLIP + DINOv2): combina ambos — estándar en OpenVLA</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span>Una resolución mayor (336×336) mejora la manipulación precisa de objetos pequeños</li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-5">
+<h4 class="font-semibold text-red-400 mb-3 flex items-center gap-2">✗ Errores comunes</h4>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span>Usar un encoder entrenado solo con imágenes web — pierde geometría 3D</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span>Congelar el encoder durante el fine-tuning — las features no se adaptan a la tarea</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span>Resolución muy baja (112×112): un objeto de 2 cm se convierte en ruido de 1 token</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span>Ignorar la projection layer — los visual tokens necesitan una escala compatible con el LLM</li>
+</ul>
+</div>
+</div>
+<!-- Conceitos-chave cards -->
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600">
+<div class="text-emerald-400 font-semibold text-sm mb-1">Embedding de parches</div>
+<div class="text-xs text-neutral-400">División de la imagen en bloques; cada bloque → vector denso.</div>
+</div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600">
+<div class="text-emerald-400 font-semibold text-sm mb-1">Contrastive Learning</div>
+<div class="text-xs text-neutral-400">SigLIP alinea imagen y texto en el mismo espacio vectorial mediante sigmoid loss.</div>
+</div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600">
+<div class="text-emerald-400 font-semibold text-sm mb-1">Self-Supervised</div>
+<div class="text-xs text-neutral-400">DINOv2 captura la estructura geométrica sin anotaciones humanas.</div>
+</div>
+</div>
+</section>
+<!-- ===== TÓPICO 2 ===== -->
+<section class="mb-14" id="topico-2">
+<div class="flex items-center gap-4 mb-6">
+<span class="w-12 h-12 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-xl font-bold text-emerald-400 shrink-0">2</span>
+<h2 class="text-2xl font-bold">🧠 Backbone LLM: Llama, Gemma, Qwen</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">El backbone LLM es el cerebro central de VLA. Fusiona los visual tokens con los text tokens, razona sobre la escena y decide qué hacer. La elección del backbone —y la cantidad de parámetros que tiene— define el compromiso fundamental entre capacidad de razonamiento y latencia de respuesta.</p>
+<!-- Tip Box -->
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-primary mb-3 flex items-center gap-2">💡 ¿Por qué reutilizar un LLM preentrenado?</h3>
+<p class="text-neutral-300 leading-relaxed">Modelos como Llama 3, Gemma 2 y Qwen 2.5 se entrenaron con billones de tokens de texto. Ya «saben» qué es un vaso, dónde está el fregadero y cómo seguir instrucciones compuestas como «coloca el tenedor a la izquierda del plato». Entrenar este conocimiento desde cero para cada robot sería prohibitivamente caro: reutilizarlo es clave para la generalización.</p>
+</div>
+<!-- Timeline: como o backbone processa a cena -->
+<h3 class="text-base font-semibold text-neutral-300 mb-4">Flujo de procesamiento dentro del backbone</h3>
+<div class="space-y-4 mb-6">
+<div class="flex items-start gap-4">
+<div class="shrink-0 w-10 h-10 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-sm font-bold text-emerald-400">1</div>
+<div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600">
+<h4 class="font-semibold text-white mb-1">Projection Layer</h4>
+<p class="text-sm text-neutral-400">Una MLP simple (2 capas lineales) mapea los visual tokens del espacio del encoder (p. ej., 1024 dims) al espacio de embedding del LLM (p. ej., 4096 dims). Este «traductor» es el único componente nuevo que debe entrenarse desde cero.</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="shrink-0 w-10 h-10 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-sm font-bold text-emerald-400">2</div>
+<div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600">
+<h4 class="font-semibold text-white mb-1">Fusión multimodal</h4>
+<p class="text-sm text-neutral-400">Los tokens visuales y los tokens de texto se concatenan en una secuencia unificada. El mecanismo de atención del transformer trata ambos de la misma manera: no hay diferencia arquitectónica entre «ver» y «leer».</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="shrink-0 w-10 h-10 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-sm font-bold text-emerald-400">3</div>
+<div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600">
+<h4 class="font-semibold text-white mb-1">Generación de representaciones</h4>
+<p class="text-sm text-neutral-400">El backbone procesa la secuencia completa y produce embeddings de salida enriquecidos que codifican: «el vaso está 15 cm adelante, a la izquierda del plato; la instrucción dice que lo agarre». Esos embeddings alimentan el action head.</p>
+</div>
+</div>
+</div>
+<!-- Conceitos-chave cards -->
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600">
+<div class="text-emerald-400 font-semibold text-sm mb-1">LoRA</div>
+<div class="text-xs text-neutral-400">Ajuste fino de rango bajo: entrena &lt;1% de los parámetros con un rendimiento similar al del ajuste fino completo.</div>
+</div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600">
+<div class="text-emerald-400 font-semibold text-sm mb-1">Instruction Tuning</div>
+<div class="text-xs text-neutral-400">Adaptación del backbone para seguir comandos robóticos en lugar de completar texto genérico.</div>
+</div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600">
+<div class="text-emerald-400 font-semibold text-sm mb-1">Catastrophic Forgetting</div>
+<div class="text-xs text-neutral-400">Riesgo de perder capacidad lingüística durante el fine-tuning; se mitiga con un learning rate bajo.</div>
+</div>
+</div>
+</section>
+<!-- ===== TÓPICO 3 ===== -->
+<section class="mb-14" id="topico-3">
+<div class="flex items-center gap-4 mb-6">
+<span class="w-12 h-12 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-xl font-bold text-emerald-400 shrink-0">3</span>
+<h2 class="text-2xl font-bold">🎯 Action Head: tokenización de acciones continuas</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">El action head es donde VLA se diferencia radicalmente de un VLM común. Los robots operan en espacios continuos —posición en metros, torque en Newton-metro—, pero los LLM generan tokens discretos. El action head es el componente que resuelve esta incompatibilidad fundamental.</p>
+<!-- Conceito Principal -->
+<div class="bg-gradient-to-br from-emerald-900/30 via-dark-800 to-dark-800 rounded-xl border border-emerald-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-emerald-400 mb-3">El problema de la continuidad</h3>
+<p class="text-neutral-300 leading-relaxed mb-3">Un robot manipulador de 7 DoF necesita 7 números reales en cada timestep: (x, y, z, rotX, rotY, rotZ, gripper). Esos números pueden ser 0.3427m o 1.7293 Nm — valores con precisión arbitraria. El vocabulario de un LLM tiene tokens discretos como «cat», «42» o «[EOS]». No existe un token para «0.3427».</p>
+<p class="text-neutral-300 leading-relaxed">Diferentes action heads resuelven esto de distintas formas: discretización en bins, regresión directa mediante MLP o modelos generativos (diffusion, flow matching). Cada enfoque tiene sus ventajas y desventajas en precisión, latencia y suavidad del movimiento.</p>
+</div>
+<!-- Grid Fazer vs Evitar: tipos de action head -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+<div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-5">
+<h4 class="font-semibold text-emerald-400 mb-3">✓ Cabezas de acción que funcionan bien</h4>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span><strong>Bins discretos (RT-2, OpenVLA)</strong>: simple, compatible con el vocabulario LLM, bueno para tareas lentas</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span><strong>Diffusion head (Octo)</strong>: acciones fluidas y multimodales, bueno cuando hay varios caminos válidos</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span><strong>Flow matching (π0)</strong>: alta frecuencia (50 Hz), excelente para la manipulación diestra</li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-5">
+<h4 class="font-semibold text-red-400 mb-3">✗ Problemas frecuentes</h4>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span>Bins con baja resolución (64 bins): imprecisión de ~1.5 mm en un espacio de trabajo de 10 cm</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span>MLP de regresión sin normalización de acciones: los gradientes explotan o colapsan</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span>Diffusion con muchos pasos de denoising — latencia prohibitiva para el control en tiempo real</li>
+</ul>
+</div>
+</div>
+<!-- Tip Box -->
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-primary mb-3 flex items-center gap-2">💡 Flow matching vs Diffusion</h3>
+<p class="text-neutral-300 leading-relaxed">Ambos transforman el ruido en acciones. La diferencia: diffusion usa un proceso de denoising iterativo con muchos pasos (típicamente 10-100); flow matching aprende un campo vectorial y resuelve una ODE en menos pasos (2-4). Resultado: π0 puede generar acciones suaves a 50 Hz, mientras que los heads difusivos típicos requieren un compromiso entre calidad y velocidad.</p>
+</div>
+<!-- Conceitos-chave -->
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600">
+<div class="text-emerald-400 font-semibold text-sm mb-1">Discretization Bins</div>
+<div class="text-xs text-neutral-400">Divide el espacio continuo en N buckets; cada acción se convierte en un token categórico.</div>
+</div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600">
+<div class="text-emerald-400 font-semibold text-sm mb-1">Diffusion Head</div>
+<div class="text-xs text-neutral-400">El denoising iterativo genera acciones fluidas y multimodales.</div>
+</div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600">
+<div class="text-emerald-400 font-semibold text-sm mb-1">Flow Matching</div>
+<div class="text-xs text-neutral-400">ODE que transforma ruido → acción en pocos steps; permite 50 Hz.</div>
+</div>
+</div>
+</section>
+<!-- ===== TÓPICO 4: SVG INTERMEDIÁRIO ===== -->
+<section class="mb-14" id="topico-4">
+<div class="flex items-center gap-4 mb-6">
+<span class="w-12 h-12 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-xl font-bold text-emerald-400 shrink-0">4</span>
+<h2 class="text-2xl font-bold">📐 Tokenización de trayectorias: bin discreto vs. continuo</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">¿Cómo representar una trayectoria robótica como una secuencia procesable? Hay dos filosofías fundamentales: discretizar el espacio de acciones en buckets (compatible con el vocabulario de los LLM, pero limitado en resolución) o generar valores continuos directamente mediante modelos generativos (preciso, pero más complejo desde el punto de vista arquitectónico).</p>
+<!-- SVG: Bins vs Contínuo -->
+<div class="rounded-2xl border border-emerald-500/30 bg-dark-900/40 p-3 sm:p-4 mb-8 overflow-hidden">
+<svg aria-label="Comparación entre la tokenización discreta con bins y la generación continua mediante flow matching para acciones robóticas" class="w-full h-auto" role="img" viewbox="0 0 780 220" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<pattern height="24" id="m12b-grid" patternunits="userSpaceOnUse" width="24">
+<circle cx="1" cy="1" fill="#34d399" opacity="0.09" r="1"></circle>
+</pattern>
+<filter height="180%" id="m12b-glow" width="180%" x="-40%" y="-40%">
+<fegaussianblur result="b" stddeviation="1.8"></fegaussianblur><femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge>
+</filter>
+<marker id="m12b-ah" markerheight="8" markerwidth="8" orient="auto" refx="6" refy="4"><path d="M0,0 L7,4 L0,8 L2,4 Z" fill="#34d399"></path></marker>
+<marker id="m12b-ahc" markerheight="8" markerwidth="8" orient="auto" refx="6" refy="4"><path d="M0,0 L7,4 L0,8 L2,4 Z" fill="#38bdf8"></path></marker>
+</defs>
+<rect fill="url(#m12b-grid)" height="220" width="780"></rect>
+<!-- Left Panel: Discrete Bins -->
+<text fill="#34d399" font-family="Inter,sans-serif" font-size="12" font-weight="600" text-anchor="middle" x="195" y="28">Tokenización discreta (bins)</text>
+<g filter="url(#m12b-glow)">
+<rect fill="#0d1a14" height="130" rx="12" stroke="#34d399" stroke-opacity="0.4" stroke-width="1.5" width="350" x="20" y="40"></rect>
+</g>
+<!-- Bins visual -->
+<text fill="#9ca3af" font-family="Inter,sans-serif" font-size="9" x="35" y="65">Espacio de acción: −1.0 → +1.0 (256 bins)</text>
+<!-- Bin rectangles -->
+<rect fill="#34d399" height="36" opacity="0.2" rx="2" width="12" x="35" y="72"></rect>
+<rect fill="#34d399" height="36" opacity="0.2" rx="2" width="12" x="50" y="72"></rect>
+<rect fill="#34d399" height="36" opacity="0.2" rx="2" width="12" x="65" y="72"></rect>
+<rect fill="#34d399" height="36" opacity="0.4" rx="2" width="12" x="80" y="72"></rect>
+<rect fill="#34d399" height="36" opacity="0.7" rx="2" stroke="#34d399" stroke-width="1.5" width="12" x="95" y="72"></rect>
+<rect fill="#34d399" height="36" opacity="0.4" rx="2" width="12" x="110" y="72"></rect>
+<rect fill="#34d399" height="36" opacity="0.2" rx="2" width="12" x="125" y="72"></rect>
+<rect fill="#34d399" height="36" opacity="0.2" rx="2" width="12" x="140" y="72"></rect>
+<rect fill="#34d399" height="36" opacity="0.2" rx="2" width="12" x="155" y="72"></rect>
+<text fill="#34d399" font-family="Inter,sans-serif" font-size="9" text-anchor="middle" x="101" y="125">bin #134 → x=0.042m</text>
+<text fill="#9ca3af" font-family="Inter,sans-serif" font-size="8" x="35" y="148">✓ Compatible con vocabulario de LLM  ✓ Fácil de entrenar</text>
+<text fill="#6b7280" font-family="Inter,sans-serif" font-size="8" x="35" y="162">Resolución: ~7.8mm por bin (workspace de 2m)</text>
+<!-- Divider -->
+<line stroke="#374151" stroke-dasharray="4,4" stroke-width="1" x1="390" x2="390" y1="30" y2="190"></line>
+<!-- Right Panel: Continuous -->
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="12" font-weight="600" text-anchor="middle" x="585" y="28">Generación continua (Flow Matching)</text>
+<g filter="url(#m12b-glow)">
+<rect fill="#0a1520" height="130" rx="12" stroke="#38bdf8" stroke-opacity="0.5" stroke-width="1.5" width="350" x="410" y="40"></rect>
+</g>
+<!-- Flow curve visual -->
+<text fill="#9ca3af" font-family="Inter,sans-serif" font-size="9" x="425" y="65">Ruido gaussiano → ODE → acción precisa</text>
+<circle cx="445" cy="105" fill="#111827" r="18" stroke="#38bdf8" stroke-opacity="0.5" stroke-width="1.5"></circle>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="445" y="102">N(0,1)</text>
+<text fill="#6b7280" font-family="Inter,sans-serif" font-size="7" text-anchor="middle" x="445" y="114">ruido</text>
+<line marker-end="url(#m12b-ahc)" stroke="#38bdf8" stroke-opacity="0.5" stroke-width="1.5" x1="465" x2="530" y1="105" y2="105"></line>
+<text fill="#6b7280" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="498" y="99">ODE</text>
+<text fill="#6b7280" font-family="Inter,sans-serif" font-size="7" text-anchor="middle" x="498" y="113">2-4 steps</text>
+<circle cx="552" cy="105" fill="#111827" r="18" stroke="#38bdf8" stroke-opacity="0.8" stroke-width="2"></circle>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="552" y="102">0.342m</text>
+<text fill="#6b7280" font-family="Inter,sans-serif" font-size="7" text-anchor="middle" x="552" y="114">preciso</text>
+<text fill="#9ca3af" font-family="Inter,sans-serif" font-size="8" x="425" y="148">✓ Alta precisión  ✓ Suavidad  ✓ Multimodal</text>
+<text fill="#6b7280" font-family="Inter,sans-serif" font-size="8" x="425" y="162">Costo: arquitectura adicional, inferencia más lenta</text>
+<text fill="#9ca3af" font-family="Inter,sans-serif" font-size="9" text-anchor="middle" x="390" y="208">La elección depende del equilibrio entre velocidad × precisión × complejidad</text>
+</svg>
+</div>
+<!-- Box de dados -->
+<div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-blue-400 mb-3 flex items-center gap-2">📊 Cifras reales: resolución de bins</h3>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
+<div class="bg-dark-800/50 rounded-lg p-4">
+<div class="text-xl font-bold text-emerald-400 mb-1">256 bins</div>
+<div class="text-neutral-400">Por dimensión (RT-2, OpenVLA). En un espacio de trabajo de 10 cm → resolución de ~0.4 mm. Suficiente para la mayoría de las tareas.</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-4">
+<div class="text-xl font-bold text-emerald-400 mb-1">4–16 steps</div>
+<div class="text-neutral-400">Action chunking: predice varias acciones futuras a la vez, lo que mejora la consistencia temporal.</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-4">
+<div class="text-xl font-bold text-emerald-400 mb-1">7 DoF</div>
+<div class="text-neutral-400">Dimensiones estándar: x, y, z, rotX, rotY, rotZ + gripper. Cada una necesita su propio bin o coordenada continua.</div>
+</div>
+</div>
+</div>
+<!-- Conceitos-chave -->
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600">
+<div class="text-emerald-400 font-semibold text-sm mb-1">Action Chunking</div>
+<div class="text-xs text-neutral-400">Predice 4–16 acciones futuras de una vez; reduce el jitter y mejora la suavidad temporal.</div>
+</div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600">
+<div class="text-emerald-400 font-semibold text-sm mb-1">Detokenización</div>
+<div class="text-xs text-neutral-400">Convierte los tokens predichos de nuevo en comandos continuos para el controlador del robot.</div>
+</div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600">
+<div class="text-emerald-400 font-semibold text-sm mb-1">Action Normalization</div>
+<div class="text-xs text-neutral-400">Estandariza todas las dimensiones a [−1, 1] antes de discretizarlas; es fundamental para un entrenamiento estable.</div>
+</div>
+</div>
+</section>
+<!-- ===== TÓPICO 5 ===== -->
+<section class="mb-14" id="topico-5">
+<div class="flex items-center gap-4 mb-6">
+<span class="w-12 h-12 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-xl font-bold text-emerald-400 shrink-0">5</span>
+<h2 class="text-2xl font-bold">🔄 Co-fine-tuning: visión + lenguaje juntos</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">El co-fine-tuning es el proceso de entrenar simultáneamente los componentes visuales y lingüísticos del VLA con datos de demostraciones robóticas. En vez de congelar el encoder y entrenar solo el action head, todos los componentes aprenden juntos — y eso es precisamente lo que hace que los VLA superen a los pipelines modulares.</p>
+<!-- Tip Box -->
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-primary mb-3 flex items-center gap-2">💡 El resultado de OpenVLA</h3>
+<p class="text-neutral-300 leading-relaxed">OpenVLA demostró empíricamente que el co-fine-tuning mejora el rendimiento hasta en <strong class="text-white">16,5%</strong> en comparación con el fine-tuning solo del action head. La razón: cuando el encoder visual puede adaptarse a la tarea, aprende features específicas para la manipulación —como detectar bordes de agarre— que las features de imágenes web no capturan.</p>
+</div>
+<!-- Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+<div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-5">
+<h4 class="font-semibold text-emerald-400 mb-3">✓ Beneficios del co-fine-tuning</h4>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span>Los gradientes de la action loss se propagan hasta el encoder: las features visuales se adaptan al control</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span>Las representaciones convergen hacia lo relevante para la tarea, no hacia la clasificación web</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span>Mejor generalización a objetos nuevos que no aparecen en las demostraciones</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 mt-0.5">✓</span>LoRA hace viable el coajuste fino en una sola GPU de consumo</li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-5">
+<h4 class="font-semibold text-red-400 mb-3">✗ Riesgos y mitigaciones</h4>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span><strong>Catastrophic forgetting</strong>: el backbone pierde capacidad lingüística → usa una tasa de aprendizaje baja (1e-5)</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span><strong>Sobreajuste</strong>: los datos robóticos son escasos; pocos datos → el modelo memoriza en lugar de generalizar</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span><strong>Costo computacional</strong>: el co-fine-tuning de 7B es 3-4× más costoso que el fine-tuning solo del action head</li>
+</ul>
+</div>
+</div>
+<!-- Conceitos-chave -->
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600">
+<div class="text-emerald-400 font-semibold text-sm mb-1">Entrenamiento de extremo a extremo</div>
+<div class="text-xs text-neutral-400">Los gradientes recorren todos los componentes: percepción, fusión y acción se optimizan juntos.</div>
+</div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600">
+<div class="text-emerald-400 font-semibold text-sm mb-1">Ajuste fino multitarea</div>
+<div class="text-xs text-neutral-400">Entrenar en varias tareas simultáneamente conserva la generalidad y reduce el overfitting.</div>
+</div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600">
+<div class="text-emerald-400 font-semibold text-sm mb-1">Regularización</div>
+<div class="text-xs text-neutral-400">Weight decay y dropout mitigan el olvido catastrófico durante el coajuste fino.</div>
+</div>
+</div>
+</section>
+<!-- ===== TÓPICO 6 ===== -->
+<section class="mb-14" id="topico-6">
+<div class="flex items-center gap-4 mb-6">
+<span class="w-12 h-12 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-xl font-bold text-emerald-400 shrink-0">6</span>
+<h2 class="text-2xl font-bold">⚡ Latencia y throughput: presupuesto de tokens</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">El cuello de botella más difícil de los VLA reales no es la arquitectura, sino el tiempo. Un robot necesita decidir acciones a 5–50 Hz, pero un LLM de 7B parámetros puede tardar cientos de milisegundos por token. El budget de tokens define cuántos tokens visuales y textuales puede procesar el sistema dentro del tiempo de control disponible.</p>
+<!-- Timeline: frequências de controle -->
+<h3 class="text-base font-semibold text-neutral-300 mb-4">Frecuencias de control y lo que permite cada una</h3>
+<div class="space-y-4 mb-6">
+<div class="flex items-start gap-4">
+<div class="shrink-0 w-10 h-10 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-sm font-bold text-emerald-400">5 Hz</div>
+<div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600">
+<h4 class="font-semibold text-white mb-1">Tareas lentas: apilar bloques, abrir cajones</h4>
+<p class="text-sm text-neutral-400">200 ms por acción. Las VLA de 7B con cuantización INT8 (p. ej., OpenVLA) pueden operar a esta frecuencia en GPU de consumo. Suficiente para el 80 % de las tareas de manipulación de mesa.</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="shrink-0 w-10 h-10 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-sm font-bold text-emerald-400">15 Hz</div>
+<div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600">
+<h4 class="font-semibold text-white mb-1">Manipulación fluida: recoger y colocar objetos variados</h4>
+<p class="text-sm text-neutral-400">~67 ms por acción. Requiere modelos más pequeños (3B), cuantización agresiva (INT4) o inferencia asíncrona con action chunking. KV-cache es obligatorio para reutilizar tokens del contexto.</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="shrink-0 w-10 h-10 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-sm font-bold text-emerald-400">50 Hz</div>
+<div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600">
+<h4 class="font-semibold text-white mb-1">Manipulación diestra — doblar ropa, encajar piezas</h4>
+<p class="text-sm text-neutral-400">20 ms por acción. Territorio de π0 con flow matching (2-4 pasos ODE). Inviable con discretización en bins + LLM de tamaño completo. Requiere codesarrollo de arquitectura y hardware.</p>
+</div>
+</div>
+</div>
+<!-- Box de dados: técnicas de aceleração -->
+<div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center gap-2">📊 Técnicas de aceleración y sus beneficios</h3>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
+<div class="bg-dark-800/50 rounded-lg p-4">
+<div class="text-xl font-bold text-emerald-400 mb-1">2–4×</div>
+<div class="text-neutral-400"><strong class="text-white">Cuantización INT8/INT4</strong>: reduce la memoria y aumenta el throughput con una pérdida mínima de precisión (≤1% de degradación en benchmarks robóticos).</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-4">
+<div class="text-xl font-bold text-emerald-400 mb-1">3–10×</div>
+<div class="text-neutral-400"><strong class="text-white">KV-Cache</strong>: reutiliza los cálculos de los tokens del contexto fijo (instrucción + tokens anteriores), evitando recalcularlos en cada fotograma.</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-4">
+<div class="text-xl font-bold text-emerald-400 mb-1">~5×</div>
+<div class="text-neutral-400"><strong class="text-white">Token compression</strong>: reduce 256 visual tokens a ~64 con pooling o atención cruzada; menos tokens = inferencia más rápida.</div>
+</div>
+</div>
+</div>
+<!-- Tip Box -->
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-primary mb-3 flex items-center gap-2">💡 Jetson Orin: VLA en el borde</h3>
+<p class="text-neutral-300 leading-relaxed">Nvidia Jetson AGX Orin (275 TOPS) permite ejecutar SmolVLA o Qwen-VLA &lt;3B con cuantización INT4 a 8–12 Hz —suficiente para tareas tabletop— sin ningún servidor externo. Para modelos de 7B como OpenVLA, todavía se necesita una GPU discreta (RTX 3090 o superior) en el loop.</p>
+</div>
+<!-- Conceitos-chave -->
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600">
+<div class="text-emerald-400 font-semibold text-sm mb-1">Control Frequency</div>
+<div class="text-xs text-neutral-400">Veces por segundo que el modelo genera acciones: 5 Hz (lento) a 50 Hz (dexterous).</div>
+</div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600">
+<div class="text-emerald-400 font-semibold text-sm mb-1">KV-Cache</div>
+<div class="text-xs text-neutral-400">Reutiliza la clave/valor de tokens anteriores y acelera la inferencia incremental entre 3 y 10×.</div>
+</div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600">
+<div class="text-emerald-400 font-semibold text-sm mb-1">Cuantización</div>
+<div class="text-xs text-neutral-400">INT8/INT4 reduce el modelo en 2–4× con una pérdida mínima; hace posible el deploy en GPUs integradas.</div>
+</div>
+</div>
+</section>
+<!-- ===== RESUMO FINAL ===== -->
+<section class="mb-12">
+<div class="bg-gradient-to-br from-emerald-900/40 via-dark-800 to-dark-800 rounded-xl border border-emerald-500/30 p-8">
+<h2 class="text-2xl font-bold mb-6 flex items-center gap-3">
+<span>🎓</span> Resumen del módulo
+                </h2>
+<div class="space-y-4 mb-8">
+<div class="flex items-start gap-3">
+<span class="text-emerald-400 mt-1 font-bold">✓</span>
+<div>
+<strong class="text-white">El encoder visual</strong>
+<span class="text-neutral-400"> — SigLIP, DINOv2 o ViT convierten los frames de la cámara en visual tokens que el LLM puede procesar mediante patch embedding.</span>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="text-emerald-400 mt-1 font-bold">✓</span>
+<div>
+<strong class="text-white">El backbone LLM</strong>
+<span class="text-neutral-400"> fusiona visual tokens y text tokens en un espacio unificado, incorporando world knowledge y reasoning de miles de millones de tokens de preentrenamiento.</span>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="text-emerald-400 mt-1 font-bold">✓</span>
+<div>
+<strong class="text-white">El action head</strong>
+<span class="text-neutral-400"> resuelve la incompatibilidad discreto×continuo mediante bins, diffusion o flow matching; cada enfoque tiene ventajas y desventajas en precisión, suavidad y latencia.</span>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="text-emerald-400 mt-1 font-bold">✓</span>
+<div>
+<strong class="text-white">La latencia es el cuello de botella real</strong>
+<span class="text-neutral-400"> — KV-cache, cuantización y compresión de tokens son esenciales para hacer viable el control en tiempo real a 5–50 Hz.</span>
+</div>
+</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+<h3 class="font-semibold text-emerald-400 mb-2">Siguiente módulo:</h3>
+<p class="text-neutral-300">1.3 — Panorama de los modelos: RT-2, OpenVLA, π0, Qwen-VLA. El ecosistema de modelos VLA, desde pioneros cerrados hasta open source.</p>
+</div>
+<div class="flex flex-col sm:flex-row gap-4">
+<a class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors" href="./">
+                        ← Volver a la Ruta
+                    </a>
+<a class="flex-1 text-center px-6 py-3 bg-emerald-600 text-white rounded-lg font-semibold hover:bg-emerald-500 transition-colors" href="modulo-1-3.html">
+                        Siguiente módulo →
+                    </a>
+</div>
+</div>
+</section>
+</main>
+<!-- FOOTER -->
+<footer class="border-t border-dark-600 py-8 mt-4">
+<div class="max-w-4xl mx-auto px-4 text-center text-neutral-500 text-sm">
+<p>VLA Course · <a class="text-sky-400 hover:text-sky-300" href="https://ARCKHÉ AI" target="_blank">ARCKHÉ AI</a> · Módulo 1.2 — Anatomía de un VLA</p>
+</div>
+</footer>
+</body>
+</html>

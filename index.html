@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>VLA — Vision Language Action para Robótica</title>
+<meta content="Curso completo sobre IA Incorporada: modelos VLA, simuladores, ROS2, LeRobot, humanoides. 3 trilhas, 18 módulos. ARCKHÉ AI" name="description"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#FACC15',
+            dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' }
+          }
+        }
+      }
+    }
+  </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+
+    /* Light mode overrides */
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+
+    /* Light mode - accent colors */
+    html:not(.dark) .text-emerald-400 { color: #059669; }
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .text-purple-400 { color: #7c3aed; }
+    html:not(.dark) .bg-emerald-500\/20 { background-color: rgba(5, 150, 105, 0.12); }
+    html:not(.dark) .bg-blue-500\/20 { background-color: rgba(37, 99, 235, 0.12); }
+    html:not(.dark) .bg-purple-500\/20 { background-color: rgba(124, 58, 237, 0.12); }
+    html:not(.dark) .border-emerald-500\/30 { border-color: rgba(5, 150, 105, 0.25); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37, 99, 235, 0.25); }
+    html:not(.dark) .border-purple-500\/30 { border-color: rgba(124, 58, 237, 0.25); }
+    html:not(.dark) .hover\:border-emerald-500\/50:hover { border-color: rgba(5, 150, 105, 0.4); }
+    html:not(.dark) .hover\:border-blue-500\/50:hover { border-color: rgba(37, 99, 235, 0.4); }
+    html:not(.dark) .hover\:border-purple-500\/50:hover { border-color: rgba(124, 58, 237, 0.4); }
+
+    /* Light mode - remove gradients */
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+
+    /* Light mode - special colors */
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161, 98, 7, 0.08); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161, 98, 7, 0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+
+    /* Light mode - nav */
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255, 255, 255, 0.95); }
+
+    /* Dark mode - soft borders */
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+
+    /* SVG pulse */
+    @keyframes wf-pulse { 0%,100% { opacity:.55 } 50% { opacity:1 } }
+    @media (prefers-reduced-motion: no-preference) {
+      .wf-a { animation: wf-pulse 2.6s ease-in-out infinite; }
+      .wf-a:nth-child(2){animation-delay:.25s} .wf-a:nth-child(3){animation-delay:.5s}
+      .wf-a:nth-child(4){animation-delay:.75s} .wf-a:nth-child(5){animation-delay:1s}
+    }
+  </style>
+<link href="https://linnoff88-dev.github.io/arckhe-vla/" hreflang="pt-BR" rel="alternate"/><link href="https://linnoff88-dev.github.io/arckhe-vla/en/" hreflang="en" rel="alternate"/><link href="https://linnoff88-dev.github.io/arckhe-vla/es/" hreflang="es" rel="alternate"/></head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="ARCKHÉ-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="./" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">PT</a><a href="en/" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">EN</a><a href="es/" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">ES</a></div>
+<!-- NAV -->
+<nav class="fixed top-0 w-full bg-dark-900/95 backdrop-blur border-b border-dark-600 z-50">
+<div class="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<span class="text-primary font-bold text-lg">VLA</span>
+<span class="text-neutral-500">|</span>
+<a class="text-sky-400 hover:text-sky-300 text-sm font-medium" href="https://ARCKHÉ AI" target="_blank">ARCKHÉ AI</a>
+</div>
+<div class="flex items-center gap-2">
+<a class="px-3 py-1.5 rounded text-sm text-emerald-400 hover:bg-emerald-500/10" href="curso/trilha1/">Fundamentos</a>
+<a class="px-3 py-1.5 rounded text-sm text-blue-400 hover:bg-blue-500/10" href="curso/trilha2/">Técnico</a>
+<a class="px-3 py-1.5 rounded text-sm text-purple-400 hover:bg-purple-500/10" href="curso/trilha3/">Avançado</a>
+<button class="ml-2 p-2 rounded hover:bg-dark-700 text-neutral-400" onclick="document.documentElement.classList.toggle('dark')" title="Alternar tema">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+</div>
+</div>
+</nav>
+<!-- HERO -->
+<section class="pt-24 pb-16">
+<div class="max-w-4xl mx-auto px-6 text-center">
+<div class="inline-flex items-center gap-2 bg-primary/10 border border-primary/40 rounded-full px-4 py-1.5 text-primary text-sm font-medium mb-6">
+      🦾 Pesquisa Profunda · Junho 2026
+    </div>
+<h1 class="text-4xl md:text-5xl font-extrabold mb-4 leading-tight">
+      Vision · Language · <span class="text-emerald-400">Action</span>
+</h1>
+<p class="text-lg text-neutral-300 max-w-2xl mx-auto mb-4">
+      IA que vê, entende e age no mundo físico. De RT-2 a Qwen-VLA, de LeRobot a humanoides autônomos. O curso definitivo sobre o cérebro dos robôs do futuro.
+    </p>
+<p class="text-neutral-500 text-sm mb-8">3 trilhas · 18 módulos · 50+ fontes acadêmicas e industriais</p>
+<!-- Hero SVG -->
+<div class="max-w-lg mx-auto mb-8">
+<svg aria-label="Diagrama VLA: Visão + Linguagem convergem em Ação" class="w-full h-auto" role="img" viewbox="0 0 400 200">
+<defs>
+<filter id="glow"><fegaussianblur result="coloredBlur" stddeviation="3"></fegaussianblur><femerge><femergenode in="coloredBlur"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge></filter>
+</defs>
+<!-- Grid -->
+<pattern height="20" id="grid" patternunits="userSpaceOnUse" width="20">
+<path d="M 20 0 L 0 0 0 20" fill="none" opacity="0.3" stroke="#374151" stroke-width="0.5"></path>
+</pattern>
+<rect fill="url(#grid)" height="200" width="400"></rect>
+<!-- Vision box -->
+<rect class="wf-a" fill="none" filter="url(#glow)" height="50" rx="8" stroke="#34d399" stroke-width="2" width="100" x="20" y="30"></rect>
+<text fill="#34d399" font-size="11" font-weight="600" text-anchor="middle" x="70" y="50">👁️ Vision</text>
+<text fill="#9ca3af" font-size="9" text-anchor="middle" x="70" y="68">SigLIP · DINOv2</text>
+<!-- Language box -->
+<rect class="wf-a" fill="none" filter="url(#glow)" height="50" rx="8" stroke="#38bdf8" stroke-width="2" width="100" x="20" y="120"></rect>
+<text fill="#38bdf8" font-size="11" font-weight="600" text-anchor="middle" x="70" y="140">💬 Language</text>
+<text fill="#9ca3af" font-size="9" text-anchor="middle" x="70" y="158">Llama · Gemma · Qwen</text>
+<!-- VLA core -->
+<rect class="wf-a" fill="none" filter="url(#glow)" height="80" rx="12" stroke="#FACC15" stroke-width="2.5" width="80" x="160" y="60"></rect>
+<text fill="#FACC15" font-size="13" font-weight="800" text-anchor="middle" x="200" y="95">VLA</text>
+<text fill="#9ca3af" font-size="9" text-anchor="middle" x="200" y="115">Foundation</text>
+<!-- Action output -->
+<rect class="wf-a" fill="none" filter="url(#glow)" height="80" rx="8" stroke="#a78bfa" stroke-width="2" width="100" x="280" y="60"></rect>
+<text fill="#a78bfa" font-size="11" font-weight="600" text-anchor="middle" x="330" y="85">🦾 Action</text>
+<text fill="#9ca3af" font-size="9" text-anchor="middle" x="330" y="103">Trajetórias</text>
+<text fill="#9ca3af" font-size="9" text-anchor="middle" x="330" y="118">Torques · DOFs</text>
+<text fill="#9ca3af" font-size="9" text-anchor="middle" x="330" y="133">200 Hz contínuo</text>
+<!-- Arrows -->
+<line opacity="0.7" stroke="#34d399" stroke-width="1.5" x1="120" x2="158" y1="55" y2="85"></line>
+<line opacity="0.7" stroke="#38bdf8" stroke-width="1.5" x1="120" x2="158" y1="145" y2="115"></line>
+<line opacity="0.8" stroke="#FACC15" stroke-width="2" x1="242" x2="278" y1="100" y2="100"></line>
+<polygon fill="#FACC15" opacity="0.8" points="278,95 278,105 288,100"></polygon>
+</svg>
+</div>
+<div class="flex flex-wrap justify-center gap-3">
+<a class="bg-primary text-dark-900 font-bold px-6 py-3 rounded-lg hover:bg-yellow-400 transition-colors" href="curso/">Iniciar Curso →</a>
+<a class="border border-dark-600 px-6 py-3 rounded-lg hover:bg-dark-800 transition-colors text-neutral-300" href="#trilhas">Ver Trilhas</a>
+</div>
+</div>
+</section>
+<!-- STATS -->
+<section class="py-8 border-y border-dark-600">
+<div class="max-w-4xl mx-auto px-6 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+<div><p class="text-2xl font-bold text-emerald-400">11+</p><p class="text-sm text-neutral-400">Modelos VLA</p></div>
+<div><p class="text-2xl font-bold text-blue-400">7</p><p class="text-sm text-neutral-400">Frameworks</p></div>
+<div><p class="text-2xl font-bold text-purple-400">18</p><p class="text-sm text-neutral-400">Módulos</p></div>
+<div><p class="text-2xl font-bold text-primary">50+</p><p class="text-sm text-neutral-400">Fontes</p></div>
+</div>
+</section>
+<!-- TRILHAS -->
+<section class="py-16" id="trilhas">
+<div class="max-w-4xl mx-auto px-6">
+<h2 class="text-3xl font-bold text-center mb-2">Trilhas de Aprendizado</h2>
+<p class="text-neutral-400 text-center mb-10">Do conceito ao deploy. Cada trilha avança em profundidade.</p>
+<div class="grid md:grid-cols-3 gap-6">
+<!-- T1 -->
+<a class="bg-dark-800 border border-dark-600 rounded-xl p-6 hover:border-emerald-500/50 transition-all block group" href="curso/trilha1/">
+<div class="w-10 h-10 rounded-lg bg-emerald-500/20 flex items-center justify-center mb-3">
+<span class="text-emerald-400 text-lg">📐</span>
+</div>
+<h3 class="font-bold text-lg mb-1 group-hover:text-emerald-400 transition-colors">Trilha 1 — Fundamentos</h3>
+<p class="text-sm text-neutral-400 mb-3">O que é VLA. Modelos, datasets, hardware, segurança. De RT-2 a Qwen-VLA.</p>
+<span class="text-emerald-400 text-xs font-medium">6 módulos →</span>
+</a>
+<!-- T2 -->
+<a class="bg-dark-800 border border-dark-600 rounded-xl p-6 hover:border-blue-500/50 transition-all block group" href="curso/trilha2/">
+<div class="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center mb-3">
+<span class="text-blue-400 text-lg">⚡</span>
+</div>
+<h3 class="font-bold text-lg mb-1 group-hover:text-blue-400 transition-colors">Trilha 2 — Aplicação Técnica</h3>
+<p class="text-sm text-neutral-400 mb-3">Como fazer. Python, LeRobot, simuladores, ROS2, treinamento, sim-to-real.</p>
+<span class="text-blue-400 text-xs font-medium">6 módulos →</span>
+</a>
+<!-- T3 -->
+<a class="bg-dark-800 border border-dark-600 rounded-xl p-6 hover:border-purple-500/50 transition-all block group" href="curso/trilha3/">
+<div class="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center mb-3">
+<span class="text-purple-400 text-lg">🎯</span>
+</div>
+<h3 class="font-bold text-lg mb-1 group-hover:text-purple-400 transition-colors">Trilha 3 — Avançado &amp; Planejamento</h3>
+<p class="text-sm text-neutral-400 mb-3">Onde vai. Dual-System, world models, mercado $7.2B, roadmap 2030.</p>
+<span class="text-purple-400 text-xs font-medium">6 módulos →</span>
+</a>
+</div>
+</div>
+</section>
+<!-- CONTEXT -->
+<section class="py-16 border-t border-dark-600">
+<div class="max-w-4xl mx-auto px-6">
+<h2 class="text-2xl font-bold text-center mb-8">Por que VLA agora?</h2>
+<div class="grid md:grid-cols-3 gap-6">
+<div class="bg-dark-800 border border-dark-600 rounded-xl p-5">
+<p class="text-emerald-400 text-2xl mb-2">🧠</p>
+<h4 class="font-bold mb-2">De texto a ação</h4>
+<p class="text-sm text-neutral-400">LLMs entendem linguagem. VLMs entendem imagens. VLAs fazem o robô agir. É a evolução natural da IA generativa para o mundo físico.</p>
+</div>
+<div class="bg-dark-800 border border-dark-600 rounded-xl p-5">
+<p class="text-blue-400 text-2xl mb-2">📈</p>
+<h4 class="font-bold mb-2">$7.2B em 2025</h4>
+<p class="text-sm text-neutral-400">Investimentos em robótica + IA saltaram de $3.1B (2023) para $7.2B. Humanoides em produção industrial são realidade em 2026.</p>
+</div>
+<div class="bg-dark-800 border border-dark-600 rounded-xl p-5">
+<p class="text-purple-400 text-2xl mb-2">🔓</p>
+<h4 class="font-bold mb-2">Open-source domina</h4>
+<p class="text-sm text-neutral-400">OpenVLA, Octo, π0, GR00T N1, LeRobot, SmolVLA. Os melhores modelos são abertos. Qualquer pessoa pode treinar e deployar.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- MODELS SHOWCASE -->
+<section class="py-16 border-t border-dark-600">
+<div class="max-w-4xl mx-auto px-6">
+<h2 class="text-2xl font-bold text-center mb-8">Modelos Cobertos</h2>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3 text-center"><p class="font-bold text-sm">RT-2</p><p class="text-xs text-neutral-500">Google DeepMind</p></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3 text-center"><p class="font-bold text-sm">OpenVLA</p><p class="text-xs text-neutral-500">Stanford / Berkeley</p></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3 text-center"><p class="font-bold text-sm">π0</p><p class="text-xs text-neutral-500">Physical Intelligence</p></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3 text-center"><p class="font-bold text-sm">Qwen-VLA</p><p class="text-xs text-neutral-500">Alibaba</p></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3 text-center"><p class="font-bold text-sm">GR00T N1</p><p class="text-xs text-neutral-500">NVIDIA</p></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3 text-center"><p class="font-bold text-sm">Helix</p><p class="text-xs text-neutral-500">Figure AI</p></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3 text-center"><p class="font-bold text-sm">SmolVLA</p><p class="text-xs text-neutral-500">HuggingFace</p></div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3 text-center"><p class="font-bold text-sm">Octo</p><p class="text-xs text-neutral-500">Berkeley / CMU</p></div>
+</div>
+</div>
+</section>
+<!-- FOOTER -->
+<footer class="py-12 text-center text-sm text-neutral-500 border-t border-dark-600 space-y-2">
+<p>VLA — Vision Language Action · <a class="text-sky-400 hover:text-sky-300" href="https://ARCKHÉ AI">ARCKHÉ AI</a></p>
+<p>Pesquisa profunda: junho 2026 · 50+ fontes acadêmicas e industriais</p>
+<p class="text-neutral-600">DeepMind · Stanford · Berkeley · NVIDIA · HuggingFace · Physical Intelligence · Alibaba · Figure AI</p>
+</footer>
+</body>
+</html>

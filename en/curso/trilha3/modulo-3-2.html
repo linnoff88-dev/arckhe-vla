@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Module 3.2 — World Models and Predictive Simulation | VLA Course</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: { 600:'#374151', 700:'#1f2937', 800:'#1a1a2e', 900:'#111827' },
+                        primary: '#f59e0b'
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .dark body { background-color: #111827; }
+        html:not(.dark) body { background-color: #f8fafc; }
+        html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+        html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+        html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+        html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+        html:not(.dark) .text-neutral-100 { color: #111827; }
+        html:not(.dark) .text-neutral-300 { color: #4b5563; }
+        html:not(.dark) .text-neutral-400 { color: #6b7280; }
+        html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+        html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+        html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+        html:not(.dark) .text-emerald-400 { color: #059669; }
+        html:not(.dark) .text-blue-400 { color: #2563eb; }
+        html:not(.dark) .text-purple-400 { color: #7c3aed; }
+        html:not(.dark) .bg-emerald-500\/20 { background-color: rgba(5, 150, 105, 0.12); }
+        html:not(.dark) .bg-emerald-500\/10 { background-color: rgba(5, 150, 105, 0.08); }
+        html:not(.dark) .bg-emerald-900\/20 { background-color: rgba(5, 150, 105, 0.08); }
+        html:not(.dark) .bg-blue-500\/20 { background-color: rgba(37, 99, 235, 0.12); }
+        html:not(.dark) .bg-blue-900\/20 { background-color: rgba(37, 99, 235, 0.08); }
+        html:not(.dark) .bg-purple-500\/20 { background-color: rgba(124, 58, 237, 0.12); }
+        html:not(.dark) .bg-purple-900\/20 { background-color: rgba(124,58,237,0.08); }
+        html:not(.dark) .bg-red-900\/20 { background-color: rgba(220, 38, 38, 0.07); }
+        html:not(.dark) .border-emerald-500\/30 { border-color: rgba(5, 150, 105, 0.25); }
+        html:not(.dark) .border-blue-500\/30 { border-color: rgba(37, 99, 235, 0.25); }
+        html:not(.dark) .border-purple-500\/30 { border-color: rgba(124, 58, 237, 0.25); }
+        html:not(.dark) .border-red-500\/30 { border-color: rgba(220, 38, 38, 0.25); }
+        html:not(.dark) .hover\:border-purple-500\/50:hover { border-color: rgba(124, 58, 237, 0.4); }
+        html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+        html:not(.dark) .text-primary { color: #a16207; }
+        html:not(.dark) .bg-primary\/10 { background-color: rgba(161, 98, 7, 0.08); }
+        html:not(.dark) .border-primary\/30 { border-color: rgba(161, 98, 7, 0.25); }
+        html:not(.dark) .border-primary\/40 { border-color: rgba(161, 98, 7, 0.25); }
+        html:not(.dark) .text-sky-400 { color: #0369a1; }
+        html:not(.dark) .text-yellow-400 { color: #a16207; }
+        html:not(.dark) .text-red-400 { color: #dc2626; }
+        html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+        html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255, 255, 255, 0.95); }
+        html:not(.dark) svg[role="img"] { filter: saturate(0.82) brightness(0.96); }
+        .dark .border-dark-600 { border-color: #374151; }
+        .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+
+        /* Tópicos expansíveis */
+        details > summary { list-style: none; }
+        details > summary::-webkit-details-marker { display: none; }
+
+        /* SVG glow animation */
+        @keyframes wf-pulse {
+          0%, 100% { opacity: 0.7; }
+          50% { opacity: 1; }
+        }
+        @media (prefers-reduced-motion: no-preference) {
+          .wf-a { animation: wf-pulse 2.6s ease-in-out infinite; }
+          .wf-a:nth-child(2){animation-delay:.3s} .wf-a:nth-child(3){animation-delay:.6s}
+          .wf-a:nth-child(4){animation-delay:.9s}
+        }
+    </style>
+<link href="https://linnoff88-dev.github.io/arckhe-vla/curso/trilha3/modulo-3-2.html" hreflang="pt-BR" rel="alternate"/><link href="https://linnoff88-dev.github.io/arckhe-vla/en/curso/trilha3/modulo-3-2.html" hreflang="en" rel="alternate"/><link href="https://linnoff88-dev.github.io/arckhe-vla/es/curso/trilha3/modulo-3-2.html" hreflang="es" rel="alternate"/></head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="ARCKHÉ-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../../../curso/trilha3/modulo-3-2.html" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="modulo-3-2.html" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">EN</a><a href="../../../es/curso/trilha3/modulo-3-2.html" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">ES</a></div>
+<!-- NAV (exato do trilha3/index.html) -->
+<nav class="fixed top-0 w-full bg-dark-900/95 backdrop-blur border-b border-dark-600 z-50">
+<div class="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<a class="text-primary font-bold text-lg" href="../../">VLA</a>
+<span class="text-neutral-500">|</span>
+<a class="text-sky-400 hover:text-sky-300 text-sm font-medium" href="https://ARCKHÉ AI" target="_blank">ARCKHÉ AI</a>
+</div>
+<div class="flex items-center gap-2">
+<a class="px-3 py-1.5 rounded text-sm text-emerald-400 hover:bg-emerald-500/10" href="../trilha1/">Fundamentals</a>
+<a class="px-3 py-1.5 rounded text-sm text-blue-400 hover:bg-blue-500/10" href="../trilha2/">Technical</a>
+<a class="px-3 py-1.5 rounded text-sm text-purple-400 bg-purple-500/20 border border-purple-500/30 font-medium" href="./">Advanced</a>
+<button class="ml-2 p-2 rounded hover:bg-dark-700 text-neutral-400" onclick="document.documentElement.classList.toggle('dark')" title="Switch theme">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+</div>
+</div>
+</nav>
+<main class="max-w-4xl mx-auto px-4 pt-24 pb-16">
+<!-- BREADCRUMB -->
+<nav class="mb-8 text-sm text-neutral-500 flex items-center gap-2">
+<a class="hover:text-neutral-300 transition-colors" href="../../">Start</a>
+<span>/</span>
+<a class="hover:text-purple-400 transition-colors" href="./">Advanced</a>
+<span>/</span>
+<span class="text-purple-400">Module 3.2</span>
+</nav>
+<!-- HEADER -->
+<header class="bg-gradient-to-br from-purple-900/40 via-dark-800 to-dark-800 rounded-2xl border border-purple-500/30 p-8 mb-10">
+<span class="inline-block px-3 py-1 bg-purple-500/20 text-purple-400 text-xs font-semibold rounded-full mb-4 tracking-wider">MODULE 3.2</span>
+<h1 class="text-3xl sm:text-4xl font-bold mb-4">🌐 World Models and Predictive Simulation</h1>
+<p class="text-lg text-neutral-400 max-w-3xl">Robots that imagine the future before acting: generative models as a prediction engine. From JEPA to Dreamer — learn how agents simulate consequences in their minds before touching the real world.</p>
+<!-- Stats -->
+<div class="grid grid-cols-4 gap-4 mt-8 max-w-2xl">
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-purple-400">6</div>
+<div class="text-xs text-neutral-400">Topics</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-purple-400">40</div>
+<div class="text-xs text-neutral-400">Minutes</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-purple-400">Advanced</div>
+<div class="text-xs text-neutral-400">Level</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-purple-400">Theory</div>
+<div class="text-xs text-neutral-400">Type</div>
+</div>
+</div>
+</header>
+<!-- SVG HERO — Loop de World Model (Observação → Imaginação → Ação) -->
+<div class="rounded-2xl border border-purple-500/30 bg-dark-900/40 p-6 mb-12">
+<svg aria-label="World Model: loop of observation, imagining future trajectories, and executing the optimal action" class="w-full h-auto" role="img" viewbox="0 0 900 230" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<filter height="160%" id="m32-glow" width="160%" x="-30%" y="-30%">
+<fegaussianblur result="blur" stddeviation="5"></fegaussianblur>
+<femerge><femergenode in="blur"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge>
+</filter>
+<lineargradient id="m32-grad" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#c084fc"></stop>
+<stop offset="100%" stop-color="#a855f7"></stop>
+</lineargradient>
+<lineargradient id="m32-grad2" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#38bdf8"></stop>
+<stop offset="100%" stop-color="#0ea5e9"></stop>
+</lineargradient>
+<!-- Grid de fundo -->
+<pattern height="40" id="m32-grid" patternunits="userSpaceOnUse" width="40">
+<path d="M 40 0 L 0 0 0 40" fill="none" opacity="0.15" stroke="#c084fc" stroke-width="0.3"></path>
+</pattern>
+<!-- Ponta de seta -->
+<marker id="m32-ah" markerheight="8" markerwidth="8" orient="auto" refx="6" refy="3">
+<path d="M0,0 L0,6 L8,3 z" fill="#c084fc"></path>
+</marker>
+<marker id="m32-ahc" markerheight="8" markerwidth="8" orient="auto" refx="6" refy="3">
+<path d="M0,0 L0,6 L8,3 z" fill="#38bdf8"></path>
+</marker>
+</defs>
+<!-- Grid -->
+<rect fill="url(#m32-grid)" height="230" width="900"></rect>
+<!-- Caixa: Observação -->
+<g filter="url(#m32-glow)">
+<rect fill="#1a1230" height="74" rx="14" stroke="url(#m32-grad)" stroke-width="2.5" width="150" x="30" y="78"></rect>
+</g>
+<text fill="#c084fc" font-family="Inter,sans-serif" font-size="15" font-weight="700" text-anchor="middle" x="105" y="108">Observation</text>
+<text fill="#c084fc" font-family="Inter,sans-serif" font-size="10" opacity="0.6" text-anchor="middle" x="105" y="126">camera + sensors</text>
+<text fill="#c084fc" font-family="Inter,sans-serif" font-size="10" opacity="0.6" text-anchor="middle" x="105" y="141">current state s_t</text>
+<!-- Seta Obs → World Model -->
+<path d="M182,115 L265,115" fill="none" marker-end="url(#m32-ah)" stroke="#c084fc" stroke-width="2"></path>
+<!-- Caixa: World Model (grande, com glow) -->
+<g filter="url(#m32-glow)">
+<rect fill="#1a1230" height="146" rx="16" stroke="url(#m32-grad)" stroke-width="2.8" width="200" x="268" y="42"></rect>
+</g>
+<text fill="#c084fc" font-family="Inter,sans-serif" font-size="16" font-weight="700" text-anchor="middle" x="368" y="75">World Model</text>
+<text fill="#c084fc" font-family="Inter,sans-serif" font-size="10" opacity="0.65" text-anchor="middle" x="368" y="96">"What if I do X?"</text>
+<!-- Mini rollouts internos -->
+<g class="wf-a">
+<rect fill="#0e1b26" height="20" opacity="0.85" rx="5" stroke="#38bdf8" stroke-width="1.2" width="156" x="290" y="108"></rect>
+<text fill="#9ad6ff" font-family="Inter,sans-serif" font-size="9" text-anchor="middle" x="368" y="122">rollout α → reward 0.82</text>
+</g>
+<g class="wf-a">
+<rect fill="#0e1b26" height="20" opacity="0.65" rx="5" stroke="#38bdf8" stroke-width="1.2" width="156" x="290" y="133"></rect>
+<text fill="#9ad6ff" font-family="Inter,sans-serif" font-size="9" text-anchor="middle" x="368" y="147">rollout β → reward 0.54</text>
+</g>
+<g class="wf-a">
+<rect fill="#0e1b26" height="20" opacity="0.45" rx="5" stroke="#38bdf8" stroke-width="1.2" width="156" x="290" y="158"></rect>
+<text fill="#9ad6ff" font-family="Inter,sans-serif" font-size="9" text-anchor="middle" x="368" y="172">rollout γ → reward 0.31</text>
+</g>
+<!-- Seta WM → Ação ótima -->
+<path d="M470,115 L555,115" fill="none" marker-end="url(#m32-ahc)" stroke="#38bdf8" stroke-width="2"></path>
+<!-- Caixa: Ação Ótima -->
+<g filter="url(#m32-glow)">
+<rect fill="#0e1b26" height="74" rx="14" stroke="url(#m32-grad2)" stroke-width="2.5" width="152" x="558" y="78"></rect>
+</g>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="14" font-weight="700" text-anchor="middle" x="634" y="108">Optimal Action</text>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="10" opacity="0.65" text-anchor="middle" x="634" y="126">a* = argmax R(s)</text>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="10" opacity="0.65" text-anchor="middle" x="634" y="141">selected rollout α</text>
+<!-- Seta retorno: Ação → Mundo real → Observação (arco por baixo) -->
+<path d="M634,152 C634,205 105,205 105,152" fill="none" marker-end="url(#m32-ah)" opacity="0.5" stroke="#c084fc" stroke-dasharray="6,4" stroke-width="1.5"></path>
+<text fill="#c084fc" font-family="Inter,sans-serif" font-size="9" opacity="0.5" text-anchor="middle" x="368" y="218">new observation after execution</text>
+<!-- Seta: execução no mundo real -->
+<path d="M712,115 L790,115" fill="none" marker-end="url(#m32-ah)" opacity="0.6" stroke="#9ca3af" stroke-width="1.5"></path>
+<rect fill="#26201a" height="50" opacity="0.7" rx="10" stroke="#9ca3af" stroke-width="1.2" width="96" x="793" y="90"></rect>
+<text fill="#e5e7eb" font-family="Inter,sans-serif" font-size="12" opacity="0.8" text-anchor="middle" x="841" y="112">World</text>
+<text fill="#e5e7eb" font-family="Inter,sans-serif" font-size="10" opacity="0.5" text-anchor="middle" x="841" y="128">Real</text>
+</svg>
+<p class="text-xs text-neutral-500 text-center mt-3">Predictive simulation loop: the robot imagines multiple rollouts in the World Model and executes only the action with the highest estimated reward.</p>
+</div>
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- TÓPICO 1 — O que são World Models                        -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<section class="mb-12" id="topico-1">
+<div class="flex items-center gap-4 mb-6">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center">
+<span class="text-purple-400 font-bold text-lg">1</span>
+</div>
+<h2 class="text-2xl font-bold">🧠 What World Models Are</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">World Models are internal representations an agent builds of its environment — a kind of “mental map of the future.” Instead of acting through trial and error in the real world, the robot mentally simulates scenarios and chooses the best trajectory before moving a single servo.</p>
+<!-- Box conceito principal -->
+<div class="bg-gradient-to-br from-purple-900/40 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-purple-400 mb-3 flex items-center"><span class="mr-2">🔮</span> Core Definition</h3>
+<p class="text-neutral-300">A World Model is a function <code class="bg-dark-700 px-1.5 py-0.5 rounded text-purple-300 text-sm font-mono">f(s_t, a_t) → s_{t+1}</code> that, given the current state and a proposed action, predicts the next state. Chained <em>k</em> times, generates a rollout of <em>k</em> steps in the future — the robot’s “dream.”</p>
+</div>
+<!-- Grid de conceitos -->
+<div class="grid grid-cols-2 gap-4 mb-6">
+<div class="bg-dark-800 rounded-xl p-5 border border-dark-600">
+<div class="text-purple-400 font-semibold mb-2 text-sm">Latent Space Dynamics</div>
+<p class="text-neutral-400 text-sm">The world is compressed into a low-dimensional latent space where dynamics are easier to learn than in raw pixel space.</p>
+</div>
+<div class="bg-dark-800 rounded-xl p-5 border border-dark-600">
+<div class="text-purple-400 font-semibold mb-2 text-sm">Forward Model</div>
+<p class="text-neutral-400 text-sm">Component that predicts the next state. It can be deterministic or stochastic (modeling uncertainty as a distribution over possible futures).</p>
+</div>
+<div class="bg-dark-800 rounded-xl p-5 border border-dark-600">
+<div class="text-purple-400 font-semibold mb-2 text-sm">JEPA</div>
+<p class="text-neutral-400 text-sm">Joint Embedding Predictive Architecture (LeCun): predicts representations of future states in feature space, without reconstructing pixels — more efficient and robust.</p>
+</div>
+<div class="bg-dark-800 rounded-xl p-5 border border-dark-600">
+<div class="text-purple-400 font-semibold mb-2 text-sm">Rollout Planning</div>
+<p class="text-neutral-400 text-sm">Simulate N candidate trajectories, evaluate each with a reward function, and execute only the action from the winning trajectory.</p>
+</div>
+</div>
+<!-- Dica prática -->
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6">
+<h3 class="text-lg font-semibold text-primary mb-2 flex items-center"><span class="mr-2">💡</span> Why Yann LeCun is betting on this</h3>
+<p class="text-neutral-300 text-sm">LeCun argues that World Models are the missing piece for human-level intelligence: humans spend most of their time "imagining," not acting. JEPA is his proposal for training these models without representational collapse.</p>
+</div>
+</section>
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- TÓPICO 2 — Modelos generativos de vídeo                  -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<section class="mb-12" id="topico-2">
+<div class="flex items-center gap-4 mb-6">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center">
+<span class="text-purple-400 font-bold text-lg">2</span>
+</div>
+<h2 class="text-2xl font-bold">🎬 Generative video models: Sora, UniSim, Genie2</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">Models such as Sora (OpenAI), UniSim (Google), and Genie2 (DeepMind) generate realistic videos of the future conditioned on actions. In robotics, they function as visual world models: given the current frame and a proposed action, they generate the next frames showing the likely result.</p>
+<!-- Grid Fazer vs Evitar -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+<div class="bg-purple-900/20 rounded-xl border border-purple-500/30 p-5">
+<h4 class="text-purple-400 font-semibold mb-3 flex items-center gap-2">✓ Advantages of Video World Models</h4>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-purple-400 mt-0.5">✓</span> Generate photorealistic simulations of unseen environments</li>
+<li class="flex items-start gap-2"><span class="text-purple-400 mt-0.5">✓</span> Allow policies to be trained without a traditional simulator (Isaac Sim, MuJoCo)</li>
+<li class="flex items-start gap-2"><span class="text-purple-400 mt-0.5">✓</span> Scale with internet video data—trillions of frames available</li>
+<li class="flex items-start gap-2"><span class="text-purple-400 mt-0.5">✓</span> Capture implicit physics: objects fall, liquids flow, shadows are cast</li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-5">
+<h4 class="text-red-400 font-semibold mb-3 flex items-center gap-2">✗ Current limitations</h4>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Does not guarantee strict physical consistency (objects may teleport)</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Generation is too slow for real-time online planning</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Content errors accumulate over long rollouts (&gt;2–3 seconds)</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Difficult to condition on actions in torque/joint angle space</li>
+</ul>
+</div>
+</div>
+<!-- Comparativo modelos -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 overflow-hidden mb-6">
+<div class="px-5 py-3 border-b border-dark-600 bg-dark-700/50">
+<span class="text-sm font-semibold text-neutral-300">Comparison: generative video models</span>
+</div>
+<div class="divide-y divide-dark-600">
+<div class="grid grid-cols-3 gap-0 text-xs text-neutral-500 px-5 py-2 font-semibold">
+<span>Model</span><span>Focus</span><span>Robotics status</span>
+</div>
+<div class="grid grid-cols-3 gap-0 text-sm px-5 py-3">
+<span class="text-purple-400 font-medium">UniSim (Google)</span>
+<span class="text-neutral-300">Universal action simulator</span>
+<span class="text-neutral-400">Research · closer to real-world use</span>
+</div>
+<div class="grid grid-cols-3 gap-0 text-sm px-5 py-3">
+<span class="text-purple-400 font-medium">Genie2 (DeepMind)</span>
+<span class="text-neutral-300">3D environment generator</span>
+<span class="text-neutral-400">Research · high visual fidelity</span>
+</div>
+<div class="grid grid-cols-3 gap-0 text-sm px-5 py-3">
+<span class="text-purple-400 font-medium">Sora (OpenAI)</span>
+<span class="text-neutral-300">High-quality video</span>
+<span class="text-neutral-400">Commercial · inconsistent physics</span>
+</div>
+</div>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6">
+<h3 class="text-lg font-semibold text-primary mb-2 flex items-center"><span class="mr-2">🎯</span> The long-term bet</h3>
+<p class="text-neutral-300 text-sm">If video world models achieve sufficient physical fidelity, they replace Isaac Sim and MuJoCo—traditional simulators that require manual physics modeling. Robot training becomes as scalable as training LLMs on web text.</p>
+</div>
+</section>
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- TÓPICO 3 — Previsão de consequências                     -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<section class="mb-12" id="topico-3">
+<div class="flex items-center gap-4 mb-6">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center">
+<span class="text-purple-400 font-bold text-lg">3</span>
+</div>
+<h2 class="text-2xl font-bold">🔀 Predicting consequences: "What if I do X?"</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">The robot evaluates multiple candidate actions by simulating their consequences in the world model. For each action, it generates a trajectory of future states and calculates a reward function for the predicted outcome. It then executes the action with the best estimated outcome in the real world.</p>
+<!-- Timeline: pipeline de planejamento -->
+<div class="space-y-4 mb-6">
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0 w-10 h-10 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center">
+<span class="text-purple-400 font-bold text-sm">1</span>
+</div>
+<div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600">
+<h4 class="font-semibold mb-1">Action Sampling</h4>
+<p class="text-neutral-400 text-sm">Sample N candidate actions from the action space. This can be done with CEM (Cross-Entropy Method), MPPI, or simply by adding Gaussian noise to the current action.</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0 w-10 h-10 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center">
+<span class="text-purple-400 font-bold text-sm">2</span>
+</div>
+<div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600">
+<h4 class="font-semibold mb-1">Parallel Rollout</h4>
+<p class="text-neutral-400 text-sm">Each candidate action is expanded k steps in the World Model in parallel on the GPU. Produces N future-state trajectories simultaneously.</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0 w-10 h-10 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center">
+<span class="text-purple-400 font-bold text-sm">3</span>
+</div>
+<div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600">
+<h4 class="font-semibold mb-1">Reward Prediction</h4>
+<p class="text-neutral-400 text-sm">A reward function evaluates each trajectory. It can be a separate neural network, distance to a goal state, or an engineering cost function.</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0 w-10 h-10 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center">
+<span class="text-purple-400 font-bold text-sm">4</span>
+</div>
+<div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600">
+<h4 class="font-semibold mb-1">Winner’s Execution</h4>
+<p class="text-neutral-400 text-sm">The action from the trajectory with the highest cumulative reward is executed. Then the cycle restarts with the new observation—this is Model Predictive Control (MPC).</p>
+</div>
+</div>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6">
+<h3 class="text-lg font-semibold text-primary mb-2 flex items-center"><span class="mr-2">⚡</span> Why this matters</h3>
+<p class="text-neutral-300 text-sm">This “look-ahead” mechanism is what separates reactive robots from truly intelligent robots. It makes it possible to avoid irreversible actions—such as knocking over a fragile object—by predicting the consequence before acting. The cost: planning latency.</p>
+</div>
+</section>
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- TÓPICO 4 — Planejamento por imaginação (model-based RL)  -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<section class="mb-12" id="topico-4">
+<div class="flex items-center gap-4 mb-6">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center">
+<span class="text-purple-400 font-bold text-lg">4</span>
+</div>
+<h2 class="text-2xl font-bold">💭 Planning through imagination (model-based RL)</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">Model-based reinforcement learning trains a policy using experiences generated by the world model instead of real interactions. Algorithms such as Dreamer and TD-MPC learn in the model’s "dream," then transfer the behavior to the physical robot—reducing training cost and risk by orders of magnitude.</p>
+<!-- SVG: comparação model-free vs model-based -->
+<div class="rounded-2xl border border-purple-500/30 bg-dark-900/40 p-5 mb-6">
+<svg aria-label="Comparison of model-free RL (many real-world interactions) versus model-based RL (very few real-world interactions, most in the world model)" class="w-full h-auto" role="img" viewbox="0 0 800 180" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<filter height="140%" id="m32-glow2" width="140%" x="-20%" y="-20%">
+<fegaussianblur result="blur" stddeviation="4"></fegaussianblur>
+<femerge><femergenode in="blur"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge>
+</filter>
+<pattern height="30" id="m32-grid2" patternunits="userSpaceOnUse" width="30">
+<path d="M 30 0 L 0 0 0 30" fill="none" opacity="0.12" stroke="#c084fc" stroke-width="0.25"></path>
+</pattern>
+</defs>
+<rect fill="url(#m32-grid2)" height="180" width="800"></rect>
+<!-- Painel esquerdo: Model-Free -->
+<rect fill="#1a1230" height="150" opacity="0.7" rx="12" stroke="#c084fc" stroke-width="1.5" width="350" x="20" y="15"></rect>
+<text fill="#c084fc" font-family="Inter,sans-serif" font-size="13" font-weight="700" text-anchor="middle" x="195" y="40">Model-Free RL</text>
+<!-- Ícones de interações reais (muitas) -->
+<g opacity="0.75">
+<circle cx="50" cy="90" fill="none" r="8" stroke="#9ca3af" stroke-width="1.5"></circle>
+<circle cx="80" cy="80" fill="none" r="8" stroke="#9ca3af" stroke-width="1.5"></circle>
+<circle cx="110" cy="100" fill="none" r="8" stroke="#9ca3af" stroke-width="1.5"></circle>
+<circle cx="140" cy="75" fill="none" r="8" stroke="#9ca3af" stroke-width="1.5"></circle>
+<circle cx="170" cy="95" fill="none" r="8" stroke="#9ca3af" stroke-width="1.5"></circle>
+<circle cx="200" cy="82" fill="none" r="8" stroke="#9ca3af" stroke-width="1.5"></circle>
+<circle cx="230" cy="100" fill="none" r="8" stroke="#9ca3af" stroke-width="1.5"></circle>
+<circle cx="260" cy="78" fill="none" r="8" stroke="#9ca3af" stroke-width="1.5"></circle>
+<circle cx="290" cy="92" fill="none" r="8" stroke="#9ca3af" stroke-width="1.5"></circle>
+<circle cx="320" cy="85" fill="none" r="8" stroke="#9ca3af" stroke-width="1.5"></circle>
+</g>
+<text fill="#9ca3af" font-family="Inter,sans-serif" font-size="10" opacity="0.8" text-anchor="middle" x="195" y="135">~10⁶ real interactions required</text>
+<text fill="#e5e7eb" font-family="Inter,sans-serif" font-size="10" opacity="0.5" text-anchor="middle" x="195" y="152">slow · expensive · risky</text>
+<!-- Painel direito: Model-Based -->
+<g filter="url(#m32-glow2)">
+<rect fill="#0e1b26" height="150" rx="12" stroke="#38bdf8" stroke-width="2" width="350" x="430" y="15"></rect>
+</g>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="13" font-weight="700" text-anchor="middle" x="605" y="40">Model-Based RL (Dreamer)</text>
+<!-- Interações reais: poucas -->
+<circle cx="475" cy="90" fill="none" opacity="0.7" r="8" stroke="#9ca3af" stroke-width="1.5"></circle>
+<circle cx="500" cy="85" fill="none" opacity="0.7" r="8" stroke="#9ca3af" stroke-width="1.5"></circle>
+<!-- Interações no world model: muitas (ciano) -->
+<circle cx="535" cy="90" fill="#0e1b26" opacity="0.9" r="7" stroke="#38bdf8" stroke-width="1.5"></circle>
+<circle cx="558" cy="80" fill="#0e1b26" opacity="0.8" r="7" stroke="#38bdf8" stroke-width="1.5"></circle>
+<circle cx="581" cy="98" fill="#0e1b26" opacity="0.9" r="7" stroke="#38bdf8" stroke-width="1.5"></circle>
+<circle cx="604" cy="76" fill="#0e1b26" opacity="0.7" r="7" stroke="#38bdf8" stroke-width="1.5"></circle>
+<circle cx="627" cy="92" fill="#0e1b26" opacity="0.85" r="7" stroke="#38bdf8" stroke-width="1.5"></circle>
+<circle cx="650" cy="82" fill="#0e1b26" opacity="0.9" r="7" stroke="#38bdf8" stroke-width="1.5"></circle>
+<circle cx="673" cy="100" fill="#0e1b26" opacity="0.75" r="7" stroke="#38bdf8" stroke-width="1.5"></circle>
+<circle cx="696" cy="78" fill="#0e1b26" opacity="0.9" r="7" stroke="#38bdf8" stroke-width="1.5"></circle>
+<text fill="#9ca3af" font-family="Inter,sans-serif" font-size="9" opacity="0.7" text-anchor="middle" x="605" y="128">⬛ real  🔵 imagination (world model)</text>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="10" opacity="0.8" text-anchor="middle" x="605" y="145">~10² real interactions · 10⁶ in the dream</text>
+<text fill="#e5e7eb" font-family="Inter,sans-serif" font-size="10" opacity="0.5" text-anchor="middle" x="605" y="160">fast · safe · scalable</text>
+</svg>
+</div>
+<!-- Grid Fazer vs Evitar: algoritmos -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+<div class="bg-purple-900/20 rounded-xl border border-purple-500/30 p-5">
+<h4 class="text-purple-400 font-semibold mb-3">✓ Established algorithms</h4>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-purple-400">✓</span><span><strong>DreamerV3</strong> — learns through imagination, works on 150+ tasks without adjustment</span></li>
+<li class="flex items-start gap-2"><span class="text-purple-400">✓</span><span><strong>TD-MPC2</strong> — combines MPC with TD learning; state of the art in continuous robotics</span></li>
+<li class="flex items-start gap-2"><span class="text-purple-400">✓</span><span><strong>MBPO</strong> — policy optimization with short rollouts in the model (Janner et al.)</span></li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-5">
+<h4 class="text-red-400 font-semibold mb-3">✗ Common pitfalls</h4>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Rollouts that are too long — model errors accumulate (model bias)</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Policy optimizes the model, not the real world (exploitation of model error)</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Very simple model — does not capture the real environment’s multimodality</span></li>
+</ul>
+</div>
+</div>
+</section>
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- TÓPICO 5 — Dados sintéticos do world model               -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<section class="mb-12" id="topico-5">
+<div class="flex items-center gap-4 mb-6">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center">
+<span class="text-purple-400 font-bold text-lg">5</span>
+</div>
+<h2 class="text-2xl font-bold">🏭 Training with synthetic world model data</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">In addition to online planning, world models can generate massive synthetic datasets to pretrain policies. The model generates millions of plausible trajectories with variations in objects, lighting, and configurations — data that would be impossible to collect manually at scale.</p>
+<!-- Box de dados/pesquisa -->
+<div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-blue-400 mb-3 flex items-center"><span class="mr-2">📊</span> The Robotics Data Bottleneck</h3>
+<p class="text-neutral-300 text-sm mb-3">LLMs scaled because internet text provided trillions of tokens. Robotics doesn’t have that luxury: real trajectory data is expensive (~$10–100/hour of collection) and scarce. World models are the proposal for closing this gap.</p>
+<div class="grid grid-cols-3 gap-3 mt-4">
+<div class="text-center">
+<div class="text-2xl font-bold text-blue-400">~10³</div>
+<div class="text-xs text-neutral-500">hours of real data available (Open X)</div>
+</div>
+<div class="text-center">
+<div class="text-2xl font-bold text-purple-400">∞</div>
+<div class="text-xs text-neutral-500">possible synthetic trajectories via world model</div>
+</div>
+<div class="text-center">
+<div class="text-2xl font-bold text-blue-400">10–100×</div>
+<div class="text-xs text-neutral-500">estimated cost reduction with synthesis</div>
+</div>
+</div>
+</div>
+<!-- Grid conceitos-chave -->
+<div class="grid grid-cols-2 gap-4 mb-6">
+<div class="bg-dark-800 rounded-xl p-5 border border-dark-600">
+<div class="text-purple-400 font-semibold mb-2 text-sm">Domain Randomization</div>
+<p class="text-neutral-400 text-sm">Generate data with randomized lighting, textures, and positions—the world model does this at zero marginal cost compared with moving real objects.</p>
+</div>
+<div class="bg-dark-800 rounded-xl p-5 border border-dark-600">
+<div class="text-purple-400 font-semibold mb-2 text-sm">Fidelity vs. Diversity</div>
+<p class="text-neutral-400 text-sm">Fundamental trade-off: data that more faithfully reflects real-world physics is more useful, but limiting fidelity allows for greater diversity in generated scenarios.</p>
+</div>
+<div class="bg-dark-800 rounded-xl p-5 border border-dark-600">
+<div class="text-purple-400 font-semibold mb-2 text-sm">Robotics Scaling Laws</div>
+<p class="text-neutral-400 text-sm">Researchers are investigating whether robotic policy performance scales predictably with the volume of synthetic data — analogous to the scaling law for LLMs.</p>
+</div>
+<div class="bg-dark-800 rounded-xl p-5 border border-dark-600">
+<div class="text-purple-400 font-semibold mb-2 text-sm">Implicit Data Augmentation</div>
+<p class="text-neutral-400 text-sm">World model as an augmenter: generates variations of real trajectories with state perturbations — enriches the dataset without additional collection.</p>
+</div>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6">
+<h3 class="text-lg font-semibold text-primary mb-2 flex items-center"><span class="mr-2">🔑</span> The key bet</h3>
+<p class="text-neutral-300 text-sm">If world models become reliable physics simulators, robotics' "data bottleneck" disappears. Companies like 1X Technologies and Physical Intelligence already use this approach to scale data collection synthetically.</p>
+</div>
+</section>
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- TÓPICO 6 — Limitações: quando o modelo erra              -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<section class="mb-12" id="topico-6">
+<div class="flex items-center gap-4 mb-6">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center">
+<span class="text-purple-400 font-bold text-lg">6</span>
+</div>
+<h2 class="text-2xl font-bold">⚠️ Limitations: When the Model Predicts Incorrectly</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">World models aren’t perfect: prediction errors accumulate over the time horizon (compound error), deformable objects are difficult to model, and complex multi-body interactions often diverge from reality. Blindly trusting a world model is as dangerous as having none.</p>
+<!-- Grid falhas vs estratégias -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-5">
+<h4 class="text-red-400 font-semibold mb-3">✗ World Model failure modes</h4>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span><strong>Compound Error</strong> — small errors at each step add up: after 50 steps, the predicted state may be completely unrealistic</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span><strong>Deformable objects</strong> — fabric, liquids, soft mass: physics that current neural networks can't handle</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span><strong>New interactions</strong> — out-of-distribution: the model extrapolates poorly to situations it did not see during training</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span><strong>Precise contacts</strong> — fitting a part, tightening a screw: high-precision contact physics is critical</span></li>
+</ul>
+</div>
+<div class="bg-purple-900/20 rounded-xl border border-purple-500/30 p-5">
+<h4 class="text-purple-400 font-semibold mb-3">✓ Mitigation strategies</h4>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-purple-400">✓</span><span><strong>Short-term horizon</strong> — limiting rollouts to 5–15 steps reduces error accumulation</span></li>
+<li class="flex items-start gap-2"><span class="text-purple-400">✓</span><span><strong>Uncertainty estimation</strong> — measure model uncertainty and stop imagining when it is high</span></li>
+<li class="flex items-start gap-2"><span class="text-purple-400">✓</span><span><strong>Model ensemble</strong> — use disagreement between models as a proxy for uncertainty</span></li>
+<li class="flex items-start gap-2"><span class="text-purple-400">✓</span><span><strong>Real → Simulated Alternation</strong> — regularly observe the real world again to correct drift</span></li>
+</ul>
+</div>
+</div>
+<!-- Box alerta -->
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-red-400 mb-2 flex items-center"><span class="mr-2">🚨</span> The trust paradox</h3>
+<p class="text-neutral-300 text-sm">A robot that trusts the world model too much executes fanciful plans that fail in the real world. A robot that distrusts it too much never acts. The balance — knowing <em>when</em> imagine and <em>when</em> observe — it is an open problem in uncertainty calibration.</p>
+</div>
+<!-- Conceitos técnicos finais -->
+<div class="grid grid-cols-3 gap-4">
+<div class="bg-dark-800 rounded-xl p-4 border border-dark-600 text-center">
+<div class="text-purple-400 text-2xl mb-2">📉</div>
+<div class="text-sm font-semibold mb-1">Compound Error</div>
+<div class="text-xs text-neutral-500">ε_t grows with t; long rollouts become unreliable</div>
+</div>
+<div class="bg-dark-800 rounded-xl p-4 border border-dark-600 text-center">
+<div class="text-purple-400 text-2xl mb-2">🎲</div>
+<div class="text-sm font-semibold mb-1">Uncertainty Estimation</div>
+<div class="text-xs text-neutral-500">ensemble disagreement or a probabilistic model as a warning signal</div>
+</div>
+<div class="bg-dark-800 rounded-xl p-4 border border-dark-600 text-center">
+<div class="text-purple-400 text-2xl mb-2">🔄</div>
+<div class="text-sm font-semibold mb-1">Reality Check</div>
+<div class="text-xs text-neutral-500">compare predictions with real observations to detect model drift</div>
+</div>
+</div>
+</section>
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- RESUMO                                                    -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<section class="mb-12">
+<div class="bg-gradient-to-br from-purple-900/40 via-dark-800 to-dark-800 rounded-xl border border-purple-500/30 p-8">
+<h2 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">✅</span> Module Summary</h2>
+<div class="space-y-4 mb-8">
+<div class="flex items-start gap-3">
+<span class="text-purple-400 mt-1">✓</span>
+<div><strong>World Models as “imagination”</strong><span class="text-neutral-400"> — internal representations that simulate f(s_t, a_t) → s_{t+1} to plan without interacting with the real world.</span></div>
+</div>
+<div class="flex items-start gap-3">
+<span class="text-purple-400 mt-1">✓</span>
+<div><strong>Video models as simulators</strong><span class="text-neutral-400"> — Sora, UniSim, and Genie2 show the potential to replace traditional simulators with learned physics.</span></div>
+</div>
+<div class="flex items-start gap-3">
+<span class="text-purple-400 mt-1">✓</span>
+<div><strong>Model-based RL is 100–1000× more efficient</strong><span class="text-neutral-400"> — DreamerV3 and TD-MPC2 train policies in a “dream,” drastically reducing the real-world interactions required.</span></div>
+</div>
+<div class="flex items-start gap-3">
+<span class="text-purple-400 mt-1">✓</span>
+<div><strong>Compound error is the enemy</strong><span class="text-neutral-400"> — robust systems limit the rollout horizon, estimate uncertainty, and regularly observe the real world again.</span></div>
+</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+<h3 class="font-semibold text-purple-400 mb-2">Next module</h3>
+<p class="text-neutral-300">3.3 — Data-Driven Robotics: Open X-Embodiment and Massive Datasets</p>
+</div>
+<div class="flex flex-col sm:flex-row gap-4">
+<a class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors" href="./">← Back to the Learning Path</a>
+<a class="flex-1 text-center px-6 py-3 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-500 transition-colors" href="modulo-3-3.html">Next module →</a>
+</div>
+</div>
+</section>
+</main>
+<footer class="border-t border-dark-600 py-8">
+<div class="max-w-6xl mx-auto px-4 text-center text-neutral-500 text-sm">
+<p>VLA Course — Vision-Language-Action · <a class="text-sky-400 hover:text-sky-300" href="https://ARCKHÉ AI" target="_blank">ARCKHÉ AI</a></p>
+</div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Módulo 2.5 — Treinamento: Imitation Learning, ACT, Diffusion Policy | ARCKHÉ AI</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#FACC15',
+            dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' }
+          }
+        }
+      }
+    }
+  </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    .topic-explanation { display: none; }
+    .topic-explanation.active { display: block; }
+
+    /* Light mode overrides - OBRIGATORIO */
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+
+    /* Light mode - cores de acento (trilha blue T2) */
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .bg-blue-500\/20 { background-color: rgba(37, 99, 235, 0.12); }
+    html:not(.dark) .bg-blue-500\/10 { background-color: rgba(37, 99, 235, 0.08); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37, 99, 235, 0.25); }
+    html:not(.dark) .hover\:bg-blue-500\/30:hover { background-color: rgba(37, 99, 235, 0.18); }
+    html:not(.dark) .bg-blue-900\/20 { background-color: rgba(37, 99, 235, 0.08); }
+    html:not(.dark) .from-blue-900\/40 { --tw-gradient-from: rgba(37, 99, 235, 0.10); }
+    html:not(.dark) .bg-blue-600 { background-color: #2563eb; }
+    html:not(.dark) .hover\:bg-blue-500:hover { background-color: #3b82f6; }
+
+    /* Light mode - remove gradientes e cores especiais */
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161, 98, 7, 0.08); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161, 98, 7, 0.25); }
+    html:not(.dark) .border-primary\/30 { border-color: rgba(161, 98, 7, 0.20); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+
+    /* Light mode - nav */
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255, 255, 255, 0.95); }
+
+    /* Dark mode - bordas suavizadas (OBRIGATORIO) */
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+
+    /* SVG light mode */
+    html:not(.dark) svg[role="img"] { filter: saturate(0.82) brightness(0.96); }
+  </style>
+<link href="https://linnoff88-dev.github.io/arckhe-vla/curso/trilha2/modulo-2-5.html" hreflang="pt-BR" rel="alternate"/><link href="https://linnoff88-dev.github.io/arckhe-vla/en/curso/trilha2/modulo-2-5.html" hreflang="en" rel="alternate"/><link href="https://linnoff88-dev.github.io/arckhe-vla/es/curso/trilha2/modulo-2-5.html" hreflang="es" rel="alternate"/></head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="ARCKHÉ-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="modulo-2-5.html" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">PT</a><a href="../../en/curso/trilha2/modulo-2-5.html" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">EN</a><a href="../../es/curso/trilha2/modulo-2-5.html" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">ES</a></div>
+<!-- NAVIGATION -->
+<nav class="fixed top-0 w-full bg-dark-900/95 backdrop-blur border-b border-dark-600 z-50">
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between items-center h-14">
+<!-- Logo + ARCKHÉ AI -->
+<div class="flex items-center space-x-3">
+<a class="text-primary font-bold text-lg" href="../../">VLA</a>
+<span class="text-neutral-600">|</span>
+<a class="text-sky-400 hover:text-sky-300 text-sm font-medium" href="https://ARCKHÉ AI" target="_blank">ARCKHÉ AI</a>
+</div>
+<!-- Trilhas + Theme Toggle -->
+<div class="flex items-center space-x-1 sm:space-x-2">
+<a class="px-3 py-1.5 rounded text-sm text-emerald-400 hover:bg-emerald-500/10 transition-colors" href="../trilha1/">
+<span class="sm:hidden">T1</span>
+<span class="hidden sm:inline">Fundamentos</span>
+</a>
+<a class="px-3 py-1.5 rounded text-sm text-blue-400 bg-blue-500/20 border border-blue-500/30 font-medium" href="./">
+<span class="sm:hidden">T2</span>
+<span class="hidden sm:inline">Técnico</span>
+</a>
+<a class="px-3 py-1.5 rounded text-sm text-purple-400 hover:bg-purple-500/10 transition-colors" href="../trilha3/">
+<span class="sm:hidden">T3</span>
+<span class="hidden sm:inline">Avançado</span>
+</a>
+<!-- Theme Toggle -->
+<button class="p-2 rounded-lg bg-dark-700 hover:bg-dark-600 transition-colors ml-2" id="theme-toggle">
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-dark-icon" viewbox="0 0 20 20">
+<path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+</svg>
+<svg class="hidden w-5 h-5 text-neutral-300" fill="currentColor" id="theme-toggle-light-icon" viewbox="0 0 20 20">
+<path clip-rule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" fill-rule="evenodd"></path>
+</svg>
+</button>
+</div>
+</div>
+</div>
+</nav>
+<main class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-16">
+<!-- BREADCRUMB -->
+<nav aria-label="breadcrumb" class="flex items-center space-x-2 text-sm text-neutral-500 mb-8">
+<a class="hover:text-neutral-300 transition-colors" href="../../">Início</a>
+<span>›</span>
+<a class="hover:text-blue-400 transition-colors" href="./">Técnico</a>
+<span>›</span>
+<span class="text-blue-400 font-medium">Módulo 2.5</span>
+</nav>
+<!-- HEADER -->
+<header class="bg-gradient-to-br from-blue-900/40 to-dark-800 rounded-2xl border border-blue-500/30 p-8 mb-12">
+<div class="mb-4">
+<span class="inline-block px-3 py-1 rounded-full bg-blue-500/20 border border-blue-500/30 text-blue-400 text-xs font-bold uppercase tracking-widest">MÓDULO 2.5</span>
+</div>
+<h1 class="text-3xl sm:text-4xl font-extrabold mb-4 leading-tight">
+        🎓 Treinamento: Imitation Learning, ACT, Diffusion Policy
+      </h1>
+<p class="text-neutral-300 text-lg leading-relaxed mb-8">
+        Como o robô aprende assistindo humanos: das demonstrações à política neural. Behavior cloning, Action Chunking Transformers e Diffusion Policy são os 3 paradigmas dominantes — cada um com trade-offs claros de complexidade, dados e performance.
+      </p>
+<!-- Stats -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+<div class="bg-dark-800/60 rounded-xl p-4 text-center border border-dark-600">
+<div class="text-2xl font-bold text-blue-400">6</div>
+<div class="text-xs text-neutral-500 mt-1">Tópicos</div>
+</div>
+<div class="bg-dark-800/60 rounded-xl p-4 text-center border border-dark-600">
+<div class="text-2xl font-bold text-blue-400">~45</div>
+<div class="text-xs text-neutral-500 mt-1">Minutos</div>
+</div>
+<div class="bg-dark-800/60 rounded-xl p-4 text-center border border-dark-600">
+<div class="text-2xl font-bold text-blue-400">Técnico</div>
+<div class="text-xs text-neutral-500 mt-1">Nível</div>
+</div>
+<div class="bg-dark-800/60 rounded-xl p-4 text-center border border-dark-600">
+<div class="text-2xl font-bold text-blue-400">Prático</div>
+<div class="text-xs text-neutral-500 mt-1">Tipo</div>
+</div>
+</div>
+</header>
+<!-- HERO SVG -->
+<div class="rounded-2xl border border-blue-500/30 bg-dark-900/40 p-4 mb-12 overflow-hidden">
+<svg aria-label="Pipeline de imitation learning: demonstrações humanas entram em três abordagens — Behavior Cloning, ACT e Diffusion Policy — que produzem uma política neural deployada no robô" class="w-full h-auto" role="img" viewbox="0 0 800 220" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<filter height="180%" id="m25-glow" width="180%" x="-40%" y="-40%">
+<fegaussianblur result="b" stddeviation="1.8"></fegaussianblur>
+<femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge>
+</filter>
+<lineargradient id="m25-grad" x1="0" x2="1" y1="0" y2="1">
+<stop offset="0" stop-color="#60a5fa"></stop>
+<stop offset="1" stop-color="#3b82f6"></stop>
+</lineargradient>
+<pattern height="32" id="m25-grid" patternunits="userSpaceOnUse" width="32">
+<circle cx="1.3" cy="1.3" fill="#3b82f6" opacity="0.10" r="1.3"></circle>
+</pattern>
+<marker id="m25-ah" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5">
+<path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#60a5fa"></path>
+</marker>
+<marker id="m25-ahc" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5">
+<path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#38bdf8"></path>
+</marker>
+</defs>
+<rect fill="url(#m25-grid)" height="220" width="800"></rect>
+<!-- Label topo -->
+<text fill="#3b82f6" font-family="Inter,sans-serif" font-size="10" font-weight="700" opacity="0.6" text-anchor="middle" x="400" y="18">Imitation Learning Pipeline</text>
+<!-- Bloco: Demonstrações Humanas -->
+<g filter="url(#m25-glow)">
+<rect fill="#0e1626" height="80" rx="12" stroke="url(#m25-grad)" stroke-width="2.5" width="130" x="20" y="70"></rect>
+</g>
+<text fill="#60a5fa" font-family="Inter,sans-serif" font-size="20" text-anchor="middle" x="85" y="98">🧑‍🏫</text>
+<text fill="#60a5fa" font-family="Inter,sans-serif" font-size="10" font-weight="700" text-anchor="middle" x="85" y="118">Demonstrações</text>
+<text fill="#9ca3af" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="85" y="133">pares (s, a)</text>
+<!-- Setas fan-out -->
+<path d="M150,110 C200,110 210,55 255,55" fill="none" marker-end="url(#m25-ah)" opacity="0.7" stroke="#60a5fa" stroke-width="1.5"></path>
+<path d="M150,110 L255,110" fill="none" marker-end="url(#m25-ah)" opacity="0.7" stroke="#60a5fa" stroke-width="1.5"></path>
+<path d="M150,110 C200,110 210,165 255,165" fill="none" marker-end="url(#m25-ah)" opacity="0.7" stroke="#60a5fa" stroke-width="1.5"></path>
+<!-- Bloco: Behavior Cloning -->
+<rect fill="#0c1929" height="50" rx="10" stroke="#3b82f6" stroke-width="1.8" width="145" x="255" y="30"></rect>
+<text fill="#3b82f6" font-family="Inter,sans-serif" font-size="11" font-weight="700" text-anchor="middle" x="327" y="52">Behavior Cloning</text>
+<text fill="#9ca3af" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="327" y="67">regressão supervisionada</text>
+<!-- Bloco: ACT -->
+<g filter="url(#m25-glow)">
+<rect fill="#0c1929" height="50" rx="10" stroke="#38bdf8" stroke-width="2" width="145" x="255" y="85"></rect>
+</g>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="11" font-weight="700" text-anchor="middle" x="327" y="107">ACT (Chunking)</text>
+<text fill="#9ca3af" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="327" y="122">Transformer + CVAE</text>
+<!-- Bloco: Diffusion Policy -->
+<rect fill="#0c1929" height="50" rx="10" stroke="#7dd3fc" stroke-width="1.8" width="145" x="255" y="140"></rect>
+<text fill="#7dd3fc" font-family="Inter,sans-serif" font-size="11" font-weight="700" text-anchor="middle" x="327" y="162">Diffusion Policy</text>
+<text fill="#9ca3af" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="327" y="177">denoising iterativo</text>
+<!-- Setas fan-in para Política Neural -->
+<path d="M400,55 C450,55 460,110 510,110" fill="none" marker-end="url(#m25-ahc)" opacity="0.6" stroke="#3b82f6" stroke-width="1.2"></path>
+<path d="M400,110 L510,110" fill="none" marker-end="url(#m25-ahc)" opacity="0.7" stroke="#38bdf8" stroke-width="1.5"></path>
+<path d="M400,165 C450,165 460,110 510,110" fill="none" marker-end="url(#m25-ahc)" opacity="0.6" stroke="#7dd3fc" stroke-width="1.2"></path>
+<!-- Bloco: Política Neural -->
+<g filter="url(#m25-glow)">
+<rect fill="#0e1622" height="70" rx="14" stroke="url(#m25-grad)" stroke-width="2.5" width="140" x="510" y="75"></rect>
+</g>
+<text fill="#60a5fa" font-family="Inter,sans-serif" font-size="12" font-weight="700" text-anchor="middle" x="580" y="101">Política Neural</text>
+<text fill="#9ca3af" font-family="Inter,sans-serif" font-size="9" text-anchor="middle" x="580" y="118">π(a | o, lang)</text>
+<text fill="#9ca3af" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="580" y="134">obs → ação</text>
+<!-- Seta para Deploy -->
+<path d="M650,110 L710,110" fill="none" marker-end="url(#m25-ah)" opacity="0.7" stroke="#60a5fa" stroke-width="1.5"></path>
+<!-- Bloco: Robô Deploy -->
+<rect fill="#0c1929" height="60" rx="10" stroke="#60a5fa" stroke-width="1.5" width="70" x="710" y="80"></rect>
+<text fill="#60a5fa" font-family="Inter,sans-serif" font-size="22" text-anchor="middle" x="745" y="108">🤖</text>
+<text fill="#9ca3af" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="745" y="128">Deploy</text>
+</svg>
+<p class="text-xs text-neutral-500 text-center mt-2">Diagrama ilustrativo — três paradigmas de imitation learning convergindo para uma política neural deployável.</p>
+</div>
+<!-- ============================================================ -->
+<!-- TÓPICO 1: Behavior Cloning -->
+<!-- ============================================================ -->
+<section class="mb-16" id="topico-1">
+<div class="flex items-center gap-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl shrink-0">1</span>
+<h2 class="text-2xl font-bold">🎯 Imitation Learning: behavior cloning básico</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        Behavior cloning (BC) é a forma mais simples de imitation learning: coleta-se demonstrações humanas (pares observação-ação) e treina-se uma rede neural supervisionada para mapear observações a ações. É essencialmente <strong class="text-blue-400">regressão sobre trajetórias</strong>, sem qualquer simulação de ambiente.
+      </p>
+<!-- Conceito principal -->
+<div class="bg-gradient-to-br from-blue-900/40 to-dark-800 rounded-xl border border-blue-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center"><span class="mr-2">🔑</span> Formulação matemática</h3>
+<div class="bg-dark-900/60 rounded-lg p-4 font-mono text-sm text-neutral-300 leading-relaxed">
+<p class="text-blue-400 mb-1"># Objetivo do Behavior Cloning</p>
+<p>π* = argmin<sub>π</sub> E<sub>(s,a)~D</sub> [ L(π(s), a) ]</p>
+<p class="text-neutral-500 mt-2"># onde D é o dataset de demonstrações humanas</p>
+<p class="text-neutral-500"># L é MSE para ações contínuas, cross-entropy para discretas</p>
+<p class="mt-3 text-yellow-400"># Treinamento no LeRobot (ACT como BC baseline)</p>
+<p>python lerobot/scripts/train.py \</p>
+<p class="pl-4">policy=act \</p>
+<p class="pl-4">dataset_repo_id=lerobot/aloha_sim_insertion_human \</p>
+<p class="pl-4">training.num_steps=100000</p>
+</div>
+</div>
+<!-- Grid fazer vs evitar -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6">
+<h4 class="font-bold text-blue-400 mb-4">✓ Quando BC funciona bem</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">✓</span><span>Tarefas com <strong>baixa variância</strong> — pegar objeto sempre no mesmo lugar</span></li>
+<li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">✓</span><span><strong>Muitas demonstrações</strong> — 500+ trajetórias cobrindo o espaço de estados</span></li>
+<li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">✓</span><span>Protótipo rápido: treina em <strong>minutos</strong>, sem setup de reward</span></li>
+<li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">✓</span><span>Baseline interpretável para comparar com ACT e Diffusion</span></li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+<h4 class="font-bold text-red-400 mb-4">✗ Problemas clássicos do BC</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span><span><strong>Compounding error</strong> — pequenos erros se acumulam fora da distribuição de treino</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span><span><strong>Covariate shift</strong> — estado de teste ≠ estado de treino, degradação abrupta</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span><span>Multimodalidade mal capturada — MSE faz média entre modos, gerando ação inválida</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span><span>Exige demos consistentes — um humano inconsistente destrói o treinamento</span></li>
+</ul>
+</div>
+</div>
+<!-- Tip box -->
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6">
+<h3 class="text-lg font-semibold text-primary mb-2 flex items-center"><span class="mr-2">💡</span> Dica prática</h3>
+<p class="text-neutral-300">Use BC como baseline obrigatório. Se BC com 200 demos não atinge &gt;50% success rate, sua tarefa provavelmente é multimodal ou seu dataset tem inconsistências — e ACT/Diffusion Policy resolverão isso sistematicamente.</p>
+</div>
+</section>
+<!-- ============================================================ -->
+<!-- TÓPICO 2: ACT -->
+<!-- ============================================================ -->
+<section class="mb-16" id="topico-2">
+<div class="flex items-center gap-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl shrink-0">2</span>
+<h2 class="text-2xl font-bold">⚡ ACT: Action Chunking with Transformers</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        ACT (Zhao et al., 2023) prediz <strong class="text-blue-400">chunks de ações futuras</strong> de uma vez, em vez de uma ação por vez. Um encoder CVAE gera um estilo latente, e um decoder transformer gera K ações futuras condicionadas nesse estilo e na observação atual — resolvendo compounding error e multimodalidade simultaneamente.
+      </p>
+<!-- Box conceito com código -->
+<div class="bg-gradient-to-br from-blue-900/40 to-dark-800 rounded-xl border border-blue-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center"><span class="mr-2">🏗️</span> Arquitetura ACT em detalhe</h3>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm mb-4">
+<div class="bg-dark-900/60 rounded-lg p-4">
+<p class="font-bold text-blue-400 mb-2">1. CVAE Encoder</p>
+<p class="text-neutral-400">Recebe sequência de ações humanas → produz z (estilo latente). Em inferência, z ~ N(0,1).</p>
+</div>
+<div class="bg-dark-900/60 rounded-lg p-4">
+<p class="font-bold text-blue-400 mb-2">2. Visual Backbone</p>
+<p class="text-neutral-400">ResNet-18 processa imagens de câmeras → tokens visuais para o decoder.</p>
+</div>
+<div class="bg-dark-900/60 rounded-lg p-4">
+<p class="font-bold text-blue-400 mb-2">3. Transformer Decoder</p>
+<p class="text-neutral-400">Gera chunk de K=100 ações. Temporal ensembling combina chunks sobrepostos.</p>
+</div>
+</div>
+<div class="bg-dark-900/60 rounded-lg p-4 font-mono text-sm text-neutral-300">
+<p class="text-blue-400 mb-1"># Configuração ACT no LeRobot</p>
+<p>policy.chunk_size = 100  <span class="text-neutral-500"># K ações por inferência</span></p>
+<p>policy.n_action_steps = 100</p>
+<p>policy.temporal_ensemble_coeff = 0.01</p>
+<p>policy.kl_weight = 10  <span class="text-neutral-500"># peso do KL no ELBO</span></p>
+</div>
+</div>
+<!-- Timeline: por que ACT funciona -->
+<div class="mb-6">
+<h3 class="text-lg font-semibold mb-4 text-blue-400">📅 Evolução: do BC ao ACT</h3>
+<div class="space-y-4">
+<div class="flex items-start gap-4">
+<div class="flex items-center justify-center w-10 h-10 rounded-full bg-blue-500/20 border border-blue-500/30 text-blue-400 font-bold text-sm shrink-0">BC</div>
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-4 flex-1">
+<p class="font-semibold text-sm mb-1">Behavior Cloning (2010s)</p>
+<p class="text-neutral-400 text-sm">Uma ação por observação. Simples mas com compounding error exponencial em trajetórias longas.</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="flex items-center justify-center w-10 h-10 rounded-full bg-blue-500/20 border border-blue-500/30 text-blue-400 font-bold text-sm shrink-0">DAgger</div>
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-4 flex-1">
+<p class="font-semibold text-sm mb-1">DAgger (Ross et al., 2011)</p>
+<p class="text-neutral-400 text-sm">Itera coletando mais demos nos estados onde o agente erra. Resolve covariate shift mas exige expert online.</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="flex items-center justify-center w-10 h-10 rounded-full bg-blue-500/20 border border-blue-500/30 text-blue-400 font-bold text-sm shrink-0 filter drop-shadow-lg">ACT</div>
+<div class="bg-dark-800 rounded-xl border border-blue-500/30 p-4 flex-1">
+<p class="font-semibold text-sm mb-1 text-blue-400">ACT — Action Chunking (Zhao et al., 2023)</p>
+<p class="text-neutral-400 text-sm">Prediz K=100 ações futuras + CVAE para multimodalidade. Bimanual com ALOHA: 80%+ success em inserção precisa com 50 demos.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Tip box -->
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6">
+<h3 class="text-lg font-semibold text-primary mb-2 flex items-center"><span class="mr-2">💡</span> Dica prática</h3>
+<p class="text-neutral-300">ACT é a política padrão do LeRobot e a escolha certa para manipulação de precisão com 50-200 demos. Comece com <code class="bg-dark-700 px-1 rounded text-sm">chunk_size=100</code> e <code class="bg-dark-700 px-1 rounded text-sm">kl_weight=10</code> — ajuste só se a perda KL colapsar.</p>
+</div>
+</section>
+<!-- ============================================================ -->
+<!-- TÓPICO 3: Diffusion Policy -->
+<!-- ============================================================ -->
+<section class="mb-16" id="topico-3">
+<div class="flex items-center gap-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl shrink-0">3</span>
+<h2 class="text-2xl font-bold">🌀 Diffusion Policy: denoising para ações</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        Diffusion Policy (Chi et al., 2023) aplica modelos de difusão à geração de trajetórias robóticas. Começa com ruído gaussiano e, em T passos de denoising condicionados na observação, gera uma trajetória de ações suave e multimodal — capturando distribuições complexas que MSE não consegue representar.
+      </p>
+<!-- SVG meio: processo de denoising -->
+<div class="rounded-2xl border border-blue-500/30 bg-dark-900/40 p-4 mb-6 overflow-hidden">
+<svg aria-label="Processo de denoising da Diffusion Policy: ruído gaussiano puro é progressivamente refinado em T passos até virar uma trajetória de ações limpa" class="w-full h-auto" role="img" viewbox="0 0 720 160" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<filter height="180%" id="m25b-glow" width="180%" x="-40%" y="-40%">
+<fegaussianblur result="b" stddeviation="1.8"></fegaussianblur>
+<femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge>
+</filter>
+<pattern height="28" id="m25b-grid" patternunits="userSpaceOnUse" width="28">
+<circle cx="1.2" cy="1.2" fill="#7dd3fc" opacity="0.08" r="1.2"></circle>
+</pattern>
+<marker id="m25b-ah" markerheight="8" markerwidth="8" orient="auto" refx="6" refy="4">
+<path d="M0,0 L7,4 L0,8 L2,4 Z" fill="#7dd3fc"></path>
+</marker>
+</defs>
+<rect fill="url(#m25b-grid)" height="160" width="720"></rect>
+<!-- Label -->
+<text fill="#7dd3fc" font-family="Inter,sans-serif" font-size="9" font-weight="700" opacity="0.7" text-anchor="middle" x="360" y="15">Diffusion Policy — Processo de Denoising (T passos)</text>
+<!-- Bloco ruído -->
+<rect fill="#1a1033" height="75" rx="10" stroke="#6366f1" stroke-width="1.8" width="90" x="15" y="40"></rect>
+<text fill="#6366f1" font-family="Inter,sans-serif" font-size="18" text-anchor="middle" x="60" y="73">🎲</text>
+<text fill="#6366f1" font-family="Inter,sans-serif" font-size="9" font-weight="700" text-anchor="middle" x="60" y="93">Ruído</text>
+<text fill="#9ca3af" font-family="Inter,sans-serif" font-size="7" text-anchor="middle" x="60" y="107">N(0, I)</text>
+<!-- Seta t=T -->
+<path d="M105,77 L155,77" fill="none" marker-end="url(#m25b-ah)" opacity="0.6" stroke="#7dd3fc" stroke-width="1.2"></path>
+<text fill="#7dd3fc" font-family="Inter,sans-serif" font-size="7" text-anchor="middle" x="130" y="70">t=T</text>
+<!-- Denoising step 1 -->
+<rect fill="#0a1825" height="60" rx="10" stroke="#38bdf8" stroke-width="1.5" width="90" x="155" y="48"></rect>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="9" font-weight="700" text-anchor="middle" x="200" y="74">ε_θ(aₜ|o)</text>
+<text fill="#9ca3af" font-family="Inter,sans-serif" font-size="7" text-anchor="middle" x="200" y="90">denoising</text>
+<text fill="#9ca3af" font-family="Inter,sans-serif" font-size="7" text-anchor="middle" x="200" y="102">step T→T-1</text>
+<!-- ... iteração -->
+<path d="M245,78 L295,78" fill="none" marker-end="url(#m25b-ah)" opacity="0.6" stroke="#7dd3fc" stroke-width="1.2"></path>
+<text fill="#7dd3fc" font-family="Inter,sans-serif" font-size="7" text-anchor="middle" x="270" y="70">…</text>
+<!-- Denoising step N -->
+<rect fill="#0a1825" height="60" rx="10" stroke="#38bdf8" stroke-width="1.5" width="90" x="295" y="48"></rect>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="9" font-weight="700" text-anchor="middle" x="340" y="74">ε_θ(aₜ|o)</text>
+<text fill="#9ca3af" font-family="Inter,sans-serif" font-size="7" text-anchor="middle" x="340" y="90">denoising</text>
+<text fill="#9ca3af" font-family="Inter,sans-serif" font-size="7" text-anchor="middle" x="340" y="102">step 2→1</text>
+<!-- Seta t=0 -->
+<path d="M385,78 L435,78" fill="none" marker-end="url(#m25b-ah)" opacity="0.6" stroke="#7dd3fc" stroke-width="1.2"></path>
+<text fill="#7dd3fc" font-family="Inter,sans-serif" font-size="7" text-anchor="middle" x="410" y="70">t=0</text>
+<!-- Trajetória limpa -->
+<g filter="url(#m25b-glow)">
+<rect fill="#0c1929" height="80" rx="10" stroke="#7dd3fc" stroke-width="2.2" width="100" x="435" y="38"></rect>
+</g>
+<text fill="#7dd3fc" font-family="Inter,sans-serif" font-size="14" text-anchor="middle" x="485" y="68">📈</text>
+<text fill="#7dd3fc" font-family="Inter,sans-serif" font-size="9" font-weight="700" text-anchor="middle" x="485" y="88">Trajetória</text>
+<text fill="#9ca3af" font-family="Inter,sans-serif" font-size="7" text-anchor="middle" x="485" y="102">limpa + suave</text>
+<!-- Seta para execução -->
+<path d="M535,78 L575,78" fill="none" marker-end="url(#m25b-ah)" opacity="0.6" stroke="#60a5fa" stroke-width="1.2"></path>
+<!-- Execução -->
+<rect fill="#0e1622" height="60" rx="10" stroke="#60a5fa" stroke-width="1.5" width="120" x="575" y="48"></rect>
+<text fill="#60a5fa" font-family="Inter,sans-serif" font-size="9" font-weight="700" text-anchor="middle" x="635" y="72">Execução no</text>
+<text fill="#60a5fa" font-family="Inter,sans-serif" font-size="9" font-weight="700" text-anchor="middle" x="635" y="86">Robô 🤖</text>
+<text fill="#9ca3af" font-family="Inter,sans-serif" font-size="7" text-anchor="middle" x="635" y="100">receding horizon</text>
+<!-- Observação condiciona todos os steps -->
+<rect fill="#0a1220" height="26" rx="8" stroke="#3b82f6" stroke-dasharray="3,2" stroke-width="1" width="270" x="155" y="125"></rect>
+<text fill="#3b82f6" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="290" y="142">Observação o (imagem + propriocepção) condiciona todos os passos</text>
+</svg>
+<p class="text-xs text-neutral-500 text-center mt-2">Diagrama ilustrativo — Diffusion Policy itera T passos de denoising condicionados na observação atual.</p>
+</div>
+<!-- Grid conceitos -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+<h3 class="text-lg font-semibold text-blue-400 mb-4">Comparação: U-Net vs Transformer backbone</h3>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+<div>
+<p class="font-bold text-blue-400 mb-2">CNN (U-Net)</p>
+<ul class="space-y-1 text-neutral-400">
+<li>• Mais rápido em inferência (10-25ms)</li>
+<li>• Melhor para ações de baixa dimensão</li>
+<li>• 50-100 DDPM steps ou 15 DDIM steps</li>
+<li>• Escolha padrão para tasks com câmera única</li>
+</ul>
+</div>
+<div>
+<p class="font-bold text-blue-400 mb-2">Transformer</p>
+<ul class="space-y-1 text-neutral-400">
+<li>• Melhor scaling com mais dados e câmeras</li>
+<li>• Contexto longo: histórico de observações</li>
+<li>• Latência maior (30-100ms)</li>
+<li>• Escolha para sistemas multimodais complexos</li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Tip box -->
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6">
+<h3 class="text-lg font-semibold text-primary mb-2 flex items-center"><span class="mr-2">💡</span> Dica prática</h3>
+<p class="text-neutral-300">Use <code class="bg-dark-700 px-1 rounded text-sm">num_diffusion_iters=15</code> com DDIM (em vez de 100 com DDPM) para inferência em tempo real. A perda de qualidade é mínima e você mantém latência abaixo de 50ms para controle em 20Hz.</p>
+</div>
+</section>
+<!-- ============================================================ -->
+<!-- TÓPICO 4: Fine-tuning de VLAs -->
+<!-- ============================================================ -->
+<section class="mb-16" id="topico-4">
+<div class="flex items-center gap-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl shrink-0">4</span>
+<h2 class="text-2xl font-bold">🔧 Fine-tuning de VLAs pré-treinados</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        Fine-tuning adapta um modelo VLA pré-treinado em dados gerais (ex: <strong class="text-blue-400">OpenVLA</strong> treinado em Open X-Embodiment com 970k trajetórias) para sua tarefa e robô específicos usando apenas 50-200 demonstrações. É o caminho prático para 99% dos projetos reais.
+      </p>
+<!-- Grid fazer vs evitar -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6">
+<h4 class="font-bold text-blue-400 mb-4">✓ Estratégias eficientes</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">✓</span><span><strong>LoRA/QLoRA</strong> — fine-tune apenas 0.1-1% dos parâmetros, sem degradar o backbone</span></li>
+<li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">✓</span><span><strong>Dataset mixing</strong> — misture dados específicos (70%) com dados gerais (30%) para evitar catastrophic forgetting</span></li>
+<li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">✓</span><span><strong>Cosine decay com warmup</strong> — 5% de warmup steps, LR final 1e-5</span></li>
+<li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">✓</span><span>OpenVLA-OFT supera RT-2-X com <strong>10× menos dados</strong></span></li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+<h4 class="font-bold text-red-400 mb-4">✗ Erros comuns</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span><span><strong>Full fine-tune com LR alto</strong> — destrói features gerais aprendidas no pré-treino</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span><span><strong>Sem dataset mixing</strong> — catastrófico esquecimento de generalização</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span><span>Avaliar apenas no dataset de treino — overfitting invisível sem holdout tasks</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span><span>Ignorar a resolução de imagem do modelo base — mudar resolução quebra o ViT</span></li>
+</ul>
+</div>
+</div>
+<!-- Código de fine-tuning -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+<h3 class="text-lg font-semibold text-blue-400 mb-3 flex items-center"><span class="mr-2">💻</span> Fine-tuning OpenVLA com LoRA</h3>
+<div class="bg-dark-900/80 rounded-lg p-4 font-mono text-sm text-neutral-300 overflow-x-auto">
+<p class="text-neutral-500 mb-2"># Instalar dependências</p>
+<p>pip install openvla transformers peft</p>
+<p class="mt-3 text-neutral-500"># Configurar LoRA rank=32 para action head</p>
+<p>from peft import LoraConfig, get_peft_model</p>
+<p>lora_config = LoraConfig(</p>
+<p class="pl-4">r=<span class="text-blue-400">32</span>,</p>
+<p class="pl-4">lora_alpha=<span class="text-blue-400">64</span>,</p>
+<p class="pl-4">target_modules=<span class="text-yellow-400">["q_proj", "v_proj"]</span>,</p>
+<p class="pl-4">lora_dropout=<span class="text-blue-400">0.05</span>,</p>
+<p>)</p>
+<p class="mt-3 text-neutral-500"># LR baixo para evitar catastrophic forgetting</p>
+<p>optimizer = AdamW(params, lr=<span class="text-blue-400">2e-5</span>)</p>
+<p>scheduler = cosine_with_warmup(optimizer, warmup=<span class="text-blue-400">500</span>)</p>
+</div>
+</div>
+</section>
+<!-- ============================================================ -->
+<!-- TÓPICO 5: RL post-training -->
+<!-- ============================================================ -->
+<section class="mb-16" id="topico-5">
+<div class="flex items-center gap-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl shrink-0">5</span>
+<h2 class="text-2xl font-bold">🚀 RL post-training: +24% com reinforcement</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        Reinforcement Learning post-training aplica RL (PPO, GRPO) sobre uma política inicializada por imitation learning. O robô melhora <strong class="text-blue-400">além das demos humanas</strong> ao otimizar reward signals automáticos — como detecção de sucesso por câmera ou sensor de força.
+      </p>
+<!-- Timeline RL post-training -->
+<div class="mb-6">
+<h3 class="text-lg font-semibold mb-4 text-blue-400">📅 Pipeline IL → RL</h3>
+<div class="space-y-4">
+<div class="flex items-start gap-4">
+<div class="flex items-center justify-center w-10 h-10 rounded-full bg-blue-500/20 border border-blue-500/30 text-blue-400 font-bold text-sm shrink-0">①</div>
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-4 flex-1">
+<p class="font-semibold text-sm mb-1">Pré-treino via Imitation Learning</p>
+<p class="text-neutral-400 text-sm">50-200 demos humanas → política BC ou ACT como inicialização. Garante comportamento seguro e próximo ao ótimo antes do RL.</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="flex items-center justify-center w-10 h-10 rounded-full bg-blue-500/20 border border-blue-500/30 text-blue-400 font-bold text-sm shrink-0">②</div>
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-4 flex-1">
+<p class="font-semibold text-sm mb-1">Definir reward function</p>
+<p class="text-neutral-400 text-sm">Success reward esparso (0/1) + reward denso auxiliar (distância à posição alvo). Reward shaping crítico para sample efficiency.</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="flex items-center justify-center w-10 h-10 rounded-full bg-blue-500/20 border border-blue-500/30 text-blue-400 font-bold text-sm shrink-0">③</div>
+<div class="bg-dark-800 rounded-xl border border-blue-500/30 p-4 flex-1 border">
+<p class="font-semibold text-sm mb-1 text-blue-400">RL fine-tuning com PPO/GRPO</p>
+<p class="text-neutral-400 text-sm">KL penalty vs política IL (não divergir). 10k-100k rollouts de simulação. +24% success rate em inserção de conector (Physical Intelligence, 2024).</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="flex items-center justify-center w-10 h-10 rounded-full bg-blue-500/20 border border-blue-500/30 text-blue-400 font-bold text-sm shrink-0">④</div>
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-4 flex-1">
+<p class="font-semibold text-sm mb-1">Avaliação e deploy</p>
+<p class="text-neutral-400 text-sm">Testar em cenários holdout com variações (posição, iluminação, objetos) antes de transferir ao robô real.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Box conceitos -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6">
+<h3 class="text-lg font-semibold text-blue-400 mb-4">Conceitos-chave do RL post-training</h3>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+<div>
+<p class="font-bold text-blue-400 mb-1">KL penalty</p>
+<p class="text-neutral-400">Mantém π_RL próxima de π_IL, evitando colapso catastrófico. β_KL típico: 0.01-0.1.</p>
+</div>
+<div>
+<p class="font-bold text-blue-400 mb-1">Sample efficiency</p>
+<p class="text-neutral-400">RL direto no robô real: custo altíssimo. Simulação + sim-to-real é obrigatório para RL em escala.</p>
+</div>
+<div>
+<p class="font-bold text-blue-400 mb-1">Online vs Offline RL</p>
+<p class="text-neutral-400">Offline RL (IQL, TD3+BC) usa datasets estáticos — mais seguro. Online RL coleta novos dados mas exige simulador rápido.</p>
+</div>
+<div>
+<p class="font-bold text-blue-400 mb-1">GRPO para VLAs</p>
+<p class="text-neutral-400">Group Relative Policy Optimization — variante do PPO com estimativa de baseline por grupo de rollouts. Menos hyperparâmetros.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- ============================================================ -->
+<!-- TÓPICO 6: Avaliação -->
+<!-- ============================================================ -->
+<section class="mb-16" id="topico-6">
+<div class="flex items-center gap-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl shrink-0">6</span>
+<h2 class="text-2xl font-bold">📊 Avaliação: success rate, OOD generalization</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+        Avaliação em robótica VLA mede <strong class="text-blue-400">success rate</strong> (% de tarefas completadas) em cenários in-distribution e out-of-distribution. Benchmarks como LIBERO, RLBench e SIMPLER padronizam comparações — essencial para saber se sua política generaliza ou apenas memoriza o dataset.
+      </p>
+<!-- Grid benchmarks -->
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-5">
+<p class="font-bold text-blue-400 mb-2">🏋️ LIBERO</p>
+<p class="text-neutral-400 text-sm">4 suítes com 10 tarefas cada. Mede generalização espacial, de objetos, de goals e long-horizon. Padrão HuggingFace.</p>
+</div>
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-5">
+<p class="font-bold text-blue-400 mb-2">🤖 RLBench</p>
+<p class="text-neutral-400 text-sm">100 tarefas únicas com dificuldade variável. Strong baseline para comparação de algoritmos de imitation learning.</p>
+</div>
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-5">
+<p class="font-bold text-blue-400 mb-2">📐 SIMPLER</p>
+<p class="text-neutral-400 text-sm">Benchmarks realistas com sim-to-real alinhado. Mede robustez a variações de iluminação, textura e posição.</p>
+</div>
+</div>
+<!-- Grid fazer vs evitar - avaliação -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6">
+<h4 class="font-bold text-blue-400 mb-4">✓ Avaliação rigorosa</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">✓</span><span><strong>N≥50 episódios</strong> por condição para intervalos de confiança confiáveis</span></li>
+<li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">✓</span><span>Testar com objetos, posições e iluminações <strong>não vistas no treino</strong></span></li>
+<li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">✓</span><span>Reportar média ± desvio padrão sobre múltiplas seeds</span></li>
+<li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">✓</span><span>Analisar <strong>modo de falha</strong>: onde exatamente o robô erra</span></li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+<h4 class="font-bold text-red-400 mb-4">✗ Avaliação fraca</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span><span><strong>N&lt;10 episódios</strong> — variância mascarada; número de sucesso sem significância</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span><span>Testar somente <strong>in-distribution</strong> — sucesso de treino não é sucesso real</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span><span>Comparar modelos com número diferente de demonstrações sem controlar data budget</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span><span>Avaliar em tarefa diferente da publicação original do benchmark</span></li>
+</ul>
+</div>
+</div>
+<!-- Tip box -->
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6">
+<h3 class="text-lg font-semibold text-primary mb-2 flex items-center"><span class="mr-2">💡</span> Dica prática</h3>
+<p class="text-neutral-300">Antes de rodar 100k steps de treino, avalie com <code class="bg-dark-700 px-1 rounded text-sm">n_eval_episodes=20</code> a cada 10k steps para detectar plateau cedo. Curva de aprendizado plana após 30k steps com BC geralmente indica tarefa multimodal — mude para Diffusion Policy.</p>
+</div>
+</section>
+<!-- RESUMO FINAL -->
+<section class="mb-12" id="resumo">
+<div class="bg-gradient-to-br from-blue-900/40 to-dark-800 rounded-2xl border border-blue-500/30 p-8">
+<h2 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">✅</span> Resumo do Módulo</h2>
+<div class="space-y-4 mb-8">
+<div class="flex items-start gap-3">
+<span class="text-blue-400 mt-1">✓</span>
+<div><strong>BC → ACT → Diffusion Policy</strong><span class="text-neutral-400"> — progressão de complexidade com ganhos reais: cada paradigma resolve um problema do anterior.</span></div>
+</div>
+<div class="flex items-start gap-3">
+<span class="text-blue-400 mt-1">✓</span>
+<div><strong>Action chunking resolve compounding error</strong><span class="text-neutral-400"> — prever K=100 ações futuras reduz a frequência de decisão e isola erros locais.</span></div>
+</div>
+<div class="flex items-start gap-3">
+<span class="text-blue-400 mt-1">✓</span>
+<div><strong>Fine-tuning com LoRA é suficiente</strong><span class="text-neutral-400"> — adapta um VLA pré-treinado a sua tarefa com 50-200 demos sem GPU cluster.</span></div>
+</div>
+<div class="flex items-start gap-3">
+<span class="text-blue-400 mt-1">✓</span>
+<div><strong>Avaliação rigorosa com OOD</strong><span class="text-neutral-400"> — success rate in-distribution não prediz performance real; teste com variações não vistas.</span></div>
+</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+<h3 class="font-semibold text-blue-400 mb-2">Próximo módulo</h3>
+<p class="text-neutral-300">2.6 — Simuladores: Isaac Sim, MuJoCo, Gazebo e Sim-to-Real Transfer</p>
+</div>
+<div class="flex flex-col sm:flex-row gap-4">
+<a class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors" href="./">← Voltar para a Trilha</a>
+<a class="flex-1 text-center px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-500 transition-colors" href="modulo-2-6.html">Próximo módulo →</a>
+</div>
+</div>
+</section>
+</main>
+<!-- FOOTER -->
+<footer class="border-t border-dark-600 py-8">
+<div class="max-w-6xl mx-auto px-4 text-center text-neutral-500 text-sm">
+<p>VLA — <a class="text-sky-400 hover:text-sky-300" href="https://ARCKHÉ AI" target="_blank">ARCKHÉ AI</a></p>
+<p class="mt-1">Pesquisa profunda: junho 2026 · 50+ fontes acadêmicas e industriais</p>
+<p class="mt-1 text-neutral-600">DeepMind · Stanford · Berkeley · NVIDIA · HuggingFace · Physical Intelligence · Alibaba · Figure AI</p>
+</div>
+</footer>
+<script>
+    // Theme Toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    const darkIcon = document.getElementById('theme-toggle-dark-icon');
+    const lightIcon = document.getElementById('theme-toggle-light-icon');
+
+    function updateIcons() {
+      if (document.documentElement.classList.contains('dark')) {
+        darkIcon.classList.add('hidden');
+        lightIcon.classList.remove('hidden');
+      } else {
+        lightIcon.classList.add('hidden');
+        darkIcon.classList.remove('hidden');
+      }
+    }
+
+    // Init
+    updateIcons();
+
+    themeToggle.addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark');
+      localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+      updateIcons();
+    });
+
+    // Restore saved theme
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'light') {
+      document.documentElement.classList.remove('dark');
+      updateIcons();
+    }
+  </script>
+</body>
+</html>

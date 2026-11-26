@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Module 1.6 — Safety and Standards: ISO 10218:2025 | VLA Course</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: { 600:'#374151', 700:'#1f2937', 800:'#1a1a2e', 900:'#111827' },
+                        primary: '#f59e0b'
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .dark body { background-color: #111827; }
+        html:not(.dark) body { background-color: #f8fafc; }
+        html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+        html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+        html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+        html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+        html:not(.dark) .text-neutral-100 { color: #111827; }
+        html:not(.dark) .text-neutral-300 { color: #4b5563; }
+        html:not(.dark) .text-neutral-400 { color: #6b7280; }
+        html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+        html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+        html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+        html:not(.dark) .text-emerald-400 { color: #059669; }
+        html:not(.dark) .text-blue-400 { color: #2563eb; }
+        html:not(.dark) .text-purple-400 { color: #7c3aed; }
+        html:not(.dark) .bg-emerald-500\/20 { background-color: rgba(5, 150, 105, 0.12); }
+        html:not(.dark) .bg-emerald-500\/10 { background-color: rgba(5, 150, 105, 0.08); }
+        html:not(.dark) .bg-emerald-900\/20 { background-color: rgba(5, 150, 105, 0.08); }
+        html:not(.dark) .bg-emerald-900\/40 { background-color: rgba(5, 150, 105, 0.06); }
+        html:not(.dark) .bg-blue-500\/20 { background-color: rgba(37, 99, 235, 0.12); }
+        html:not(.dark) .bg-blue-900\/20 { background-color: rgba(37, 99, 235, 0.08); }
+        html:not(.dark) .bg-purple-500\/20 { background-color: rgba(124, 58, 237, 0.12); }
+        html:not(.dark) .bg-red-900\/20 { background-color: rgba(220, 38, 38, 0.07); }
+        html:not(.dark) .border-emerald-500\/30 { border-color: rgba(5, 150, 105, 0.25); }
+        html:not(.dark) .border-blue-500\/30 { border-color: rgba(37, 99, 235, 0.25); }
+        html:not(.dark) .border-purple-500\/30 { border-color: rgba(124, 58, 237, 0.25); }
+        html:not(.dark) .border-red-500\/30 { border-color: rgba(220, 38, 38, 0.25); }
+        html:not(.dark) .hover\:border-emerald-500\/50:hover { border-color: rgba(5, 150, 105, 0.4); }
+        html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+        html:not(.dark) .text-primary { color: #a16207; }
+        html:not(.dark) .bg-primary\/10 { background-color: rgba(161, 98, 7, 0.08); }
+        html:not(.dark) .border-primary\/30 { border-color: rgba(161, 98, 7, 0.25); }
+        html:not(.dark) .border-primary\/40 { border-color: rgba(161, 98, 7, 0.25); }
+        html:not(.dark) .text-sky-400 { color: #0369a1; }
+        html:not(.dark) .text-yellow-400 { color: #a16207; }
+        html:not(.dark) .text-red-400 { color: #dc2626; }
+        html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+        html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255, 255, 255, 0.95); }
+        html:not(.dark) svg[role="img"] { filter: saturate(0.82) brightness(0.96); }
+        .dark .border-dark-600 { border-color: #374151; }
+        .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+        @keyframes wf-pulse { 0%,100% { opacity:.55 } 50% { opacity:1 } }
+        @media (prefers-reduced-motion: no-preference) {
+          .wf-a { animation: wf-pulse 2.6s ease-in-out infinite; }
+          .wf-a:nth-child(2){animation-delay:.25s} .wf-a:nth-child(3){animation-delay:.5s}
+          .wf-a:nth-child(4){animation-delay:.75s} .wf-a:nth-child(5){animation-delay:1s}
+        }
+    </style>
+<link href="https://linnoff88-dev.github.io/arckhe-vla/curso/trilha1/modulo-1-6.html" hreflang="pt-BR" rel="alternate"/><link href="https://linnoff88-dev.github.io/arckhe-vla/en/curso/trilha1/modulo-1-6.html" hreflang="en" rel="alternate"/><link href="https://linnoff88-dev.github.io/arckhe-vla/es/curso/trilha1/modulo-1-6.html" hreflang="es" rel="alternate"/></head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="ARCKHÉ-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../../../curso/trilha1/modulo-1-6.html" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="modulo-1-6.html" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">EN</a><a href="../../../es/curso/trilha1/modulo-1-6.html" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">ES</a></div>
+<!-- NAV -->
+<nav class="fixed top-0 w-full bg-dark-900/95 backdrop-blur border-b border-dark-600 z-50">
+<div class="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<a class="text-primary font-bold text-lg" href="../../">VLA</a>
+<span class="text-neutral-500">|</span>
+<a class="text-sky-400 hover:text-sky-300 text-sm font-medium" href="https://ARCKHÉ AI" target="_blank">ARCKHÉ AI</a>
+</div>
+<div class="flex items-center gap-2">
+<a class="px-3 py-1.5 rounded text-sm text-emerald-400 bg-emerald-500/20 border border-emerald-500/30 font-medium" href="./">Fundamentals</a>
+<a class="px-3 py-1.5 rounded text-sm text-blue-400 hover:bg-blue-500/10" href="../trilha2/">Technical</a>
+<a class="px-3 py-1.5 rounded text-sm text-purple-400 hover:bg-purple-500/10" href="../trilha3/">Advanced</a>
+<button class="ml-2 p-2 rounded hover:bg-dark-700 text-neutral-400" onclick="document.documentElement.classList.toggle('dark')" title="Switch theme">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+</div>
+</div>
+</nav>
+<!-- BREADCRUMB -->
+<div class="max-w-4xl mx-auto px-4 pt-20">
+<div class="flex items-center gap-2 text-sm text-neutral-400">
+<a class="hover:text-emerald-400" href="../../">Start</a>
+<span>/</span>
+<a class="hover:text-emerald-400" href="./">Fundamentals</a>
+<span>/</span>
+<span class="text-emerald-400">Module 1.6</span>
+</div>
+</div>
+<main class="max-w-4xl mx-auto px-4 pt-6 pb-16">
+<!-- HEADER -->
+<header class="mb-12">
+<span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 mb-4">MODULE 1.6</span>
+<h1 class="text-3xl sm:text-4xl font-extrabold mb-4">🛡️ Safety and Standards: ISO 10218:2025</h1>
+<p class="text-lg text-neutral-400 max-w-3xl">Safety-by-design and the standards governing human-robot collaboration. The safety envelope within which any VLA in production must operate — from legal compliance to technical guardrails.</p>
+<!-- Stats -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8">
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-emerald-400">6</div>
+<div class="text-xs text-neutral-400">Topics</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-emerald-400">~35</div>
+<div class="text-xs text-neutral-400">Minutes</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-emerald-400">Basic</div>
+<div class="text-xs text-neutral-400">Level</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-emerald-400">Standards</div>
+<div class="text-xs text-neutral-400">Type</div>
+</div>
+</div>
+</header>
+<!-- HERO SVG: Camadas de segurança concêntricas -->
+<div class="rounded-2xl border border-emerald-500/30 bg-dark-900/40 p-3 sm:p-4 mb-12 overflow-hidden">
+<svg aria-label="Safety layers around the VLA robot: ISO standards on the outer layer, safety by design in the middle, guardrails and SSM/PFL on the inner layer" class="w-full h-auto" role="img" viewbox="0 0 760 260" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<pattern height="32" id="m16-grid" patternunits="userSpaceOnUse" width="32">
+<circle cx="1.3" cy="1.3" fill="#34d399" opacity="0.10" r="1.3"></circle>
+</pattern>
+<lineargradient id="m16-grad" x1="0" x2="1" y1="0" y2="1">
+<stop offset="0" stop-color="#34d399"></stop><stop offset="1" stop-color="#10b981"></stop>
+</lineargradient>
+<lineargradient id="m16-grad-c" x1="0" x2="1" y1="0" y2="1">
+<stop offset="0" stop-color="#38bdf8"></stop><stop offset="1" stop-color="#0ea5e9"></stop>
+</lineargradient>
+<filter height="180%" id="m16-glow" width="180%" x="-40%" y="-40%">
+<fegaussianblur result="b" stddeviation="1.8"></fegaussianblur><femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge>
+</filter>
+</defs>
+<rect fill="url(#m16-grid)" height="260" width="760"></rect>
+<text fill="#34d399" font-family="Inter,sans-serif" font-size="13" font-weight="600" text-anchor="middle" x="380" y="28">Defense in Depth — Safety Layers Around the VLA</text>
+<!-- Camada 1 — Normas ISO (mais externa) -->
+<rect fill="none" height="178" rx="20" stroke="#059669" stroke-opacity="0.45" stroke-width="1.5" width="600" x="80" y="48"></rect>
+<text fill="#34d399" font-family="Inter,sans-serif" font-size="9" font-weight="600" opacity="0.85" text-anchor="middle" x="380" y="68">ISO 10218:2025 · ISO/TS 15066 — legal and regulatory compliance</text>
+<!-- Camada 2 — Safety-by-design -->
+<rect fill="none" height="124" rx="16" stroke="#34d399" stroke-opacity="0.5" stroke-width="1.5" width="480" x="140" y="80"></rect>
+<text fill="#34d399" font-family="Inter,sans-serif" font-size="9" font-weight="600" opacity="0.75" text-anchor="middle" x="380" y="98">Safety-by-design · risk analysis · HAZOP / FMEA</text>
+<!-- Camada 3 — Guardrails / SSM / PFL (mais interna) -->
+<rect fill="none" height="72" rx="12" stroke="#38bdf8" stroke-opacity="0.6" stroke-width="1.5" width="340" x="210" y="112"></rect>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="9" font-weight="600" text-anchor="middle" x="380" y="130">Guardrails · fail-safe · SSM / PFL · action clamping</text>
+<!-- Robô no centro -->
+<g filter="url(#m16-glow)">
+<circle cx="380" cy="162" fill="#0a1a14" r="26" stroke="url(#m16-grad-c)" stroke-width="2.5"></circle>
+</g>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="18" text-anchor="middle" x="380" y="157">🦾</text>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="8" font-weight="600" text-anchor="middle" x="380" y="176">VLA</text>
+<!-- Labels laterais -->
+<text fill="#6b7280" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="44" y="135">stopping at</text>
+<text fill="#6b7280" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="44" y="147">emergency</text>
+<text fill="#6b7280" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="716" y="135">verification</text>
+<text fill="#6b7280" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="716" y="147">and validation</text>
+<!-- Legenda bottom -->
+<text fill="#6b7280" font-family="Inter,sans-serif" font-size="9" text-anchor="middle" x="380" y="242">No single failure should cause harm — defense-in-depth</text>
+</svg>
+<p class="text-xs text-neutral-500 text-center mt-2">Illustrative diagram — the VLA robot operates within multiple independent layers of protection.</p>
+</div>
+<!-- TÓPICO 1 -->
+<section class="mb-16" id="topico-1">
+<div class="flex items-center gap-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl shrink-0">1</span>
+<h2 class="text-2xl font-bold">📋 ISO 10218:2025: the industrial robot standard</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">A <strong class="text-emerald-400">ISO 10218:2025</strong> is the international standard that defines safety requirements for industrial robots and their integrations. The 2025 revision unified parts 1 (robot) and 2 (system/cell) and explicitly incorporated collaborative operation—the legal envelope every VLA in production must respect.</p>
+<div class="bg-gradient-to-br from-emerald-900/30 to-dark-800 rounded-xl border border-emerald-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-emerald-400 mb-4 flex items-center"><span class="mr-2">📌</span> What the standard covers</h3>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start gap-3"><span class="text-emerald-400 font-bold mt-0.5">Part 1</span><span>Project and safety requirements for the <strong>robot</strong> itself — mechanical structure, actuators, stop functions.</span></li>
+<li class="flex items-start gap-3"><span class="text-emerald-400 font-bold mt-0.5">Part 2</span><span>Requirements for <strong>system integration</strong> — cell, peripherals, human-robot interface, facility risk analysis.</span></li>
+<li class="flex items-start gap-3"><span class="text-emerald-400 font-bold mt-0.5">2025</span><span>Edition that aligned the standard with cobots and VLAs: continuous collaborative operation is explicitly included in the scope.</span></li>
+</ul>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+<h4 class="font-bold text-emerald-400 mb-4">✓ Compliant system</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-emerald-400">✓</span><span>Protective stop functions implemented</span></li>
+<li class="flex items-start gap-2"><span class="text-emerald-400">✓</span><span>Performance level (PL) assessed under ISO 13849</span></li>
+<li class="flex items-start gap-2"><span class="text-emerald-400">✓</span><span>Documented risk analysis before deployment</span></li>
+<li class="flex items-start gap-2"><span class="text-emerald-400">✓</span><span>Safety envelope defined for the VLA</span></li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+<h4 class="font-bold text-red-400 mb-4">✗ Common violations</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Deployment without formal risk analysis</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Safety functions dependent on VLA software</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Collaborative operation without integrator certification</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Ignore Part 2 because you "only use the ready-made robot"</span></li>
+</ul>
+</div>
+</div>
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6">
+<h3 class="text-lg font-semibold text-emerald-400 mb-3">Key concepts</h3>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
+<div><strong class="text-emerald-400">Performance Level (PL)</strong><p class="text-neutral-400 mt-1">Reliability metric for safety functions (PLa–PLe), calculated according to ISO 13849.</p></div>
+<div><strong class="text-emerald-400">Protective stop</strong><p class="text-neutral-400 mt-1">Safe, controlled interruption of movement without losing the system state.</p></div>
+<div><strong class="text-emerald-400">Integrated cell</strong><p class="text-neutral-400 mt-1">Robot + peripherals + human-robot interface as a complete system to be certified.</p></div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 2 -->
+<section class="mb-16" id="topico-2">
+<div class="flex items-center gap-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl shrink-0">2</span>
+<h2 class="text-2xl font-bold">⚖️ ISO/TS 15066: Force and Pressure Limits</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">A <strong class="text-emerald-400">ISO/TS 15066</strong> complements ISO 10218 with a focus on collaborative robotics: it defines the <strong class="text-emerald-400">biomechanical limits</strong> of force and pressure by region of the human body, ensuring that robot-human contact doesn’t cause injury. For a VLA that controls a cobot, these limits directly constrain the maximum speed and force of its emitted actions.</p>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-red-400 mb-3 flex items-center">
+<span class="mr-2">⚠️</span> Warning: biomechanical limits are not suggestions
+                </h3>
+<p class="text-neutral-300 text-sm">The force and pressure values in TS 15066 are derived from studies on pain tolerance and tissue injury. Exceeding them—even for fractions of a second—can cause <strong class="text-red-400">bruises, fractures, or internal injuries</strong>. No productivity argument justifies operating outside these limits.</p>
+</div>
+<div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center"><span class="mr-2">📊</span> Four defined collaboration modes</h3>
+<div class="space-y-3 text-sm text-neutral-300">
+<div class="flex items-start gap-3"><span class="text-blue-400 font-bold w-8 shrink-0">SSM</span><span><strong>Speed-and-separation monitoring</strong> — the robot slows down as a human approaches and stops before contact.</span></div>
+<div class="flex items-start gap-3"><span class="text-blue-400 font-bold w-8 shrink-0">PFL</span><span><strong>Power-and-force limiting</strong> — allows controlled contact within the standard’s biomechanical limits.</span></div>
+<div class="flex items-start gap-3"><span class="text-blue-400 font-bold w-8 shrink-0">HGP</span><span><strong>Hand guiding</strong> — the operator guides the robot directly, with torques limited by the hardware.</span></div>
+<div class="flex items-start gap-3"><span class="text-blue-400 font-bold w-8 shrink-0">SAS</span><span><strong>Safety-rated monitored stop</strong> — the robot stops completely while a human is in the shared zone.</span></div>
+</div>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6">
+<h3 class="text-lg font-semibold text-primary mb-2 flex items-center"><span class="mr-2">💡</span> Practical implications for VLAs</h3>
+<p class="text-neutral-300 text-sm">If the VLA operates in PFL mode, every action emitted by the model must be intercepted by a <strong class="text-primary">deterministic safety controller</strong> that checks speed and force before sending commands to the actuator. The model should never have direct access to the low-level control bus.</p>
+</div>
+</section>
+<!-- TÓPICO 3 -->
+<section class="mb-16" id="topico-3">
+<div class="flex items-center gap-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl shrink-0">3</span>
+<h2 class="text-2xl font-bold">🏗️ Safety-by-design for VLA</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">The philosophy of embedding safety <strong class="text-emerald-400">from the outset</strong> of the system — not as a later patch. For VLAs, this means designing the architecture, action space, and model constraints so that dangerous behaviors are structurally difficult or impossible, regardless of what the model "decides" to do.</p>
+<!-- SVG safety-by-design: pipeline de ação com camadas de verificação -->
+<div class="rounded-2xl border border-emerald-500/30 bg-dark-900/40 p-3 sm:p-4 mb-6 overflow-hidden">
+<svg aria-label="VLA action pipeline with three verification layers: action clamping, safety controller, and physical actuator" class="w-full h-auto" role="img" viewbox="0 0 760 200" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<pattern height="32" id="m16b-grid" patternunits="userSpaceOnUse" width="32"><circle cx="1.3" cy="1.3" fill="#34d399" opacity="0.10" r="1.3"></circle></pattern>
+<lineargradient id="m16b-grad" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#34d399"></stop><stop offset="1" stop-color="#10b981"></stop></lineargradient>
+<filter height="180%" id="m16b-glow" width="180%" x="-40%" y="-40%"><fegaussianblur result="b" stddeviation="1.8"></fegaussianblur><femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge></filter>
+<marker id="m16b-ah" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#34d399"></path></marker>
+<marker id="m16b-ahc" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#38bdf8"></path></marker>
+</defs>
+<rect fill="url(#m16b-grid)" height="200" width="760"></rect>
+<!-- VLA Model -->
+<rect fill="#0e2018" height="56" rx="12" stroke="#34d399" stroke-opacity="0.6" stroke-width="2" width="120" x="20" y="72"></rect>
+<text fill="#34d399" font-family="Inter,sans-serif" font-size="13" font-weight="600" text-anchor="middle" x="80" y="97">Model</text>
+<text fill="#9ca3af" font-family="Inter,sans-serif" font-size="9" text-anchor="middle" x="80" y="114">VLA output</text>
+<line marker-end="url(#m16b-ah)" stroke="#34d399" stroke-opacity="0.5" stroke-width="1.8" x1="142" x2="185" y1="100" y2="100"></line>
+<!-- Action Clamping -->
+<g filter="url(#m16b-glow)"><rect fill="#0e2018" height="56" rx="12" stroke="url(#m16b-grad)" stroke-width="2.5" width="140" x="190" y="72"></rect></g>
+<text fill="#34d399" font-family="Inter,sans-serif" font-size="11" font-weight="600" text-anchor="middle" x="260" y="95">Action</text>
+<text fill="#34d399" font-family="Inter,sans-serif" font-size="11" font-weight="600" text-anchor="middle" x="260" y="110">Clamping</text>
+<text fill="#9ca3af" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="260" y="125">max vel/force</text>
+<line marker-end="url(#m16b-ah)" stroke="#34d399" stroke-opacity="0.5" stroke-width="1.8" x1="332" x2="375" y1="100" y2="100"></line>
+<!-- Safety Controller -->
+<g filter="url(#m16b-glow)"><rect fill="#0e1b26" height="56" rx="12" stroke="#38bdf8" stroke-width="2.5" width="150" x="380" y="72"></rect></g>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="11" font-weight="600" text-anchor="middle" x="455" y="95">Safety</text>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="11" font-weight="600" text-anchor="middle" x="455" y="110">Controller</text>
+<text fill="#9ca3af" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="455" y="125">deterministic</text>
+<line marker-end="url(#m16b-ahc)" stroke="#38bdf8" stroke-opacity="0.5" stroke-width="1.8" x1="532" x2="575" y1="100" y2="100"></line>
+<!-- Atuador -->
+<rect fill="#0e1b26" height="56" rx="12" stroke="#38bdf8" stroke-opacity="0.6" stroke-width="2" width="140" x="580" y="72"></rect>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="13" font-weight="600" text-anchor="middle" x="650" y="97">Actuator</text>
+<text fill="#9ca3af" font-family="Inter,sans-serif" font-size="9" text-anchor="middle" x="650" y="114">physical world</text>
+<!-- Reject path do Safety Controller -->
+<path d="M455,128 C455,162 260,162 260,128" fill="none" stroke="#fb7185" stroke-dasharray="4,3" stroke-opacity="0.5" stroke-width="1.5"></path>
+<text fill="#fb7185" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="358" y="176">rejected action → e-stop / safe position</text>
+</svg>
+<p class="text-xs text-neutral-500 text-center mt-2">Illustrative diagram — the safety controller is independent of the VLA software; model failure does not bypass protection.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+<h4 class="font-bold text-emerald-400 mb-4">✓ Proper safety-by-design</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-emerald-400">✓</span><span>Action clamping before any execution</span></li>
+<li class="flex items-start gap-2"><span class="text-emerald-400">✓</span><span>Model-independent safety controller</span></li>
+<li class="flex items-start gap-2"><span class="text-emerald-400">✓</span><span>Hardware-defined safe state, not software-defined</span></li>
+<li class="flex items-start gap-2"><span class="text-emerald-400">✓</span><span>Defense in depth: multiple redundant barriers</span></li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+<h4 class="font-bold text-red-400 mb-4">✗ Dangerous anti-patterns</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Trusting that the model “learned to be safe”</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Safety controller implemented in Python/ROS</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Direct access to the low-level bus</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Safety added as a feature at the end of the project</span></li>
+</ul>
+</div>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6">
+<h3 class="text-lg font-semibold text-primary mb-2 flex items-center"><span class="mr-2">💡</span> Fundamental principle</h3>
+<p class="text-neutral-300 text-sm">VLAs are probabilistic generative models — they can generate actions outside the training distribution. <strong class="text-primary">No benchmark evaluation guarantees safe behavior in every scenario.</strong> Safety-by-design is the only responsible response to this structural unpredictability.</p>
+</div>
+</section>
+<!-- TÓPICO 4 -->
+<section class="mb-16" id="topico-4">
+<div class="flex items-center gap-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl shrink-0">4</span>
+<h2 class="text-2xl font-bold">🚨 Emergency Stop and Zones: SSM and PFL</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">The physical and logical mechanisms that stop or modulate a robot’s movement in the presence of humans. They are the <strong class="text-emerald-400">last-resort safeguards</strong> — work independently of what the VLA decides to do and cannot be disabled by AI software.</p>
+<!-- Timeline dos mecanismos de segurança -->
+<div class="space-y-5 mb-6">
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-emerald-500/20 flex items-center justify-center"><span class="text-emerald-400 font-bold text-xs text-center leading-tight">E-Stop</span></div>
+<div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600">
+<h4 class="font-semibold mb-1">Emergency stop—Category 0 and 1</h4>
+<p class="text-neutral-400 text-sm">Cat. 0: immediate power cutoff (emergency stop). Cat. 1: controlled deceleration before power cutoff. Both are independent of the control software and must be triggerable by physical hardware.</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-emerald-500/20 flex items-center justify-center"><span class="text-emerald-400 font-bold text-xs text-center leading-tight">SSM</span></div>
+<div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600">
+<h4 class="font-semibold mb-1">Speed-and-Separation Monitoring</h4>
+<p class="text-neutral-400 text-sm">Continuously monitors the distance between humans and robots using sensors (3D cameras, LiDAR). As a person approaches, it proportionally reduces speed. Stops completely before any contact. Ideal for cells with no intentional contact.</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-sky-500/20 flex items-center justify-center"><span class="text-sky-400 font-bold text-xs text-center leading-tight">PFL</span></div>
+<div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600">
+<h4 class="font-semibold mb-1">Power-and-Force Limiting</h4>
+<p class="text-neutral-400 text-sm">Allows intentional contact while ensuring that force and pressure stay within the biomechanical limits of ISO/TS 15066. Requires force/torque sensors on the robot and a certified safety controller. This is the mode that enables cobots to work side by side with humans.</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-emerald-500/20 flex items-center justify-center"><span class="text-emerald-400 font-bold text-xs text-center leading-tight">Zones</span></div>
+<div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600">
+<h4 class="font-semibold mb-1">Configurable safety zones</h4>
+<p class="text-neutral-400 text-sm">Virtual zones around the robot with different behaviors: warning zone (slows down), protective zone (stops), collaboration zone (PFL). Configured in the safety controller, not the VLA. The model operates within the envelope; the zones enforce it.</p>
+</div>
+</div>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6">
+<h3 class="text-lg font-semibold text-primary mb-2 flex items-center"><span class="mr-2">💡</span> Where the VLA ends and the safety controller begins</h3>
+<p class="text-neutral-300 text-sm">The VLA generates commands for <strong class="text-primary">high level</strong> (move to position X at speed Y). The safety controller intercepts these commands, checks whether they fall within the configured zones and limits, and only then sends them to the joint controller. A model failure or hallucination never reaches the actuator without passing this check.</p>
+</div>
+</section>
+<!-- TÓPICO 5 -->
+<section class="mb-16" id="topico-5">
+<div class="flex items-center gap-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl shrink-0">5</span>
+<h2 class="text-2xl font-bold">🔍 Risk analysis and mitigation</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">The systematic process of identifying potential hazards in a robotic system, estimating the severity and likelihood of each, and defining measures to reduce them to acceptable levels. It is a step <strong class="text-emerald-400">required by regulations</strong> before any deploy — and for systems with VLA, it needs to account for the model's unpredictability.</p>
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+<h3 class="text-lg font-semibold text-emerald-400 mb-4">Mitigation hierarchy (priority order)</h3>
+<div class="space-y-3">
+<div class="flex items-center gap-4 p-3 rounded-lg bg-emerald-900/20 border border-emerald-500/20">
+<span class="flex-shrink-0 w-8 h-8 rounded-full bg-emerald-500/30 flex items-center justify-center text-emerald-400 font-bold text-sm">1</span>
+<div><strong class="text-emerald-400">Hazard elimination</strong><span class="text-neutral-400 text-sm ml-2">— remove the root cause (e.g., eliminate the collaborative operation where it is not needed)</span></div>
+</div>
+<div class="flex items-center gap-4 p-3 rounded-lg bg-emerald-900/20 border border-emerald-500/20">
+<span class="flex-shrink-0 w-8 h-8 rounded-full bg-emerald-500/30 flex items-center justify-center text-emerald-400 font-bold text-sm">2</span>
+<div><strong class="text-emerald-400">Engineering safeguards</strong><span class="text-neutral-400 text-sm ml-2">— physical barriers, safety controller, action clamping</span></div>
+</div>
+<div class="flex items-center gap-4 p-3 rounded-lg bg-emerald-900/20 border border-emerald-500/20">
+<span class="flex-shrink-0 w-8 h-8 rounded-full bg-emerald-500/30 flex items-center justify-center text-emerald-400 font-bold text-sm">3</span>
+<div><strong class="text-emerald-400">Administrative controls</strong><span class="text-neutral-400 text-sm ml-2">— operator training, safe operating procedures</span></div>
+</div>
+<div class="flex items-center gap-4 p-3 rounded-lg bg-dark-700 border border-dark-600">
+<span class="flex-shrink-0 w-8 h-8 rounded-full bg-dark-600 flex items-center justify-center text-neutral-400 font-bold text-sm">4</span>
+<div><strong class="text-neutral-300">EPI and warnings</strong><span class="text-neutral-400 text-sm ml-2">— last resort; indicates a failure to prevent at earlier levels</span></div>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-5">
+<h4 class="font-semibold text-emerald-400 mb-3">HAZOP — Hazard and Operability</h4>
+<p class="text-neutral-300 text-sm">A structured analysis that systematically asks: "what happens if this variable (speed, position, force) is higher/lower/zero/inverse of what was expected?" Very effective for uncovering failure scenarios the team did not anticipate.</p>
+</div>
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-5">
+<h4 class="font-semibold text-emerald-400 mb-3">FMEA — Failure Mode and Effects Analysis</h4>
+<p class="text-neutral-300 text-sm">Tables every possible failure mode (hardware, software, VLA) by severity, probability, and detectability (RPN). Defines a mitigation action for each failure. Required for systems that need certification.</p>
+</div>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+<h3 class="text-lg font-semibold text-red-400 mb-3 flex items-center">
+<span class="mr-2">⚠️</span> VLA-specific dangers — beyond the hardware
+                </h3>
+<ul class="space-y-2 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-red-400">•</span><span><strong>Action hallucination</strong> — model generates a physically valid but semantically incorrect command (grabs the wrong tool, moves in the wrong direction)</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400">•</span><span><strong>Distribution shift</strong> — a scene outside the training distribution leads to unpredictable behavior</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400">•</span><span><strong>Inference latency</strong> — VLA too slow to react to scene changes in real time</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400">•</span><span><strong>Silent failure</strong> — the model produces high-confidence output in a scenario it cannot solve</span></li>
+</ul>
+</div>
+</section>
+<!-- TÓPICO 6 -->
+<section class="mb-16" id="topico-6">
+<div class="flex items-center gap-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl shrink-0">6</span>
+<h2 class="text-2xl font-bold">🔒 Guardrails, fail-safes, and VLA validation</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">The set of safeguards specific to generative models in physical control: <strong class="text-emerald-400">guardrails</strong> that filter unsafe actions, <strong class="text-emerald-400">fail-safe behaviors</strong> that bring the robot to a safe state in case of failure, and the processes of <strong class="text-emerald-400">verification and validation (V&amp;V)</strong> that prove the system works before it goes into production.</p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+<h4 class="font-bold text-emerald-400 mb-4">✓ Deployable VLA</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-emerald-400">✓</span><span>Guardrails validate actions before execution</span></li>
+<li class="flex items-start gap-2"><span class="text-emerald-400">✓</span><span>Fail-safe defined: stop and gently release the load</span></li>
+<li class="flex items-start gap-2"><span class="text-emerald-400">✓</span><span>Runtime monitoring detects anomalies in production</span></li>
+<li class="flex items-start gap-2"><span class="text-emerald-400">✓</span><span>V&amp;V in simulation + real robot with &gt;1000 episodes</span></li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+<h4 class="font-bold text-red-400 mb-4">✗ Experimental VLA (do not deploy)</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Validation in simulation only</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>No defined behavior for inference failures</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Guardrails as a README comment, not as code</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>"We tested it on benchmarks" as the only criterion</span></li>
+</ul>
+</div>
+</div>
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+<h3 class="text-lg font-semibold text-emerald-400 mb-4">Key V&amp;V concepts for VLAs</h3>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+<div>
+<strong class="text-emerald-400">Runtime monitoring</strong>
+<p class="text-neutral-400 mt-1">Continuously monitors operational metrics (force, speed, trajectory) and triggers alerts or stops when they fall outside the expected range.</p>
+</div>
+<div>
+<strong class="text-emerald-400">Statistical evaluation</strong>
+<p class="text-neutral-400 mt-1">Success and failure rates at scale (&gt;1000 episodes), including adversarial scenarios and planned edge cases.</p>
+</div>
+<div>
+<strong class="text-emerald-400">Fail-safe behaviors</strong>
+<p class="text-neutral-400 mt-1">Default safe state: if inference fails, lock the joints or return to the initial position. Defined by hardware, not Python code.</p>
+</div>
+<div>
+<strong class="text-emerald-400">Action guardrails</strong>
+<p class="text-neutral-400 mt-1">Each action is checked against a set of constraints before reaching the controller: position outside the workspace, speed above the limit, force above TS 15066.</p>
+</div>
+</div>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6">
+<h3 class="text-lg font-semibold text-primary mb-2 flex items-center"><span class="mr-2">💡</span> The boundary between experimental and deployable</h3>
+<p class="text-neutral-300 text-sm">A VLA is deployable when its guardrails, fail-safes, and V&amp;V evidence are documented and reviewed by someone outside the team that developed the model. <strong class="text-primary">Self-validation does not count toward safety.</strong> Independent review is part of the process—not bureaucracy.</p>
+</div>
+</section>
+<!-- RESUMO -->
+<section class="mb-12">
+<div class="bg-gradient-to-br from-emerald-900/40 via-dark-800 to-dark-800 rounded-xl border border-emerald-500/30 p-8">
+<h2 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">✅</span> Module Summary</h2>
+<div class="space-y-4 mb-8">
+<div class="flex items-start gap-3"><span class="text-emerald-400 mt-1">✓</span><div><strong>ISO 10218:2025 and ISO/TS 15066</strong><span class="text-neutral-400"> — the standards that define the legal and biomechanical envelope of every collaborative robotic system.</span></div></div>
+<div class="flex items-start gap-3"><span class="text-emerald-400 mt-1">✓</span><div><strong>Safety-by-design</strong><span class="text-neutral-400"> — safety built in from the design stage, with action clamping and a model-independent safety controller.</span></div></div>
+<div class="flex items-start gap-3"><span class="text-emerald-400 mt-1">✓</span><div><strong>SSM and PFL</strong><span class="text-neutral-400"> — the two collaborative modes that let humans and robots share space with safety guaranteed by hardware.</span></div></div>
+<div class="flex items-start gap-3"><span class="text-emerald-400 mt-1">✓</span><div><strong>Guardrails, fail-safe, and V&amp;V</strong><span class="text-neutral-400"> — the difference between an experimental VLA and one deployable near people.</span></div></div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+<h3 class="font-semibold text-emerald-400 mb-2">Next track</h3>
+<p class="text-neutral-300">Learning Path 2 — Technical: VLA architectures, training, fine-tuning, and deployment in depth.</p>
+</div>
+<div class="flex flex-col sm:flex-row gap-4">
+<a class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors" href="./">← Back to the Learning Path</a>
+<a class="flex-1 text-center px-6 py-3 bg-emerald-600 text-white rounded-lg font-semibold hover:bg-emerald-500 transition-colors" href="../trilha2/">Go to Track 2: Technical →</a>
+</div>
+</div>
+</section>
+</main>
+<footer class="border-t border-dark-600 py-8">
+<div class="max-w-6xl mx-auto px-4 text-center text-neutral-500 text-sm">
+<p>VLA Course — Vision-Language-Action · <a class="text-sky-400 hover:text-sky-300" href="https://ARCKHÉ AI" target="_blank">ARCKHÉ AI</a></p>
+</div>
+</footer>
+</body>
+</html>

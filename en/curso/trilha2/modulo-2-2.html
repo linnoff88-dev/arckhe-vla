@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Module 2.2 — LeRobot: End-to-End Pipeline | VLA Course</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: { 600:'#374151', 700:'#1f2937', 800:'#1a1a2e', 900:'#111827' },
+                        primary: '#f59e0b'
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .dark body { background-color: #111827; }
+        html:not(.dark) body { background-color: #f8fafc; }
+        html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+        html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+        html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+        html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+        html:not(.dark) .text-neutral-100 { color: #111827; }
+        html:not(.dark) .text-neutral-300 { color: #4b5563; }
+        html:not(.dark) .text-neutral-400 { color: #6b7280; }
+        html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+        html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+        html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+        /* Light mode - cores de acento (trilha blue) */
+        html:not(.dark) .text-blue-400 { color: #2563eb; }
+        html:not(.dark) .bg-blue-500\/20 { background-color: rgba(37, 99, 235, 0.12); }
+        html:not(.dark) .bg-blue-500\/10 { background-color: rgba(37, 99, 235, 0.08); }
+        html:not(.dark) .bg-blue-900\/20 { background-color: rgba(37, 99, 235, 0.08); }
+        html:not(.dark) .border-blue-500\/30 { border-color: rgba(37, 99, 235, 0.25); }
+        html:not(.dark) .hover\:bg-blue-500\/30:hover { background-color: rgba(37, 99, 235, 0.18); }
+        html:not(.dark) .bg-red-900\/20 { background-color: rgba(220, 38, 38, 0.07); }
+        html:not(.dark) .border-red-500\/30 { border-color: rgba(220, 38, 38, 0.25); }
+        html:not(.dark) .text-red-400 { color: #dc2626; }
+        html:not(.dark) .text-emerald-400 { color: #059669; }
+        html:not(.dark) .bg-emerald-900\/20 { background-color: rgba(5, 150, 105, 0.08); }
+        html:not(.dark) .border-emerald-500\/30 { border-color: rgba(5, 150, 105, 0.25); }
+        /* Light mode - remove gradientes */
+        html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+        /* Light mode - cores especiais */
+        html:not(.dark) .text-primary { color: #a16207; }
+        html:not(.dark) .bg-primary\/10 { background-color: rgba(161, 98, 7, 0.08); }
+        html:not(.dark) .border-primary\/30 { border-color: rgba(161, 98, 7, 0.25); }
+        html:not(.dark) .border-primary\/40 { border-color: rgba(161, 98, 7, 0.25); }
+        html:not(.dark) .text-sky-400 { color: #0369a1; }
+        html:not(.dark) .text-yellow-400 { color: #a16207; }
+        html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+        html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+        /* Light mode - nav */
+        html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255, 255, 255, 0.95); }
+        /* Light mode - SVG */
+        html:not(.dark) svg[role="img"] { filter: saturate(0.82) brightness(0.96); }
+        /* Dark mode - bordas suavizadas */
+        .dark .border-dark-600 { border-color: #374151; }
+        .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+        /* Animação SVG */
+        @keyframes wf-pulse { 0%,100% { opacity:.55 } 50% { opacity:1 } }
+        @media (prefers-reduced-motion: no-preference) {
+          .wf-a { animation: wf-pulse 2.6s ease-in-out infinite; }
+          .wf-a:nth-child(2){animation-delay:.25s} .wf-a:nth-child(3){animation-delay:.5s}
+          .wf-a:nth-child(4){animation-delay:.75s} .wf-a:nth-child(5){animation-delay:1s}
+        }
+    </style>
+<link href="https://linnoff88-dev.github.io/arckhe-vla/curso/trilha2/modulo-2-2.html" hreflang="pt-BR" rel="alternate"/><link href="https://linnoff88-dev.github.io/arckhe-vla/en/curso/trilha2/modulo-2-2.html" hreflang="en" rel="alternate"/><link href="https://linnoff88-dev.github.io/arckhe-vla/es/curso/trilha2/modulo-2-2.html" hreflang="es" rel="alternate"/></head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="ARCKHÉ-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../../../curso/trilha2/modulo-2-2.html" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="modulo-2-2.html" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">EN</a><a href="../../../es/curso/trilha2/modulo-2-2.html" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">ES</a></div>
+<!-- NAV -->
+<nav class="fixed top-0 w-full bg-dark-900/95 backdrop-blur border-b border-dark-600 z-50">
+<div class="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<a class="text-primary font-bold text-lg" href="../../">VLA</a>
+<span class="text-neutral-500">|</span>
+<a class="text-sky-400 hover:text-sky-300 text-sm font-medium" href="https://ARCKHÉ AI" target="_blank">ARCKHÉ AI</a>
+</div>
+<div class="flex items-center gap-2">
+<a class="px-3 py-1.5 rounded text-sm text-emerald-400 hover:bg-emerald-500/10" href="../trilha1/">Fundamentals</a>
+<a class="px-3 py-1.5 rounded text-sm text-blue-400 bg-blue-500/20 border border-blue-500/30 font-medium" href="./">Technical</a>
+<a class="px-3 py-1.5 rounded text-sm text-purple-400 hover:bg-purple-500/10" href="../trilha3/">Advanced</a>
+<button class="ml-2 p-2 rounded hover:bg-dark-700 text-neutral-400" onclick="document.documentElement.classList.toggle('dark')" title="Switch theme">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+</div>
+</div>
+</nav>
+<!-- BREADCRUMB -->
+<div class="max-w-4xl mx-auto px-4 pt-20">
+<div class="flex items-center gap-2 text-sm text-neutral-400">
+<a class="hover:text-blue-400" href="../../">Start</a>
+<span>/</span>
+<a class="hover:text-blue-400" href="./">Technical</a>
+<span>/</span>
+<span class="text-blue-400">Module 2.2</span>
+</div>
+</div>
+<main class="max-w-4xl mx-auto px-4 pt-6 pb-16">
+<!-- HEADER -->
+<header class="mb-12">
+<span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-blue-500/20 text-blue-400 border border-blue-500/30 mb-4">MODULE 2.2</span>
+<h1 class="text-3xl sm:text-4xl font-extrabold mb-4">🤗 LeRobot: End-to-End Pipeline</h1>
+<p class="text-lg text-neutral-400 max-w-3xl">HuggingFace’s open-source framework that democratizes robotics: data collection, training, and deployment in a single tool. With 12k stars on GitHub and 58k+ datasets, LeRobot is the most accessible entry point for practical VLA.</p>
+<!-- Stats -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8">
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-blue-400">6</div>
+<div class="text-xs text-neutral-400">Topics</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-blue-400">~50</div>
+<div class="text-xs text-neutral-400">Minutes</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-blue-400">Technical</div>
+<div class="text-xs text-neutral-400">Level</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-blue-400">Practical</div>
+<div class="text-xs text-neutral-400">Type</div>
+</div>
+</div>
+</header>
+<!-- HERO SVG: Pipeline LeRobot End-to-End -->
+<div class="rounded-2xl border border-blue-500/30 bg-dark-900/40 p-3 sm:p-4 mb-12 overflow-hidden">
+<svg aria-label="End-to-end LeRobot pipeline: teleoperation generates data, VLA policy training, simulator evaluation, deployment on the real robot" class="w-full h-auto" font-family="Inter,sans-serif" role="img" viewbox="0 0 780 220" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<pattern height="32" id="m22-grid" patternunits="userSpaceOnUse" width="32">
+<circle cx="1.3" cy="1.3" fill="#3b82f6" opacity="0.10" r="1.3"></circle>
+</pattern>
+<lineargradient id="m22-grad" x1="0" x2="1" y1="0" y2="1">
+<stop offset="0" stop-color="#60a5fa"></stop><stop offset="1" stop-color="#3b82f6"></stop>
+</lineargradient>
+<filter height="180%" id="m22-glow" width="180%" x="-40%" y="-40%">
+<fegaussianblur result="b" stddeviation="1.8"></fegaussianblur><femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge>
+</filter>
+<marker id="m22-ah" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#60a5fa"></path></marker>
+<marker id="m22-ahc" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#38bdf8"></path></marker>
+</defs>
+<rect fill="url(#m22-grid)" height="220" width="780"></rect>
+<!-- Label topo -->
+<text fill="#60a5fa" font-size="10" font-weight="600" opacity="0.6" text-anchor="middle" x="390" y="18">LeRobot — End-to-End Pipeline</text>
+<!-- Etapa 1: Coleta -->
+<g class="wf-a">
+<rect fill="#0e1622" height="80" rx="12" stroke="#3b82f6" stroke-width="2" width="120" x="20" y="60"></rect>
+<text fill="#60a5fa" font-size="12" font-weight="600" text-anchor="middle" x="80" y="86">Collection</text>
+<text fill="#7dd3fc" font-size="9" text-anchor="middle" x="80" y="103">Teleoperation</text>
+<text fill="#9ca3af" font-size="8" text-anchor="middle" x="80" y="117">lerobot/record</text>
+<text fill="#9ca3af" font-size="7" text-anchor="middle" x="80" y="130">SO-100 · Koch</text>
+</g>
+<!-- Seta 1→2 -->
+<path d="M140,100 L178,100" fill="none" marker-end="url(#m22-ah)" opacity="0.7" stroke="#60a5fa" stroke-width="1.5"></path>
+<!-- Etapa 2: Dataset -->
+<g class="wf-a">
+<rect fill="#0e1622" height="70" rx="12" stroke="#60a5fa" stroke-width="1.8" width="110" x="180" y="65"></rect>
+<text fill="#60a5fa" font-size="12" font-weight="600" text-anchor="middle" x="235" y="90">Dataset</text>
+<text fill="#7dd3fc" font-size="9" text-anchor="middle" x="235" y="107">58k+ on the Hub</text>
+<text fill="#9ca3af" font-size="7" text-anchor="middle" x="235" y="122">Parquet + Video</text>
+</g>
+<!-- Seta 2→3 -->
+<path d="M290,100 L328,100" fill="none" marker-end="url(#m22-ah)" opacity="0.7" stroke="#60a5fa" stroke-width="1.5"></path>
+<!-- Etapa 3: Treino (destaque glow) -->
+<g filter="url(#m22-glow)">
+<rect fill="#0e1622" height="90" rx="12" stroke="url(#m22-grad)" stroke-width="2.5" width="130" x="330" y="50"></rect>
+</g>
+<text fill="#60a5fa" font-size="14" font-weight="700" text-anchor="middle" x="395" y="78">Training</text>
+<text fill="#7dd3fc" font-size="9" text-anchor="middle" x="395" y="96">ACT · Diffusion Policy</text>
+<text fill="#9ca3af" font-size="8" text-anchor="middle" x="395" y="111">TDMPC · VQ-BeT</text>
+<text fill="#38bdf8" font-size="7" text-anchor="middle" x="395" y="126">config.yaml + W&amp;B</text>
+<!-- Seta 3→4 -->
+<path d="M460,95 L498,95" fill="none" marker-end="url(#m22-ahc)" opacity="0.7" stroke="#38bdf8" stroke-width="1.5"></path>
+<!-- Etapa 4: Avaliação -->
+<g class="wf-a">
+<rect fill="#0e1622" height="70" rx="12" stroke="#38bdf8" stroke-width="1.8" width="110" x="500" y="60"></rect>
+<text fill="#38bdf8" font-size="11" font-weight="600" text-anchor="middle" x="555" y="86">Evaluation</text>
+<text fill="#7dd3fc" font-size="9" text-anchor="middle" x="555" y="103">Success Rate</text>
+<text fill="#9ca3af" font-size="7" text-anchor="middle" x="555" y="118">SIMPLER · LIBERO</text>
+</g>
+<!-- Seta 4→5 -->
+<path d="M610,95 L648,95" fill="none" marker-end="url(#m22-ahc)" opacity="0.7" stroke="#38bdf8" stroke-width="1.5"></path>
+<!-- Etapa 5: Deploy -->
+<g class="wf-a">
+<rect fill="#0e1622" height="70" rx="12" stroke="#60a5fa" stroke-width="2" width="110" x="650" y="65"></rect>
+<text fill="#60a5fa" font-size="12" font-weight="600" text-anchor="middle" x="705" y="90">Deploy</text>
+<text fill="#7dd3fc" font-size="9" text-anchor="middle" x="705" y="107">Real Robot</text>
+<text fill="#9ca3af" font-size="7" text-anchor="middle" x="705" y="122">Real-time · 50 Hz</text>
+</g>
+<!-- Loop de feedback (seta de volta) -->
+<path d="M705,135 C705,185 390,195 80,145" fill="none" marker-end="url(#m22-ah)" opacity="0.35" stroke="#3b82f6" stroke-dasharray="7 5" stroke-width="1.2"></path>
+<text fill="#3b82f6" font-size="9" opacity="0.5" text-anchor="middle" x="390" y="205">continuous iteration</text>
+</svg>
+<p class="text-xs text-neutral-500 text-center mt-2">Illustrative diagram — end-to-end LeRobot flow: collection → dataset → training → evaluation → deploy.</p>
+</div>
+<!-- TÓPICO 1: LeRobot Overview -->
+<section class="mb-16" id="topico-1">
+<div class="flex items-center gap-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl shrink-0">1</span>
+<h2 class="text-2xl font-bold">🤗 LeRobot: 12k stars, 58k+ datasets</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">LeRobot is the <strong class="text-blue-400">HuggingFace open-source framework</strong> for end-to-end robotics. Released in 2024, it unifies data collection, policy training, and deployment on real robots in a single tool with extensive documentation and an active community.</p>
+<!-- Conceito Principal -->
+<div class="bg-gradient-to-br from-blue-900/40 via-dark-800 to-dark-800 rounded-xl border border-blue-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-blue-400 mb-3">🏗️ What LeRobot solves</h3>
+<p class="text-neutral-300 text-sm leading-relaxed">Before LeRobot, each lab had its own ad hoc pipeline: proprietary data collection scripts, incompatible dataset formats, isolated training pipelines. LeRobot standardizes everything with a cohesive API — from hardware to the trained model — and publishes it all to the HuggingFace Hub for reuse.</p>
+</div>
+<!-- Grid ✓/✗ -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6">
+<h4 class="font-bold text-blue-400 mb-4">✓ What LeRobot includes</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">✓</span><span>Data collection scripts with teleoperation (<code class="font-mono text-xs bg-dark-700 px-1 rounded">lerobot/record</code>)</span></li>
+<li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">✓</span><span>Pre-implemented policies: ACT, Diffusion Policy, TDMPC, VQ-BeT</span></li>
+<li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">✓</span><span>Native integration with HuggingFace Hub (58k+ datasets)</span></li>
+<li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">✓</span><span>Support for multiple robots: SO-100, Koch v1.1, Aloha</span></li>
+<li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">✓</span><span>Episode viewer and evaluation metrics</span></li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+<h4 class="font-bold text-red-400 mb-4">✗ What LeRobot doesn’t do</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span><span>Is not a simulator — you need MuJoCo/Isaac Sim for sim-to-real</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span><span>Does not replace ROS2 for low-level control in production</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span><span>Does not train vision models from scratch (uses pretrained backbones)</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span><span>Does not guarantee safety in uncontrolled environments</span></li>
+</ul>
+</div>
+</div>
+<!-- Box instalação -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+<h3 class="text-sm font-semibold text-blue-400 mb-3">⚡ Quick Installation</h3>
+<pre class="font-mono text-sm text-neutral-300 overflow-x-auto leading-relaxed"><code>pip install lerobot
+
+# Verificar instalação
+python -c "import lerobot; print(lerobot.__version__)"
+
+# Listar políticas disponíveis
+python -c "from lerobot.common.policies import *; print('ACT, Diffusion, TDMPC, VQ-BeT')"</code></pre>
+</div>
+<!-- Grid conceitos -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6">
+<h3 class="text-lg font-semibold text-blue-400 mb-4">Key concepts</h3>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+<div><strong class="text-blue-400">LeRobotDataset</strong><p class="text-neutral-400 mt-1">Main class that encapsulates a dataset in RLDS format with synchronized video, actions, and metadata.</p></div>
+<div><strong class="text-blue-400">lerobot/scripts/train.py</strong><p class="text-neutral-400 mt-1">Unified training script that loads a YAML configuration and automatically saves checkpoints.</p></div>
+<div><strong class="text-blue-400">Hub integration</strong><p class="text-neutral-400 mt-1">Push and pull datasets and models directly from the HuggingFace Hub with <code class="font-mono text-xs bg-dark-700 px-1 rounded">huggingface-cli login</code>.</p></div>
+<div><strong class="text-blue-400">Multi-robot support</strong><p class="text-neutral-400 mt-1">Ready-to-use configurations for SO-100, Koch v1.1, and Aloha; add a new robot via calibration YAML.</p></div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 2: Coleta de dados com teleoperação -->
+<section class="mb-16" id="topico-2">
+<div class="flex items-center gap-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl shrink-0">2</span>
+<h2 class="text-2xl font-bold">🎮 Data Collection via Teleoperation</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">Teleoperation is the technique of a human remotely controlling the robot to generate <strong class="text-blue-400">quality demonstrations</strong>. LeRobot synchronously records video from the cameras and actuator positions, producing episodes with aligned timestamps that feed supervised training.</p>
+<!-- Tip box -->
+<div class="bg-primary/10 border border-primary/30 rounded-xl p-5 mb-6">
+<h4 class="font-semibold text-primary mb-2">💡 The 50–100 episode rule</h4>
+<p class="text-neutral-300 text-sm">For simple tasks (pick-and-place, stacking blocks), 50-100 high-quality episodes outperform 500 poor-quality episodes. Consistency and coverage of variations (angles, object positions) matter more than raw volume.</p>
+</div>
+<!-- Comando de coleta -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+<h3 class="text-sm font-semibold text-blue-400 mb-3">🖥️ Recording episodes with LeRobot</h3>
+<pre class="font-mono text-sm text-neutral-300 overflow-x-auto leading-relaxed"><code># Calibração do robô (uma vez)
+python lerobot/scripts/control_robot.py calibrate \
+  --robot-path lerobot/configs/robot/so100.yaml
+
+# Gravar dataset de demonstrações
+python lerobot/scripts/control_robot.py record \
+  --robot-path lerobot/configs/robot/so100.yaml \
+  --fps 30 \
+  --repo-id seu-usuario/pick-place-dataset \
+  --num-episodes 50 \
+  --warmup-time-s 5
+
+# Replay para validar qualidade
+python lerobot/scripts/control_robot.py replay \
+  --robot-path lerobot/configs/robot/so100.yaml \
+  --repo-id seu-usuario/pick-place-dataset \
+  --episode 0</code></pre>
+</div>
+<!-- Grid ✓/✗ setup -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6">
+<h4 class="font-bold text-blue-400 mb-4">✓ Ideal leader-follower setup</h4>
+<ul class="space-y-2 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">✓</span><span>2 cameras: one global, one on the robot's wrist</span></li>
+<li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">✓</span><span>30 Hz synchronized capture of cameras + actuators</span></li>
+<li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">✓</span><span>Intrinsic/extrinsic calibration before each session</span></li>
+<li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">✓</span><span>Check each episode's replay before proceeding</span></li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+<h4 class="font-bold text-red-400 mb-4">✗ Common data collection errors</h4>
+<ul class="space-y-2 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span><span>Abrupt movements or hesitation in the demonstration</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span><span>Cameras with poor focus or inconsistent lighting</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span><span>Objects always in the same position (little variation)</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span><span>Not filtering failed episodes before training</span></li>
+</ul>
+</div>
+</div>
+<!-- Conceitos-chave -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6">
+<h3 class="text-lg font-semibold text-blue-400 mb-4">Key concepts</h3>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
+<div><strong class="text-blue-400">Leader-follower</strong><p class="text-neutral-400 mt-1">The “leader” robot (controlled by a human) commands the “follower” (which performs the task). Both have sensors to capture the real state.</p></div>
+<div><strong class="text-blue-400">Episode recording</strong><p class="text-neutral-400 mt-1">Each demonstration is an episode: a sequence of observations (images + positions) and actions with aligned timestamps.</p></div>
+<div><strong class="text-blue-400">Data quality filtering</strong><p class="text-neutral-400 mt-1">Remove episodes where the robot failed, made anomalous movements, or the camera was obstructed.</p></div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 3: Políticas VLA -->
+<section class="mb-16" id="topico-3">
+<div class="flex items-center gap-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl shrink-0">3</span>
+<h2 class="text-2xl font-bold">🧠 Policies: ACT, Diffusion Policy, TDMPC</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">LeRobot implements multiple policy architectures, each with different trade-offs between inference speed, motion quality, and training complexity. Choosing the right policy for your task is as important as data quality.</p>
+<!-- Timeline comparativa de políticas -->
+<div class="space-y-4 mb-6">
+<h3 class="text-lg font-semibold text-blue-400">Evolution of policy architectures</h3>
+<div class="flex gap-4 items-start">
+<div class="flex flex-col items-center shrink-0">
+<div class="w-10 h-10 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-blue-400 font-bold text-sm">1</div>
+<div class="w-px h-12 bg-dark-600 mt-2"></div>
+</div>
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-5 flex-1 mb-2">
+<h4 class="font-semibold text-blue-400 mb-1">ACT — Action Chunking with Transformers (2023)</h4>
+<p class="text-neutral-300 text-sm">Predicts k actions at once (action chunk) instead of one at a time. Reduces compounding errors. Fast inference (~10ms), ideal for real-time control at 50Hz.</p>
+<div class="mt-2 flex gap-2 flex-wrap">
+<span class="text-xs bg-blue-500/10 text-blue-400 px-2 py-0.5 rounded font-mono">chunk_size=100</span>
+<span class="text-xs bg-dark-700 text-neutral-400 px-2 py-0.5 rounded">Transformer encoder-decoder</span>
+</div>
+</div>
+</div>
+<div class="flex gap-4 items-start">
+<div class="flex flex-col items-center shrink-0">
+<div class="w-10 h-10 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-blue-400 font-bold text-sm">2</div>
+<div class="w-px h-12 bg-dark-600 mt-2"></div>
+</div>
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-5 flex-1 mb-2">
+<h4 class="font-semibold text-blue-400 mb-1">Diffusion Policy (2023)</h4>
+<p class="text-neutral-300 text-sm">Models action distributions with DDPM. Captures multimodality (multiple ways to solve the task). Slower at inference (10-100 denoising steps), but produces smoother movements.</p>
+<div class="mt-2 flex gap-2 flex-wrap">
+<span class="text-xs bg-blue-500/10 text-blue-400 px-2 py-0.5 rounded font-mono">num_inference_steps=10</span>
+<span class="text-xs bg-dark-700 text-neutral-400 px-2 py-0.5 rounded">Conditional UNet</span>
+</div>
+</div>
+</div>
+<div class="flex gap-4 items-start">
+<div class="flex flex-col items-center shrink-0">
+<div class="w-10 h-10 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-blue-400 font-bold text-sm">3</div>
+</div>
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-5 flex-1">
+<h4 class="font-semibold text-blue-400 mb-1">TDMPC — TD-MPC2 (2024)</h4>
+<p class="text-neutral-300 text-sm">World model + planning: learns a model of the environment’s dynamics and uses MPC (Model Predictive Control) to plan actions. Better generalization, but requires more data and compute.</p>
+<div class="mt-2 flex gap-2 flex-wrap">
+<span class="text-xs bg-blue-500/10 text-blue-400 px-2 py-0.5 rounded font-mono">horizon=5</span>
+<span class="text-xs bg-dark-700 text-neutral-400 px-2 py-0.5 rounded">Latent world model</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Tip box -->
+<div class="bg-primary/10 border border-primary/30 rounded-xl p-5 mb-6">
+<h4 class="font-semibold text-primary mb-2">💡 Which policy should you choose?</h4>
+<p class="text-neutral-300 text-sm">Start with <strong>ACT</strong> for simple manipulation tasks — it is the fastest for iteration. Use <strong>Diffusion Policy</strong> when you need multimodal movements (e.g., a task that can be solved in multiple ways). Reserve <strong>TDMPC</strong> for long-horizon tasks with sim-to-real.</p>
+</div>
+<!-- Grid conceitos -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6">
+<h3 class="text-lg font-semibold text-blue-400 mb-4">Key concepts</h3>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+<div><strong class="text-blue-400">Action chunking</strong><p class="text-neutral-400 mt-1">Predict multiple future actions at once to reduce compounding errors during sequential execution.</p></div>
+<div><strong class="text-blue-400">DDPM (Denoising Diffusion)</strong><p class="text-neutral-400 mt-1">Progressive denoising process that generates high-quality samples from complex action distributions.</p></div>
+<div><strong class="text-blue-400">VQ-BeT</strong><p class="text-neutral-400 mt-1">Discrete vector tokenization of actions — treats actions as tokens, enabling the use of LLM architectures.</p></div>
+<div><strong class="text-blue-400">Multimodality</strong><p class="text-neutral-400 mt-1">Ability to learn multiple ways to solve a task instead of the “average” of all demonstrations.</p></div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 4: Treinamento em GPU -->
+<section class="mb-16" id="topico-4">
+<div class="flex items-center gap-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl shrink-0">4</span>
+<h2 class="text-2xl font-bold">⚙️ GPU Training: YAML Config and Checkpoints</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">LeRobot uses <strong class="text-blue-400">YAML files with Hydra</strong> for hierarchical training configuration. Each run automatically saves checkpoints and can be resumed, enabling rapid iteration without rework.</p>
+<!-- Box de código principal -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+<h3 class="text-sm font-semibold text-blue-400 mb-3">🚀 Starting a training run</h3>
+<pre class="font-mono text-sm text-neutral-300 overflow-x-auto leading-relaxed"><code># Treinar ACT no seu dataset
+python lerobot/scripts/train.py \
+  policy=act \
+  env=aloha \
+  dataset_repo_id=seu-usuario/pick-place-dataset \
+  training.num_steps=80000 \
+  training.batch_size=8 \
+  wandb.enable=true \
+  hydra.run.dir=outputs/train/act_pick_place
+
+# Retomar do checkpoint
+python lerobot/scripts/train.py \
+  resume=true \
+  resume_path=outputs/train/act_pick_place/checkpoints/last
+
+# Multi-GPU com DDP (2 GPUs)
+torchrun --nproc_per_node=2 lerobot/scripts/train.py \
+  policy=diffusion \
+  dataset_repo_id=seu-usuario/pick-place-dataset</code></pre>
+</div>
+<!-- SVG diagrama de treinamento -->
+<div class="rounded-2xl border border-blue-500/30 bg-dark-900/40 p-3 sm:p-4 mb-6 overflow-hidden">
+<svg aria-label="Training cycle: YAML config loads the dataset and policy, the GPU trains with gradient accumulation, the checkpoint is saved and evaluated" class="w-full h-auto" font-family="Inter,sans-serif" role="img" viewbox="0 0 700 160" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<pattern height="32" id="m22b-grid" patternunits="userSpaceOnUse" width="32">
+<circle cx="1.3" cy="1.3" fill="#3b82f6" opacity="0.09" r="1.3"></circle>
+</pattern>
+<filter height="180%" id="m22b-glow" width="180%" x="-40%" y="-40%">
+<fegaussianblur result="b" stddeviation="1.8"></fegaussianblur><femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge>
+</filter>
+<marker id="m22b-ah" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#60a5fa"></path></marker>
+</defs>
+<rect fill="url(#m22b-grid)" height="160" width="700"></rect>
+<!-- Config YAML -->
+<rect class="wf-a" fill="#0e1622" height="60" rx="10" stroke="#3b82f6" stroke-width="1.8" width="110" x="20" y="50"></rect>
+<text fill="#60a5fa" font-size="11" font-weight="600" text-anchor="middle" x="75" y="74">config.yaml</text>
+<text fill="#9ca3af" font-size="8" text-anchor="middle" x="75" y="90">policy · dataset</text>
+<text fill="#38bdf8" font-size="7" text-anchor="middle" x="75" y="103">Hydra override</text>
+<!-- GPU Treino (glow) -->
+<g filter="url(#m22b-glow)">
+<rect fill="#0e1622" height="80" rx="10" stroke="#60a5fa" stroke-width="2.5" width="140" x="175" y="40"></rect>
+</g>
+<text fill="#60a5fa" font-size="13" font-weight="700" text-anchor="middle" x="245" y="68">Training GPU</text>
+<text fill="#7dd3fc" font-size="9" text-anchor="middle" x="245" y="86">grad accumulation</text>
+<text fill="#9ca3af" font-size="8" text-anchor="middle" x="245" y="100">mixed precision (BF16)</text>
+<text fill="#38bdf8" font-size="7" text-anchor="middle" x="245" y="113">Multi-GPU DDP</text>
+<!-- Checkpoint -->
+<rect class="wf-a" fill="#0e1622" height="60" rx="10" stroke="#3b82f6" stroke-width="1.8" width="110" x="365" y="50"></rect>
+<text fill="#60a5fa" font-size="11" font-weight="600" text-anchor="middle" x="420" y="74">Checkpoint</text>
+<text fill="#9ca3af" font-size="8" text-anchor="middle" x="420" y="90">every N steps</text>
+<text fill="#38bdf8" font-size="7" text-anchor="middle" x="420" y="103">safetensors</text>
+<!-- W&B -->
+<rect class="wf-a" fill="#0e1622" height="60" rx="10" stroke="#38bdf8" stroke-width="1.8" width="110" x="525" y="50"></rect>
+<text fill="#38bdf8" font-size="11" font-weight="600" text-anchor="middle" x="580" y="74">W&amp;B</text>
+<text fill="#9ca3af" font-size="8" text-anchor="middle" x="580" y="90">loss · success rate</text>
+<text fill="#7dd3fc" font-size="7" text-anchor="middle" x="580" y="103">real-time metrics</text>
+<!-- Arrows -->
+<path d="M130,80 L173,80" fill="none" marker-end="url(#m22b-ah)" opacity="0.7" stroke="#60a5fa" stroke-width="1.5"></path>
+<path d="M315,80 L363,80" fill="none" marker-end="url(#m22b-ah)" opacity="0.7" stroke="#60a5fa" stroke-width="1.5"></path>
+<path d="M475,80 L523,80" fill="none" marker-end="url(#m22b-ah)" opacity="0.7" stroke="#38bdf8" stroke-width="1.5"></path>
+</svg>
+<p class="text-xs text-neutral-500 text-center mt-2">Illustrative diagram — training flow: YAML → GPU → checkpoint → W&amp;B metrics.</p>
+</div>
+<!-- Grid conceitos -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6">
+<h3 class="text-lg font-semibold text-blue-400 mb-4">Key concepts</h3>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+<div><strong class="text-blue-400">Gradient accumulation</strong><p class="text-neutral-400 mt-1">Accumulate gradients over N batches before the update — allows a larger effective batch size than VRAM permits.</p></div>
+<div><strong class="text-blue-400">Mixed precision (BF16)</strong><p class="text-neutral-400 mt-1">Use BFloat16 for forward/backward passes and FP32 for weight updates — 2x faster with similar memory usage.</p></div>
+<div><strong class="text-blue-400">DDP (DistributedDataParallel)</strong><p class="text-neutral-400 mt-1">PyTorch multi-GPU strategy: each GPU processes a mini-batch, and gradients are synchronized via AllReduce.</p></div>
+<div><strong class="text-blue-400">resume_from_checkpoint</strong><p class="text-neutral-400 mt-1">Resume training from a saved checkpoint, preserving optimizer and learning rate scheduler state.</p></div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 5: Weights & Biases -->
+<section class="mb-16" id="topico-5">
+<div class="flex items-center gap-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl shrink-0">5</span>
+<h2 class="text-2xl font-bold">📊 Weights &amp; Biases: Experiment Tracking</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">W&amp;B is the standard platform for tracking ML experiments. LeRobot has <strong class="text-blue-400">native integration</strong> — just add <code class="font-mono text-sm bg-dark-800 px-1.5 py-0.5 rounded border border-dark-600">wandb.enable=true</code> in the config YAML to centralize metrics, loss curves, and evaluation videos.</p>
+<!-- Tip box -->
+<div class="bg-primary/10 border border-primary/30 rounded-xl p-5 mb-6">
+<h4 class="font-semibold text-primary mb-2">💡 No tracking = black box</h4>
+<p class="text-neutral-300 text-sm">Training VLAs without structured tracking is like walking blind. You need to know: which run had the best success rate? Which learning rate diverged? At what step did the model stop improving? W&amp;B answers all of this with side-by-side comparison charts.</p>
+</div>
+<!-- Box código W&B -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+<h3 class="text-sm font-semibold text-blue-400 mb-3">📈 Configuring W&amp;B in LeRobot</h3>
+<pre class="font-mono text-sm text-neutral-300 overflow-x-auto leading-relaxed"><code># Autenticar no W&amp;B
+wandb login
+
+# No YAML de config (config/default.yaml)
+wandb:
+  enable: true
+  project: "lerobot-experiments"
+  entity: "seu-usuario"
+  name: "act-pick-place-v1"
+
+# Ou via override na linha de comando
+python lerobot/scripts/train.py \
+  policy=act \
+  wandb.enable=true \
+  wandb.project=lerobot-experiments \
+  wandb.name=act_run_001
+
+# Sweeps para hyperparameter search
+wandb sweep sweep_config.yaml
+wandb agent usuario/projeto/sweep_id</code></pre>
+</div>
+<!-- Grid ✓/✗ métricas -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6">
+<h4 class="font-bold text-blue-400 mb-4">✓ Essential metrics to monitor</h4>
+<ul class="space-y-2 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">✓</span><span><code class="font-mono text-xs bg-dark-700 px-1 rounded">train/loss</code> — should decrease monotonically (with noise)</span></li>
+<li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">✓</span><span><code class="font-mono text-xs bg-dark-700 px-1 rounded">eval/success_rate</code> — percentage of successful episodes</span></li>
+<li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">✓</span><span><code class="font-mono text-xs bg-dark-700 px-1 rounded">eval/video</code> — recorded videos of the robot being evaluated</span></li>
+<li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">✓</span><span>Learning rate schedule — confirm that it decays as expected</span></li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+<h4 class="font-bold text-red-400 mb-4">✗ Dashboard warning signs</h4>
+<ul class="space-y-2 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span><span>Loss rises abruptly — possibly a high learning rate</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span><span>Success rate plateaued after 20k steps — insufficient dataset</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span><span>Gradient norm exploding — add gradient clipping</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span><span>GPU utilization below 70% — bottleneck in data loading</span></li>
+</ul>
+</div>
+</div>
+<!-- Conceitos-chave -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6">
+<h3 class="text-lg font-semibold text-blue-400 mb-4">Key concepts</h3>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+<div><strong class="text-blue-400">wandb.Sweep</strong><p class="text-neutral-400 mt-1">Automatic hyperparameter search: define a search space (lr, batch_size) and W&amp;B schedules and tracks all runs.</p></div>
+<div><strong class="text-blue-400">Model Registry</strong><p class="text-neutral-400 mt-1">Version model checkpoints with semantic tags (best, staging, production) for traceability.</p></div>
+<div><strong class="text-blue-400">Tables for trajectories</strong><p class="text-neutral-400 mt-1">Log action and observation sequences as W&amp;B tables for qualitative behavior analysis.</p></div>
+<div><strong class="text-blue-400">wandb.config</strong><p class="text-neutral-400 mt-1">Automatically record all run hyperparameters for reproducibility and experiment comparison.</p></div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 6: Docker e Reprodutibilidade -->
+<section class="mb-16" id="topico-6">
+<div class="flex items-center gap-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl shrink-0">6</span>
+<h2 class="text-2xl font-bold">🐳 Docker and Reproducibility in Robotics</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">Reproducibility is one of the biggest challenges in robotics research. CUDA driver versions, Python dependencies, and hardware configurations create fragile environments. <strong class="text-blue-400">Docker containerizes everything</strong> — a Dockerfile ensures anyone (or any CI server) can reproduce your training exactly.</p>
+<!-- Tip box -->
+<div class="bg-primary/10 border border-primary/30 rounded-xl p-5 mb-6">
+<h4 class="font-semibold text-primary mb-2">💡 NVIDIA NGC: ready-to-use containers</h4>
+<p class="text-neutral-300 text-sm">NVIDIA maintains the <strong>NGC (NVIDIA GPU Cloud)</strong> with optimized PyTorch+CUDA containers for various GPUs. LeRobot provides Dockerfiles that extend these containers—you don’t need to configure CUDA manually.</p>
+</div>
+<!-- Código Docker -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+<h3 class="text-sm font-semibold text-blue-400 mb-3">🐳 Multi-stage Dockerfile for LeRobot</h3>
+<pre class="font-mono text-sm text-neutral-300 overflow-x-auto leading-relaxed"><code># Etapa 1: base com CUDA
+FROM nvcr.io/nvidia/pytorch:24.01-py3 AS base
+WORKDIR /workspace
+
+# Etapa 2: dependências
+FROM base AS deps
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install lerobot
+
+# Etapa 3: código
+FROM deps AS runtime
+COPY . .
+ENV HF_HOME=/workspace/.cache/huggingface
+
+# Rodar treinamento com GPU passthrough
+# docker run --gpus all -v /data/datasets:/workspace/datasets \
+#   -v /data/checkpoints:/workspace/outputs \
+#   lerobot-train:latest \
+#   python lerobot/scripts/train.py policy=act ...</code></pre>
+</div>
+<!-- Grid conceitos práticos -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6">
+<h4 class="font-bold text-blue-400 mb-4">✓ Docker best practices for robotics</h4>
+<ul class="space-y-2 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">✓</span><span>Multi-stage Dockerfile to separate build from runtime</span></li>
+<li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">✓</span><span>Build datasets as volumes (<code class="font-mono text-xs bg-dark-700 px-1 rounded">-v</code>) — don't copy into the image</span></li>
+<li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">✓</span><span>Pin the base container version (<code class="font-mono text-xs bg-dark-700 px-1 rounded">:24.01</code> no <code class="font-mono text-xs bg-dark-700 px-1 rounded">:latest</code>)</span></li>
+<li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">✓</span><span>Use devcontainers in VS Code for development</span></li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+<h4 class="font-bold text-red-400 mb-4">✗ Common pitfalls</h4>
+<ul class="space-y-2 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span><span>Copying datasets into the Docker image (wasted gigabytes)</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span><span>Forget <code class="font-mono text-xs bg-dark-700 px-1 rounded">--gpus all</code> in docker run (trains on CPU)</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span><span>Use <code class="font-mono text-xs bg-dark-700 px-1 rounded">:latest</code> — image changes and breaks reproducibility</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span><span>Does not version the Dockerfile alongside the experiment code</span></li>
+</ul>
+</div>
+</div>
+<!-- Conceitos-chave -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6">
+<h3 class="text-lg font-semibold text-blue-400 mb-4">Key concepts</h3>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
+<div><strong class="text-blue-400">nvidia-docker2</strong><p class="text-neutral-400 mt-1">Plugin that lets Docker containers access NVIDIA GPUs via <code class="font-mono text-xs bg-dark-700 px-1 rounded">--gpus all</code> without manual CUDA configuration.</p></div>
+<div><strong class="text-blue-400">NVIDIA NGC</strong><p class="text-neutral-400 mt-1">Registry of GPU-optimized containers: PyTorch, TensorFlow, TensorRT — a reliable foundation for reproducible experiments.</p></div>
+<div><strong class="text-blue-400">devcontainers</strong><p class="text-neutral-400 mt-1">VS Code integration that opens the editor inside the Docker container—the same development and production environment.</p></div>
+</div>
+</div>
+</section>
+<!-- RESUMO -->
+<section class="mb-12">
+<div class="bg-gradient-to-br from-blue-900/40 via-dark-800 to-dark-800 rounded-xl border border-blue-500/30 p-8">
+<h2 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">✅</span> Module Summary</h2>
+<div class="space-y-4 mb-8">
+<div class="flex items-start gap-3"><span class="text-blue-400 mt-1">✓</span><div><strong>LeRobot = data collection + training + deployment</strong><span class="text-neutral-400"> — HuggingFace’s unified framework with 12k stars and 58k+ public datasets on the Hub.</span></div></div>
+<div class="flex items-start gap-3"><span class="text-blue-400 mt-1">✓</span><div><strong>Teleoperation produces high-quality data</strong><span class="text-neutral-400"> — 50-100 consistent episodes outperform 500 poor ones; calibration and camera setup are critical.</span></div></div>
+<div class="flex items-start gap-3"><span class="text-blue-400 mt-1">✓</span><div><strong>Policies with distinct trade-offs</strong><span class="text-neutral-400"> — ACT for speed, Diffusion Policy for multimodal smoothness, TDMPC for long horizons.</span></div></div>
+<div class="flex items-start gap-3"><span class="text-blue-400 mt-1">✓</span><div><strong>W&amp;B + Docker = reproducibility</strong><span class="text-neutral-400"> — experiment tracking and containerization ensure that anyone can reproduce results.</span></div></div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+<h3 class="font-semibold text-blue-400 mb-2">Next module</h3>
+<p class="text-neutral-300">2.3 — Simulators: MuJoCo, Isaac Sim, PyBullet</p>
+</div>
+<div class="flex flex-col sm:flex-row gap-4">
+<a class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors" href="./">← Back to the Learning Path</a>
+<a class="flex-1 text-center px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-500 transition-colors" href="modulo-2-3.html">Next module →</a>
+</div>
+</div>
+</section>
+</main>
+<footer class="border-t border-dark-600 py-8">
+<div class="max-w-6xl mx-auto px-4 text-center text-neutral-500 text-sm">
+<p>VLA Course — Vision-Language-Action · <a class="text-sky-400 hover:text-sky-300" href="https://ARCKHÉ AI" target="_blank">ARCKHÉ AI</a></p>
+</div>
+</footer>
+</body>
+</html>

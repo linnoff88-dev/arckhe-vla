@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Module 2.6 — Sim-to-Real: From Virtual to Physical | VLA Course</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: { 600:'#374151', 700:'#1f2937', 800:'#1a1a2e', 900:'#111827' },
+                        primary: '#f59e0b'
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .dark body { background-color: #111827; }
+
+        /* Light mode - base */
+        html:not(.dark) body { background-color: #f8fafc; }
+        html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+        html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+        html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+        html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+        html:not(.dark) .text-neutral-100 { color: #111827; }
+        html:not(.dark) .text-neutral-300 { color: #4b5563; }
+        html:not(.dark) .text-neutral-400 { color: #6b7280; }
+        html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+        html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+        html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+
+        /* Light mode - cores de acento BLUE (Trilha 2) */
+        html:not(.dark) .text-blue-400 { color: #2563eb; }
+        html:not(.dark) .bg-blue-500\/20 { background-color: rgba(37, 99, 235, 0.12); }
+        html:not(.dark) .bg-blue-500\/10 { background-color: rgba(37, 99, 235, 0.08); }
+        html:not(.dark) .bg-blue-900\/20 { background-color: rgba(37, 99, 235, 0.08); }
+        html:not(.dark) .border-blue-500\/30 { border-color: rgba(37, 99, 235, 0.25); }
+        html:not(.dark) .hover\:bg-blue-500\/10:hover { background-color: rgba(37, 99, 235, 0.08); }
+        html:not(.dark) .hover\:border-blue-500\/50:hover { border-color: rgba(37, 99, 235, 0.4); }
+        html:not(.dark) .bg-red-900\/20 { background-color: rgba(220, 38, 38, 0.07); }
+        html:not(.dark) .border-red-500\/30 { border-color: rgba(220, 38, 38, 0.25); }
+
+        /* Light mode - remove gradientes */
+        html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+
+        /* Light mode - cores especiais */
+        html:not(.dark) .text-primary { color: #a16207; }
+        html:not(.dark) .bg-primary\/10 { background-color: rgba(161, 98, 7, 0.08); }
+        html:not(.dark) .border-primary\/30 { border-color: rgba(161, 98, 7, 0.25); }
+        html:not(.dark) .border-primary\/40 { border-color: rgba(161, 98, 7, 0.25); }
+        html:not(.dark) .text-sky-400 { color: #0369a1; }
+        html:not(.dark) .text-yellow-400 { color: #a16207; }
+        html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+        html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+
+        /* Light mode - nav */
+        html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255, 255, 255, 0.95); }
+
+        /* Dark mode - bordas suavizadas */
+        .dark .border-dark-600 { border-color: #374151; }
+        .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+
+        /* SVG light mode */
+        html:not(.dark) svg[role="img"] { filter: saturate(0.82) brightness(0.96); }
+
+        /* Animação SVG */
+        @keyframes m26-pulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
+        @keyframes m26-flow { 0% { stroke-dashoffset: 24; } 100% { stroke-dashoffset: 0; } }
+        @media (prefers-reduced-motion: no-preference) {
+            .m26-pulse { animation: m26-pulse 2.4s ease-in-out infinite; }
+            .m26-pulse:nth-child(2) { animation-delay: 0.3s; }
+            .m26-pulse:nth-child(3) { animation-delay: 0.6s; }
+            .m26-flow { animation: m26-flow 1.8s linear infinite; stroke-dasharray: 8 4; }
+        }
+    </style>
+<link href="https://linnoff88-dev.github.io/arckhe-vla/curso/trilha2/modulo-2-6.html" hreflang="pt-BR" rel="alternate"/><link href="https://linnoff88-dev.github.io/arckhe-vla/en/curso/trilha2/modulo-2-6.html" hreflang="en" rel="alternate"/><link href="https://linnoff88-dev.github.io/arckhe-vla/es/curso/trilha2/modulo-2-6.html" hreflang="es" rel="alternate"/></head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="ARCKHÉ-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../../../curso/trilha2/modulo-2-6.html" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="modulo-2-6.html" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">EN</a><a href="../../../es/curso/trilha2/modulo-2-6.html" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">ES</a></div>
+<!-- NAV -->
+<nav class="fixed top-0 w-full bg-dark-900/95 backdrop-blur border-b border-dark-600 z-50">
+<div class="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<a class="text-primary font-bold text-lg" href="../../">VLA</a>
+<span class="text-neutral-500">|</span>
+<a class="text-sky-400 hover:text-sky-300 text-sm font-medium" href="https://ARCKHÉ AI" target="_blank">ARCKHÉ AI</a>
+</div>
+<div class="flex items-center gap-2">
+<a class="px-3 py-1.5 rounded text-sm text-emerald-400 hover:bg-emerald-500/10" href="../trilha1/">Fundamentals</a>
+<a class="px-3 py-1.5 rounded text-sm text-blue-400 bg-blue-500/20 border border-blue-500/30 font-medium" href="./">Technical</a>
+<a class="px-3 py-1.5 rounded text-sm text-purple-400 hover:bg-purple-500/10" href="../trilha3/">Advanced</a>
+<button class="ml-2 p-2 rounded hover:bg-dark-700 text-neutral-400" onclick="document.documentElement.classList.toggle('dark')" title="Switch theme">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+</div>
+</div>
+</nav>
+<!-- BREADCRUMB -->
+<div class="max-w-4xl mx-auto px-4 pt-20">
+<div class="flex items-center gap-2 text-sm text-neutral-400">
+<a class="hover:text-blue-400" href="../../">Start</a>
+<span>/</span>
+<a class="hover:text-blue-400" href="./">Technical</a>
+<span>/</span>
+<span class="text-blue-400">Module 2.6</span>
+</div>
+</div>
+<main class="max-w-4xl mx-auto px-4 pt-6 pb-16">
+<!-- HEADER -->
+<header class="mb-12">
+<span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-blue-500/20 text-blue-400 border border-blue-500/30 mb-4">MODULE 2.6</span>
+<h1 class="text-3xl sm:text-4xl font-extrabold mb-4">🌉 Sim-to-Real: From Virtual to Physical</h1>
+<p class="text-lg text-neutral-400 max-w-3xl">The toughest bridge in modern robotics: how to transfer skills from the simulator to the real robot. Domain randomization, system identification, and the real-to-sim-to-real loop that powers production robots from NVIDIA, Figure, and Physical Intelligence.</p>
+<!-- SVG HERO: Loop Sim-to-Real -->
+<div class="mt-8 rounded-2xl border border-blue-500/30 bg-dark-900/40 p-4 overflow-hidden">
+<svg aria-label="Sim-to-real loop: a simulator with domain randomization trains a policy, a bridge transfers it to a real robot, and real-world data feeds back into the simulator" class="w-full h-auto" font-family="Inter,sans-serif" role="img" viewbox="0 0 800 220">
+<defs>
+<!-- Gradiente azul -->
+<lineargradient id="m26-grad" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#3b82f6"></stop>
+<stop offset="100%" stop-color="#60a5fa"></stop>
+</lineargradient>
+<!-- Glow azul (só caixa-foco: Bridge) -->
+<filter height="140%" id="m26-glow" width="140%" x="-20%" y="-20%">
+<fegaussianblur result="blur" stddeviation="1.8"></fegaussianblur>
+<femerge><femergenode in="blur"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge>
+</filter>
+<!-- Grid de pontos -->
+<pattern height="20" id="m26-grid" patternunits="userSpaceOnUse" width="20" x="0" y="0">
+<circle cx="1" cy="1" fill="#60a5fa" opacity="0.12" r="0.8"></circle>
+</pattern>
+<!-- Arrowhead azul -->
+<marker id="m26-ah" markerheight="8" markerwidth="8" orient="auto" refx="6" refy="3">
+<path d="M0,0 L0,6 L8,3 z" fill="#60a5fa" opacity="0.8"></path>
+</marker>
+<!-- Arrowhead ciano -->
+<marker id="m26-ahc" markerheight="8" markerwidth="8" orient="auto" refx="6" refy="3">
+<path d="M0,0 L0,6 L8,3 z" fill="#38bdf8" opacity="0.8"></path>
+</marker>
+</defs>
+<!-- Fundo grid -->
+<rect fill="url(#m26-grid)" height="220" width="800" x="0" y="0"></rect>
+<!-- ===== Caixa SIM ===== -->
+<rect fill="#0e1622" height="100" opacity="0.9" rx="14" stroke="#3b82f6" stroke-width="2" width="170" x="30" y="60"></rect>
+<text fill="#60a5fa" font-size="13" font-weight="700" text-anchor="middle" x="115" y="98">🖥 Simulator</text>
+<text fill="#93c5fd" font-size="9" text-anchor="middle" x="115" y="116">Domain Randomization</text>
+<text fill="#93c5fd" font-size="9" text-anchor="middle" x="115" y="130">Physics + Visual + Sensor</text>
+<text fill="#7dd3fc" font-size="9" opacity="0.7" text-anchor="middle" x="115" y="144">Isaac Sim / MuJoCo</text>
+<!-- Seta Sim → Bridge -->
+<path class="m26-flow" d="M200,110 L290,110" fill="none" marker-end="url(#m26-ah)" opacity="0.8" stroke="#60a5fa" stroke-width="2"></path>
+<text fill="#60a5fa" font-size="8.5" opacity="0.8" text-anchor="middle" x="245" y="100">trained policy</text>
+<!-- ===== Caixa BRIDGE (foco, glow) ===== -->
+<g filter="url(#m26-glow)">
+<rect fill="#0c1929" height="120" rx="16" stroke="#38bdf8" stroke-width="2.5" width="200" x="300" y="50"></rect>
+</g>
+<text fill="#38bdf8" font-size="14" font-weight="700" text-anchor="middle" x="400" y="90">🌉 Sim-to-Real</text>
+<text fill="#7dd3fc" font-size="9" text-anchor="middle" x="400" y="108">SysId · DR · Action Smoothing</text>
+<text fill="#7dd3fc" font-size="9" text-anchor="middle" x="400" y="123">Safety Constraints</text>
+<text fill="#93c5fd" font-size="9" opacity="0.7" text-anchor="middle" x="400" y="138">Progressive Deployment</text>
+<text fill="#93c5fd" font-size="8" opacity="0.6" text-anchor="middle" x="400" y="153">sim → sim-sim → real limited → real</text>
+<!-- Seta Bridge → Robô Real -->
+<path class="m26-flow" d="M500,110 L590,110" fill="none" marker-end="url(#m26-ahc)" opacity="0.8" stroke="#38bdf8" stroke-width="2"></path>
+<text fill="#38bdf8" font-size="8.5" opacity="0.8" text-anchor="middle" x="545" y="100">deployment</text>
+<!-- ===== Caixa ROBÔ REAL ===== -->
+<rect fill="#0e1622" height="100" opacity="0.9" rx="14" stroke="#3b82f6" stroke-width="2" width="170" x="600" y="60"></rect>
+<text fill="#60a5fa" font-size="13" font-weight="700" text-anchor="middle" x="685" y="98">🤖 Real Robot</text>
+<text fill="#93c5fd" font-size="9" text-anchor="middle" x="685" y="116">Real-world data collected</text>
+<text fill="#93c5fd" font-size="9" text-anchor="middle" x="685" y="130">real-to-sim feedback</text>
+<text fill="#7dd3fc" font-size="9" opacity="0.7" text-anchor="middle" x="685" y="144">Data Flywheel</text>
+<!-- Seta de retorno Real → Sim (loop) -->
+<path d="M685,60 C685,20 115,20 115,60" fill="none" marker-end="url(#m26-ahc)" opacity="0.55" stroke="#a78bfa" stroke-dasharray="6 3" stroke-width="1.5"></path>
+<text fill="#a78bfa" font-size="9" opacity="0.7" text-anchor="middle" x="400" y="18">real-to-sim: real data refines the simulator</text>
+<!-- Rótulo -->
+<text fill="#4b5563" font-size="9" text-anchor="middle" x="400" y="210">Iterative loop: each cycle improves both simulation and policy</text>
+</svg>
+</div>
+<!-- Stats -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8">
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-blue-400">6</div>
+<div class="text-xs text-neutral-400">Topics</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-blue-400">~55 min</div>
+<div class="text-xs text-neutral-400">Duration</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-blue-400">Advanced</div>
+<div class="text-xs text-neutral-400">Level</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-blue-400">Technical</div>
+<div class="text-xs text-neutral-400">Type</div>
+</div>
+</div>
+</header>
+<!-- ===== TÓPICO 1: Reality Gap ===== -->
+<section class="mb-12" id="topico-1">
+<div class="flex items-center gap-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl shrink-0">1</span>
+<h2 class="text-2xl font-bold">🔬 Reality Gap: Why Simulation ≠ Reality</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">O <strong class="text-blue-400">reality gap</strong> is the difference between a robot’s behavior in the simulator and in the real world. A policy that’s perfect in sim can fail 100% of the time in reality—and understanding why is the starting point for any solid sim-to-real approach.</p>
+<!-- Grid de tipos de gap -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-5">
+<h4 class="font-bold text-blue-400 mb-3">🔍 Types of Gap</h4>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">◆</span><span><strong>Visual gap:</strong> rendering vs. real camera—textures, lighting, reflections</span></li>
+<li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">◆</span><span><strong>Dynamics gap:</strong> simplified physics vs. real contact — friction, compliance</span></li>
+<li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">◆</span><span><strong>Sensor gap:</strong> ideal vs. noisy sensors — camera with jitter, IMU with drift</span></li>
+<li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">◆</span><span><strong>Actuator gap:</strong> perfect control vs. motor backlash and friction</span></li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-5">
+<h4 class="font-bold text-red-400 mb-3">⚠ Classic Errors</h4>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span><span>Ignore the reality gap and expect deployment to work right away</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span><span>Train only with static textures and fixed lighting</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span><span>Not adding sensor noise during training</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span><span>Assume that low loss in simulation = good performance in the real world</span></li>
+</ul>
+</div>
+</div>
+<!-- Conceitos-chave -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600 text-center">
+<div class="text-blue-400 text-lg mb-1">📊</div>
+<div class="text-xs font-semibold text-neutral-200">Transferability</div>
+<div class="text-xs text-neutral-500">Metrics</div>
+</div>
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600 text-center">
+<div class="text-blue-400 text-lg mb-1">🎯</div>
+<div class="text-xs font-semibold text-neutral-200">Success Rate</div>
+<div class="text-xs text-neutral-500">Sim-to-Real</div>
+</div>
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600 text-center">
+<div class="text-blue-400 text-lg mb-1">📷</div>
+<div class="text-xs font-semibold text-neutral-200">Sensor Noise</div>
+<div class="text-xs text-neutral-500">Injection</div>
+</div>
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600 text-center">
+<div class="text-blue-400 text-lg mb-1">⚙</div>
+<div class="text-xs font-semibold text-neutral-200">Actuator</div>
+<div class="text-xs text-neutral-500">Backlash Model</div>
+</div>
+</div>
+</section>
+<!-- ===== TÓPICO 2: Domain Randomization ===== -->
+<section class="mb-12" id="topico-2">
+<div class="flex items-center gap-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl shrink-0">2</span>
+<h2 class="text-2xl font-bold">🎲 Domain Randomization: Textures, Physics, Lighting</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed"><strong class="text-blue-400">Domain randomization</strong> systematically varies the simulator parameters in each episode. The policy is forced to generalize because it never sees the same scenario twice — reality becomes just another "domain" the model has learned to handle.</p>
+<!-- Box dica prática -->
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Why it works</h3>
+<p class="text-neutral-300 text-sm leading-relaxed">OpenAI used domain randomization to solve the Rubik’s Cube with a Dexterous robotic hand (2019)—200+ randomized parameters, 13K years of simulated experience. NVIDIA uses it in Isaac Lab for humanoids. Without DR, policies overfit to the simulator’s appearance and fail catastrophically in the real world.</p>
+</div>
+<!-- Box código: parâmetros de DR -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-5 mb-6">
+<h4 class="text-sm font-semibold text-blue-400 mb-3 flex items-center gap-2"><span>📋</span> Typical Domain Randomization Parameters</h4>
+<pre class="font-mono text-xs text-neutral-300 leading-relaxed overflow-x-auto"><code># Visual DR — randomiza aparência
+visual_dr:
+  texture_randomization: true       # texturas aleatórias em cada objeto
+  background_color: [0.1, 0.9]      # range de luminosidade do fundo
+  light_intensity: [0.5, 1.5]       # posição e intensidade das luzes
+  camera_position_noise: 0.02       # ruído na posição da câmera (m)
+
+# Physics DR — randomiza dinâmica
+physics_dr:
+  object_mass: [0.7, 1.3]           # ±30% na massa dos objetos
+  friction_coefficient: [0.5, 1.5]  # ±50% no coeficiente de atrito
+  joint_damping: [0.8, 1.2]         # amortecimento das juntas
+  action_delay_steps: [1, 3]        # delay de 1 a 3 steps nos comandos
+
+# ADR — Automatic Domain Randomization
+adr:
+  enabled: true
+  performance_threshold: 0.85       # aumenta ranges quando perf &gt; 85%
+  range_increment: 0.05             # incremento gradual dos ranges</code></pre>
+</div>
+<!-- Grid DR Visual vs Physics -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-4">
+<h4 class="font-semibold text-blue-400 mb-2 text-sm">✓ Visual DR — What to randomize</h4>
+<ul class="text-xs text-neutral-300 space-y-1">
+<li class="flex gap-2"><span class="text-blue-400">✓</span> Surface textures and background color</li>
+<li class="flex gap-2"><span class="text-blue-400">✓</span> Light position, color, and intensity</li>
+<li class="flex gap-2"><span class="text-blue-400">✓</span> Camera position and angle</li>
+<li class="flex gap-2"><span class="text-blue-400">✓</span> Distractors: random objects in the scene</li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-4">
+<h4 class="font-semibold text-red-400 mb-2 text-sm">✗ Common errors with DR</h4>
+<ul class="text-xs text-neutral-300 space-y-1">
+<li class="flex gap-2"><span class="text-red-400">✗</span> Ranges that are too broad: the policy becomes "mediocre at everything"</li>
+<li class="flex gap-2"><span class="text-red-400">✗</span> Randomizing without measuring the resulting performance</li>
+<li class="flex gap-2"><span class="text-red-400">✗</span> Ignore ADR — manually increasing ranges is slow</li>
+<li class="flex gap-2"><span class="text-red-400">✗</span> Only randomize visuals, ignore dynamics</li>
+</ul>
+</div>
+</div>
+</section>
+<!-- ===== TÓPICO 3: System Identification ===== -->
+<section class="mb-12" id="topico-3">
+<div class="flex items-center gap-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl shrink-0">3</span>
+<h2 class="text-2xl font-bold">🔧 System Identification: Calibrating the Simulator</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed"><strong class="text-blue-400">System identification (sysid)</strong> is the process of measuring the robot’s actual physical parameters—masses, inertias, friction, stiffness—and configuring the simulator to match them. Instead of randomizing everything, you calibrate the sim to be as close as possible to reality.</p>
+<!-- Timeline do processo sysid -->
+<div class="space-y-4 mb-6">
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center border border-blue-500/30">
+<span class="text-blue-400 font-bold">1</span>
+</div>
+<div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600">
+<h4 class="font-semibold text-white mb-1">Real trajectory collection</h4>
+<p class="text-sm text-neutral-400">Executes specific trajectories (sinusoidal, step) on the real robot and records positions, velocities, and torques at high frequency. This dataset will feed the optimization process.</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center border border-blue-500/30">
+<span class="text-blue-400 font-bold">2</span>
+</div>
+<div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600">
+<h4 class="font-semibold text-white mb-1">Parameter optimization</h4>
+<p class="text-sm text-neutral-400">Use Bayesian Optimization or gradient descent to find the sim parameters (masses, friction, damping) that minimize the difference between the real and simulated trajectories.</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center border border-blue-500/30">
+<span class="text-blue-400 font-bold">3</span>
+</div>
+<div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600">
+<h4 class="font-semibold text-white mb-1">Residual physics learning</h4>
+<p class="text-sm text-neutral-400">A neural network learns the residual difference between the calibrated sim and the real world — capturing effects that physical equations don’t model well, such as hysteresis and cable compliance.</p>
+</div>
+</div>
+</div>
+<!-- Box dica: DR + SysId combinados -->
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6">
+<h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">⚡</span> DR + SysId: The Best of Both Worlds</h3>
+<p class="text-neutral-300 text-sm leading-relaxed">Domain randomization with very wide ranges degrades performance. SysId lets you use narrow ranges <em>focused on real values</em> — the robustness of DR with the accuracy of sysid. Ideal pipeline: sysid first to calibrate the center, then DR for robustness around that center.</p>
+</div>
+</section>
+<!-- ===== TÓPICO 4: Sim-to-Real Transfer ===== -->
+<section class="mb-12" id="topico-4">
+<div class="flex items-center gap-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl shrink-0">4</span>
+<h2 class="text-2xl font-bold">🚀 Sim-to-Real Transfer: Current Techniques</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">O <strong class="text-blue-400">complete sim-to-real transfer pipeline</strong> involves training with DR/sysid, sim-to-sim validation, progressive deployment with safety constraints, and iteration with real-world data. It's the bottleneck for all learning-based robotics.</p>
+<!-- Grid Fazer vs Evitar -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-5">
+<h4 class="font-bold text-blue-400 mb-3">✓ Robust pipeline</h4>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-blue-400">✓</span> Validate sim-to-sim before touching the real robot</li>
+<li class="flex items-start gap-2"><span class="text-blue-400">✓</span> Progressive deployment: sim → sim-sim → real with safety limits → full real</li>
+<li class="flex items-start gap-2"><span class="text-blue-400">✓</span> Action smoothing: low-pass filter on joint commands</li>
+<li class="flex items-start gap-2"><span class="text-blue-400">✓</span> Safety constraints: force limits, velocity limits, workspace bounds</li>
+<li class="flex items-start gap-2"><span class="text-blue-400">✓</span> Online adaptation: adjusting the policy with data collected in the real world</li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-5">
+<h4 class="font-bold text-red-400 mb-3">✗ Deployment errors</h4>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span> Direct deployment without validation in simulation with OOD scenarios</li>
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span> Maximum speed with no smooth ramp-up in the first steps</li>
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span> Ignore camera latency and OS jitter in the control loop</li>
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span> Not defining an emergency stop before the first real-world test</li>
+</ul>
+</div>
+</div>
+<!-- Box código: action smoothing -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-5">
+<h4 class="text-sm font-semibold text-blue-400 mb-3">📋 Action Smoothing — Simple low-pass filter</h4>
+<pre class="font-mono text-xs text-neutral-300 leading-relaxed overflow-x-auto"><code>class ActionSmoother:
+    """Filtro EMA para suavizar comandos e evitar movimentos bruscos."""
+    def __init__(self, alpha: float = 0.7):
+        self.alpha = alpha          # 0.7 = suave; 1.0 = sem filtro
+        self.prev_action = None
+
+    def __call__(self, raw_action):
+        if self.prev_action is None:
+            self.prev_action = raw_action
+            return raw_action
+        # Exponential Moving Average
+        smoothed = self.alpha * raw_action + (1 - self.alpha) * self.prev_action
+        self.prev_action = smoothed
+        return smoothed
+
+# Uso no loop de controle
+smoother = ActionSmoother(alpha=0.7)
+while True:
+    obs = robot.get_observation()
+    raw_action = policy(obs)
+    safe_action = smoother(raw_action)
+    robot.execute(np.clip(safe_action, -v_max, v_max))</code></pre>
+</div>
+</section>
+<!-- ===== TÓPICO 5: Real-to-Sim-to-Real ===== -->
+<section class="mb-12" id="topico-5">
+<div class="flex items-center gap-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl shrink-0">5</span>
+<h2 class="text-2xl font-bold">🔄 Real-to-Sim-to-Real: The Complete Loop</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">A single sim-to-real pass is rarely enough. The <strong class="text-blue-400">real-to-sim-to-real loop</strong> is iterative: collect data on the real robot, use that data to calibrate and improve the simulator, retrain the policy in the improved sim, and deploy again. Each cycle improves both the sim and the policy.</p>
+<!-- SVG meio: Data Flywheel -->
+<div class="rounded-2xl border border-blue-500/30 bg-dark-900/40 p-4 mb-6 overflow-hidden">
+<svg aria-label="Data flywheel: real robot collects data, data calibrates simulator, simulator trains policy, policy returns to the robot" class="w-full h-auto" font-family="Inter,sans-serif" role="img" viewbox="0 0 700 200">
+<defs>
+<pattern height="20" id="m26-grid2" patternunits="userSpaceOnUse" width="20" x="0" y="0">
+<circle cx="1" cy="1" fill="#60a5fa" opacity="0.10" r="0.8"></circle>
+</pattern>
+<filter height="160%" id="m26-glow2" width="160%" x="-30%" y="-30%">
+<fegaussianblur result="blur" stddeviation="1.8"></fegaussianblur>
+<femerge><femergenode in="blur"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge>
+</filter>
+<marker id="m26-ah2" markerheight="8" markerwidth="8" orient="auto" refx="6" refy="3">
+<path d="M0,0 L0,6 L8,3 z" fill="#60a5fa" opacity="0.85"></path>
+</marker>
+<marker id="m26-ah2c" markerheight="8" markerwidth="8" orient="auto" refx="6" refy="3">
+<path d="M0,0 L0,6 L8,3 z" fill="#38bdf8" opacity="0.85"></path>
+</marker>
+</defs>
+<rect fill="url(#m26-grid2)" height="200" width="700" x="0" y="0"></rect>
+<!-- Nó 1: Robô Real (topo-esquerda) -->
+<g filter="url(#m26-glow2)">
+<rect fill="#0e1622" height="60" rx="12" stroke="#3b82f6" stroke-width="2.2" width="145" x="40" y="30"></rect>
+</g>
+<text fill="#60a5fa" font-size="12" font-weight="700" text-anchor="middle" x="112" y="56">🤖 Real Robot</text>
+<text fill="#93c5fd" font-size="9" text-anchor="middle" x="112" y="72">collects data</text>
+<text fill="#7dd3fc" font-size="8" opacity="0.7" text-anchor="middle" x="112" y="84">real episodes</text>
+<!-- Seta Real → Calibração -->
+<path class="m26-flow" d="M185,60 L255,60" fill="none" marker-end="url(#m26-ah2)" opacity="0.8" stroke="#60a5fa" stroke-width="1.8"></path>
+<!-- Nó 2: Calibração -->
+<rect fill="#0c1929" height="60" rx="12" stroke="#38bdf8" stroke-width="2" width="170" x="265" y="30"></rect>
+<text fill="#38bdf8" font-size="11" font-weight="700" text-anchor="middle" x="350" y="55">🔧 Calibrate Sim</text>
+<text fill="#7dd3fc" font-size="9" text-anchor="middle" x="350" y="71">sysid + neural sim</text>
+<text fill="#7dd3fc" font-size="8" opacity="0.7" text-anchor="middle" x="350" y="83">digital twin update</text>
+<!-- Seta Calibração → Sim -->
+<path class="m26-flow" d="M435,60 L505,60" fill="none" marker-end="url(#m26-ah2c)" opacity="0.8" stroke="#38bdf8" stroke-width="1.8"></path>
+<!-- Nó 3: Sim Melhorado -->
+<rect fill="#0e1622" height="60" rx="12" stroke="#3b82f6" stroke-width="2" width="145" x="515" y="30"></rect>
+<text fill="#60a5fa" font-size="12" font-weight="700" text-anchor="middle" x="587" y="56">🖥 Sim ↑</text>
+<text fill="#93c5fd" font-size="9" text-anchor="middle" x="587" y="72">re-trains policy</text>
+<text fill="#7dd3fc" font-size="8" opacity="0.7" text-anchor="middle" x="587" y="84">massive parallel</text>
+<!-- Seta de retorno Sim → Robô (baixo) -->
+<path d="M587,90 C587,155 112,155 112,90" fill="none" marker-end="url(#m26-ah2)" opacity="0.6" stroke="#a78bfa" stroke-dasharray="5 3" stroke-width="1.5"></path>
+<!-- Labels no caminho de retorno -->
+<text fill="#a78bfa" font-size="9" opacity="0.75" text-anchor="middle" x="350" y="172">new policy deployed → collects more data → flywheel accelerates</text>
+<!-- Label central -->
+<text fill="#4b5563" font-size="8" text-anchor="middle" x="350" y="190">Each iteration: more accurate sim + better policy</text>
+</svg>
+</div>
+<!-- Conceitos data flywheel -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600 text-center">
+<div class="text-blue-400 text-lg mb-1">🌀</div>
+<div class="text-xs font-semibold text-neutral-200">Data Flywheel</div>
+<div class="text-xs text-neutral-500">data → sim → policy</div>
+</div>
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600 text-center">
+<div class="text-blue-400 text-lg mb-1">🧠</div>
+<div class="text-xs font-semibold text-neutral-200">Neural Sim</div>
+<div class="text-xs text-neutral-500">automatic sim tuning</div>
+</div>
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600 text-center">
+<div class="text-blue-400 text-lg mb-1">👥</div>
+<div class="text-xs font-semibold text-neutral-200">Digital Twin</div>
+<div class="text-xs text-neutral-500">exact replica of the setup</div>
+</div>
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600 text-center">
+<div class="text-blue-400 text-lg mb-1">🔁</div>
+<div class="text-xs font-semibold text-neutral-200">Robotic CI/CD</div>
+<div class="text-xs text-neutral-500">continuous deployment</div>
+</div>
+</div>
+<!-- Dica industrial -->
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-5">
+<h3 class="text-base font-semibold text-primary mb-2 flex items-center gap-2"><span>🏭</span> How the industry does it</h3>
+<p class="text-neutral-300 text-sm leading-relaxed">Figure, NVIDIA, and Physical Intelligence run <strong class="text-primary">dozens of iterations</strong> real-to-sim-to-real before declaring a behavior "production-ready". A single sim-to-real pass is always the starting point, never the finish line.</p>
+</div>
+</section>
+<!-- ===== TÓPICO 6: Casos de Sucesso ===== -->
+<section class="mb-12" id="topico-6">
+<div class="flex items-center gap-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-blue-500/20 text-blue-400 font-bold text-xl shrink-0">6</span>
+<h2 class="text-2xl font-bold">🏆 Success Stories: OpenAI, NVIDIA, Google</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">The sim-to-real milestones prove that the approach works for tasks of extreme complexity. Lessons learned from these projects apply directly to any VLA pipeline.</p>
+<!-- Timeline de casos -->
+<div class="space-y-5 mb-6">
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center border border-blue-500/30">
+<span class="text-blue-400 font-bold text-xs">2019</span>
+</div>
+<div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600">
+<h4 class="font-semibold text-white mb-1">OpenAI Dexterous Hand — Rubik’s Cube</h4>
+<p class="text-sm text-neutral-400 mb-2">The founding milestone: a robotic hand solved a Rubik’s Cube with massive ADR.</p>
+<div class="font-mono text-xs text-blue-400 bg-dark-900/60 rounded p-2">ADR: 200+ randomized parameters · 13,000 years of sim experience · Tactile sensor essential</div>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center border border-blue-500/30">
+<span class="text-blue-400 font-bold text-xs">2023</span>
+</div>
+<div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600">
+<h4 class="font-semibold text-white mb-1">NVIDIA Isaac Lab — Humanoid Locomotion</h4>
+<p class="text-sm text-neutral-400 mb-2">Massive parallel training in Isaac Sim for humanoid robots.</p>
+<div class="font-mono text-xs text-blue-400 bg-dark-900/60 rounded p-2">PPO with 4096 parallel envs · 45 min wall-clock to convergence · foundation for GR00T N1</div>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center border border-blue-500/30">
+<span class="text-blue-400 font-bold text-xs">2024</span>
+</div>
+<div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600">
+<h4 class="font-semibold text-white mb-1">Google RT-2 — SIMPLER Benchmark</h4>
+<p class="text-sm text-neutral-400 mb-2">Validate VLAs in sim before deployment — strong correlation with real-world performance.</p>
+<div class="font-mono text-xs text-blue-400 bg-dark-900/60 rounded p-2">SIMPLER + LIBERO standardize comparisons · sim as a reliable proxy · data scale pays off</div>
+</div>
+</div>
+</div>
+<!-- Lições aprendidas -->
+<div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-5">
+<h4 class="font-bold text-blue-400 mb-3">📚 Universal lessons from these projects</h4>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-blue-400">◆</span><span><strong>Simulation scale makes up for:</strong> more hours in simulation are rarely a waste of GPU time — they’re an investment in robustness.</span></li>
+<li class="flex items-start gap-2"><span class="text-blue-400">◆</span><span><strong>Tactile sensors matter:</strong> for fine manipulation, vision alone is not enough — force feedback is critical.</span></li>
+<li class="flex items-start gap-2"><span class="text-blue-400">◆</span><span><strong>Reward design is an art:</strong> a poorly specified reward in simulation results in catastrophic behavior in the real world.</span></li>
+<li class="flex items-start gap-2"><span class="text-blue-400">◆</span><span><strong>Standardized benchmarks:</strong> SIMPLER and LIBERO enable reproducible comparisons of methods.</span></li>
+</ul>
+</div>
+</section>
+<!-- ===== RESUMO ===== -->
+<section class="mb-12">
+<div class="bg-gradient-to-br from-blue-900/40 via-dark-800 to-dark-800 rounded-xl border border-blue-500/30 p-8">
+<h2 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">✅</span> Module Summary</h2>
+<div class="space-y-4 mb-8">
+<div class="flex items-start gap-3">
+<span class="text-blue-400 mt-1">✓</span>
+<div><strong>The reality gap has 4 dimensions</strong><span class="text-neutral-400"> — visual, dynamics, sensor, and actuator. Each requires specific mitigation techniques.</span></div>
+</div>
+<div class="flex items-start gap-3">
+<span class="text-blue-400 mt-1">✓</span>
+<div><strong>Domain randomization + SysId</strong><span class="text-neutral-400"> — the combination is more powerful than either technique alone: sysid calibrates the center, DR covers the uncertainty around it.</span></div>
+</div>
+<div class="flex items-start gap-3">
+<span class="text-blue-400 mt-1">✓</span>
+<div><strong>Progressive, safety-first deployment</strong><span class="text-neutral-400"> — sim → sim-sim → limited real-world → full real-world. Action smoothing and force limits are mandatory.</span></div>
+</div>
+<div class="flex items-start gap-3">
+<span class="text-blue-400 mt-1">✓</span>
+<div><strong>Real-to-sim-to-real is iterative</strong><span class="text-neutral-400"> — the data flywheel is what distinguishes amateur robotics projects from production industrial robots.</span></div>
+</div>
+</div>
+<!-- Próxima trilha -->
+<div class="bg-dark-800/50 rounded-lg p-5 mb-8 border border-blue-500/20">
+<h3 class="font-semibold text-blue-400 mb-2">Next track: Track 3 — Advanced</h3>
+<p class="text-neutral-300 text-sm">You completed the entire Technical Track. In Track 3 — Advanced — we explored cutting-edge architectures, training at massive scale, multi-task learning, and the foundation models defining the state of the art in VLAs.</p>
+</div>
+<!-- Botões de navegação (ÚLTIMO módulo: Voltar + Próxima Trilha) -->
+<div class="flex flex-col sm:flex-row gap-4">
+<a class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors" href="./">← Back to the Learning Path</a>
+<a class="flex-1 text-center px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-500 transition-colors" href="../trilha3/">Go to Track 3: Advanced →</a>
+</div>
+</div>
+</section>
+</main>
+<footer class="border-t border-dark-600 py-8">
+<div class="max-w-6xl mx-auto px-4 text-center text-neutral-500 text-sm">
+<p>VLA Course — Vision-Language-Action · <a class="text-sky-400 hover:text-sky-300" href="https://ARCKHÉ AI" target="_blank">ARCKHÉ AI</a></p>
+</div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Module 2.1 — Python Ecosystem | VLA Course</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#FACC15',
+            dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' }
+          }
+        }
+      }
+    }
+  </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    .topic-explanation { display: none; }
+    .topic-explanation.active { display: block; }
+
+    /* Light mode - Parte 1: Base */
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+
+    /* Light mode - Parte 2: Cores de acento (blue, T2) */
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .bg-blue-500\/20 { background-color: rgba(37, 99, 235, 0.12); }
+    html:not(.dark) .bg-blue-500\/10 { background-color: rgba(37, 99, 235, 0.08); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37, 99, 235, 0.25); }
+    html:not(.dark) .hover\:bg-blue-500\/30:hover { background-color: rgba(37, 99, 235, 0.18); }
+    html:not(.dark) .bg-blue-900\/20 { background-color: rgba(37, 99, 235, 0.08); }
+
+    /* Light mode - Parte 3: Remove gradientes e cores especiais */
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161, 98, 7, 0.08); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161, 98, 7, 0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+
+    /* Light mode - Parte 4: Navbar */
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255, 255, 255, 0.95); }
+
+    /* Light mode - Parte 5: Bordas suavizadas DARK MODE */
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+
+    /* SVG light mode saturate */
+    html:not(.dark) svg[role="img"] { filter: saturate(0.82) brightness(0.96); }
+  </style>
+<link href="https://linnoff88-dev.github.io/arckhe-vla/curso/trilha2/modulo-2-1.html" hreflang="pt-BR" rel="alternate"/><link href="https://linnoff88-dev.github.io/arckhe-vla/en/curso/trilha2/modulo-2-1.html" hreflang="en" rel="alternate"/><link href="https://linnoff88-dev.github.io/arckhe-vla/es/curso/trilha2/modulo-2-1.html" hreflang="es" rel="alternate"/></head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="ARCKHÉ-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../../../curso/trilha2/modulo-2-1.html" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="modulo-2-1.html" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">EN</a><a href="../../../es/curso/trilha2/modulo-2-1.html" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">ES</a></div>
+<!-- NAV (copiado exato do trilha2/index.html) -->
+<nav class="fixed top-0 w-full bg-dark-900/95 backdrop-blur border-b border-dark-600 z-50">
+<div class="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<a class="text-primary font-bold text-lg" href="../../">VLA</a>
+<span class="text-neutral-500">|</span>
+<a class="text-sky-400 hover:text-sky-300 text-sm font-medium" href="https://ARCKHÉ AI" target="_blank">ARCKHÉ AI</a>
+</div>
+<div class="flex items-center gap-2">
+<a class="px-3 py-1.5 rounded text-sm text-emerald-400 hover:bg-emerald-500/10" href="../trilha1/">Fundamentals</a>
+<a class="px-3 py-1.5 rounded text-sm text-blue-400 bg-blue-500/20 border border-blue-500/30 font-medium" href="./">Technical</a>
+<a class="px-3 py-1.5 rounded text-sm text-purple-400 hover:bg-purple-500/10" href="../trilha3/">Advanced</a>
+<button class="ml-2 p-2 rounded hover:bg-dark-700 text-neutral-400" onclick="document.documentElement.classList.toggle('dark')" title="Switch theme">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+</div>
+</div>
+</nav>
+<main class="max-w-4xl mx-auto px-4 sm:px-6 pt-24 pb-16">
+<!-- BREADCRUMB -->
+<nav aria-label="Breadcrumb" class="flex items-center gap-2 text-sm mb-8">
+<a class="text-neutral-500 hover:text-neutral-300" href="../../">Start</a>
+<span class="text-neutral-600">/</span>
+<a class="text-neutral-500 hover:text-neutral-300" href="./">Technical</a>
+<span class="text-neutral-600">/</span>
+<span class="text-blue-400 font-medium">Module 2.1</span>
+</nav>
+<!-- HEADER -->
+<header class="mb-12">
+<div class="inline-flex items-center gap-2 bg-blue-500/20 border border-blue-500/30 rounded-full px-4 py-1.5 mb-4">
+<span class="w-2 h-2 rounded-full bg-blue-400"></span>
+<span class="text-blue-400 text-sm font-semibold tracking-wide">MODULE 2.1</span>
+</div>
+<h1 class="text-3xl sm:text-4xl font-extrabold mb-4 leading-tight">
+        🐍 Python ecosystem: PyTorch, Transformers, Gymnasium
+      </h1>
+<p class="text-neutral-300 text-lg mb-8 max-w-2xl">The tools every VLA engineer needs to master: from tensor to environment. PyTorch for autograd, HuggingFace for pre-trained models, Gymnasium for standardized environments.</p>
+<!-- Stats 4 colunas -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+<div class="bg-dark-800 rounded-xl p-4 border border-dark-700 text-center">
+<div class="text-2xl font-bold text-blue-400">6</div>
+<div class="text-xs text-neutral-500 mt-1">Topics</div>
+</div>
+<div class="bg-dark-800 rounded-xl p-4 border border-dark-700 text-center">
+<div class="text-2xl font-bold text-blue-400">~3h</div>
+<div class="text-xs text-neutral-500 mt-1">Estimated</div>
+</div>
+<div class="bg-dark-800 rounded-xl p-4 border border-dark-700 text-center">
+<div class="text-2xl font-bold text-blue-400">T2</div>
+<div class="text-xs text-neutral-500 mt-1">Technical</div>
+</div>
+<div class="bg-dark-800 rounded-xl p-4 border border-dark-700 text-center">
+<div class="text-2xl font-bold text-blue-400">Practical</div>
+<div class="text-xs text-neutral-500 mt-1">Type</div>
+</div>
+</div>
+</header>
+<!-- HERO SVG: Ecossistema Python para VLA -->
+<div class="rounded-2xl border border-blue-500/30 bg-dark-900/40 p-4 mb-12 overflow-hidden">
+<svg aria-label="Python ecosystem for VLA: PyTorch, HuggingFace Transformers, and Gymnasium connected as pillars of the pipeline" class="w-full h-auto" font-family="Inter,sans-serif" role="img" viewbox="0 0 700 220">
+<defs>
+<filter height="180%" id="m21-glow" width="180%" x="-40%" y="-40%">
+<fegaussianblur result="b" stddeviation="1.8"></fegaussianblur>
+<femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge>
+</filter>
+<pattern height="28" id="m21-grid" patternunits="userSpaceOnUse" width="28">
+<circle cx="1.2" cy="1.2" fill="#3b82f6" opacity="0.10" r="1.2"></circle>
+</pattern>
+<lineargradient id="m21-grad" x1="0%" x2="100%" y1="0%" y2="0%">
+<stop offset="0%" stop-color="#3b82f6"></stop>
+<stop offset="100%" stop-color="#7dd3fc"></stop>
+</lineargradient>
+<marker id="m21-ah" markerheight="8" markerwidth="8" orient="auto" refx="6" refy="4">
+<path d="M0,0 L7,4 L0,8 L2,4 Z" fill="#60a5fa"></path>
+</marker>
+</defs>
+<rect fill="url(#m21-grid)" height="220" width="700"></rect>
+<!-- Python central — caixa foco com glow -->
+<rect fill="#0e1622" filter="url(#m21-glow)" height="52" rx="14" stroke="url(#m21-grad)" stroke-width="2.5" width="160" x="270" y="14"></rect>
+<text fill="#60a5fa" font-size="14" font-weight="700" text-anchor="middle" x="350" y="36">Python 3.10+</text>
+<text fill="#9ca3af" font-size="8" text-anchor="middle" x="350" y="54">The VLA ecosystem's base language model</text>
+<!-- Linhas de Python para ferramentas -->
+<line marker-end="url(#m21-ah)" opacity="0.5" stroke="#3b82f6" stroke-width="1.3" x1="300" x2="110" y1="66" y2="105"></line>
+<line marker-end="url(#m21-ah)" opacity="0.5" stroke="#3b82f6" stroke-width="1.3" x1="340" x2="250" y1="66" y2="105"></line>
+<line marker-end="url(#m21-ah)" opacity="0.5" stroke="#7dd3fc" stroke-width="1.3" x1="370" x2="450" y1="66" y2="105"></line>
+<line marker-end="url(#m21-ah)" opacity="0.4" stroke="#3b82f6" stroke-width="1.3" x1="400" x2="590" y1="66" y2="105"></line>
+<!-- PyTorch -->
+<rect fill="#0e1622" height="70" rx="12" stroke="#3b82f6" stroke-width="2" width="155" x="30" y="108"></rect>
+<text fill="#3b82f6" font-size="13" font-weight="700" text-anchor="middle" x="107" y="132">PyTorch</text>
+<text fill="#9ca3af" font-size="8" text-anchor="middle" x="107" y="150">Tensors + Autograd</text>
+<text fill="#7dd3fc" font-size="7" text-anchor="middle" x="107" y="164">Native CUDA GPU · bfloat16</text>
+<text fill="#9ca3af" font-size="7" text-anchor="middle" x="107" y="176">nn.Module · optim.AdamW</text>
+<!-- HuggingFace Transformers -->
+<rect fill="#0e1622" height="70" rx="12" stroke="#60a5fa" stroke-width="2" width="175" x="210" y="108"></rect>
+<text fill="#60a5fa" font-size="12" font-weight="700" text-anchor="middle" x="297" y="132">🤗 Transformers</text>
+<text fill="#9ca3af" font-size="8" text-anchor="middle" x="297" y="150">300k+ models on the Hub</text>
+<text fill="#7dd3fc" font-size="7" text-anchor="middle" x="297" y="164">from_pretrained · LoRA/PEFT</text>
+<text fill="#9ca3af" font-size="7" text-anchor="middle" x="297" y="176">AutoModelForVision2Seq</text>
+<!-- Gymnasium -->
+<rect fill="#0e1622" height="70" rx="12" stroke="#7dd3fc" stroke-width="2" width="140" x="410" y="108"></rect>
+<text fill="#7dd3fc" font-size="13" font-weight="700" text-anchor="middle" x="480" y="132">Gymnasium</text>
+<text fill="#9ca3af" font-size="8" text-anchor="middle" x="480" y="150">RL environments</text>
+<text fill="#7dd3fc" font-size="7" text-anchor="middle" x="480" y="164">obs / act / reward / done</text>
+<text fill="#9ca3af" font-size="7" text-anchor="middle" x="480" y="176">VectorEnv · wrappers</text>
+<!-- W&B -->
+<rect fill="#0e1622" height="70" opacity="0.8" rx="12" stroke="#3b82f6" stroke-width="1.5" width="100" x="575" y="108"></rect>
+<text fill="#3b82f6" font-size="11" font-weight="700" text-anchor="middle" x="625" y="132">W&amp;B</text>
+<text fill="#9ca3af" font-size="8" text-anchor="middle" x="625" y="150">Tracking</text>
+<text fill="#7dd3fc" font-size="7" text-anchor="middle" x="625" y="164">Experiments</text>
+<text fill="#9ca3af" font-size="7" text-anchor="middle" x="625" y="176">Sweeps · Registry</text>
+<!-- Docker base -->
+<rect fill="#0e1622" height="22" opacity="0.6" rx="8" stroke="#60a5fa" stroke-width="1" width="300" x="200" y="192"></rect>
+<text fill="#60a5fa" font-size="9" font-weight="600" text-anchor="middle" x="350" y="207">Docker · Reproducibility · NVIDIA NGC</text>
+</svg>
+</div>
+<!-- ===================== TÓPICO 1 ===================== -->
+<section class="mb-16" id="topico-1">
+<div class="flex items-start gap-5 mb-6">
+<div class="w-12 h-12 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center shrink-0">
+<span class="text-blue-400 font-bold text-lg">1</span>
+</div>
+<div>
+<h2 class="text-2xl font-bold mb-2">🔥 PyTorch for robotics: tensors and autograd</h2>
+<p class="text-neutral-400">The dominant deep learning framework in robotics. Understanding tensors and the automatic differentiation system is a technical prerequisite for any serious work with VLA.</p>
+</div>
+</div>
+<!-- Box conceito principal -->
+<div class="bg-gradient-to-br from-blue-900/40 via-dark-800 to-dark-800 rounded-xl border border-blue-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-blue-400 mb-3 flex items-center"><span class="mr-2">💡</span> What it is</h3>
+<p class="text-neutral-300">PyTorch is the dominant deep learning framework in robotics and VLA. <strong class="text-white">Tensors</strong> are multidimensional arrays with native GPU support via CUDA. The system <strong class="text-white">autograd</strong> automatically computes gradients through the computational graph — essential for backpropagation during neural policy training. Virtually every relevant VLA (OpenVLA, pi-0, ACT) is implemented in PyTorch.</p>
+</div>
+<!-- Grid fazer vs evitar -->
+<div class="grid sm:grid-cols-2 gap-4 mb-6">
+<div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-5">
+<h4 class="font-semibold text-blue-400 mb-3 flex items-center gap-2"><span>✓</span> Do</h4>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">✓</span> Use <code class="font-mono text-xs bg-dark-700 px-1.5 py-0.5 rounded">bfloat16</code> on Ampere+ GPUs to train large VLAs</li>
+<li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">✓</span> Move tensors to the device before operating on them: <code class="font-mono text-xs bg-dark-700 px-1.5 py-0.5 rounded">.to(device)</code></li>
+<li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">✓</span> Use <code class="font-mono text-xs bg-dark-700 px-1.5 py-0.5 rounded">torch.compile()</code> to speed up repetitive training loops</li>
+<li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">✓</span> Call <code class="font-mono text-xs bg-dark-700 px-1.5 py-0.5 rounded">optimizer.zero_grad()</code> before each backward</li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-5">
+<h4 class="font-semibold text-red-400 mb-3 flex items-center gap-2"><span>✗</span> Avoid</h4>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Accumulate tensors in Python lists — silently leaks GPU memory</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Mix <code class="font-mono text-xs bg-dark-700 px-1.5 py-0.5 rounded">float32</code> e <code class="font-mono text-xs bg-dark-700 px-1.5 py-0.5 rounded">float16</code> without <code class="font-mono text-xs bg-dark-700 px-1.5 py-0.5 rounded">torch.amp</code></li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Call <code class="font-mono text-xs bg-dark-700 px-1.5 py-0.5 rounded">.item()</code> inside the training loop (synchronizes CPU/GPU)</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Forget <code class="font-mono text-xs bg-dark-700 px-1.5 py-0.5 rounded">model.eval()</code> / <code class="font-mono text-xs bg-dark-700 px-1.5 py-0.5 rounded">torch.no_grad()</code> during inference</li>
+</ul>
+</div>
+</div>
+<!-- Code box -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-5 mb-6">
+<div class="flex items-center gap-2 mb-3">
+<span class="text-blue-400 font-semibold text-sm">📦 Minimum pattern: training a PyTorch policy</span>
+</div>
+<pre class="font-mono text-sm text-neutral-300 overflow-x-auto leading-relaxed"><code><span class="text-blue-400">import</span> torch
+<span class="text-blue-400">import</span> torch.nn <span class="text-blue-400">as</span> nn
+
+<span class="text-neutral-500"># device-agnostic</span>
+device = torch.device(<span class="text-emerald-400">"cuda"</span> <span class="text-blue-400">if</span> torch.cuda.is_available() <span class="text-blue-400">else</span> <span class="text-emerald-400">"cpu"</span>)
+
+model = PolicyNet().to(device)
+optimizer = torch.optim.AdamW(model.parameters(), lr=<span class="text-amber-400">1e-4</span>)
+
+<span class="text-neutral-500"># mixed precision (Ampere+)</span>
+scaler = torch.cuda.amp.GradScaler()
+
+<span class="text-blue-400">for</span> batch <span class="text-blue-400">in</span> dataloader:
+    obs, action = batch[<span class="text-emerald-400">"obs"</span>].to(device), batch[<span class="text-emerald-400">"action"</span>].to(device)
+    optimizer.zero_grad()
+    <span class="text-blue-400">with</span> torch.autocast(device_type=<span class="text-emerald-400">"cuda"</span>, dtype=torch.bfloat16):
+        pred = model(obs)
+        loss = nn.functional.mse_loss(pred, action)
+    scaler.scale(loss).backward()
+    scaler.step(optimizer)
+    scaler.update()</code></pre>
+</div>
+<!-- Conceitos-chave grid -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-800 rounded-xl p-4 border border-dark-700">
+<div class="text-blue-400 font-bold text-sm mb-1">torch.Tensor</div>
+<div class="text-neutral-400 text-xs">ND array with device, dtype, and grad</div>
+</div>
+<div class="bg-dark-800 rounded-xl p-4 border border-dark-700">
+<div class="text-blue-400 font-bold text-sm mb-1">nn.Module</div>
+<div class="text-neutral-400 text-xs">Base for every network; forward() required</div>
+</div>
+<div class="bg-dark-800 rounded-xl p-4 border border-dark-700">
+<div class="text-blue-400 font-bold text-sm mb-1">autograd</div>
+<div class="text-neutral-400 text-xs">Computational graph + backward()</div>
+</div>
+<div class="bg-dark-800 rounded-xl p-4 border border-dark-700">
+<div class="text-blue-400 font-bold text-sm mb-1">torch.compile</div>
+<div class="text-neutral-400 text-xs">JIT for repetitive loops (2× faster)</div>
+</div>
+</div>
+</section>
+<!-- ===================== TÓPICO 2 ===================== -->
+<section class="mb-16" id="topico-2">
+<div class="flex items-start gap-5 mb-6">
+<div class="w-12 h-12 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center shrink-0">
+<span class="text-blue-400 font-bold text-lg">2</span>
+</div>
+<div>
+<h2 class="text-2xl font-bold mb-2">🤗 HuggingFace Transformers: Pretrained Models</h2>
+<p class="text-neutral-400">The library that democratized access to language and vision models—and hosts practically every relevant open-source VLA.</p>
+</div>
+</div>
+<!-- Por que aprender box -->
+<div class="bg-primary/10 rounded-xl border border-primary/40 p-6 mb-6">
+<h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">⚡</span> Why learn first</h3>
+<p class="text-neutral-300 mb-3">The HuggingFace Hub is the center of the open-source VLA ecosystem. <strong class="text-white">OpenVLA, SmolVLA, Qwen-VL, PaliGemma</strong> — all distributed via Hub with a ready-to-use inference pipeline. LeRobot hosts 58k+ datasets there. Without mastering <code class="font-mono text-xs bg-dark-700 px-1.5 py-0.5 rounded">from_pretrained()</code>, you can’t even run inference.</p>
+<div class="grid sm:grid-cols-3 gap-3 mt-4">
+<div class="bg-dark-800/60 rounded-lg p-3 text-center">
+<div class="text-blue-400 font-bold text-xl">300k+</div>
+<div class="text-neutral-400 text-xs mt-1">models on the Hub</div>
+</div>
+<div class="bg-dark-800/60 rounded-lg p-3 text-center">
+<div class="text-blue-400 font-bold text-xl">58k+</div>
+<div class="text-neutral-400 text-xs mt-1">LeRobot datasets</div>
+</div>
+<div class="bg-dark-800/60 rounded-lg p-3 text-center">
+<div class="text-blue-400 font-bold text-xl">PEFT</div>
+<div class="text-neutral-400 text-xs mt-1">Efficient LoRA fine-tuning</div>
+</div>
+</div>
+</div>
+<!-- Code box HuggingFace -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-5 mb-6">
+<div class="flex items-center gap-2 mb-3">
+<span class="text-blue-400 font-semibold text-sm">🔧 Inference with OpenVLA via HuggingFace</span>
+</div>
+<pre class="font-mono text-sm text-neutral-300 overflow-x-auto leading-relaxed"><code><span class="text-blue-400">from</span> transformers <span class="text-blue-400">import</span> AutoModelForVision2Seq, AutoProcessor
+<span class="text-blue-400">import</span> torch
+
+processor = AutoProcessor.from_pretrained(<span class="text-emerald-400">"openvla/openvla-7b"</span>, trust_remote_code=<span class="text-amber-400">True</span>)
+model = AutoModelForVision2Seq.from_pretrained(
+    <span class="text-emerald-400">"openvla/openvla-7b"</span>,
+    attn_implementation=<span class="text-emerald-400">"flash_attention_2"</span>,
+    torch_dtype=torch.bfloat16,
+    low_cpu_mem_usage=<span class="text-amber-400">True</span>,
+    trust_remote_code=<span class="text-amber-400">True</span>
+).to(<span class="text-emerald-400">"cuda"</span>)
+
+<span class="text-neutral-500"># Processar frame + instrução em linguagem natural</span>
+inputs = processor(
+    <span class="text-emerald-400">"In: What action should the robot take to pick up the cup?\nOut:"</span>,
+    image,
+    return_tensors=<span class="text-emerald-400">"pt"</span>
+).to(<span class="text-emerald-400">"cuda"</span>, dtype=torch.bfloat16)
+
+action = model.predict_action(**inputs, unnorm_key=<span class="text-emerald-400">"bridge_orig"</span>, do_sample=<span class="text-amber-400">False</span>)</code></pre>
+</div>
+<!-- Grid fazer vs evitar HF -->
+<div class="grid sm:grid-cols-2 gap-4 mb-6">
+<div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-5">
+<h4 class="font-semibold text-blue-400 mb-3">✓ Best practices</h4>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li>✓ Use <code class="font-mono text-xs bg-dark-700 px-1 rounded">safetensors</code> instead of pickle (.bin)</li>
+<li>✓ Version models with <code class="font-mono text-xs bg-dark-700 px-1 rounded">revision="main"</code> or tag</li>
+<li>✓ LoRA for fine-tuning: trains 1-10% of the parameters</li>
+<li>✓ Use <code class="font-mono text-xs bg-dark-700 px-1 rounded">flash_attention_2</code> when available</li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-5">
+<h4 class="font-semibold text-red-400 mb-3">✗ Common pitfalls</h4>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li>✗ Forget <code class="font-mono text-xs bg-dark-700 px-1 rounded">trust_remote_code=True</code> in custom VLAs</li>
+<li>✗ Download models without checking their commercial use license</li>
+<li>✗ Load full model without <code class="font-mono text-xs bg-dark-700 px-1 rounded">low_cpu_mem_usage</code> (OOM)</li>
+<li>✗ Mix processor from model A with model B</li>
+</ul>
+</div>
+</div>
+<!-- Conceitos-chave -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-800 rounded-xl p-4 border border-dark-700">
+<div class="text-blue-400 font-bold text-sm mb-1">AutoModel</div>
+<div class="text-neutral-400 text-xs">Automatically loads the correct architecture</div>
+</div>
+<div class="bg-dark-800 rounded-xl p-4 border border-dark-700">
+<div class="text-blue-400 font-bold text-sm mb-1">LoRA/PEFT</div>
+<div class="text-neutral-400 text-xs">Efficient fine-tuning with few parameters</div>
+</div>
+<div class="bg-dark-800 rounded-xl p-4 border border-dark-700">
+<div class="text-blue-400 font-bold text-sm mb-1">safetensors</div>
+<div class="text-neutral-400 text-xs">Safe, fast format for weights</div>
+</div>
+<div class="bg-dark-800 rounded-xl p-4 border border-dark-700">
+<div class="text-blue-400 font-bold text-sm mb-1">API Hub</div>
+<div class="text-neutral-400 text-xs">Push/pull models and datasets programmatically</div>
+</div>
+</div>
+</section>
+<!-- ===================== TÓPICO 3 ===================== -->
+<section class="mb-16" id="topico-3">
+<div class="flex items-start gap-5 mb-6">
+<div class="w-12 h-12 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center shrink-0">
+<span class="text-blue-400 font-bold text-lg">3</span>
+</div>
+<div>
+<h2 class="text-2xl font-bold mb-2">🏋️ Gymnasium: standardized environments</h2>
+<p class="text-neutral-400">The universal API between policy and environment. MuJoCo, Isaac Sim, and PyBullet implement this interface—understanding obs/act/reward/done is fundamental to any training loop.</p>
+</div>
+</div>
+<!-- Conceito principal -->
+<div class="bg-gradient-to-br from-blue-900/40 via-dark-800 to-dark-800 rounded-xl border border-blue-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-blue-400 mb-3">🔍 What it is</h3>
+<p class="text-neutral-300 mb-4">Gymnasium (successor to OpenAI Gym) defines the standard interface for RL environments. In VLA robotics, it serves as a wrapper for simulators and lets you train policies with a consistent interface. The API is simple but powerful:</p>
+<div class="grid sm:grid-cols-2 gap-4">
+<div>
+<h4 class="text-sm font-semibold text-blue-400 mb-2">Spaces</h4>
+<ul class="text-sm text-neutral-300 space-y-1">
+<li>• <code class="font-mono text-xs bg-dark-700 px-1 rounded">observation_space</code> — what the robot sees</li>
+<li>• <code class="font-mono text-xs bg-dark-700 px-1 rounded">action_space</code> — what it can do</li>
+<li>• <code class="font-mono text-xs bg-dark-700 px-1 rounded">Box</code> for continuous, <code class="font-mono text-xs bg-dark-700 px-1 rounded">Discrete</code> for discrete</li>
+</ul>
+</div>
+<div>
+<h4 class="text-sm font-semibold text-blue-400 mb-2">Lifecycle</h4>
+<ul class="text-sm text-neutral-300 space-y-1">
+<li>• <code class="font-mono text-xs bg-dark-700 px-1 rounded">env.reset()</code> → initial state</li>
+<li>• <code class="font-mono text-xs bg-dark-700 px-1 rounded">env.step(action)</code> → (obs, reward, done, info)</li>
+<li>• Loop up to <code class="font-mono text-xs bg-dark-700 px-1 rounded">terminated</code> or <code class="font-mono text-xs bg-dark-700 px-1 rounded">truncated</code></li>
+</ul>
+</div>
+</div>
+</div>
+<!-- Timeline: fluxo do loop RL -->
+<h3 class="text-lg font-semibold mb-4">Gymnasium episode loop</h3>
+<div class="space-y-4 mb-6">
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0 w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center">
+<span class="text-blue-400 font-bold text-sm">1</span>
+</div>
+<div class="flex-1 bg-dark-800 rounded-xl p-4 border border-dark-600">
+<h4 class="font-semibold text-white mb-1"><code class="font-mono text-sm text-blue-400">obs, info = env.reset(seed=42)</code></h4>
+<p class="text-sm text-neutral-400">Starts an episode and returns the initial observation. The seed ensures reproducibility of the initial state.</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0 w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center">
+<span class="text-blue-400 font-bold text-sm">2</span>
+</div>
+<div class="flex-1 bg-dark-800 rounded-xl p-4 border border-dark-600">
+<h4 class="font-semibold text-white mb-1"><code class="font-mono text-sm text-blue-400">action = policy(obs)</code></h4>
+<p class="text-sm text-neutral-400">Policy processes an observation and returns an action in continuous space (e.g., joint velocities, Cartesian delta).</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0 w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center">
+<span class="text-blue-400 font-bold text-sm">3</span>
+</div>
+<div class="flex-1 bg-dark-800 rounded-xl p-4 border border-dark-600">
+<h4 class="font-semibold text-white mb-1"><code class="font-mono text-sm text-blue-400">obs, reward, terminated, truncated, info = env.step(action)</code></h4>
+<p class="text-sm text-neutral-400">The environment executes the action and returns a new observation, a reward signal, and termination flags.</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0 w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center">
+<span class="text-blue-400 font-bold text-sm">4</span>
+</div>
+<div class="flex-1 bg-dark-800 rounded-xl p-4 border border-dark-600">
+<h4 class="font-semibold text-white mb-1"><code class="font-mono text-sm text-blue-400">VectorEnv: N ambientes paralelos</code></h4>
+<p class="text-sm text-neutral-400">To train faster: <code class="font-mono text-xs bg-dark-700 px-1 rounded">gymnasium.vector.make("env-id", num_envs=8)</code> runs 8 simultaneous episodes in a single process.</p>
+</div>
+</div>
+</div>
+<!-- Conceitos-chave -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-800 rounded-xl p-4 border border-dark-700">
+<div class="text-blue-400 font-bold text-sm mb-1">gym.Env</div>
+<div class="text-neutral-400 text-xs">Base class to subclass</div>
+</div>
+<div class="bg-dark-800 rounded-xl p-4 border border-dark-700">
+<div class="text-blue-400 font-bold text-sm mb-1">Box(shape)</div>
+<div class="text-neutral-400 text-xs">Continuous n-dimensional space</div>
+</div>
+<div class="bg-dark-800 rounded-xl p-4 border border-dark-700">
+<div class="text-blue-400 font-bold text-sm mb-1">Wrappers</div>
+<div class="text-neutral-400 text-xs">Transform obs/act without touching env</div>
+</div>
+<div class="bg-dark-800 rounded-xl p-4 border border-dark-700">
+<div class="text-blue-400 font-bold text-sm mb-1">VectorEnv</div>
+<div class="text-neutral-400 text-xs">N parallel environments in one process</div>
+</div>
+</div>
+</section>
+<!-- ===================== TÓPICO 4 ===================== -->
+<section class="mb-16" id="topico-4">
+<div class="flex items-start gap-5 mb-6">
+<div class="w-12 h-12 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center shrink-0">
+<span class="text-blue-400 font-bold text-lg">4</span>
+</div>
+<div>
+<h2 class="text-2xl font-bold mb-2">📦 Datasets and DataLoaders for trajectories</h2>
+<p class="text-neutral-400">Data is the number one bottleneck in robotics. Structuring, loading, and augmenting trajectories efficiently is just as important as the model architecture.</p>
+</div>
+</div>
+<!-- Box dados/pesquisa -->
+<div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center">
+<span class="mr-2">📊</span> Robotics Dataset Formats
+        </h3>
+<ul class="space-y-3 text-neutral-300">
+<li><strong class="text-white">RLDS (Google):</strong> TFRecord with episode metadata, the Open X-Embodiment standard with 1M+ trajectories.</li>
+<li><strong class="text-white">LeRobot Dataset:</strong> Parquet + MP4 video on HuggingFace Hub. 58k+ datasets, native Python API with <code class="font-mono text-xs bg-dark-700 px-1 rounded">from_hub()</code>.</li>
+<li><strong class="text-white">Custom HDF5:</strong> Used in academic robotics (RoboMimic, R2R2). Hierarchical and efficient for long sequences.</li>
+</ul>
+</div>
+<!-- Grid comparação formatos -->
+<div class="grid sm:grid-cols-3 gap-4 mb-6">
+<div class="bg-dark-800 rounded-xl p-4 border border-dark-700">
+<div class="text-blue-400 font-bold text-sm mb-2">RLDS / Open X</div>
+<ul class="text-xs text-neutral-400 space-y-1">
+<li>• 1M+ real-world trajectories</li>
+<li>• TFRecord (requires TF)</li>
+<li>• Rich metadata per step</li>
+<li>• Google/DeepMind standard</li>
+</ul>
+</div>
+<div class="bg-dark-800 rounded-xl p-4 border border-blue-500/30">
+<div class="text-blue-400 font-bold text-sm mb-2">LeRobot Dataset ★</div>
+<ul class="text-xs text-neutral-400 space-y-1">
+<li>• 58k+ datasets on Hub</li>
+<li>• Parquet + MP4 video</li>
+<li>• Clean Python API</li>
+<li>• Native training integration</li>
+</ul>
+</div>
+<div class="bg-dark-800 rounded-xl p-4 border border-dark-700">
+<div class="text-blue-400 font-bold text-sm mb-2">HDF5 / Proprio</div>
+<ul class="text-xs text-neutral-400 space-y-1">
+<li>• Flexible and hierarchical</li>
+<li>• Fast random access</li>
+<li>• No cloud dependency</li>
+<li>• Common in academia</li>
+</ul>
+</div>
+</div>
+<!-- Tip box DataLoader -->
+<div class="bg-primary/10 rounded-xl border border-primary/40 p-6 mb-6">
+<h3 class="text-lg font-semibold text-primary mb-3 flex items-center"><span class="mr-2">💡</span> Tip: DataLoader for trajectories</h3>
+<p class="text-neutral-300 mb-3">Trajectories have variable lengths. Use <code class="font-mono text-xs bg-dark-700 px-1.5 py-0.5 rounded">collate_fn</code> customized for padding or truncating sequences when assembling batches. Combine with <code class="font-mono text-xs bg-dark-700 px-1.5 py-0.5 rounded">num_workers=4</code> e <code class="font-mono text-xs bg-dark-700 px-1.5 py-0.5 rounded">pin_memory=True</code> to maximize GPU throughput.</p>
+<pre class="font-mono text-xs text-neutral-300 bg-dark-800 rounded-lg p-3 overflow-x-auto"><code>loader = DataLoader(
+    dataset, batch_size=<span class="text-amber-400">32</span>, num_workers=<span class="text-amber-400">4</span>,
+    pin_memory=<span class="text-amber-400">True</span>, collate_fn=pad_trajectory_batch
+)</code></pre>
+</div>
+<!-- Conceitos-chave -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-800 rounded-xl p-4 border border-dark-700">
+<div class="text-blue-400 font-bold text-sm mb-1">RLDS</div>
+<div class="text-neutral-400 text-xs">TFRecord with Open X episodes</div>
+</div>
+<div class="bg-dark-800 rounded-xl p-4 border border-dark-700">
+<div class="text-blue-400 font-bold text-sm mb-1">LeRobot DS</div>
+<div class="text-neutral-400 text-xs">Parquet+video, 58k datasets</div>
+</div>
+<div class="bg-dark-800 rounded-xl p-4 border border-dark-700">
+<div class="text-blue-400 font-bold text-sm mb-1">collate_fn</div>
+<div class="text-neutral-400 text-xs">Build batches of variable-length trajectories</div>
+</div>
+<div class="bg-dark-800 rounded-xl p-4 border border-dark-700">
+<div class="text-blue-400 font-bold text-sm mb-1">augmentation</div>
+<div class="text-neutral-400 text-xs">Robotics-specific crop/jitter</div>
+</div>
+</div>
+</section>
+<!-- ===================== TÓPICO 5 ===================== -->
+<section class="mb-16" id="topico-5">
+<div class="flex items-start gap-5 mb-6">
+<div class="w-12 h-12 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center shrink-0">
+<span class="text-blue-400 font-bold text-lg">5</span>
+</div>
+<div>
+<h2 class="text-2xl font-bold mb-2">📈 Weights &amp; Biases: experiment tracking</h2>
+<p class="text-neutral-400">Without structured tracking, VLA training becomes a black box. W&amp;B makes loss, success rate, and hyperparameters visual and reproducible.</p>
+</div>
+</div>
+<!-- SVG W&B pipeline tracking -->
+<div class="rounded-2xl border border-blue-500/30 bg-dark-900/40 p-4 mb-6 overflow-hidden">
+<svg aria-label="Tracking pipeline: LeRobot training sends metrics to W&amp;B, which lets you compare runs, run sweeps, and version checkpoints" class="w-full h-auto" font-family="Inter,sans-serif" role="img" viewbox="0 0 680 160">
+<defs>
+<filter height="180%" id="m21-wb-glow" width="180%" x="-40%" y="-40%">
+<fegaussianblur result="b" stddeviation="1.8"></fegaussianblur>
+<femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge>
+</filter>
+<pattern height="24" id="m21-wb-grid" patternunits="userSpaceOnUse" width="24">
+<circle cx="1" cy="1" fill="#3b82f6" opacity="0.09" r="1"></circle>
+</pattern>
+<marker id="m21-wb-ah" markerheight="8" markerwidth="8" orient="auto" refx="6" refy="4">
+<path d="M0,0 L7,4 L0,8 L2,4 Z" fill="#60a5fa"></path>
+</marker>
+</defs>
+<rect fill="url(#m21-wb-grid)" height="160" width="680"></rect>
+<!-- Treino LeRobot -->
+<rect fill="#0e1622" filter="url(#m21-wb-glow)" height="80" rx="12" stroke="#3b82f6" stroke-width="2" width="150" x="20" y="40"></rect>
+<text fill="#3b82f6" font-size="13" font-weight="700" text-anchor="middle" x="95" y="68">LeRobot</text>
+<text fill="#9ca3af" font-size="8" text-anchor="middle" x="95" y="86">python train.py</text>
+<text fill="#7dd3fc" font-size="7" text-anchor="middle" x="95" y="100">loss · success_rate</text>
+<text fill="#9ca3af" font-size="7" text-anchor="middle" x="95" y="114">wandb: true in config</text>
+<path d="M170,80 L220,80" fill="none" marker-end="url(#m21-wb-ah)" opacity="0.8" stroke="#60a5fa" stroke-width="2"></path>
+<text fill="#60a5fa" font-size="8" text-anchor="middle" x="195" y="73">wandb.log()</text>
+<!-- W&B Dashboard -->
+<rect fill="#0e1622" filter="url(#m21-wb-glow)" height="110" rx="12" stroke="#60a5fa" stroke-width="2" width="200" x="225" y="25"></rect>
+<text fill="#60a5fa" font-size="13" font-weight="700" text-anchor="middle" x="325" y="50">W&amp;B Dashboard</text>
+<text fill="#9ca3af" font-size="8" text-anchor="middle" x="325" y="68">Compare runs side by side</text>
+<text fill="#7dd3fc" font-size="7" text-anchor="middle" x="325" y="84">Sweeps: hyperparameter search</text>
+<text fill="#9ca3af" font-size="7" text-anchor="middle" x="325" y="98">Tables: visualize trajectories</text>
+<text fill="#7dd3fc" font-size="7" text-anchor="middle" x="325" y="112">Model Registry: versioning</text>
+<text fill="#9ca3af" font-size="7" text-anchor="middle" x="325" y="126">Artifacts: checkpoints</text>
+<path d="M425,80 L475,80" fill="none" marker-end="url(#m21-wb-ah)" opacity="0.8" stroke="#60a5fa" stroke-width="2"></path>
+<text fill="#60a5fa" font-size="8" text-anchor="middle" x="450" y="73">analysis</text>
+<!-- Insights -->
+<rect fill="#0e1622" height="80" rx="12" stroke="#7dd3fc" stroke-width="1.5" width="180" x="480" y="40"></rect>
+<text fill="#7dd3fc" font-size="12" font-weight="700" text-anchor="middle" x="570" y="65">Decisions</text>
+<text fill="#9ca3af" font-size="8" text-anchor="middle" x="570" y="83">ACT vs. Diffusion Policy?</text>
+<text fill="#9ca3af" font-size="8" text-anchor="middle" x="570" y="97">lr=1e-4 or 5e-5?</text>
+<text fill="#7dd3fc" font-size="7" text-anchor="middle" x="570" y="111">Diverged at step 2k? You’ll know.</text>
+</svg>
+</div>
+<!-- Tip box W&B LeRobot -->
+<div class="bg-primary/10 rounded-xl border border-primary/40 p-6 mb-6">
+<h3 class="text-lg font-semibold text-primary mb-3"><span class="mr-2">💡</span> W&amp;B + LeRobot: native integration</h3>
+<p class="text-neutral-300 mb-3">LeRobot has native W&amp;B support via YAML config. Just set <code class="font-mono text-xs bg-dark-700 px-1.5 py-0.5 rounded">wandb.enable: true</code> in the configuration file — without a single extra line of code.</p>
+<pre class="font-mono text-xs text-neutral-300 bg-dark-800 rounded-lg p-3 overflow-x-auto"><code><span class="text-neutral-500"># config/train_act.yaml</span>
+wandb:
+  enable: <span class="text-amber-400">true</span>
+  project: <span class="text-emerald-400">"vla-pickup-cup"</span>
+  entity: <span class="text-emerald-400">"meu-time"</span>
+  notes: <span class="text-emerald-400">"ACT baseline lr=1e-4"</span></code></pre>
+</div>
+<!-- Conceitos-chave -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-800 rounded-xl p-4 border border-dark-700">
+<div class="text-blue-400 font-bold text-sm mb-1">wandb.init()</div>
+<div class="text-neutral-400 text-xs">Starts an experiment run</div>
+</div>
+<div class="bg-dark-800 rounded-xl p-4 border border-dark-700">
+<div class="text-blue-400 font-bold text-sm mb-1">Sweeps</div>
+<div class="text-neutral-400 text-xs">Automatic hyperparameter search</div>
+</div>
+<div class="bg-dark-800 rounded-xl p-4 border border-dark-700">
+<div class="text-blue-400 font-bold text-sm mb-1">Tables</div>
+<div class="text-neutral-400 text-xs">Visualize trajectories and predictions</div>
+</div>
+<div class="bg-dark-800 rounded-xl p-4 border border-dark-700">
+<div class="text-blue-400 font-bold text-sm mb-1">Registry</div>
+<div class="text-neutral-400 text-xs">Checkpoint versioning</div>
+</div>
+</div>
+</section>
+<!-- ===================== TÓPICO 6 ===================== -->
+<section class="mb-16" id="topico-6">
+<div class="flex items-start gap-5 mb-6">
+<div class="w-12 h-12 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center shrink-0">
+<span class="text-blue-400 font-bold text-lg">6</span>
+</div>
+<div>
+<h2 class="text-2xl font-bold mb-2">🐳 Docker and reproducibility in robotics</h2>
+<p class="text-neutral-400">The CUDA driver + PyTorch + MuJoCo combination can break in mysterious ways. Containers remove “it works on my machine” from the equation.</p>
+</div>
+</div>
+<!-- Box conceito -->
+<div class="bg-gradient-to-br from-blue-900/40 via-dark-800 to-dark-800 rounded-xl border border-blue-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-blue-400 mb-3">🔍 Why Docker is critical in robotics</h3>
+<p class="text-neutral-300">Docker containerizes the development environment: exact versions of Python, PyTorch, CUDA, and dependencies stay fixed. In robotics, where the combination <strong class="text-white">CUDA driver + PyTorch + MuJoCo</strong> can break easily; containers are essential. NVIDIA NGC and LeRobot provide ready-to-use containers with everything configured.</p>
+</div>
+<!-- Grid fazer vs evitar Docker -->
+<div class="grid sm:grid-cols-2 gap-4 mb-6">
+<div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-5">
+<h4 class="font-semibold text-blue-400 mb-3">✓ Recommended setup</h4>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li>✓ Start with an NVIDIA NGC image: <code class="font-mono text-xs bg-dark-700 px-1 rounded">nvcr.io/nvidia/pytorch:24.01-py3</code></li>
+<li>✓ Multi-stage build: builder → runtime (smaller image)</li>
+<li>✓ Mount datasets via volumes; don't copy them into the image</li>
+<li>✓ devcontainer for VS Code with GPU passthrough</li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-5">
+<h4 class="font-semibold text-red-400 mb-3">✗ Common errors</h4>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li>✗ Copy the entire dataset into the Docker image</li>
+<li>✗ Use <code class="font-mono text-xs bg-dark-700 px-1 rounded">docker run</code> without <code class="font-mono text-xs bg-dark-700 px-1 rounded">--gpus all</code></li>
+<li>✗ Ignore CUDA driver vs. PyTorch CUDA compatibility</li>
+<li>✗ Commit secrets (HF tokens, W&amp;B API key) in the Dockerfile</li>
+</ul>
+</div>
+</div>
+<!-- Code box Dockerfile -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-5 mb-6">
+<div class="flex items-center gap-2 mb-3">
+<span class="text-blue-400 font-semibold text-sm">🐳 Minimal Dockerfile for VLA with LeRobot</span>
+</div>
+<pre class="font-mono text-sm text-neutral-300 overflow-x-auto leading-relaxed"><code><span class="text-neutral-500"># Base: PyTorch + CUDA oficial NVIDIA</span>
+<span class="text-blue-400">FROM</span> nvcr.io/nvidia/pytorch:24.01-py3
+
+<span class="text-blue-400">WORKDIR</span> /workspace
+
+<span class="text-neutral-500"># Instalar LeRobot e dependências</span>
+<span class="text-blue-400">RUN</span> pip install lerobot[gymnasium,wandb] huggingface_hub
+
+<span class="text-neutral-500"># Montar datasets externamente (não copiar)</span>
+<span class="text-blue-400">VOLUME</span> ["/data"]
+
+<span class="text-neutral-500"># GPU passthrough: nvidia-docker2 ou --gpus all</span>
+<span class="text-blue-400">CMD</span> ["python", "train.py", "--config", "config/act.yaml"]</code></pre>
+</div>
+<!-- Tip box devcontainer -->
+<div class="bg-primary/10 rounded-xl border border-primary/40 p-6 mb-6">
+<h3 class="text-lg font-semibold text-primary mb-3"><span class="mr-2">💡</span> devcontainers: GPU in VS Code</h3>
+<p class="text-neutral-300">Add <code class="font-mono text-xs bg-dark-700 px-1.5 py-0.5 rounded">.devcontainer/devcontainer.json</code> with <code class="font-mono text-xs bg-dark-700 px-1.5 py-0.5 rounded">"runArgs": ["--gpus", "all"]</code> and the whole team opens the project in the same environment, including CUDA, with no manual setup. LeRobot provides a ready-to-use devcontainer in the official repository.</p>
+</div>
+<!-- Conceitos-chave -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-800 rounded-xl p-4 border border-dark-700">
+<div class="text-blue-400 font-bold text-sm mb-1">NVIDIA NGC</div>
+<div class="text-neutral-400 text-xs">Optimized PyTorch+CUDA containers</div>
+</div>
+<div class="bg-dark-800 rounded-xl p-4 border border-dark-700">
+<div class="text-blue-400 font-bold text-sm mb-1">--gpus all</div>
+<div class="text-neutral-400 text-xs">GPU passthrough to container</div>
+</div>
+<div class="bg-dark-800 rounded-xl p-4 border border-dark-700">
+<div class="text-blue-400 font-bold text-sm mb-1">devcontainer</div>
+<div class="text-neutral-400 text-xs">Consistent environment in VS Code</div>
+</div>
+<div class="bg-dark-800 rounded-xl p-4 border border-dark-700">
+<div class="text-blue-400 font-bold text-sm mb-1">multi-stage</div>
+<div class="text-neutral-400 text-xs">Builder + runtime = lean image</div>
+</div>
+</div>
+</section>
+<!-- ===================== RESUMO ===================== -->
+<section class="mb-12">
+<div class="bg-gradient-to-br from-blue-900/40 via-dark-800 to-dark-800 rounded-xl border border-blue-500/30 p-8">
+<h2 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">✅</span> Module Summary</h2>
+<div class="space-y-4 mb-8">
+<div class="flex items-start gap-3">
+<span class="text-blue-400 mt-1">✓</span>
+<div><strong class="text-white">PyTorch is at the heart of VLA training</strong><span class="text-neutral-400"> — tensors, autograd, mixed precision, and torch.compile form the technical foundation for every engineer.</span></div>
+</div>
+<div class="flex items-start gap-3">
+<span class="text-blue-400 mt-1">✓</span>
+<div><strong class="text-white">HuggingFace Hub + LoRA</strong><span class="text-neutral-400"> — access to 300k+ pretrained models and efficient fine-tuning with 1-10% of the original parameters.</span></div>
+</div>
+<div class="flex items-start gap-3">
+<span class="text-blue-400 mt-1">✓</span>
+<div><strong class="text-white">Gymnasium: universal obs/act/reward contract</strong><span class="text-neutral-400"> — any simulator (MuJoCo, Isaac Sim, PyBullet) speaks this language; VectorEnv parallelizes episodes.</span></div>
+</div>
+<div class="flex items-start gap-3">
+<span class="text-blue-400 mt-1">✓</span>
+<div><strong class="text-white">Docker + W&amp;B = reproducibility</strong><span class="text-neutral-400"> — fixed environments with containers and visual experiment tracking are as important as the model.</span></div>
+</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+<h3 class="font-semibold text-blue-400 mb-2">Next module</h3>
+<p class="text-neutral-300">2.2 — LeRobot: End-to-End Pipeline (collection, training, and deployment on a real robot)</p>
+</div>
+<div class="flex flex-col sm:flex-row gap-4">
+<a class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors" href="./">← Back to the Learning Path</a>
+<a class="flex-1 text-center px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-500 transition-colors" href="modulo-2-2.html">Next module →</a>
+</div>
+</div>
+</section>
+</main>
+<footer class="border-t border-dark-600 py-8">
+<div class="max-w-6xl mx-auto px-4 text-center text-neutral-500 text-sm">
+<p>VLA Course — Vision-Language-Action · <a class="text-sky-400 hover:text-sky-300" href="https://ARCKHÉ AI" target="_blank">ARCKHÉ AI</a></p>
+</div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Module 3.4 — Industry Applications: Logistics, Healthcare, Agriculture | VLA Course</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: { 600:'#374151', 700:'#1f2937', 800:'#1a1a2e', 900:'#111827' },
+                        primary: '#eab308',
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .dark body { background-color: #111827; }
+        html:not(.dark) body { background-color: #f8fafc; }
+        html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+        html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+        html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+        html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+        html:not(.dark) .text-neutral-100 { color: #111827; }
+        html:not(.dark) .text-neutral-300 { color: #4b5563; }
+        html:not(.dark) .text-neutral-400 { color: #6b7280; }
+        html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+        html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+        html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+
+        /* Light mode - cores de acento (trilha purple) */
+        html:not(.dark) .text-purple-400 { color: #7c3aed; }
+        html:not(.dark) .bg-purple-500\/20 { background-color: rgba(124, 58, 237, 0.12); }
+        html:not(.dark) .bg-purple-500\/10 { background-color: rgba(124, 58, 237, 0.08); }
+        html:not(.dark) .border-purple-500\/30 { border-color: rgba(124, 58, 237, 0.25); }
+        html:not(.dark) .hover\:bg-purple-500\/30:hover { background-color: rgba(124, 58, 237, 0.18); }
+        html:not(.dark) .bg-purple-900\/20 { background-color: rgba(124, 58, 237, 0.08); }
+
+        /* Light mode - remove gradientes e cores especiais */
+        html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+        html:not(.dark) .text-primary { color: #a16207; }
+        html:not(.dark) .bg-primary\/10 { background-color: rgba(161, 98, 7, 0.08); }
+        html:not(.dark) .border-primary\/40 { border-color: rgba(161, 98, 7, 0.25); }
+        html:not(.dark) .text-sky-400 { color: #0369a1; }
+        html:not(.dark) .text-yellow-400 { color: #a16207; }
+        html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+        html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+
+        /* Light mode - nav */
+        html:not(.dark) nav { background-color: rgba(255,255,255,0.95) !important; }
+
+        /* Dark mode - bordas e linhas divisórias mais suaves */
+        .dark .border-dark-600 { border-color: #374151; }
+        .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+
+        /* SVG no light mode */
+        html:not(.dark) svg[role="img"] { filter: saturate(.82) brightness(.96); }
+
+        /* Animação de pulso para SVGs */
+        @keyframes wf-pulse { 0%,100% { opacity:.55 } 50% { opacity:1 } }
+        @media (prefers-reduced-motion: no-preference) {
+            .wf-a { animation: wf-pulse 2.6s ease-in-out infinite; }
+            .wf-a:nth-child(2){animation-delay:.25s}
+            .wf-a:nth-child(3){animation-delay:.5s}
+            .wf-a:nth-child(4){animation-delay:.75s}
+            .wf-a:nth-child(5){animation-delay:1s}
+        }
+
+        /* Tópicos expansíveis */
+        details summary::-webkit-details-marker { display: none; }
+        details[open] summary { color: #c084fc; }
+    </style>
+<link href="https://linnoff88-dev.github.io/arckhe-vla/curso/trilha3/modulo-3-4.html" hreflang="pt-BR" rel="alternate"/><link href="https://linnoff88-dev.github.io/arckhe-vla/en/curso/trilha3/modulo-3-4.html" hreflang="en" rel="alternate"/><link href="https://linnoff88-dev.github.io/arckhe-vla/es/curso/trilha3/modulo-3-4.html" hreflang="es" rel="alternate"/></head>
+<body class="text-neutral-100 min-h-screen"><div class="ARCKHÉ-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../../../curso/trilha3/modulo-3-4.html" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="modulo-3-4.html" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">EN</a><a href="../../../es/curso/trilha3/modulo-3-4.html" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">ES</a></div>
+<!-- NAV -->
+<nav class="fixed top-0 w-full bg-dark-900/95 backdrop-blur border-b border-dark-600 z-50">
+<div class="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<a class="text-primary font-bold text-lg" href="../../">VLA</a>
+<span class="text-neutral-500">|</span>
+<a class="text-sky-400 hover:text-sky-300 text-sm font-medium" href="https://ARCKHÉ AI" target="_blank">ARCKHÉ AI</a>
+</div>
+<div class="flex items-center gap-2">
+<a class="px-3 py-1.5 rounded text-sm text-emerald-400 hover:bg-emerald-500/10" href="../trilha1/">Fundamentals</a>
+<a class="px-3 py-1.5 rounded text-sm text-blue-400 hover:bg-blue-500/10" href="../trilha2/">Technical</a>
+<a class="px-3 py-1.5 rounded text-sm text-purple-400 bg-purple-500/20 border border-purple-500/30 font-medium" href="./">Advanced</a>
+<button class="ml-2 p-2 rounded hover:bg-dark-700 text-neutral-400" onclick="document.documentElement.classList.toggle('dark')" title="Switch theme">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+</div>
+</div>
+</nav>
+<main class="max-w-4xl mx-auto px-4 pt-24 pb-16">
+<!-- BREADCRUMB -->
+<nav aria-label="Breadcrumb" class="flex items-center gap-2 text-sm text-neutral-500 mb-8">
+<a class="hover:text-neutral-300 transition-colors" href="../../">Start</a>
+<span>›</span>
+<a class="hover:text-neutral-300 transition-colors" href="./">Advanced</a>
+<span>›</span>
+<span class="text-purple-400 font-medium">Module 3.4</span>
+</nav>
+<!-- HEADER -->
+<header class="mb-12">
+<div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-500/20 border border-purple-500/30 mb-6">
+<span class="text-purple-400 font-bold text-sm">MODULE 3.4</span>
+<span class="text-neutral-500">·</span>
+<span class="text-neutral-400 text-sm">Advanced Learning Path</span>
+</div>
+<h1 class="text-3xl sm:text-4xl font-extrabold mb-4">🏭 Industry Applications: Logistics, Healthcare, Agriculture</h1>
+<p class="text-neutral-400 text-lg max-w-2xl mb-8">From warehouse to operating room, from field to retail — how VLA is already creating value in the real world and which barriers still limit adoption in each sector.</p>
+<!-- Stats -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+<div class="bg-dark-800/50 rounded-lg p-4 border border-dark-600">
+<div class="text-2xl font-bold text-purple-400">6</div>
+<div class="text-xs text-neutral-400 mt-1">Topics</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-4 border border-dark-600">
+<div class="text-2xl font-bold text-purple-400">~35</div>
+<div class="text-xs text-neutral-400 mt-1">Minutes</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-4 border border-dark-600">
+<div class="text-2xl font-bold text-purple-400">Advanced</div>
+<div class="text-xs text-neutral-400 mt-1">Level</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-4 border border-dark-600">
+<div class="text-2xl font-bold text-purple-400">Applied</div>
+<div class="text-xs text-neutral-400 mt-1">Type</div>
+</div>
+</div>
+</header>
+<!-- SVG HERO: VLA nos setores — fan-out radial -->
+<div class="mb-12 rounded-2xl border border-purple-500/30 bg-dark-900/40 p-4">
+<svg aria-label="Fan-out diagram: central VLA model radiating out to logistics, manufacturing, healthcare, agriculture, and retail" class="w-full h-auto" fill="none" role="img" viewbox="0 0 720 260" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<lineargradient id="m34-grad" x1="0" x2="1" y1="0" y2="1">
+<stop offset="0" stop-color="#c084fc"></stop><stop offset="1" stop-color="#a855f7"></stop>
+</lineargradient>
+<filter height="180%" id="m34-glow" width="180%" x="-40%" y="-40%">
+<fegaussianblur result="b" stddeviation="1.8"></fegaussianblur>
+<femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge>
+</filter>
+<pattern height="32" id="m34-grid" patternunits="userSpaceOnUse" width="32">
+<circle cx="1.3" cy="1.3" fill="#a855f7" opacity="0.12" r="1.3"></circle>
+</pattern>
+</defs>
+<rect fill="url(#m34-grid)" height="260" rx="12" width="720"></rect>
+<!-- Linhas de conexão (atrás dos nós) -->
+<!-- Logística (topo esq) -->
+<line stroke="#c084fc" stroke-opacity="0.35" stroke-width="1.6" x1="360" x2="115" y1="130" y2="52"></line>
+<!-- Manufatura (meio esq) -->
+<line stroke="#c084fc" stroke-opacity="0.35" stroke-width="1.6" x1="360" x2="78" y1="130" y2="148"></line>
+<!-- Saúde (topo dir) -->
+<line stroke="#38bdf8" stroke-opacity="0.35" stroke-width="1.6" x1="360" x2="605" y1="130" y2="52"></line>
+<!-- Agro (meio dir) -->
+<line stroke="#38bdf8" stroke-opacity="0.35" stroke-width="1.6" x1="360" x2="642" y1="130" y2="148"></line>
+<!-- Varejo (baixo) -->
+<line stroke="#c084fc" stroke-dasharray="5 3" stroke-opacity="0.25" stroke-width="1.4" x1="360" x2="360" y1="130" y2="222"></line>
+<!-- Nó central: VLA -->
+<g filter="url(#m34-glow)">
+<circle cx="360" cy="130" fill="#1a1230" r="52" stroke="url(#m34-grad)" stroke-width="2.2"></circle>
+<text fill="#c084fc" font-family="Inter,sans-serif" font-size="15" font-weight="600" text-anchor="middle" x="360" y="124">VLA</text>
+<text fill="#c084fc" font-family="Inter,sans-serif" font-size="9" opacity="0.65" text-anchor="middle" x="360" y="142">in the field</text>
+</g>
+<!-- Logística -->
+<g class="wf-a" filter="url(#m34-glow)">
+<rect fill="#0e1b26" height="60" rx="10" stroke="#38bdf8" stroke-width="1.6" width="170" x="30" y="22"></rect>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="12" font-weight="600" text-anchor="middle" x="115" y="46">📦 Logistics</text>
+<text fill="#9ad6ff" font-family="Inter,sans-serif" font-size="9" opacity="0.75" text-anchor="middle" x="115" y="64">picking · palletizing · new SKUs</text>
+</g>
+<!-- Manufatura -->
+<g class="wf-a" filter="url(#m34-glow)">
+<rect fill="#0e1b26" height="60" rx="10" stroke="#38bdf8" stroke-width="1.6" width="132" x="12" y="118"></rect>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="12" font-weight="600" text-anchor="middle" x="78" y="142">🔧 Manufacturing</text>
+<text fill="#9ad6ff" font-family="Inter,sans-serif" font-size="9" opacity="0.75" text-anchor="middle" x="78" y="160">assembly · inspection</text>
+</g>
+<!-- Saúde -->
+<g class="wf-a" filter="url(#m34-glow)">
+<rect fill="#1a1230" height="60" rx="10" stroke="#c084fc" stroke-width="1.6" width="170" x="520" y="22"></rect>
+<text fill="#c084fc" font-family="Inter,sans-serif" font-size="12" font-weight="600" text-anchor="middle" x="605" y="46">🏥 Healthcare</text>
+<text fill="#c084fc" font-family="Inter,sans-serif" font-size="9" opacity="0.65" text-anchor="middle" x="605" y="64">surgery · care · rehabilitation</text>
+</g>
+<!-- Agro -->
+<g class="wf-a" filter="url(#m34-glow)">
+<rect fill="#1a1230" height="60" rx="10" stroke="#c084fc" stroke-width="1.6" width="132" x="576" y="118"></rect>
+<text fill="#c084fc" font-family="Inter,sans-serif" font-size="12" font-weight="600" text-anchor="middle" x="642" y="142">🌾 Agriculture</text>
+<text fill="#c084fc" font-family="Inter,sans-serif" font-size="9" opacity="0.65" text-anchor="middle" x="642" y="160">harvesting · phenotyping</text>
+</g>
+<!-- Varejo -->
+<g class="wf-a" filter="url(#m34-glow)">
+<rect fill="#1a1230" height="30" rx="8" stroke="#c084fc" stroke-width="1.2" width="170" x="275" y="222"></rect>
+<text fill="#c084fc" font-family="Inter,sans-serif" font-size="10" font-weight="600" text-anchor="middle" x="360" y="242">🛒 Retail &amp; Services</text>
+</g>
+</svg>
+</div>
+<h2 class="text-2xl font-bold mb-6">Detailed content</h2>
+<!-- ══════════════════════════════════════ -->
+<!-- TÓPICO 1: Logística e armazéns -->
+<!-- ══════════════════════════════════════ -->
+<section class="mb-12" id="topico-1">
+<div class="flex items-start gap-5 mb-6">
+<div class="w-12 h-12 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-xl font-bold text-purple-400 shrink-0">1</div>
+<div>
+<h2 class="text-2xl font-bold mb-1">📦 Logistics and warehouses</h2>
+<p class="text-neutral-400">The most mature VLA application: general-purpose picking that scales to millions of SKUs without reprogramming.</p>
+</div>
+</div>
+<!-- Conceito principal -->
+<div class="bg-gradient-to-br from-purple-900/40 via-dark-800 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-4">
+<h3 class="text-purple-400 font-semibold mb-2">The heart of the problem</h3>
+<p class="text-neutral-300 text-sm leading-relaxed">Logistics is where ROI is already proven: <strong>picking assorted items</strong>, package induction, palletizing, and order picking. Amazon operates hundreds of thousands of robots and tests humanoids in its distribution centers. Covariant built manipulation policies — the <em>Covariant Brain</em> — that generalize to unseen SKUs, handling the huge variety of products (deformable, reflective, fragile) found in a real warehouse.</p>
+</div>
+<!-- Grid fazer vs evitar -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+<div class="rounded-xl border border-purple-500/30 bg-purple-900/20 p-5">
+<h4 class="text-purple-400 font-semibold mb-3 flex items-center gap-2"><span>✓</span> What VLA does well</h4>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-purple-400 mt-0.5">✓</span> Generalize to new SKUs without retraining</li>
+<li class="flex items-start gap-2"><span class="text-purple-400 mt-0.5">✓</span> Follow language instructions ("pick up the blue item")</li>
+<li class="flex items-start gap-2"><span class="text-purple-400 mt-0.5">✓</span> Handling irregular packaging and clutter</li>
+<li class="flex items-start gap-2"><span class="text-purple-400 mt-0.5">✓</span> Adapt the gripper to varied object geometries</li>
+</ul>
+</div>
+<div class="rounded-xl border border-red-500/30 bg-red-900/20 p-5">
+<h4 class="text-red-400 font-semibold mb-3 flex items-center gap-2"><span>✗</span> Still real limitations</h4>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Cycle time below that of experienced workers</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Failures with highly deformable objects (bags, clothes)</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Hardware costs remain high relative to productivity gains</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Maintenance and downtime in high-throughput environments</li>
+</ul>
+</div>
+</div>
+<!-- Conceitos-chave -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600 text-center">
+<div class="text-purple-400 font-bold text-sm mb-1">Bin Picking</div>
+<div class="text-neutral-500 text-xs">pick from an unorganized pile</div>
+</div>
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600 text-center">
+<div class="text-purple-400 font-bold text-sm mb-1">Covariant Brain</div>
+<div class="text-neutral-500 text-xs">generalist policy</div>
+</div>
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600 text-center">
+<div class="text-purple-400 font-bold text-sm mb-1">Cycle Time</div>
+<div class="text-neutral-500 text-xs">time per pick (KPI)</div>
+</div>
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600 text-center">
+<div class="text-purple-400 font-bold text-sm mb-1">SKU Zero-Shot</div>
+<div class="text-neutral-500 text-xs">a never-before-seen item</div>
+</div>
+</div>
+</section>
+<!-- ══════════════════════════════════════ -->
+<!-- TÓPICO 2: Manufatura -->
+<!-- ══════════════════════════════════════ -->
+<section class="mb-12" id="topico-2">
+<div class="flex items-start gap-5 mb-6">
+<div class="w-12 h-12 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-xl font-bold text-purple-400 shrink-0">2</div>
+<div>
+<h2 class="text-2xl font-bold mb-1">🔧 Manufacturing and assembly line</h2>
+<p class="text-neutral-400">The “flexible factory” without reprogramming: humanoids that adapt to new products on the same day.</p>
+</div>
+</div>
+<!-- Tip box -->
+<div class="bg-primary/10 border border-primary/40 rounded-xl p-5 mb-4">
+<h4 class="text-primary font-semibold mb-2 flex items-center gap-2">💡 Why this matters now</h4>
+<p class="text-neutral-300 text-sm leading-relaxed">Traditional manufacturing uses rigid robots that are expensive to program—each product change requires weeks of reengineering. VLA promises the <strong class="text-neutral-100">high-mix, low-volume factory</strong> that adapts to new products without this. Figure and Apptronik are already testing humanoid robots on BMW and Mercedes production lines, performing tasks that previously required manual reprogramming with every product change.</p>
+</div>
+<!-- Box dados/pesquisa -->
+<div class="bg-blue-900/20 border border-blue-500/30 rounded-xl p-5 mb-4">
+<h4 class="text-blue-400 font-semibold mb-2">📊 Real-world deployment: what’s happening</h4>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
+<div>
+<div class="text-neutral-100 font-semibold mb-1">Figure + BMW</div>
+<div class="text-neutral-400">Figure 01 humanoid on an automotive production line, handling body parts, evaluating speed and reliability vs. a human operator.</div>
+</div>
+<div>
+<div class="text-neutral-100 font-semibold mb-1">Apptronik + Mercedes</div>
+<div class="text-neutral-400">Apollo tested on kitting and part placement tasks, with a focus on ergonomics and safe repetition.</div>
+</div>
+<div>
+<div class="text-neutral-100 font-semibold mb-1">Peg-in-hole</div>
+<div class="text-neutral-400">Insertion task with tolerances of tenths of a mm. VLA with force/torque control approaches specialized industrial robots.</div>
+</div>
+</div>
+</div>
+<!-- Conceitos-chave -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600 text-center">
+<div class="text-purple-400 font-bold text-sm mb-1">High-Mix Low-Vol</div>
+<div class="text-neutral-500 text-xs">many variants, low volume</div>
+</div>
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600 text-center">
+<div class="text-purple-400 font-bold text-sm mb-1">Peg-in-hole</div>
+<div class="text-neutral-500 text-xs">precision insertion</div>
+</div>
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600 text-center">
+<div class="text-purple-400 font-bold text-sm mb-1">F/T Control</div>
+<div class="text-neutral-500 text-xs">force and torque feedback</div>
+</div>
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600 text-center">
+<div class="text-purple-400 font-bold text-sm mb-1">Reconfiguration</div>
+<div class="text-neutral-500 text-xs">without rewiring the line</div>
+</div>
+</div>
+</section>
+<!-- ══════════════════════════════════════ -->
+<!-- TÓPICO 3: Saúde -->
+<!-- ══════════════════════════════════════ -->
+<section class="mb-12" id="topico-3">
+<div class="flex items-start gap-5 mb-6">
+<div class="w-12 h-12 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-xl font-bold text-purple-400 shrink-0">3</div>
+<div>
+<h2 class="text-2xl font-bold mb-1">🏥 Healthcare: assisted surgery, care, and rehabilitation</h2>
+<p class="text-neutral-400">The highest-value sector with the highest barriers to entry—where autonomy is introduced one step at a time, with rigorous validation.</p>
+</div>
+</div>
+<!-- Conceito principal -->
+<div class="bg-gradient-to-br from-purple-900/40 via-dark-800 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-4">
+<h3 class="text-purple-400 font-semibold mb-2">Gradual, non-disruptive autonomy</h3>
+<p class="text-neutral-300 text-sm leading-relaxed">In healthcare, VLA appears in <strong>assisted surgery</strong> (systems like da Vinci gaining autonomy in subtasks such as suturing and cutting), <strong>care robots</strong> and assistance for older adults, hospital logistics, and <strong>rehabilitation with adaptive exoskeletons</strong>. The safety requirements are extreme: any failure can have serious consequences, so autonomy is introduced incrementally and always supervised by a human.</p>
+</div>
+<!-- Grid fazer vs evitar -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+<div class="rounded-xl border border-purple-500/30 bg-purple-900/20 p-5">
+<h4 class="text-purple-400 font-semibold mb-3">✓ Correct Approach</h4>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-purple-400 mt-0.5">✓</span> Human-in-the-loop for all critical decisions</li>
+<li class="flex items-start gap-2"><span class="text-purple-400 mt-0.5">✓</span> Autonomy in isolated, well-defined subtasks</li>
+<li class="flex items-start gap-2"><span class="text-purple-400 mt-0.5">✓</span> Extensive validation in simulation before OR</li>
+<li class="flex items-start gap-2"><span class="text-purple-400 mt-0.5">✓</span> Regulatory pathway (FDA/Anvisa) planned from the start</li>
+</ul>
+</div>
+<div class="rounded-xl border border-red-500/30 bg-red-900/20 p-5">
+<h4 class="text-red-400 font-semibold mb-3">✗ What not to do</h4>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Complete autonomy without immediate human override</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Deploy before adequate regulatory certification</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Test on real patients without a cadaver/simulator phase</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Ignore anatomical variability across patients</li>
+</ul>
+</div>
+</div>
+<!-- Conceitos-chave -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600 text-center">
+<div class="text-purple-400 font-bold text-sm mb-1">Human-in-Loop</div>
+<div class="text-neutral-500 text-xs">mandatory supervision</div>
+</div>
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600 text-center">
+<div class="text-purple-400 font-bold text-sm mb-1">FDA / Anvisa</div>
+<div class="text-neutral-500 text-xs">regulatory pathway</div>
+</div>
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600 text-center">
+<div class="text-purple-400 font-bold text-sm mb-1">Auto subtask</div>
+<div class="text-neutral-500 text-xs">partial autonomy first</div>
+</div>
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600 text-center">
+<div class="text-purple-400 font-bold text-sm mb-1">Exoskeleton</div>
+<div class="text-neutral-500 text-xs">adaptive rehabilitation</div>
+</div>
+</div>
+</section>
+<!-- ══════════════════════════════════════ -->
+<!-- TÓPICO 4: Agro -->
+<!-- ══════════════════════════════════════ -->
+<section class="mb-12" id="topico-4">
+<div class="flex items-start gap-5 mb-6">
+<div class="w-12 h-12 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-xl font-bold text-purple-400 shrink-0">4</div>
+<div>
+<h2 class="text-2xl font-bold mb-1">🌾 Agriculture: selective harvesting, phenotyping, and spraying</h2>
+<p class="text-neutral-400">The most challenging environment for robotics — unstructured, outdoors, and variable. Mastering agriculture proves technical maturity.</p>
+</div>
+</div>
+<!-- Timeline de cases / passos -->
+<div class="space-y-4 mb-6">
+<h3 class="text-sm font-semibold text-neutral-400 uppercase tracking-wide">Three fronts in the field</h3>
+<div class="flex gap-4">
+<div class="w-10 h-10 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-purple-400 font-bold shrink-0">A</div>
+<div class="flex-1 bg-dark-800 rounded-xl border border-dark-600 p-4">
+<div class="font-semibold mb-1">Selective harvesting</div>
+<p class="text-neutral-400 text-sm">Identify and pick only fruit at the right stage of ripeness without damaging the plant. This requires RGB+NIR vision, grip force estimation, and delicate movements among unpredictable branches. Startups such as Tortuga Agtech and Fieldwork Robotics are already operating at limited scale with strawberries and tomatoes.</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="w-10 h-10 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-purple-400 font-bold shrink-0">B</div>
+<div class="flex-1 bg-dark-800 rounded-xl border border-dark-600 p-4">
+<div class="font-semibold mb-1">Automated phenotyping</div>
+<p class="text-neutral-400 text-sm">Measure plants’ physical parameters (height, leaf area, chlorophyll index) at high speed for genetic improvement programs. A robot does in hours what would take weeks in the field, generating datasets for selecting more productive and resilient varieties.</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="w-10 h-10 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-purple-400 font-bold shrink-0">C</div>
+<div class="flex-1 bg-dark-800 rounded-xl border border-dark-600 p-4">
+<div class="font-semibold mb-1">Precision sprinkling</div>
+<p class="text-neutral-400 text-sm">Apply inputs (pesticide, fertilizer, biostimulant) only where needed, identifying target plants or regions through vision. Reduces input use by up to 80%, lowering costs and environmental impact. VLA-equipped drones are the first to achieve this level of precision at scale.</p>
+</div>
+</div>
+</div>
+<!-- Tip box -->
+<div class="bg-primary/10 border border-primary/40 rounded-xl p-5 mb-4">
+<h4 class="text-primary font-semibold mb-2">💡 Agriculture's unique challenge: extreme variability</h4>
+<p class="text-neutral-300 text-sm">Light changes from dawn to dusk. Plants grow and change shape. Wet vs. dry soil changes traction. Wind deflects trajectories. No simulator reproduces all of this with sufficient fidelity — agricultural robots need extreme domain randomization and out-of-distribution robustness beyond what is required in controlled indoor environments.</p>
+</div>
+<!-- Conceitos-chave -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600 text-center">
+<div class="text-purple-400 font-bold text-sm mb-1">Visual Maturation</div>
+<div class="text-neutral-500 text-xs">RGB + NIR to detect</div>
+</div>
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600 text-center">
+<div class="text-purple-400 font-bold text-sm mb-1">Phenotyping</div>
+<div class="text-neutral-500 text-xs">plant-scale metrics</div>
+</div>
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600 text-center">
+<div class="text-purple-400 font-bold text-sm mb-1">Pulv. accuracy</div>
+<div class="text-neutral-500 text-xs">80% less input</div>
+</div>
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600 text-center">
+<div class="text-purple-400 font-bold text-sm mb-1">OOD Environments</div>
+<div class="text-neutral-500 text-xs">extra robustness required</div>
+</div>
+</div>
+</section>
+<!-- ══════════════════════════════════════ -->
+<!-- TÓPICO 5: Varejo e serviços -->
+<!-- ══════════════════════════════════════ -->
+<section class="mb-12" id="topico-5">
+<div class="flex items-start gap-5 mb-6">
+<div class="w-12 h-12 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-xl font-bold text-purple-400 shrink-0">5</div>
+<div>
+<h2 class="text-2xl font-bold mb-1">🛒 Retail and Services</h2>
+<p class="text-neutral-400">The sector most visible to consumers—where VLA must combine manipulation, mobility, and human interaction.</p>
+</div>
+</div>
+<!-- SVG ilustrativo: robô no varejo — navegação social + manipulação -->
+<div class="mb-6 rounded-2xl border border-purple-500/30 bg-dark-900/40 p-4">
+<svg aria-label="Retail robot diagram with three capabilities: shelf restocking, inventory, and language interaction" class="w-full h-auto" fill="none" role="img" viewbox="0 0 680 200" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<filter height="180%" id="m34b-glow" width="180%" x="-40%" y="-40%">
+<fegaussianblur result="b" stddeviation="1.8"></fegaussianblur>
+<femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge>
+</filter>
+<pattern height="32" id="m34b-grid" patternunits="userSpaceOnUse" width="32">
+<circle cx="1.3" cy="1.3" fill="#a855f7" opacity="0.10" r="1.3"></circle>
+</pattern>
+<lineargradient id="m34b-grad" x1="0" x2="1" y1="0" y2="1">
+<stop offset="0" stop-color="#c084fc"></stop><stop offset="1" stop-color="#a855f7"></stop>
+</lineargradient>
+</defs>
+<rect fill="url(#m34b-grid)" height="200" rx="12" width="680"></rect>
+<!-- Robô central -->
+<g filter="url(#m34b-glow)">
+<rect fill="#1a1230" height="100" rx="14" stroke="url(#m34b-grad)" stroke-width="2" width="140" x="270" y="55"></rect>
+<text fill="#c084fc" font-family="Inter,sans-serif" font-size="13" font-weight="600" text-anchor="middle" x="340" y="92">🤖 Robot</text>
+<text fill="#c084fc" font-family="Inter,sans-serif" font-size="9" opacity="0.65" text-anchor="middle" x="340" y="112">Retail &amp; Services</text>
+<text fill="#c084fc" font-family="Inter,sans-serif" font-size="8" opacity="0.45" text-anchor="middle" x="340" y="130">social navigation</text>
+</g>
+<!-- Capacidade 1: Reposição -->
+<g filter="url(#m34b-glow)">
+<rect fill="#0e1b26" height="55" rx="10" stroke="#38bdf8" stroke-width="1.6" width="180" x="30" y="30"></rect>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="11" font-weight="600" text-anchor="middle" x="120" y="52">Shelf restocking</text>
+<text fill="#9ad6ff" font-family="Inter,sans-serif" font-size="9" opacity="0.7" text-anchor="middle" x="120" y="70">planogram + adaptive gripper</text>
+</g>
+<!-- Capacidade 2: Inventário -->
+<g filter="url(#m34b-glow)">
+<rect fill="#0e1b26" height="55" rx="10" stroke="#38bdf8" stroke-width="1.6" width="180" x="30" y="120"></rect>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="11" font-weight="600" text-anchor="middle" x="120" y="142">Autonomous inventory</text>
+<text fill="#9ad6ff" font-family="Inter,sans-serif" font-size="9" opacity="0.7" text-anchor="middle" x="120" y="160">vision + RFID + map</text>
+</g>
+<!-- Capacidade 3: Linguagem natural -->
+<g filter="url(#m34b-glow)">
+<rect fill="#1a1230" height="55" rx="10" stroke="#c084fc" stroke-width="1.6" width="185" x="470" y="75"></rect>
+<text fill="#c084fc" font-family="Inter,sans-serif" font-size="11" font-weight="600" text-anchor="middle" x="562" y="97">Language instruction</text>
+<text fill="#c084fc" font-family="Inter,sans-serif" font-size="9" opacity="0.65" text-anchor="middle" x="562" y="115">"where is the tomato sauce?"</text>
+</g>
+<!-- Conectores -->
+<line stroke="#38bdf8" stroke-opacity="0.4" stroke-width="1.4" x1="210" x2="270" y1="57" y2="90"></line>
+<line stroke="#38bdf8" stroke-opacity="0.4" stroke-width="1.4" x1="210" x2="270" y1="147" y2="120"></line>
+<line stroke="#c084fc" stroke-opacity="0.4" stroke-width="1.4" x1="410" x2="470" y1="105" y2="105"></line>
+</svg>
+</div>
+<!-- Box dados -->
+<div class="bg-blue-900/20 border border-blue-500/30 rounded-xl p-5 mb-4">
+<h4 class="text-blue-400 font-semibold mb-3">📊 What VLA adds to retail</h4>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm text-neutral-300">
+<div>
+<div class="font-semibold text-neutral-100 mb-1">Combined manipulation + mobility</div>
+<p class="text-neutral-400">The robot needs to navigate among customers, pick items from shelves at various heights, and place them carefully. This brings everything together: perception, planning, manipulation, and social interaction.</p>
+</div>
+<div>
+<div class="font-semibold text-neutral-100 mb-1">Natural language instruction</div>
+<p class="text-neutral-400">A customer might ask, "help me find gluten-free flour" — the robot needs to understand the intent, navigate to the right aisle, and perhaps handle the box to show the item. The VLM is essential here.</p>
+</div>
+</div>
+</div>
+<!-- Conceitos-chave -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600 text-center">
+<div class="text-purple-400 font-bold text-sm mb-1">HRI</div>
+<div class="text-neutral-500 text-xs">human-robot interaction</div>
+</div>
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600 text-center">
+<div class="text-purple-400 font-bold text-sm mb-1">Social Nav.</div>
+<div class="text-neutral-500 text-xs">move among people</div>
+</div>
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600 text-center">
+<div class="text-purple-400 font-bold text-sm mb-1">Planogram</div>
+<div class="text-neutral-500 text-xs">shelf layout</div>
+</div>
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600 text-center">
+<div class="text-purple-400 font-bold text-sm mb-1">Food Prep</div>
+<div class="text-neutral-500 text-xs">food preparation</div>
+</div>
+</div>
+</section>
+<!-- ══════════════════════════════════════ -->
+<!-- TÓPICO 6: Barreiras de adoção setorial -->
+<!-- ══════════════════════════════════════ -->
+<section class="mb-12" id="topico-6">
+<div class="flex items-start gap-5 mb-6">
+<div class="w-12 h-12 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-xl font-bold text-purple-400 shrink-0">6</div>
+<div>
+<h2 class="text-2xl font-bold mb-1">🚧 Barriers to Industry Adoption</h2>
+<p class="text-neutral-400">A technology working in a demo isn't enough—business, safety, and regulatory barriers determine whether it gets deployed in production.</p>
+</div>
+</div>
+<!-- Conceito principal -->
+<div class="bg-gradient-to-br from-purple-900/40 via-dark-800 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-4">
+<h3 class="text-purple-400 font-semibold mb-3">The 5 real adoption barriers</h3>
+<div class="space-y-3 text-sm text-neutral-300">
+<div class="flex gap-3"><span class="text-purple-400 font-bold w-6 shrink-0">1.</span><div><strong class="text-neutral-100">Uncertain ROI and payback</strong> — The robot costs US$150-300k (humanoid). The economics only work with very high throughput or unhealthy/dangerous tasks where no humans are available.</div></div>
+<div class="flex gap-3"><span class="text-purple-400 font-bold w-6 shrink-0">2.</span><div><strong class="text-neutral-100">Safety and certification</strong> — ISO 10218 (industrial robots), ISO 15066 (collaborative robots), FDA/Anvisa (healthcare). A long, expensive path, especially for critical domains.</div></div>
+<div class="flex gap-3"><span class="text-purple-400 font-bold w-6 shrink-0">3.</span><div><strong class="text-neutral-100">Legacy integration</strong> — Old factories, 90s-era ERP systems, sensors without an API. Integrating a VLA robot into the existing environment can cost more than the robot itself.</div></div>
+<div class="flex gap-3"><span class="text-purple-400 font-bold w-6 shrink-0">4.</span><div><strong class="text-neutral-100">MTBF and reliability</strong> — A robot stopped on a manufacturing line loses thousands per hour. Reliability must be comparable to industrial equipment (~99.9% uptime).</div></div>
+<div class="flex gap-3"><span class="text-purple-400 font-bold w-6 shrink-0">5.</span><div><strong class="text-neutral-100">Workforce acceptance</strong> — Fear of job displacement, need for reskilling, union agreements. The best technical robot may run into cultural resistance.</div></div>
+</div>
+</div>
+<!-- Tip box -->
+<div class="bg-primary/10 border border-primary/40 rounded-xl p-5 mb-4">
+<h4 class="text-primary font-semibold mb-2">💡 Robots-as-a-Service (RaaS) as a solution</h4>
+<p class="text-neutral-300 text-sm">The RaaS model (a company pays per hour of operation instead of buying the robot) is removing the CAPEX barrier. Organizations such as Machina Labs and Covariant offer robotics capacity as a service, shifting maintenance and performance risk to the provider. It’s SaaS applied to physical robotics.</p>
+</div>
+<!-- Grid fazer vs evitar — barreiras por setor -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+<div class="rounded-xl border border-purple-500/30 bg-purple-900/20 p-5">
+<h4 class="text-purple-400 font-semibold mb-3">✓ Sectors with lower barriers to entry</h4>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-purple-400 mt-0.5">✓</span> <div><strong>Logistics</strong> — Proven ROI, with no critical personal safety regulations.</div></li>
+<li class="flex items-start gap-2"><span class="text-purple-400 mt-0.5">✓</span> <div><strong>Agro</strong> — scarce workers, outdoor environments without the general public</div></li>
+<li class="flex items-start gap-2"><span class="text-purple-400 mt-0.5">✓</span> <div><strong>Controlled manufacturing</strong> — isolated cells, limited variability</div></li>
+</ul>
+</div>
+<div class="rounded-xl border border-red-500/30 bg-red-900/20 p-5">
+<h4 class="text-red-400 font-semibold mb-3">✗ Sectors with the highest barriers</h4>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> <div><strong>Healthcare</strong> — extreme regulation, zero failure tolerance, clinical validation</div></li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> <div><strong>Public retail</strong> — customer interaction, civil liability, total variability</div></li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> <div><strong>Legacy manufacturing</strong> — costly integration, union resistance, high CAPEX</div></li>
+</ul>
+</div>
+</div>
+<!-- Conceitos-chave -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600 text-center">
+<div class="text-purple-400 font-bold text-sm mb-1">ROI / Payback</div>
+<div class="text-neutral-500 text-xs">cost payback period</div>
+</div>
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600 text-center">
+<div class="text-purple-400 font-bold text-sm mb-1">ISO 15066</div>
+<div class="text-neutral-500 text-xs">collaborative robots</div>
+</div>
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600 text-center">
+<div class="text-purple-400 font-bold text-sm mb-1">MTBF</div>
+<div class="text-neutral-500 text-xs">mean time between failures</div>
+</div>
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600 text-center">
+<div class="text-purple-400 font-bold text-sm mb-1">RaaS</div>
+<div class="text-neutral-500 text-xs">Robots-as-a-Service</div>
+</div>
+</div>
+</section>
+<!-- RESUMO -->
+<section class="mb-12">
+<div class="bg-gradient-to-br from-purple-900/40 via-dark-800 to-dark-800 rounded-xl border border-purple-500/30 p-8">
+<h2 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">✅</span> Module Summary</h2>
+<div class="space-y-4 mb-8">
+<div class="flex items-start gap-3">
+<span class="text-purple-400 mt-1">✓</span>
+<div><strong>Logistics leads deployment</strong><span class="text-neutral-400"> — Proven ROI, with generalist picking already in production at Amazon and Covariant; cycle time is still slower than that of a human specialist.</span></div>
+</div>
+<div class="flex items-start gap-3">
+<span class="text-purple-400 mt-1">✓</span>
+<div><strong>Manufacturing requires flexibility</strong><span class="text-neutral-400"> — the promise of a high-mix, low-volume factory without reprogramming is being tested on BMW and Mercedes production lines with Figure and Apptronik.</span></div>
+</div>
+<div class="flex items-start gap-3">
+<span class="text-purple-400 mt-1">✓</span>
+<div><strong>Healthcare: gradual autonomy is mandatory</strong><span class="text-neutral-400"> — human-in-the-loop and regulatory certification set the pace; surgical subtasks are the entry point.</span></div>
+</div>
+<div class="flex items-start gap-3">
+<span class="text-purple-400 mt-1">✓</span>
+<div><strong>Barriers are business-related, not just technical</strong><span class="text-neutral-400"> — ROI, certification, legacy integration, and cultural acceptance determine deployment more than model performance.</span></div>
+</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+<h3 class="font-semibold text-purple-400 mb-2">Next module</h3>
+<p class="text-neutral-300">3.5 — Market and Opportunities: $7.2B — The intelligent robotics boom and new career paths</p>
+</div>
+<div class="flex flex-col sm:flex-row gap-4">
+<a class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors" href="./">← Back to the Learning Path</a>
+<a class="flex-1 text-center px-6 py-3 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-500 transition-colors" href="modulo-3-5.html">Next module →</a>
+</div>
+</div>
+</section>
+</main>
+<footer class="border-t border-dark-600 py-8">
+<div class="max-w-6xl mx-auto px-4 text-center text-neutral-500 text-sm">
+<p>VLA Course — Vision-Language-Action · <a class="text-sky-400 hover:text-sky-300" href="https://ARCKHÉ AI" target="_blank">ARCKHÉ AI</a></p>
+</div>
+</footer>
+</body>
+</html>

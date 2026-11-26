@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Módulo 1.5 — Hardware: Cobots, Humanoides e Plataformas | VLA Course</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: { 600:'#374151', 700:'#1f2937', 800:'#1a1a2e', 900:'#111827' },
+                        primary: '#f59e0b'
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .dark body { background-color: #111827; }
+        html:not(.dark) body { background-color: #f8fafc; }
+        html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+        html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+        html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+        html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+        html:not(.dark) .text-neutral-100 { color: #111827; }
+        html:not(.dark) .text-neutral-300 { color: #4b5563; }
+        html:not(.dark) .text-neutral-400 { color: #6b7280; }
+        html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+        html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+        html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+        html:not(.dark) .text-emerald-400 { color: #059669; }
+        html:not(.dark) .text-blue-400 { color: #2563eb; }
+        html:not(.dark) .text-purple-400 { color: #7c3aed; }
+        html:not(.dark) .bg-emerald-500\/20 { background-color: rgba(5, 150, 105, 0.12); }
+        html:not(.dark) .bg-emerald-500\/10 { background-color: rgba(5, 150, 105, 0.08); }
+        html:not(.dark) .bg-emerald-900\/20 { background-color: rgba(5, 150, 105, 0.08); }
+        html:not(.dark) .bg-blue-500\/20 { background-color: rgba(37, 99, 235, 0.12); }
+        html:not(.dark) .bg-blue-900\/20 { background-color: rgba(37, 99, 235, 0.08); }
+        html:not(.dark) .bg-purple-500\/20 { background-color: rgba(124, 58, 237, 0.12); }
+        html:not(.dark) .bg-red-900\/20 { background-color: rgba(220, 38, 38, 0.07); }
+        html:not(.dark) .border-emerald-500\/30 { border-color: rgba(5, 150, 105, 0.25); }
+        html:not(.dark) .border-blue-500\/30 { border-color: rgba(37, 99, 235, 0.25); }
+        html:not(.dark) .border-purple-500\/30 { border-color: rgba(124, 58, 237, 0.25); }
+        html:not(.dark) .border-red-500\/30 { border-color: rgba(220, 38, 38, 0.25); }
+        html:not(.dark) .hover\:border-emerald-500\/50:hover { border-color: rgba(5, 150, 105, 0.4); }
+        html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+        html:not(.dark) .text-primary { color: #a16207; }
+        html:not(.dark) .bg-primary\/10 { background-color: rgba(161, 98, 7, 0.08); }
+        html:not(.dark) .border-primary\/30 { border-color: rgba(161, 98, 7, 0.25); }
+        html:not(.dark) .border-primary\/40 { border-color: rgba(161, 98, 7, 0.25); }
+        html:not(.dark) .text-sky-400 { color: #0369a1; }
+        html:not(.dark) .text-yellow-400 { color: #a16207; }
+        html:not(.dark) .text-red-400 { color: #dc2626; }
+        html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+        html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255, 255, 255, 0.95); }
+        html:not(.dark) svg[role="img"] { filter: saturate(0.82) brightness(0.96); }
+        .dark .border-dark-600 { border-color: #374151; }
+        .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+        @keyframes wf-pulse { 0%,100% { opacity:.55 } 50% { opacity:1 } }
+        @media (prefers-reduced-motion: no-preference) {
+          .wf-a { animation: wf-pulse 2.6s ease-in-out infinite; }
+          .wf-a:nth-child(2){animation-delay:.25s} .wf-a:nth-child(3){animation-delay:.5s}
+          .wf-a:nth-child(4){animation-delay:.75s} .wf-a:nth-child(5){animation-delay:1s}
+        }
+    </style>
+<link href="https://linnoff88-dev.github.io/arckhe-vla/curso/trilha1/modulo-1-5.html" hreflang="pt-BR" rel="alternate"/><link href="https://linnoff88-dev.github.io/arckhe-vla/en/curso/trilha1/modulo-1-5.html" hreflang="en" rel="alternate"/><link href="https://linnoff88-dev.github.io/arckhe-vla/es/curso/trilha1/modulo-1-5.html" hreflang="es" rel="alternate"/></head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="ARCKHÉ-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="modulo-1-5.html" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">PT</a><a href="../../en/curso/trilha1/modulo-1-5.html" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">EN</a><a href="../../es/curso/trilha1/modulo-1-5.html" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">ES</a></div>
+<!-- NAV -->
+<nav class="fixed top-0 w-full bg-dark-900/95 backdrop-blur border-b border-dark-600 z-50">
+<div class="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<a class="text-primary font-bold text-lg" href="../../">VLA</a>
+<span class="text-neutral-500">|</span>
+<a class="text-sky-400 hover:text-sky-300 text-sm font-medium" href="https://ARCKHÉ AI" target="_blank">ARCKHÉ AI</a>
+</div>
+<div class="flex items-center gap-2">
+<a class="px-3 py-1.5 rounded text-sm text-emerald-400 bg-emerald-500/20 border border-emerald-500/30 font-medium" href="./">Fundamentos</a>
+<a class="px-3 py-1.5 rounded text-sm text-blue-400 hover:bg-blue-500/10" href="../trilha2/">Técnico</a>
+<a class="px-3 py-1.5 rounded text-sm text-purple-400 hover:bg-purple-500/10" href="../trilha3/">Avançado</a>
+<button class="ml-2 p-2 rounded hover:bg-dark-700 text-neutral-400" onclick="document.documentElement.classList.toggle('dark')" title="Alternar tema">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+</div>
+</div>
+</nav>
+<!-- BREADCRUMB -->
+<div class="max-w-4xl mx-auto px-4 pt-20">
+<div class="flex items-center gap-2 text-sm text-neutral-400">
+<a class="hover:text-emerald-400" href="../../">Início</a>
+<span>/</span>
+<a class="hover:text-emerald-400" href="./">Fundamentos</a>
+<span>/</span>
+<span class="text-emerald-400">Módulo 1.5</span>
+</div>
+</div>
+<main class="max-w-4xl mx-auto px-4 pt-6 pb-16">
+<!-- HEADER -->
+<header class="mb-12">
+<span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 mb-4">MÓDULO 1.5</span>
+<h1 class="text-3xl sm:text-4xl font-extrabold mb-4">🤖 Hardware: Cobots, Humanoides e Plataformas</h1>
+<p class="text-lg text-neutral-400 max-w-3xl">Dos braços colaborativos que dominam os datasets de pesquisa até os humanoides da fronteira — e as plataformas acessíveis que permitem praticar VLA de verdade. O hardware que você escolhe determina o espaço de ação, os sensores disponíveis e o compute necessário.</p>
+<!-- Stats -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8">
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-emerald-400">6</div>
+<div class="text-xs text-neutral-400">Tópicos</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-emerald-400">~45</div>
+<div class="text-xs text-neutral-400">Minutos</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-emerald-400">Básico</div>
+<div class="text-xs text-neutral-400">Nível</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-emerald-400">Hardware</div>
+<div class="text-xs text-neutral-400">Tipo</div>
+</div>
+</div>
+</header>
+<!-- HERO SVG: Espectro de hardware robótico -->
+<div class="rounded-2xl border border-emerald-500/30 bg-dark-900/40 p-3 sm:p-4 mb-12 overflow-hidden">
+<svg aria-label="Espectro de hardware robótico: cobots industriais, humanoides de fronteira, plataformas acessíveis e compute embarcado convergindo para o VLA" class="w-full h-auto" role="img" viewbox="0 0 760 260" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<pattern height="28" id="m15-grid" patternunits="userSpaceOnUse" width="28">
+<circle cx="1.4" cy="1.4" fill="#34d399" opacity="0.09" r="1.4"></circle>
+</pattern>
+<lineargradient id="m15-grad" x1="0" x2="1" y1="0" y2="1">
+<stop offset="0" stop-color="#34d399"></stop><stop offset="1" stop-color="#10b981"></stop>
+</lineargradient>
+<lineargradient id="m15-grad-c" x1="0" x2="1" y1="0" y2="1">
+<stop offset="0" stop-color="#38bdf8"></stop><stop offset="1" stop-color="#0ea5e9"></stop>
+</lineargradient>
+<filter height="180%" id="m15-glow" width="180%" x="-40%" y="-40%">
+<fegaussianblur result="b" stddeviation="1.8"></fegaussianblur><femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge>
+</filter>
+<marker id="m15-ah" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#34d399"></path></marker>
+<marker id="m15-ahc" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#38bdf8"></path></marker>
+</defs>
+<rect fill="url(#m15-grid)" height="260" width="760"></rect>
+<!-- Title -->
+<text fill="#34d399" font-family="Inter,sans-serif" font-size="13" font-weight="600" opacity="0.85" text-anchor="middle" x="380" y="30">Espectro de Hardware Robótico — todos convergem para o VLA</text>
+<!-- Row 1: hardware nodes -->
+<!-- Cobots -->
+<rect fill="#0e2018" height="70" rx="12" stroke="#34d399" stroke-opacity="0.55" stroke-width="2" width="155" x="30" y="55"></rect>
+<text fill="#34d399" font-family="Inter,sans-serif" font-size="12" font-weight="600" text-anchor="middle" x="107" y="80">Cobots</text>
+<text fill="#9ca3af" font-family="Inter,sans-serif" font-size="9" text-anchor="middle" x="107" y="96">Franka · UR · KUKA</text>
+<text fill="#6b7280" font-family="Inter,sans-serif" font-size="8.5" text-anchor="middle" x="107" y="111">7 DoF · torque sensing</text>
+<!-- Humanoides -->
+<rect fill="#0e2018" height="70" rx="12" stroke="#34d399" stroke-opacity="0.55" stroke-width="2" width="155" x="205" y="55"></rect>
+<text fill="#34d399" font-family="Inter,sans-serif" font-size="12" font-weight="600" text-anchor="middle" x="282" y="80">Humanoides</text>
+<text fill="#9ca3af" font-family="Inter,sans-serif" font-size="9" text-anchor="middle" x="282" y="96">Figure · Unitree · Optimus</text>
+<text fill="#6b7280" font-family="Inter,sans-serif" font-size="8.5" text-anchor="middle" x="282" y="111">whole-body control</text>
+<!-- Plataformas acessíveis -->
+<rect fill="#0e2018" height="70" rx="12" stroke="#34d399" stroke-opacity="0.7" stroke-width="2" width="155" x="380" y="55"></rect>
+<text fill="#34d399" font-family="Inter,sans-serif" font-size="12" font-weight="600" text-anchor="middle" x="457" y="80">Acessíveis</text>
+<text fill="#9ca3af" font-family="Inter,sans-serif" font-size="9" text-anchor="middle" x="457" y="96">SO-100 · Koch · ALOHA</text>
+<text fill="#6b7280" font-family="Inter,sans-serif" font-size="8.5" text-anchor="middle" x="457" y="111">líder-seguidor · LeRobot</text>
+<!-- Sensores -->
+<rect fill="#0e2018" height="70" rx="12" stroke="#38bdf8" stroke-opacity="0.5" stroke-width="2" width="175" x="555" y="55"></rect>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="12" font-weight="600" text-anchor="middle" x="642" y="80">Sensores</text>
+<text fill="#9ca3af" font-family="Inter,sans-serif" font-size="9" text-anchor="middle" x="642" y="96">RGB-D · força/torque · tátil</text>
+<text fill="#6b7280" font-family="Inter,sans-serif" font-size="8.5" text-anchor="middle" x="642" y="111">entrada perceptual do VLA</text>
+<!-- Arrows converging to VLA node -->
+<path d="M107,128 C107,175 310,190 310,200" fill="none" marker-end="url(#m15-ah)" stroke="#34d399" stroke-opacity="0.45" stroke-width="1.8"></path>
+<path d="M282,128 C282,170 330,185 350,200" fill="none" marker-end="url(#m15-ah)" stroke="#34d399" stroke-opacity="0.45" stroke-width="1.8"></path>
+<path d="M457,128 C457,170 420,185 400,200" fill="none" marker-end="url(#m15-ah)" stroke="#34d399" stroke-opacity="0.45" stroke-width="1.8"></path>
+<path d="M642,128 C642,175 450,190 430,200" fill="none" marker-end="url(#m15-ahc)" stroke="#38bdf8" stroke-opacity="0.45" stroke-width="1.8"></path>
+<!-- VLA node (hero, with glow) -->
+<g filter="url(#m15-glow)">
+<rect fill="#0e2018" height="48" rx="14" stroke="url(#m15-grad)" stroke-width="2.5" width="220" x="270" y="200"></rect>
+</g>
+<text fill="#34d399" font-family="Inter,sans-serif" font-size="15" font-weight="700" text-anchor="middle" x="380" y="220">VLA Policy</text>
+<text fill="#9ad6ff" font-family="Inter,sans-serif" font-size="9.5" text-anchor="middle" x="380" y="238">visão + linguagem → ação embarcada</text>
+</svg>
+<p class="text-xs text-neutral-500 text-center mt-2">Diagrama ilustrativo — cobots, humanoides, plataformas e sensores todos alimentam uma política VLA.</p>
+</div>
+<!-- TÓPICO 1 -->
+<section class="mb-16" id="topico-1">
+<div class="flex items-center gap-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl shrink-0">1</span>
+<h2 class="text-2xl font-bold">🦾 Cobots industriais: Franka, UR, KUKA</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+<strong class="text-emerald-400">Cobots</strong> (robôs colaborativos) são braços robóticos projetados para operar com segurança ao lado de humanos, sem gaiolas de proteção. O Franka Emika (7 DoF, sensível a torque), os Universal Robots (UR3/UR5/UR10) e o KUKA LBR iiwa dominam os laboratórios de pesquisa VLA e são a base da maioria dos grandes datasets.
+            </p>
+<div class="bg-gradient-to-br from-emerald-900/30 to-dark-800 rounded-xl border border-emerald-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-emerald-400 mb-4 flex items-center"><span class="mr-2">🔑</span> Por que cobots dominam a pesquisa VLA</h3>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start gap-3"><span class="text-emerald-400 font-bold mt-0.5">Franka</span><span>7 DoF com torque sensing em cada junta. Evita singularidades e viabiliza controle de força. Domina o dataset DROID com mais de 76 mil episódios.</span></li>
+<li class="flex items-start gap-3"><span class="text-emerald-400 font-bold mt-0.5">UR</span><span>Universal Robots UR3/5/10 — simples, baratos, amplamente usados em automação industrial leve e em setups de coleta de dados.</span></li>
+<li class="flex items-start gap-3"><span class="text-emerald-400 font-bold mt-0.5">KUKA</span><span>LBR iiwa com 7 eixos e sensibilidade de força/momento em todos os eixos. Referência em pesquisa de controle de impedância.</span></li>
+</ul>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+<h4 class="font-bold text-emerald-400 mb-4">✓ Vantagens dos cobots em VLA</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-emerald-400">✓</span><span>API aberta (ROS, libfranka) facilita integração com modelos</span></li>
+<li class="flex items-start gap-2"><span class="text-emerald-400">✓</span><span>Sensores de torque viabilizam detecção de contato e controle fino</span></li>
+<li class="flex items-start gap-2"><span class="text-emerald-400">✓</span><span>Datasets imensos com demonstrações prontas para fine-tuning</span></li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+<h4 class="font-bold text-red-400 mb-4">✗ Limitações a conhecer</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Sem locomoção — fixos numa base, não se movem pelo ambiente</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Workspace limitado ao alcance do braço (~800 mm de raio)</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Custo entre $10k–$50k — inacessível sem suporte institucional</span></li>
+</ul>
+</div>
+</div>
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6">
+<h3 class="text-lg font-semibold text-emerald-400 mb-3">Conceitos-chave</h3>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
+<div><strong class="text-emerald-400">Graus de liberdade (DoF)</strong><p class="text-neutral-400 mt-1">Definem a mobilidade. 6 DoF para alcançar pose arbitrária; 7 DoF adicionam redundância e evitam singularidades.</p></div>
+<div><strong class="text-emerald-400">Torque sensing</strong><p class="text-neutral-400 mt-1">Sensor em cada junta mede força exercida — essencial para controle de impedância e segurança colaborativa.</p></div>
+<div><strong class="text-emerald-400">libfranka / ROS</strong><p class="text-neutral-400 mt-1">Interfaces de baixo nível que conectam o modelo de IA ao controlador em tempo real do braço.</p></div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 2 -->
+<section class="mb-16" id="topico-2">
+<div class="flex items-center gap-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl shrink-0">2</span>
+<h2 class="text-2xl font-bold">🧍 Humanoides: Figure, Unitree, Optimus, 1X</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+                Robôs humanoides bípedes projetados para operar em ambientes construídos para humanos. <strong class="text-emerald-400">Figure 02</strong>, <strong class="text-emerald-400">Unitree G1/H1</strong>, <strong class="text-emerald-400">Tesla Optimus</strong> e os robôs da <strong class="text-emerald-400">1X</strong> combinam locomoção bípede, manipulação dexterous e, cada vez mais, controle por VLAs. São a fronteira mais ambiciosa e mais visível da robótica moderna.
+            </p>
+<!-- Timeline de humanoides -->
+<div class="space-y-5 mb-6">
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-emerald-500/20 flex items-center justify-center">
+<span class="text-emerald-400 font-bold text-xs text-center leading-tight">Uni-<br/>tree</span>
+</div>
+<div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600">
+<h4 class="font-semibold mb-1">Unitree G1/H1 — democratizando humanoides</h4>
+<p class="text-neutral-400 text-sm">O G1 custa ~$16k, derrubando a barreira de entrada para labs de pesquisa. Com 23 DoF e locomoção bípede estável, é hoje o humanoide mais acessível para quem quer experimentar controle por VLA.</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-emerald-500/20 flex items-center justify-center">
+<span class="text-emerald-400 font-bold text-xs">Fig</span>
+</div>
+<div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600">
+<h4 class="font-semibold mb-1">Figure 02 — braços em fábricas da BMW</h4>
+<p class="text-neutral-400 text-sm">Já opera em ambiente industrial real. Usa VLA para interpretar instruções e manipular peças. Parceria com OpenAI para o módulo de linguagem. Referência de deploy VLA em produção.</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-emerald-500/20 flex items-center justify-center">
+<span class="text-emerald-400 font-bold text-xs">Opt</span>
+</div>
+<div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600">
+<h4 class="font-semibold mb-1">Tesla Optimus — escala como alavanca</h4>
+<p class="text-neutral-400 text-sm">A Tesla planeja produção em massa, usando o mesmo pipeline de coleta de dados dos carros autônomos para treinar o Optimus. Scaling de dados de demonstração é a aposta central.</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-sky-500/20 flex items-center justify-center">
+<span class="text-sky-400 font-bold text-xs">1X</span>
+</div>
+<div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600">
+<h4 class="font-semibold mb-1">1X NEO — foco em whole-body fluency</h4>
+<p class="text-neutral-400 text-sm">A 1X apostou em robôs de forma mais orgânica (rodas + braços) antes de ir ao bípede. O NEO integra VLA de ponta a ponta com foco em movimentos fluidos e seguros perto de pessoas.</p>
+</div>
+</div>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6">
+<h3 class="text-lg font-semibold text-primary mb-2 flex items-center"><span class="mr-2">💡</span> Calibrando expectativas</h3>
+<p class="text-neutral-300 text-sm">Humanoides fazem vídeos impressionantes mas o <strong class="text-primary">whole-body control</strong> — coordenar locomoção e manipulação simultaneamente — ainda é muito difícil. A maioria dos VLAs atuais controla braços estacionários. Locomoção bípede em robôs reais costuma ser delegada a controladores separados.</p>
+</div>
+</section>
+<!-- TÓPICO 3 -->
+<section class="mb-16" id="topico-3">
+<div class="flex items-center gap-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl shrink-0">3</span>
+<h2 class="text-2xl font-bold">✋ Grippers e end-effectors</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+                O <strong class="text-emerald-400">end-effector</strong> é a interface final do robô com o mundo físico — sua "mão". Vai de grippers paralelos simples (duas garras) a mãos dexterous antropomórficas com dezenas de DoF. A escolha do end-effector define diretamente o que o VLA precisa controlar na saída e quais tarefas são fisicamente viáveis.
+            </p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+<h4 class="font-bold text-emerald-400 mb-4">✓ Gripper paralelo — simples e confiável</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-emerald-400">✓</span><span>1 DoF (abrir/fechar) — action space mínimo no VLA</span></li>
+<li class="flex items-start gap-2"><span class="text-emerald-400">✓</span><span>Robusto, barato, fácil de calibrar e substituir</span></li>
+<li class="flex items-start gap-2"><span class="text-emerald-400">✓</span><span>Suficiente para pick-and-place, a tarefa mais comum em datasets</span></li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+<h4 class="font-bold text-red-400 mb-4">✗ Limitações do gripper simples</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Não consegue manipular objetos deformáveis (tecido, fios)</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Sem controle de orientação dos dedos — pose de grasping limitada</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Tarefas dexterous (parafusos, teclados) exigem mãos complexas</span></li>
+</ul>
+</div>
+</div>
+<div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-blue-400 mb-4 flex items-center"><span class="mr-2">📊</span> Espectro de end-effectors por complexidade</h3>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
+<div class="bg-dark-800/60 rounded-lg p-4 border border-dark-600">
+<div class="text-emerald-400 font-bold mb-2">Paralelo (1 DoF)</div>
+<p class="text-neutral-400">Robotiq 2F-85. Padrão em Franka e UR. Action space: 1 número entre 0 e 1.</p>
+</div>
+<div class="bg-dark-800/60 rounded-lg p-4 border border-dark-600">
+<div class="text-emerald-400 font-bold mb-2">Multi-finger (5-15 DoF)</div>
+<p class="text-neutral-400">Robotiq 3-Finger, Allegro Hand. Permite orientação de objetos. Controle bem mais difícil.</p>
+</div>
+<div class="bg-dark-800/60 rounded-lg p-4 border border-dark-600">
+<div class="text-emerald-400 font-bold mb-2">Dexterous (20+ DoF)</div>
+<p class="text-neutral-400">Shadow Hand. Mão humana artificial. Altíssima complexidade — pesquisa de ponta.</p>
+</div>
+</div>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6">
+<h3 class="text-lg font-semibold text-primary mb-2 flex items-center"><span class="mr-2">💡</span> O end-effector define o action space</h3>
+<p class="text-neutral-300 text-sm">A saída do VLA é um vetor de ações. Um gripper paralelo adiciona 1 dimensão; uma mão dexterous adiciona 20+. Quanto mais DoF no end-effector, <strong class="text-primary">mais difícil o problema de aprendizado</strong>. Para começar, use gripper simples e conquiste tasks complexas com política inteligente.</p>
+</div>
+</section>
+<!-- TÓPICO 4 -->
+<section class="mb-16" id="topico-4">
+<div class="flex items-center gap-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl shrink-0">4</span>
+<h2 class="text-2xl font-bold">👁️ Sensores: RGB-D, força/torque, tátil</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+                Os <strong class="text-emerald-400">sentidos do robô</strong> formam a entrada perceptual do VLA. Câmeras RGB-D fornecem cor e profundidade; sensores de força/torque no punho medem interação com objetos; sensores táteis capturam textura e contato na ponta dos dedos. A combinação dessas modalidades — e o que você deixa de fora — impacta diretamente o que a política consegue aprender.
+            </p>
+<!-- SVG: modalidades sensoriais convergindo -->
+<div class="rounded-2xl border border-emerald-500/30 bg-dark-900/40 p-3 sm:p-4 mb-6 overflow-hidden">
+<svg aria-label="Três modalidades sensoriais — RGB-D, força/torque e tátil — convergindo para a entrada multimodal do VLA" class="w-full h-auto" role="img" viewbox="0 0 760 190" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<pattern height="28" id="m15b-grid" patternunits="userSpaceOnUse" width="28">
+<circle cx="1.4" cy="1.4" fill="#34d399" opacity="0.09" r="1.4"></circle>
+</pattern>
+<lineargradient id="m15b-grad" x1="0" x2="1" y1="0" y2="1">
+<stop offset="0" stop-color="#34d399"></stop><stop offset="1" stop-color="#10b981"></stop>
+</lineargradient>
+<filter height="180%" id="m15b-glow" width="180%" x="-40%" y="-40%">
+<fegaussianblur result="b" stddeviation="1.8"></fegaussianblur><femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge>
+</filter>
+<marker id="m15b-ah" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#34d399"></path></marker>
+<marker id="m15b-ahc" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#38bdf8"></path></marker>
+</defs>
+<rect fill="url(#m15b-grid)" height="190" width="760"></rect>
+<!-- Sensor nodes -->
+<rect fill="#0e2018" height="55" rx="11" stroke="#34d399" stroke-opacity="0.6" stroke-width="2" width="160" x="30" y="30"></rect>
+<text fill="#34d399" font-family="Inter,sans-serif" font-size="12" font-weight="600" text-anchor="middle" x="110" y="54">RGB-D</text>
+<text fill="#9ca3af" font-family="Inter,sans-serif" font-size="9" text-anchor="middle" x="110" y="72">Intel RealSense · depth</text>
+<rect fill="#0e2018" height="55" rx="11" stroke="#34d399" stroke-opacity="0.6" stroke-width="2" width="160" x="300" y="30"></rect>
+<text fill="#34d399" font-family="Inter,sans-serif" font-size="12" font-weight="600" text-anchor="middle" x="380" y="54">Força/Torque</text>
+<text fill="#9ca3af" font-family="Inter,sans-serif" font-size="9" text-anchor="middle" x="380" y="72">punho · impedância</text>
+<rect fill="#0e1b26" height="55" rx="11" stroke="#38bdf8" stroke-opacity="0.55" stroke-width="2" width="160" x="570" y="30"></rect>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="12" font-weight="600" text-anchor="middle" x="650" y="54">Tátil</text>
+<text fill="#9ca3af" font-family="Inter,sans-serif" font-size="9" text-anchor="middle" x="650" y="72">GelSight · DIGIT</text>
+<!-- Arrows to VLA input -->
+<path d="M110,88 C110,130 310,142 340,152" fill="none" marker-end="url(#m15b-ah)" stroke="#34d399" stroke-opacity="0.45" stroke-width="1.8"></path>
+<path d="M380,88 L380,148" fill="none" marker-end="url(#m15b-ah)" stroke="#34d399" stroke-opacity="0.45" stroke-width="1.8"></path>
+<path d="M650,88 C650,130 450,142 420,152" fill="none" marker-end="url(#m15b-ahc)" stroke="#38bdf8" stroke-opacity="0.45" stroke-width="1.8"></path>
+<!-- VLA input node -->
+<g filter="url(#m15b-glow)">
+<rect fill="#0e2018" height="28" rx="10" stroke="url(#m15b-grad)" stroke-width="2" width="220" x="270" y="152"></rect>
+</g>
+<text fill="#34d399" font-family="Inter,sans-serif" font-size="12" font-weight="600" text-anchor="middle" x="380" y="171">Entrada Multimodal do VLA</text>
+</svg>
+<p class="text-xs text-neutral-500 text-center mt-2">Diagrama ilustrativo — a maioria dos VLAs atuais usa apenas RGB; força e tato são fronteiras de pesquisa.</p>
+</div>
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6">
+<h3 class="text-lg font-semibold text-emerald-400 mb-4">Conceitos-chave por modalidade</h3>
+<div class="space-y-4 text-sm">
+<div class="flex items-start gap-4 pb-4 border-b border-dark-600">
+<span class="text-emerald-400 font-bold shrink-0 w-24">RGB-D</span>
+<p class="text-neutral-300">Canal de profundidade (D) adiciona estimativa de pose 3D sem estrutura física extra. Intel RealSense D435 é o padrão em manipulação. Limitação: oclusão e superfícies reflexivas.</p>
+</div>
+<div class="flex items-start gap-4 pb-4 border-b border-dark-600">
+<span class="text-emerald-400 font-bold shrink-0 w-24">F/T sensing</span>
+<p class="text-neutral-300">Sensor no punho mede forças e momentos aplicados. Viabiliza controle de impedância (ceder à força) e detecção de contato — fundamental para inserção de peças e manipulação delicada.</p>
+</div>
+<div class="flex items-start gap-4">
+<span class="text-sky-400 font-bold shrink-0 w-24">Tátil</span>
+<p class="text-neutral-300">GelSight e DIGIT capturam imagens do contato na ponta dos dedos, revelando textura e slip. Ainda pouco integrados aos VLAs mainstream, mas área ativa de pesquisa multimodal.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 5 -->
+<section class="mb-16" id="topico-5">
+<div class="flex items-center gap-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl shrink-0">5</span>
+<h2 class="text-2xl font-bold">🔓 Plataformas acessíveis: SO-100, Koch, ALOHA</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+                Braços robóticos de <strong class="text-emerald-400">baixo custo e código aberto</strong> criados para democratizar o aprendizado de VLA. O SO-100/SO-101 (projeto LeRobot da Hugging Face) custa algumas centenas de dólares; Koch e ALOHA usam configurações líder-seguidor para teleoperação acessível e coleta de dados. São o caminho realista para praticar VLA com hardware físico.
+            </p>
+<div class="bg-gradient-to-br from-emerald-900/30 to-dark-800 rounded-xl border border-emerald-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-emerald-400 mb-4 flex items-center"><span class="mr-2">🔑</span> O stack SO-100 + LeRobot</h3>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start gap-3"><span class="text-emerald-400 font-bold mt-0.5">SO-100</span><span>Braço de 6 DoF impresso em 3D com servomotores acessíveis. Custo total &lt;$500. O gêmeo líder permite teleoperação intuitiva para coletar demonstrações.</span></li>
+<li class="flex items-start gap-3"><span class="text-emerald-400 font-bold mt-0.5">LeRobot</span><span>Biblioteca da Hugging Face que une hardware, datasets e políticas treináveis (ACT, Diffusion Policy, SmolVLA) num único pipeline. Lançar uma política treinada em 1 dia é viável.</span></li>
+<li class="flex items-start gap-3"><span class="text-emerald-400 font-bold mt-0.5">ALOHA</span><span>Configuração bimanual de baixo custo (dois braços) desenvolvida em Stanford. Usada para treinar ACT e Mobile ALOHA. Referência em manipulação dexterous com orçamento reduzido.</span></li>
+</ul>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+<h4 class="font-bold text-emerald-400 mb-4">✓ Por que começar aqui</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-emerald-400">✓</span><span>Hardware físico real — aprende problemas que simulação esconde</span></li>
+<li class="flex items-start gap-2"><span class="text-emerald-400">✓</span><span>Coleta de dados própria — datasets personalizados para sua tarefa</span></li>
+<li class="flex items-start gap-2"><span class="text-emerald-400">✓</span><span>Comunidade ativa no Discord do LeRobot com suporte e exemplos</span></li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+<h4 class="font-bold text-red-400 mb-4">✗ O que esperar (realismo)</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Precisão mecânica inferior a cobots industriais — requer calibração frequente</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Carga útil baixa (&lt;500 g) — só para objetos leves de bancada</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Sem sensores de torque — controle de força muito mais limitado</span></li>
+</ul>
+</div>
+</div>
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-6">
+<h3 class="text-lg font-semibold text-primary mb-2 flex items-center"><span class="mr-2">💡</span> A configuração líder-seguidor</h3>
+<p class="text-neutral-300 text-sm">No setup líder-seguidor, você move um braço gêmeo com a mão e o robô copia o movimento em tempo real, registrando cada frame como uma demonstração. Essa abordagem captura dados de qualidade sem habilidade de programação, tornando a coleta de 50–100 episódios factível num fim de semana.</p>
+</div>
+</section>
+<!-- TÓPICO 6 -->
+<section class="mb-16" id="topico-6">
+<div class="flex items-center gap-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl shrink-0">6</span>
+<h2 class="text-2xl font-bold">⚡ Compute embarcado: Jetson e latência</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">
+                O hardware de computação que executa o VLA, frequentemente <strong class="text-emerald-400">embarcado no próprio robô</strong>. A linha NVIDIA Jetson (Orin Nano, AGX Orin) é o padrão para inferência on-device: GPU em formato compacto, baixo consumo, viável para deploy autônomo sem servidor externo. A escolha do compute determina se o VLA roda em tempo real ou se precisa de um datacenter remoto.
+            </p>
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-6">
+<h3 class="text-lg font-semibold text-emerald-400 mb-4">Comparativo: edge vs cloud</h3>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+<div class="bg-dark-700 rounded-lg p-4 border border-dark-600">
+<div class="text-emerald-400 font-bold mb-2 flex items-center gap-2"><span>🟢</span> Edge (Jetson Orin)</div>
+<ul class="space-y-2 text-neutral-300">
+<li>• Latência &lt;20 ms — compatível com 50 Hz de controle</li>
+<li>• Autônomo — sem dependência de rede</li>
+<li>• AGX Orin: 275 TOPS em 60W</li>
+<li>• TensorRT + quantização INT8 necessários</li>
+</ul>
+</div>
+<div class="bg-dark-700 rounded-lg p-4 border border-dark-600">
+<div class="text-sky-400 font-bold mb-2 flex items-center gap-2"><span>☁️</span> Cloud (servidor remoto)</div>
+<ul class="space-y-2 text-neutral-300">
+<li>• Modelos maiores (7B+) sem restrição de memória</li>
+<li>• Latência 50–200 ms via Wi-Fi — limite ~10 Hz</li>
+<li>• Falha se a rede cair — risco em ambientes reais</li>
+<li>• Bom para prototipagem, ruim para deploy final</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+<div class="bg-emerald-900/20 rounded-xl border border-emerald-500/30 p-6">
+<h4 class="font-bold text-emerald-400 mb-4">✓ Técnicas de otimização para edge</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-emerald-400">✓</span><span>Quantização INT8/INT4 — reduz memória e acelera inferência com pouca perda</span></li>
+<li class="flex items-start gap-2"><span class="text-emerald-400">✓</span><span>TensorRT — compila o modelo para a GPU do Jetson com otimizações específicas</span></li>
+<li class="flex items-start gap-2"><span class="text-emerald-400">✓</span><span>Modelos menores (SmolVLA, 450M) rodam confortavelmente no Orin</span></li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-6">
+<h4 class="font-bold text-red-400 mb-4">✗ Armadilhas comuns</h4>
+<ul class="space-y-3 text-neutral-300 text-sm">
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Testar só em GPU de pesquisa e assumir que roda no Jetson — não roda</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Ignorar latência de câmera — buffer de frames adiciona 30–80 ms extras</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400">✗</span><span>Modelo float32 no Jetson sem quantizar — VRAM insuficiente acima de 3B</span></li>
+</ul>
+</div>
+</div>
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6">
+<h3 class="text-lg font-semibold text-emerald-400 mb-3">Conceitos-chave</h3>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
+<div><strong class="text-emerald-400">Período de controle</strong><p class="text-neutral-400 mt-1">Frequência com que o robô lê sensores e envia novos comandos. 10 Hz = 100 ms máximos de pipeline end-to-end.</p></div>
+<div><strong class="text-emerald-400">Quantização</strong><p class="text-neutral-400 mt-1">Reduz precisão numérica dos pesos (float32 → INT8). Comprime o modelo 4×, acelera 2–4× no hardware dedicado.</p></div>
+<div><strong class="text-emerald-400">Edge vs cloud</strong><p class="text-neutral-400 mt-1">Opõe autonomia e latência garantida on-device contra maior capacidade com risco de delay e queda de rede.</p></div>
+</div>
+</div>
+</section>
+<!-- RESUMO -->
+<section class="mb-12">
+<div class="bg-gradient-to-br from-emerald-900/40 via-dark-800 to-dark-800 rounded-xl border border-emerald-500/30 p-8">
+<h2 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">✅</span> Resumo do Módulo</h2>
+<div class="space-y-4 mb-8">
+<div class="flex items-start gap-3"><span class="text-emerald-400 mt-1">✓</span><div><strong>Cobots dominam a pesquisa</strong><span class="text-neutral-400"> — Franka (7 DoF, torque sensing) é o hardware mais comum nos grandes datasets VLA, incluindo DROID.</span></div></div>
+<div class="flex items-start gap-3"><span class="text-emerald-400 mt-1">✓</span><div><strong>Humanoides são a fronteira ambiciosa</strong><span class="text-neutral-400"> — whole-body control é difícil; locomoção bípede costuma ser delegada a controladores separados do VLA.</span></div></div>
+<div class="flex items-start gap-3"><span class="text-emerald-400 mt-1">✓</span><div><strong>SO-100 + LeRobot é o caminho de entrada</strong><span class="text-neutral-400"> — hardware físico real por &lt;$500, com coleta de dados líder-seguidor e políticas treináveis integradas.</span></div></div>
+<div class="flex items-start gap-3"><span class="text-emerald-400 mt-1">✓</span><div><strong>Latência determina o compute</strong><span class="text-neutral-400"> — Jetson Orin com TensorRT + INT8 para deploy autônomo; cloud para protótipos com &lt;10 Hz de controle.</span></div></div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+<h3 class="font-semibold text-emerald-400 mb-2">Próximo módulo</h3>
+<p class="text-neutral-300">1.6 — Segurança e Normas: ISO 10218:2025</p>
+</div>
+<div class="flex flex-col sm:flex-row gap-4">
+<a class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors" href="./">← Voltar para a Trilha</a>
+<a class="flex-1 text-center px-6 py-3 bg-emerald-600 text-white rounded-lg font-semibold hover:bg-emerald-500 transition-colors" href="modulo-1-6.html">Próximo módulo →</a>
+</div>
+</div>
+</section>
+</main>
+<footer class="border-t border-dark-600 py-8">
+<div class="max-w-6xl mx-auto px-4 text-center text-neutral-500 text-sm">
+<p>VLA Course — Vision-Language-Action · <a class="text-sky-400 hover:text-sky-300" href="https://ARCKHÉ AI" target="_blank">ARCKHÉ AI</a></p>
+</div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Módulo 1.4 — Datasets: Open X-Embodiment e DROID | VLA Course</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: { 600:'#374151', 700:'#1f2937', 800:'#1a1a2e', 900:'#111827' },
+                        primary: '#f59e0b'
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .dark body { background-color: #111827; }
+        html:not(.dark) body { background-color: #f8fafc; }
+        html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+        html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+        html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+        html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+        html:not(.dark) .text-neutral-100 { color: #111827; }
+        html:not(.dark) .text-neutral-300 { color: #4b5563; }
+        html:not(.dark) .text-neutral-400 { color: #6b7280; }
+        html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+        html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+        html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+        html:not(.dark) .text-emerald-400 { color: #059669; }
+        html:not(.dark) .text-blue-400 { color: #2563eb; }
+        html:not(.dark) .text-purple-400 { color: #7c3aed; }
+        html:not(.dark) .bg-emerald-500\/20 { background-color: rgba(5, 150, 105, 0.12); }
+        html:not(.dark) .bg-emerald-500\/10 { background-color: rgba(5, 150, 105, 0.08); }
+        html:not(.dark) .bg-emerald-900\/20 { background-color: rgba(5, 150, 105, 0.08); }
+        html:not(.dark) .bg-emerald-900\/40 { background-color: rgba(5, 150, 105, 0.06); }
+        html:not(.dark) .bg-blue-500\/20 { background-color: rgba(37, 99, 235, 0.12); }
+        html:not(.dark) .bg-blue-900\/20 { background-color: rgba(37, 99, 235, 0.08); }
+        html:not(.dark) .bg-purple-500\/20 { background-color: rgba(124, 58, 237, 0.12); }
+        html:not(.dark) .bg-red-900\/20 { background-color: rgba(220, 38, 38, 0.07); }
+        html:not(.dark) .border-emerald-500\/30 { border-color: rgba(5, 150, 105, 0.25); }
+        html:not(.dark) .border-blue-500\/30 { border-color: rgba(37, 99, 235, 0.25); }
+        html:not(.dark) .border-purple-500\/30 { border-color: rgba(124, 58, 237, 0.25); }
+        html:not(.dark) .border-red-500\/30 { border-color: rgba(220, 38, 38, 0.25); }
+        html:not(.dark) .hover\:border-emerald-500\/50:hover { border-color: rgba(5, 150, 105, 0.4); }
+        html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+        html:not(.dark) .text-primary { color: #a16207; }
+        html:not(.dark) .bg-primary\/10 { background-color: rgba(161, 98, 7, 0.08); }
+        html:not(.dark) .border-primary\/30 { border-color: rgba(161, 98, 7, 0.25); }
+        html:not(.dark) .border-primary\/40 { border-color: rgba(161, 98, 7, 0.25); }
+        html:not(.dark) .text-sky-400 { color: #0369a1; }
+        html:not(.dark) .text-yellow-400 { color: #a16207; }
+        html:not(.dark) .text-red-400 { color: #dc2626; }
+        html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+        html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255, 255, 255, 0.95); }
+        html:not(.dark) svg[role="img"] { filter: saturate(0.82) brightness(0.96); }
+        .dark .border-dark-600 { border-color: #374151; }
+        .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+    </style>
+<link href="https://linnoff88-dev.github.io/arckhe-vla/curso/trilha1/modulo-1-4.html" hreflang="pt-BR" rel="alternate"/><link href="https://linnoff88-dev.github.io/arckhe-vla/en/curso/trilha1/modulo-1-4.html" hreflang="en" rel="alternate"/><link href="https://linnoff88-dev.github.io/arckhe-vla/es/curso/trilha1/modulo-1-4.html" hreflang="es" rel="alternate"/></head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="ARCKHÉ-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="modulo-1-4.html" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">PT</a><a href="../../en/curso/trilha1/modulo-1-4.html" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">EN</a><a href="../../es/curso/trilha1/modulo-1-4.html" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">ES</a></div>
+<!-- NAV -->
+<nav class="fixed top-0 w-full bg-dark-900/95 backdrop-blur border-b border-dark-600 z-50">
+<div class="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<a class="text-primary font-bold text-lg" href="../../">VLA</a>
+<span class="text-neutral-500">|</span>
+<a class="text-sky-400 hover:text-sky-300 text-sm font-medium" href="https://ARCKHÉ AI" target="_blank">ARCKHÉ AI</a>
+</div>
+<div class="flex items-center gap-2">
+<a class="px-3 py-1.5 rounded text-sm text-emerald-400 bg-emerald-500/20 border border-emerald-500/30 font-medium" href="./">Fundamentos</a>
+<a class="px-3 py-1.5 rounded text-sm text-blue-400 hover:bg-blue-500/10" href="../trilha2/">Técnico</a>
+<a class="px-3 py-1.5 rounded text-sm text-purple-400 hover:bg-purple-500/10" href="../trilha3/">Avançado</a>
+<button class="ml-2 p-2 rounded hover:bg-dark-700 text-neutral-400" onclick="document.documentElement.classList.toggle('dark')" title="Alternar tema">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+</div>
+</div>
+</nav>
+<!-- BREADCRUMB -->
+<div class="max-w-4xl mx-auto px-4 pt-20">
+<div class="flex items-center gap-2 text-sm text-neutral-400">
+<a class="hover:text-emerald-400" href="../../">Início</a>
+<span>/</span>
+<a class="hover:text-emerald-400" href="./">Fundamentos</a>
+<span>/</span>
+<span class="text-emerald-400">Módulo 1.4</span>
+</div>
+</div>
+<main class="max-w-4xl mx-auto px-4 pt-6 pb-16">
+<!-- HEADER -->
+<header class="mb-12">
+<span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 mb-4">MÓDULO 1.4</span>
+<h1 class="text-3xl sm:text-4xl font-extrabold mb-4">🗄️ Datasets: Open X-Embodiment e DROID</h1>
+<p class="text-lg text-neutral-400 max-w-3xl">Os dados que alimentam VLAs — escala, diversidade e formato. De milhões de trajetórias robóticas ao pipeline RLDS que transforma coleta bruta em foundation models.</p>
+<!-- Stats -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8">
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-emerald-400">6</div>
+<div class="text-xs text-neutral-400">Tópicos</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-emerald-400">~35 min</div>
+<div class="text-xs text-neutral-400">Duração</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-emerald-400">Básico</div>
+<div class="text-xs text-neutral-400">Nível</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-emerald-400">Dados</div>
+<div class="text-xs text-neutral-400">Categoria</div>
+</div>
+</div>
+</header>
+<!-- SVG HERO: Datasets pipeline funil para VLA -->
+<div class="mb-12 p-5 rounded-2xl border border-emerald-500/30 bg-dark-900/40">
+<svg aria-label="Múltiplos datasets robóticos (Open X-Embodiment, DROID, BridgeData) convergem pelo pipeline RLDS para treinar um VLA generalista" class="w-full h-auto" role="img" viewbox="0 0 900 260">
+<defs>
+<pattern height="20" id="m14-grid" patternunits="userSpaceOnUse" width="20">
+<path d="M 20 0 L 0 0 0 20" fill="none" stroke="#34d399" stroke-opacity="0.06" stroke-width="0.5"></path>
+</pattern>
+<filter id="m14-glow">
+<fegaussianblur result="b" stddeviation="1.8"></fegaussianblur>
+<fecomposite in="SourceGraphic" in2="b" operator="over"></fecomposite>
+</filter>
+<marker id="m14-ah" markerheight="6" markerwidth="8" orient="auto" refx="8" refy="3">
+<path d="M0,0 L8,3 L0,6" fill="#34d399" fill-opacity="0.7"></path>
+</marker>
+<marker id="m14-ahc" markerheight="6" markerwidth="8" orient="auto" refx="8" refy="3">
+<path d="M0,0 L8,3 L0,6" fill="#38bdf8" fill-opacity="0.7"></path>
+</marker>
+<lineargradient id="m14-grad" x1="0%" x2="100%" y1="0%" y2="0%">
+<stop offset="0%" stop-color="#34d399"></stop>
+<stop offset="100%" stop-color="#38bdf8"></stop>
+</lineargradient>
+</defs>
+<rect fill="url(#m14-grid)" height="260" width="900"></rect>
+<!-- Título -->
+<text fill="#34d399" font-family="Inter,sans-serif" font-size="13" font-weight="600" opacity="0.85" text-anchor="middle" x="450" y="26">Pipeline de Dados: Trajetórias Brutas → RLDS → VLA Generalista</text>
+<!-- Dataset: OXE -->
+<g filter="url(#m14-glow)">
+<rect fill="#0e2018" height="46" rx="10" stroke="#34d399" stroke-width="2" width="160" x="30" y="50"></rect>
+<text fill="#34d399" font-family="Inter,sans-serif" font-size="11" font-weight="700" text-anchor="middle" x="110" y="70">Open X-Embodiment</text>
+<text fill="#9ca3af" font-family="Inter,sans-serif" font-size="9" text-anchor="middle" x="110" y="86">1M+ traj · 22 embodiments</text>
+</g>
+<!-- Dataset: DROID -->
+<g filter="url(#m14-glow)">
+<rect fill="#0e2018" height="46" rx="10" stroke="#34d399" stroke-width="2" width="160" x="30" y="112"></rect>
+<text fill="#34d399" font-family="Inter,sans-serif" font-size="11" font-weight="700" text-anchor="middle" x="110" y="132">DROID</text>
+<text fill="#9ca3af" font-family="Inter,sans-serif" font-size="9" text-anchor="middle" x="110" y="148">76k traj · 564 cenas in-the-wild</text>
+</g>
+<!-- Dataset: BridgeData -->
+<g filter="url(#m14-glow)">
+<rect fill="#0e2018" height="46" rx="10" stroke="#34d399" stroke-width="2" width="160" x="30" y="174"></rect>
+<text fill="#34d399" font-family="Inter,sans-serif" font-size="11" font-weight="700" text-anchor="middle" x="110" y="194">BridgeData V2</text>
+<text fill="#9ca3af" font-family="Inter,sans-serif" font-size="9" text-anchor="middle" x="110" y="210">60k traj · doméstico</text>
+</g>
+<!-- Linhas convergindo para RLDS -->
+<line marker-end="url(#m14-ah)" stroke="#34d399" stroke-opacity="0.5" stroke-width="1.5" x1="190" x2="310" y1="73" y2="110"></line>
+<line marker-end="url(#m14-ah)" stroke="#34d399" stroke-opacity="0.5" stroke-width="1.5" x1="190" x2="310" y1="135" y2="135"></line>
+<line marker-end="url(#m14-ah)" stroke="#34d399" stroke-opacity="0.5" stroke-width="1.5" x1="190" x2="310" y1="197" y2="160"></line>
+<!-- Box RLDS Pipeline (caixa-foco com glow 1.8) -->
+<g filter="url(#m14-glow)">
+<rect fill="#0e2018" height="100" rx="14" stroke="url(#m14-grad)" stroke-width="2.5" width="180" x="310" y="85"></rect>
+<text fill="#34d399" font-family="Inter,sans-serif" font-size="13" font-weight="700" text-anchor="middle" x="400" y="112">Pipeline RLDS</text>
+<text fill="#9ad6ff" font-family="Inter,sans-serif" font-size="9" text-anchor="middle" x="400" y="130">Episódios → Steps</text>
+<text fill="#9ad6ff" font-family="Inter,sans-serif" font-size="9" text-anchor="middle" x="400" y="145">Observação · Ação · Reward</text>
+<text fill="#6b7280" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="400" y="162">TFDS · shuffle · prefetch</text>
+</g>
+<!-- Linha RLDS → Normalização -->
+<line marker-end="url(#m14-ahc)" stroke="#38bdf8" stroke-opacity="0.6" stroke-width="1.5" x1="490" x2="560" y1="135" y2="135"></line>
+<!-- Box Normalização -->
+<g>
+<rect fill="#0e1b26" height="54" rx="10" stroke="#38bdf8" stroke-opacity="0.7" stroke-width="1.5" width="130" x="560" y="108"></rect>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="10" font-weight="600" text-anchor="middle" x="625" y="128">Normalização</text>
+<text fill="#9ca3af" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="625" y="145">Espaço de ação · tokens</text>
+</g>
+<!-- Linha → VLA -->
+<line marker-end="url(#m14-ahc)" stroke="#38bdf8" stroke-opacity="0.5" stroke-width="1.5" x1="690" x2="750" y1="135" y2="135"></line>
+<!-- Box VLA Output -->
+<g filter="url(#m14-glow)">
+<rect fill="#0e2018" height="70" rx="12" stroke="#34d399" stroke-width="2" width="120" x="750" y="100"></rect>
+<text fill="#34d399" font-family="Inter,sans-serif" font-size="12" font-weight="700" text-anchor="middle" x="810" y="128">VLA</text>
+<text fill="#9ca3af" font-family="Inter,sans-serif" font-size="9" text-anchor="middle" x="810" y="146">Generalista</text>
+<text fill="#6b7280" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="810" y="160">multi-robot</text>
+</g>
+<!-- Rodapé info -->
+<text fill="#6b7280" font-family="Inter,sans-serif" font-size="9" text-anchor="middle" x="450" y="240">21 instituições · teleoperação · data scaling laws · qualidade &gt; quantidade</text>
+</svg>
+</div>
+<!-- TÓPICO 1 -->
+<section class="mb-16" id="topico-1">
+<div class="flex items-center gap-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl shrink-0">1</span>
+<h2 class="text-2xl font-bold">🌐 Open X-Embodiment: o dataset que mudou tudo</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">O Open X-Embodiment (OXE) é o maior esforço colaborativo de dados robóticos já realizado. Mais de <strong class="text-emerald-400">1 milhão de trajetórias</strong> coletadas por 21 instituições, cobrindo 22 embodiments diferentes — desde braços industriais até robôs bípedes. É a base que tornou VLAs generalistas possíveis.</p>
+<!-- Grid Conceito Principal -->
+<div class="bg-gradient-to-br from-emerald-900/30 to-dark-800 rounded-xl border border-emerald-500/30 p-6 mb-6">
+<h3 class="font-semibold text-emerald-400 mb-4">Por que o OXE é um marco histórico</h3>
+<div class="grid sm:grid-cols-3 gap-4">
+<div class="bg-dark-800/60 rounded-lg p-4 border border-dark-600">
+<div class="text-2xl font-extrabold text-emerald-400 mb-1">22</div>
+<div class="text-sm font-semibold mb-1">Embodiments</div>
+<p class="text-xs text-neutral-400">Franka, UR, Kuka, Spot, Hello Robot e mais — diversidade de corpos num só dataset.</p>
+</div>
+<div class="bg-dark-800/60 rounded-lg p-4 border border-dark-600">
+<div class="text-2xl font-extrabold text-emerald-400 mb-1">21</div>
+<div class="text-sm font-semibold mb-1">Instituições</div>
+<p class="text-xs text-neutral-400">Google, Stanford, Berkeley, CMU e outros colaborando num dataset aberto.</p>
+</div>
+<div class="bg-dark-800/60 rounded-lg p-4 border border-dark-600">
+<div class="text-2xl font-extrabold text-emerald-400 mb-1">1M+</div>
+<div class="text-sm font-semibold mb-1">Trajetórias</div>
+<p class="text-xs text-neutral-400">Cada trajetória é uma sequência de steps com observação, ação e metadados de linguagem.</p>
+</div>
+</div>
+</div>
+<!-- Grid Fazer vs Evitar -->
+<div class="grid sm:grid-cols-2 gap-4 mb-6">
+<div class="bg-emerald-900/20 border border-emerald-500/30 rounded-xl p-5">
+<h4 class="font-semibold text-emerald-400 mb-3 flex items-center gap-2"><span>✓</span> O que o OXE viabiliza</h4>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-emerald-400 shrink-0 mt-0.5">✓</span> Pré-treino cross-embodiment (RT-X, OpenVLA)</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 shrink-0 mt-0.5">✓</span> Transfer learning entre robôs de famílias diferentes</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 shrink-0 mt-0.5">✓</span> Pesquisa reprodutível com baseline comum</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 shrink-0 mt-0.5">✓</span> Estudo de scaling laws para robótica</li>
+</ul>
+</div>
+<div class="bg-red-900/20 border border-red-500/30 rounded-xl p-5">
+<h4 class="font-semibold text-red-400 mb-3 flex items-center gap-2"><span>✗</span> Limitações reais do OXE</h4>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-red-400 shrink-0 mt-0.5">✗</span> Distribuição desigual: alguns robots têm 10x mais dados</li>
+<li class="flex items-start gap-2"><span class="text-red-400 shrink-0 mt-0.5">✗</span> Ambientes laboratoriais controlados — pouco in-the-wild</li>
+<li class="flex items-start gap-2"><span class="text-red-400 shrink-0 mt-0.5">✗</span> Qualidade variável entre contribuidores</li>
+<li class="flex items-start gap-2"><span class="text-red-400 shrink-0 mt-0.5">✗</span> Anotações de linguagem inconsistentes entre instituições</li>
+</ul>
+</div>
+</div>
+<!-- Conceitos-chave grid -->
+<div class="grid sm:grid-cols-2 gap-3">
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600">
+<div class="text-xs text-emerald-400 font-semibold mb-1">Cross-embodiment learning</div>
+<p class="text-xs text-neutral-400">Treinar num dataset multi-robô permite que o modelo aprenda políticas transferíveis entre corpos diferentes.</p>
+</div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600">
+<div class="text-xs text-emerald-400 font-semibold mb-1">RT-X</div>
+<p class="text-xs text-neutral-400">Família de modelos do Google treinados no OXE; demonstrou que dados colaborativos superam dados próprios isolados.</p>
+</div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600">
+<div class="text-xs text-emerald-400 font-semibold mb-1">Trajetória robótica</div>
+<p class="text-xs text-neutral-400">Sequência episódica de (observação, ação, recompensa) que registra como um robô executou uma tarefa.</p>
+</div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600">
+<div class="text-xs text-emerald-400 font-semibold mb-1">Data scaling law</div>
+<p class="text-xs text-neutral-400">Padrão empírico: mais trajetórias diversas → melhor generalização. Mas diversidade importa mais que volume bruto.</p>
+</div>
+</div>
+</section>
+<!-- TÓPICO 2 -->
+<section class="mb-16" id="topico-2">
+<div class="flex items-center gap-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl shrink-0">2</span>
+<h2 class="text-2xl font-bold">🏙️ DROID: diversidade in-the-wild</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">O DROID (Distributed Robot Interaction Dataset) traz algo que o OXE não tem: <strong class="text-emerald-400">ambientes reais não controlados</strong>. Com 76 mil trajetórias em 564 cenas distintas — escritórios, cozinhas, banheiros — e um único hardware padronizado (braço Franka), o DROID é o maior dataset de manipulação in-the-wild disponível abertamente.</p>
+<!-- Box de dados/pesquisa -->
+<div class="bg-blue-900/20 border border-blue-500/30 rounded-xl p-5 mb-6">
+<h4 class="font-semibold text-blue-400 mb-3">📊 Números do DROID</h4>
+<div class="grid sm:grid-cols-4 gap-4 text-center">
+<div>
+<div class="text-xl font-bold text-blue-400">76k</div>
+<div class="text-xs text-neutral-400 mt-1">Trajetórias</div>
+</div>
+<div>
+<div class="text-xl font-bold text-blue-400">564</div>
+<div class="text-xs text-neutral-400 mt-1">Cenas distintas</div>
+</div>
+<div>
+<div class="text-xl font-bold text-blue-400">86</div>
+<div class="text-xs text-neutral-400 mt-1">Tarefas</div>
+</div>
+<div>
+<div class="text-xl font-bold text-blue-400">1</div>
+<div class="text-xs text-neutral-400 mt-1">Hardware (Franka)</div>
+</div>
+</div>
+</div>
+<!-- Tip box -->
+<div class="bg-primary/10 border border-primary/30 rounded-xl p-5 mb-6">
+<h4 class="font-semibold text-primary mb-2">💡 Por que um único robô é uma vantagem</h4>
+<p class="text-sm text-neutral-300">Usar apenas o Franka elimina a variância de hardware. O único fator de diversidade é o <em>ambiente</em> — exatamente o que queremos estudar. O modelo aprende a generalizar para novos espaços, não para novos corpos. É a abstração certa para pesquisa de robustez ambiental.</p>
+</div>
+<!-- Grid Fazer vs Evitar -->
+<div class="grid sm:grid-cols-2 gap-4 mb-6">
+<div class="bg-emerald-900/20 border border-emerald-500/30 rounded-xl p-5">
+<h4 class="font-semibold text-emerald-400 mb-3">✓ DROID brilha em</h4>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-emerald-400 shrink-0 mt-0.5">✓</span> Robustez a variações de iluminação e layout</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 shrink-0 mt-0.5">✓</span> Deploy em ambientes não laboratório</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 shrink-0 mt-0.5">✓</span> Fine-tuning rápido para novos espaços</li>
+</ul>
+</div>
+<div class="bg-red-900/20 border border-red-500/30 rounded-xl p-5">
+<h4 class="font-semibold text-red-400 mb-3">✗ Limitações do DROID</h4>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-red-400 shrink-0 mt-0.5">✗</span> Apenas 86 tarefas — baixa diversidade semântica</li>
+<li class="flex items-start gap-2"><span class="text-red-400 shrink-0 mt-0.5">✗</span> Single-arm só — sem bimanual ou locomoção</li>
+<li class="flex items-start gap-2"><span class="text-red-400 shrink-0 mt-0.5">✗</span> Não generaliza cross-embodiment sozinho</li>
+</ul>
+</div>
+</div>
+<!-- Conceitos-chave -->
+<div class="grid sm:grid-cols-2 gap-3">
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600">
+<div class="text-xs text-emerald-400 font-semibold mb-1">In-the-wild</div>
+<p class="text-xs text-neutral-400">Dados coletados em ambientes reais e não controlados, com objetos e cenários não preparados — oposto do setting de laboratório.</p>
+</div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600">
+<div class="text-xs text-emerald-400 font-semibold mb-1">Distributed collection</div>
+<p class="text-xs text-neutral-400">Coleta coordenada entre múltiplos sites com o mesmo hardware e protocolo, garantindo consistência apesar da diversidade de ambientes.</p>
+</div>
+</div>
+</section>
+<!-- TÓPICO 3 -->
+<section class="mb-16" id="topico-3">
+<div class="flex items-center gap-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl shrink-0">3</span>
+<h2 class="text-2xl font-bold">🍳 BridgeData V2: manipulação em escala de cozinha</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">BridgeData V2 é o dataset que prova que coleta acessível e reprodutível funciona. Com mais de <strong class="text-emerald-400">60 mil trajetórias</strong> coletadas com um braço WidowX de baixo custo, focado em tarefas domésticas de cozinha, ele se tornou o benchmark padrão de fine-tuning e avaliação cruzada entre VLAs.</p>
+<!-- Timeline de casos -->
+<div class="space-y-4 mb-6">
+<h4 class="font-semibold text-neutral-300">Como o BridgeData evoluiu:</h4>
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-emerald-500/20 flex items-center justify-center">
+<span class="text-emerald-400 font-bold text-xs">V1</span>
+</div>
+<div class="flex-1 bg-dark-800 rounded-xl p-4 border border-dark-600">
+<h5 class="font-semibold text-sm mb-1">BridgeData V1 (2022)</h5>
+<p class="text-neutral-400 text-xs">Primeiros ~7k trajetórias com WidowX. Mostra viabilidade de coleta de baixo custo para manipulação doméstica.</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-emerald-500/20 flex items-center justify-center">
+<span class="text-emerald-400 font-bold text-xs">V2</span>
+</div>
+<div class="flex-1 bg-dark-800 rounded-xl p-4 border border-dark-600">
+<h5 class="font-semibold text-sm mb-1">BridgeData V2 (2023)</h5>
+<p class="text-neutral-400 text-xs">Escala para 60k+ trajetórias, diversifica tarefas e ambientes de cozinha. Integrado ao OXE como sub-conjunto.</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-emerald-500/20 flex items-center justify-center">
+<span class="text-emerald-400 font-bold text-xs">Hoje</span>
+</div>
+<div class="flex-1 bg-dark-800 rounded-xl p-4 border border-dark-600">
+<h5 class="font-semibold text-sm mb-1">Uso atual como benchmark</h5>
+<p class="text-neutral-400 text-xs">Padrão para avaliar transferência de VLAs, comparar políticas fine-tuned, e testar generalização de instruções de linguagem.</p>
+</div>
+</div>
+</div>
+<!-- Box dica -->
+<div class="bg-primary/10 border border-primary/30 rounded-xl p-5 mb-6">
+<h4 class="font-semibold text-primary mb-2">💡 O WidowX como prova de conceito</h4>
+<p class="text-sm text-neutral-300">O WidowX custa ~$3.000 — uma fração de braços industriais. BridgeData prova que a barreira de coleta de dados não é o hardware caro, mas a <strong>consistência de protocolo</strong> e a <strong>variedade de tarefas</strong>. Isso democratizou a pesquisa em VLAs fora dos grandes labs.</p>
+</div>
+<!-- Conceitos-chave -->
+<div class="grid sm:grid-cols-3 gap-3">
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600">
+<div class="text-xs text-emerald-400 font-semibold mb-1">Task diversity</div>
+<p class="text-xs text-neutral-400">Variedade de tarefas dentro de um mesmo ambiente fornece sinal rico de correspondência linguagem-ação.</p>
+</div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600">
+<div class="text-xs text-emerald-400 font-semibold mb-1">Fine-tuning benchmark</div>
+<p class="text-xs text-neutral-400">BridgeData é o conjunto padrão para medir quão bem um VLA generalista se adapta a novos ambientes domésticos.</p>
+</div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600">
+<div class="text-xs text-emerald-400 font-semibold mb-1">Low-cost collection</div>
+<p class="text-xs text-neutral-400">Hardware barato + protocolo consistente = coleta escalável. O custo do robô não determina a qualidade dos dados.</p>
+</div>
+</div>
+</section>
+<!-- TÓPICO 4: SVG secundário de pipeline RLDS -->
+<section class="mb-16" id="topico-4">
+<div class="flex items-center gap-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl shrink-0">4</span>
+<h2 class="text-2xl font-bold">📦 Formato RLDS / TFDS</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">RLDS (Reinforcement Learning Datasets) é o padrão de fato para dados robóticos. Construído sobre TFDS (TensorFlow Datasets), organiza trajetórias como sequências de episódios com steps estruturados — permitindo streaming eficiente de datasets com milhões de trajetórias.</p>
+<!-- SVG: estrutura de episódio RLDS -->
+<div class="mb-8 p-5 rounded-2xl border border-emerald-500/30 bg-dark-900/40">
+<svg aria-label="Estrutura de um episódio RLDS: sequência de steps, cada step contendo observação (imagem+estado), ação e recompensa" class="w-full h-auto" role="img" viewbox="0 0 800 200">
+<defs>
+<pattern height="20" id="m14-grid2" patternunits="userSpaceOnUse" width="20">
+<path d="M 20 0 L 0 0 0 20" fill="none" stroke="#38bdf8" stroke-opacity="0.05" stroke-width="0.5"></path>
+</pattern>
+<filter id="m14-glow2">
+<fegaussianblur result="b" stddeviation="1.8"></fegaussianblur>
+<fecomposite in="SourceGraphic" in2="b" operator="over"></fecomposite>
+</filter>
+<marker id="m14-ah2" markerheight="6" markerwidth="8" orient="auto" refx="8" refy="3">
+<path d="M0,0 L8,3 L0,6" fill="#38bdf8" fill-opacity="0.7"></path>
+</marker>
+</defs>
+<rect fill="url(#m14-grid2)" height="200" width="800"></rect>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="12" font-weight="600" opacity="0.85" text-anchor="middle" x="400" y="22">Estrutura de um Episódio RLDS</text>
+<!-- Episódio container -->
+<g filter="url(#m14-glow2)">
+<rect fill="none" height="130" rx="14" stroke="#38bdf8" stroke-dasharray="6,4" stroke-opacity="0.4" stroke-width="1.5" width="760" x="20" y="35"></rect>
+</g>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="10" font-weight="600" opacity="0.7" x="50" y="58">Episódio</text>
+<!-- Step 1 -->
+<g filter="url(#m14-glow2)">
+<rect fill="#0e1b26" height="82" rx="10" stroke="#38bdf8" stroke-width="2" width="150" x="45" y="68"></rect>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="10" font-weight="700" text-anchor="middle" x="120" y="88">Step t</text>
+<text fill="#9ad6ff" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="120" y="104">obs: img + estado</text>
+<text fill="#9ad6ff" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="120" y="118">action: [Δx,Δy,Δz,…]</text>
+<text fill="#6b7280" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="120" y="132">reward · done · info</text>
+</g>
+<!-- Seta -->
+<line marker-end="url(#m14-ah2)" stroke="#38bdf8" stroke-opacity="0.5" stroke-width="1.5" x1="198" x2="228" y1="109" y2="109"></line>
+<!-- Step 2 -->
+<g filter="url(#m14-glow2)">
+<rect fill="#0e1b26" height="82" rx="10" stroke="#38bdf8" stroke-width="2" width="150" x="230" y="68"></rect>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="10" font-weight="700" text-anchor="middle" x="305" y="88">Step t+1</text>
+<text fill="#9ad6ff" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="305" y="104">obs: img + estado</text>
+<text fill="#9ad6ff" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="305" y="118">action: [Δx,Δy,Δz,…]</text>
+<text fill="#6b7280" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="305" y="132">reward · done · info</text>
+</g>
+<!-- Reticências -->
+<text fill="#6b7280" font-family="Inter,sans-serif" font-size="20" font-weight="300" text-anchor="middle" x="420" y="115">···</text>
+<!-- Step N -->
+<g filter="url(#m14-glow2)">
+<rect fill="#0e1b26" height="82" rx="10" stroke="#38bdf8" stroke-width="2" width="150" x="460" y="68"></rect>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="10" font-weight="700" text-anchor="middle" x="535" y="88">Step N</text>
+<text fill="#9ad6ff" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="535" y="104">obs: img + estado</text>
+<text fill="#9ad6ff" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="535" y="118">action: [0,0,0,…] ← stop</text>
+<text fill="#34d399" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="535" y="132">done = True</text>
+</g>
+<!-- Box TFDS -->
+<g>
+<rect fill="#0e2018" height="82" rx="10" stroke="#34d399" stroke-opacity="0.7" stroke-width="1.5" width="130" x="640" y="68"></rect>
+<text fill="#34d399" font-family="Inter,sans-serif" font-size="10" font-weight="700" text-anchor="middle" x="705" y="92">TFDS</text>
+<text fill="#9ca3af" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="705" y="108">shuffle + prefetch</text>
+<text fill="#9ca3af" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="705" y="122">batch · cache</text>
+<text fill="#6b7280" font-family="Inter,sans-serif" font-size="8" text-anchor="middle" x="705" y="138">streaming eficiente</text>
+</g>
+</svg>
+</div>
+<!-- Tip box -->
+<div class="bg-primary/10 border border-primary/30 rounded-xl p-5 mb-6">
+<h4 class="font-semibold text-primary mb-2">💡 Normalização de ação: o passo crítico</h4>
+<p class="text-sm text-neutral-300">Cada dataset tem seu próprio espaço de ação: comandos de torque, velocidade de juntas, posição delta, coordenadas absolutas. Para combinar OXE + DROID + BridgeData num mesmo treino, é preciso <strong>normalizar</strong> todas as ações para o mesmo range. Esse passo único determina se o fine-tuning vai convergir ou divergir.</p>
+</div>
+<!-- Grid conceitos -->
+<div class="grid sm:grid-cols-2 gap-4">
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600">
+<div class="text-xs text-emerald-400 font-semibold mb-1">Episódio</div>
+<p class="text-xs text-neutral-400">Sequência completa de steps de uma tarefa: do estado inicial ao término (sucesso ou falha). Unidade básica de aprendizado por imitação.</p>
+</div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600">
+<div class="text-xs text-emerald-400 font-semibold mb-1">Step</div>
+<p class="text-xs text-neutral-400">Um único timestep: observação atual → ação tomada → recompensa recebida → próximo estado. O granular do aprendizado.</p>
+</div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600">
+<div class="text-xs text-emerald-400 font-semibold mb-1">TFDS streaming</div>
+<p class="text-xs text-neutral-400">Carrega dados sob demanda do disco sem precisar de tudo em RAM. Viabiliza treino com milhões de trajetórias em hardware limitado.</p>
+</div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600">
+<div class="text-xs text-emerald-400 font-semibold mb-1">Chaves de observação</div>
+<p class="text-xs text-neutral-400">Padronizar nomes como <code class="text-xs bg-dark-700 px-1 rounded">image_primary</code>, <code class="text-xs bg-dark-700 px-1 rounded">state</code>, <code class="text-xs bg-dark-700 px-1 rounded">action</code> é obrigatório para combinar datasets heterogêneos num único DataLoader.</p>
+</div>
+</div>
+</section>
+<!-- TÓPICO 5 -->
+<section class="mb-16" id="topico-5">
+<div class="flex items-center gap-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl shrink-0">5</span>
+<h2 class="text-2xl font-bold">🎮 Coleta via teleoperação</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">Quase todo dado de VLA vem de <strong class="text-emerald-400">teleoperação humana</strong>: um operador controla o robô em tempo real enquanto as observações e ações são gravadas. A qualidade do operador, o setup de coleta e a densidade de demonstrações impactam diretamente a política aprendida.</p>
+<!-- Box conceito principal -->
+<div class="bg-gradient-to-br from-emerald-900/30 to-dark-800 rounded-xl border border-emerald-500/30 p-6 mb-6">
+<h3 class="font-semibold text-emerald-400 mb-4">Métodos de teleoperação comparados</h3>
+<div class="space-y-3">
+<div class="bg-dark-800/60 rounded-lg p-4 border border-dark-600 flex gap-4">
+<div class="w-24 shrink-0">
+<div class="text-xs font-bold text-emerald-400">Joystick / SpaceMouse</div>
+</div>
+<div class="text-xs text-neutral-400 flex-1">Setup mais simples. Operador controla via 6DoF mouse. Latência baixa, mas curva de aprendizado média. Usado no DROID e OXE.</div>
+</div>
+<div class="bg-dark-800/60 rounded-lg p-4 border border-dark-600 flex gap-4">
+<div class="w-24 shrink-0">
+<div class="text-xs font-bold text-emerald-400">Kinesthetic teaching</div>
+</div>
+<div class="text-xs text-neutral-400 flex-1">Operador guia fisicamente o braço do robô. Produz trajetórias naturais e suaves. Alto custo por demonstração. Bom para tarefas precisas.</div>
+</div>
+<div class="bg-dark-800/60 rounded-lg p-4 border border-dark-600 flex gap-4">
+<div class="w-24 shrink-0">
+<div class="text-xs font-bold text-emerald-400">Exoesqueleto / ALOHA</div>
+</div>
+<div class="text-xs text-neutral-400 flex-1">Operador usa um braço mestre que espelha o braço do robô. Intuitivo, captura nuances do movimento humano. Usado no ALOHA e ACT.</div>
+</div>
+<div class="bg-dark-800/60 rounded-lg p-4 border border-dark-600 flex gap-4">
+<div class="w-24 shrink-0">
+<div class="text-xs font-bold text-emerald-400">VR / mocap</div>
+</div>
+<div class="text-xs text-neutral-400 flex-1">Realidade virtual rastreia mãos do operador. Máxima naturalidade, mas requer hardware caro e configuração complexa.</div>
+</div>
+</div>
+</div>
+<!-- Grid Fazer vs Evitar -->
+<div class="grid sm:grid-cols-2 gap-4 mb-6">
+<div class="bg-emerald-900/20 border border-emerald-500/30 rounded-xl p-5">
+<h4 class="font-semibold text-emerald-400 mb-3">✓ Boas práticas de coleta</h4>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-emerald-400 shrink-0 mt-0.5">✓</span> Demonstrações suaves, sem hesitação excessiva</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 shrink-0 mt-0.5">✓</span> Variar posição inicial dos objetos entre episódios</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 shrink-0 mt-0.5">✓</span> Incluir recuperações de falhas (recovery demos)</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 shrink-0 mt-0.5">✓</span> Múltiplos operadores para cobrir estilos diferentes</li>
+</ul>
+</div>
+<div class="bg-red-900/20 border border-red-500/30 rounded-xl p-5">
+<h4 class="font-semibond text-red-400 mb-3">✗ Erros comuns na coleta</h4>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-red-400 shrink-0 mt-0.5">✗</span> Hesitação repetida "contamina" a política com pauses</li>
+<li class="flex items-start gap-2"><span class="text-red-400 shrink-0 mt-0.5">✗</span> Posição fixa → robô aprende posição, não tarefa</li>
+<li class="flex items-start gap-2"><span class="text-red-400 shrink-0 mt-0.5">✗</span> Ignorar episódios de falha que poderiam ser informativos</li>
+<li class="flex items-start gap-2"><span class="text-red-400 shrink-0 mt-0.5">✗</span> Operador único → enviesamento de estilo de movimento</li>
+</ul>
+</div>
+</div>
+<!-- Tip box -->
+<div class="bg-primary/10 border border-primary/30 rounded-xl p-5">
+<h4 class="font-semibold text-primary mb-2">💡 O efeito da hesitação na política</h4>
+<p class="text-sm text-neutral-300">Se o operador hesita antes de agarrar um objeto, o modelo aprende que hesitação é parte da política. O robô vai pausar antes de cada grasping — mesmo quando não precisa. <strong>Dados de demonstração limpos e fluentes</strong> produzem políticas mais decisivas e robustas que dados abundantes mas com muita hesitação.</p>
+</div>
+</section>
+<!-- TÓPICO 6 -->
+<section class="mb-16" id="topico-6">
+<div class="flex items-center gap-4 mb-6">
+<span class="flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-xl shrink-0">6</span>
+<h2 class="text-2xl font-bold">⚖️ Qualidade vs quantidade e scaling laws</h2>
+</div>
+<p class="text-neutral-300 mb-6 leading-relaxed">Em NLP, <em>mais dados = melhor modelo</em> é quase sempre verdade. Em robótica, a relação é mais sutil: <strong class="text-emerald-400">diversidade e qualidade superam volume bruto</strong>. Entender as scaling laws de dados robóticos é fundamental para não desperdiçar recursos de coleta.</p>
+<!-- Box conceito com dados -->
+<div class="bg-blue-900/20 border border-blue-500/30 rounded-xl p-5 mb-6">
+<h4 class="font-semibold text-blue-400 mb-3">📊 O que as scaling laws dizem sobre dados robóticos</h4>
+<div class="space-y-3 text-sm">
+<div class="flex gap-3 items-start">
+<span class="text-blue-400 font-bold shrink-0 mt-0.5">→</span>
+<p class="text-neutral-300">Dobrar o volume de dados do <em>mesmo ambiente</em> traz ganhos marginais decrescentes depois de certo ponto.</p>
+</div>
+<div class="flex gap-3 items-start">
+<span class="text-blue-400 font-bold shrink-0 mt-0.5">→</span>
+<p class="text-neutral-300">Adicionar novos <em>tipos de tarefa</em> ou novos <em>ambientes</em> traz ganhos consistentes mesmo com poucas demos novas.</p>
+</div>
+<div class="flex gap-3 items-start">
+<span class="text-blue-400 font-bold shrink-0 mt-0.5">→</span>
+<p class="text-neutral-300">Dados de má qualidade (hesitação, colisões, trajetórias anômalas) prejudicam mais do que ajudam — filtrar é importante.</p>
+</div>
+<div class="flex gap-3 items-start">
+<span class="text-blue-400 font-bold shrink-0 mt-0.5">→</span>
+<p class="text-neutral-300">Modelos maiores exploram melhor datasets grandes — mas modelos pequenos podem saturar com apenas 10k demos de qualidade.</p>
+</div>
+</div>
+</div>
+<!-- Grid Fazer vs Evitar -->
+<div class="grid sm:grid-cols-2 gap-4 mb-6">
+<div class="bg-emerald-900/20 border border-emerald-500/30 rounded-xl p-5">
+<h4 class="font-semibold text-emerald-400 mb-3">✓ Estratégia de dados eficiente</h4>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-emerald-400 shrink-0 mt-0.5">✓</span> Priorizar diversidade de tarefas sobre volume</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 shrink-0 mt-0.5">✓</span> Filtrar episódios com anomalias (colisões, timeouts)</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 shrink-0 mt-0.5">✓</span> Balancear datasets ao misturar fontes (OXE + DROID)</li>
+<li class="flex items-start gap-2"><span class="text-emerald-400 shrink-0 mt-0.5">✓</span> Medir distribuição de ações antes de treinar</li>
+</ul>
+</div>
+<div class="bg-red-900/20 border border-red-500/30 rounded-xl p-5">
+<h4 class="font-semibold text-red-400 mb-3">✗ Armadilhas de datasets grandes</h4>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-red-400 shrink-0 mt-0.5">✗</span> Assumir que mais demos sempre = política melhor</li>
+<li class="flex items-start gap-2"><span class="text-red-400 shrink-0 mt-0.5">✗</span> Misturar datasets sem normalizar espaços de ação</li>
+<li class="flex items-start gap-2"><span class="text-red-400 shrink-0 mt-0.5">✗</span> Ignorar desequilíbrio (90% agarrar, 10% soltar)</li>
+<li class="flex items-start gap-2"><span class="text-red-400 shrink-0 mt-0.5">✗</span> Não verificar correlação entre linguagem e ação nos dados</li>
+</ul>
+</div>
+</div>
+<!-- Tip box + conceitos-chave -->
+<div class="bg-primary/10 border border-primary/30 rounded-xl p-5 mb-6">
+<h4 class="font-semibold text-primary mb-2">💡 Emergent capabilities com escala</h4>
+<p class="text-sm text-neutral-300">VLAs treinados no OXE completo mostram capacidades que não aparecem em subsets menores: composição de tarefas, generalização para objetos nunca vistos, seguir instruções ambíguas. Essas habilidades <em>emergentes</em> aparecem com escala — mas apenas se os dados de origem cobrirem diversidade semântica suficiente, não só volume.</p>
+</div>
+<!-- Conceitos-chave -->
+<div class="grid sm:grid-cols-2 gap-3">
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600">
+<div class="text-xs text-emerald-400 font-semibold mb-1">Scaling laws em robótica</div>
+<p class="text-xs text-neutral-400">Relação empírica entre volume de dados, tamanho do modelo e desempenho. Em robótica, diversidade de tarefas escala melhor que volume puro.</p>
+</div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600">
+<div class="text-xs text-emerald-400 font-semibold mb-1">Data balancing</div>
+<p class="text-xs text-neutral-400">Técnica de amostragem que garante que datasets menores (BridgeData) não sejam eclipsados por datasets maiores (OXE) durante o treino.</p>
+</div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600">
+<div class="text-xs text-emerald-400 font-semibold mb-1">Emergent capabilities</div>
+<p class="text-xs text-neutral-400">Habilidades que surgem em modelos maiores treinados em mais dados sem serem explicitamente programadas — generalização zero-shot, composição de tarefas.</p>
+</div>
+<div class="bg-dark-800 rounded-lg p-4 border border-dark-600">
+<div class="text-xs text-emerald-400 font-semibold mb-1">Filtragem de episódios</div>
+<p class="text-xs text-neutral-400">Processo de remover trajetórias anômalas, colisões e demonstrações de baixa qualidade antes do treino. Impacto desproporcional na qualidade da política final.</p>
+</div>
+</div>
+</section>
+<!-- RESUMO -->
+<section class="mb-12">
+<div class="bg-gradient-to-br from-emerald-900/40 via-dark-800 to-dark-800 rounded-xl border border-emerald-500/30 p-8">
+<h2 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">✅</span> Resumo do Módulo</h2>
+<div class="space-y-4 mb-8">
+<div class="flex items-start gap-3"><span class="text-emerald-400 mt-1">✓</span><div><strong>OXE e DROID são complementares</strong><span class="text-neutral-400"> — OXE traz escala cross-embodiment; DROID traz diversidade ambiental in-the-wild.</span></div></div>
+<div class="flex items-start gap-3"><span class="text-emerald-400 mt-1">✓</span><div><strong>RLDS é o formato padrão</strong><span class="text-neutral-400"> — episódios de steps estruturados + TFDS viabilizam treino eficiente em datasets de milhões de trajetórias.</span></div></div>
+<div class="flex items-start gap-3"><span class="text-emerald-400 mt-1">✓</span><div><strong>Teleoperação é a fonte principal</strong><span class="text-neutral-400"> — qualidade e fluidez das demonstrações humanas impactam diretamente a política aprendida.</span></div></div>
+<div class="flex items-start gap-3"><span class="text-emerald-400 mt-1">✓</span><div><strong>Diversidade &gt; volume</strong><span class="text-neutral-400"> — scaling laws em robótica favorecem variedade de tarefas e ambientes sobre acumulação bruta de trajetórias.</span></div></div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+<h3 class="font-semibold text-emerald-400 mb-2">Próximo módulo</h3>
+<p class="text-neutral-300">1.5 — Hardware: Cobots, Humanoides e Plataformas</p>
+</div>
+<div class="flex flex-col sm:flex-row gap-4">
+<a class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors" href="./">← Voltar para a Trilha</a>
+<a class="flex-1 text-center px-6 py-3 bg-emerald-600 text-white rounded-lg font-semibold hover:bg-emerald-500 transition-colors" href="modulo-1-5.html">Próximo módulo →</a>
+</div>
+</div>
+</section>
+</main>
+<footer class="border-t border-dark-600 py-8">
+<div class="max-w-6xl mx-auto px-4 text-center text-neutral-500 text-sm">
+<p>VLA Course — Vision-Language-Action · <a class="text-sky-400 hover:text-sky-300" href="https://ARCKHÉ AI" target="_blank">ARCKHÉ AI</a></p>
+</div>
+</footer>
+</body>
+</html>

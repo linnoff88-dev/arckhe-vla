@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Módulo 3.3 — Generalización cross-embodiment | Curso VLA</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: { 600:'#374151', 700:'#1f2937', 800:'#1a1a2e', 900:'#111827' },
+                        primary: '#eab308',
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .dark body { background-color: #111827; }
+        .topic-explanation { display: none; }
+        .topic-explanation.active { display: block; }
+
+        /* Light mode overrides - OBRIGATORIO */
+        html:not(.dark) body { background-color: #f8fafc; }
+        html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+        html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+        html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+        html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+        html:not(.dark) .text-neutral-100 { color: #111827; }
+        html:not(.dark) .text-neutral-300 { color: #4b5563; }
+        html:not(.dark) .text-neutral-400 { color: #6b7280; }
+        html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+        html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+        html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+
+        /* Light mode - cores de acento (trilha purple) */
+        html:not(.dark) .text-purple-400 { color: #7c3aed; }
+        html:not(.dark) .bg-purple-500\/20 { background-color: rgba(124, 58, 237, 0.12); }
+        html:not(.dark) .bg-purple-500\/10 { background-color: rgba(124, 58, 237, 0.08); }
+        html:not(.dark) .border-purple-500\/30 { border-color: rgba(124, 58, 237, 0.25); }
+        html:not(.dark) .hover\:bg-purple-500\/30:hover { background-color: rgba(124, 58, 237, 0.18); }
+        html:not(.dark) .bg-purple-900\/20 { background-color: rgba(124, 58, 237, 0.08); }
+
+        /* Light mode - remove gradientes */
+        html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+
+        /* Light mode - cores especiais */
+        html:not(.dark) .text-primary { color: #a16207; }
+        html:not(.dark) .bg-primary\/10 { background-color: rgba(161, 98, 7, 0.08); }
+        html:not(.dark) .border-primary\/40 { border-color: rgba(161, 98, 7, 0.25); }
+        html:not(.dark) .border-primary\/30 { border-color: rgba(161, 98, 7, 0.20); }
+        html:not(.dark) .text-sky-400 { color: #0369a1; }
+        html:not(.dark) .text-yellow-400 { color: #a16207; }
+        html:not(.dark) .text-red-400 { color: #dc2626; }
+        html:not(.dark) .text-blue-400 { color: #2563eb; }
+        html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+
+        /* Light mode - nav */
+        html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255, 255, 255, 0.95); }
+
+        /* Dark mode - bordas suavizadas */
+        .dark .border-dark-600 { border-color: #374151; }
+        .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+
+        /* SVG light mode */
+        html:not(.dark) svg[role="img"] { filter: saturate(0.82) brightness(0.96); }
+    </style>
+<link href="https://linnoff88-dev.github.io/arckhe-vla/curso/trilha3/modulo-3-3.html" hreflang="pt-BR" rel="alternate"/><link href="https://linnoff88-dev.github.io/arckhe-vla/en/curso/trilha3/modulo-3-3.html" hreflang="en" rel="alternate"/><link href="https://linnoff88-dev.github.io/arckhe-vla/es/curso/trilha3/modulo-3-3.html" hreflang="es" rel="alternate"/></head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="ARCKHÉ-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../../../curso/trilha3/modulo-3-3.html" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="../../../en/curso/trilha3/modulo-3-3.html" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">EN</a><a href="modulo-3-3.html" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">ES</a></div>
+<!-- NAV -->
+<nav class="fixed top-0 w-full bg-dark-900/95 backdrop-blur border-b border-dark-600 z-50">
+<div class="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<a class="text-primary font-bold text-lg" href="../../">VLA</a>
+<span class="text-neutral-500">|</span>
+<a class="text-sky-400 hover:text-sky-300 text-sm font-medium" href="https://ARCKHÉ AI" target="_blank">ARCKHÉ AI</a>
+</div>
+<div class="flex items-center gap-2">
+<a class="px-3 py-1.5 rounded text-sm text-emerald-400 hover:bg-emerald-500/10" href="../trilha1/">Fundamentos</a>
+<a class="px-3 py-1.5 rounded text-sm text-blue-400 hover:bg-blue-500/10" href="../trilha2/">Técnico</a>
+<a class="px-3 py-1.5 rounded text-sm text-purple-400 bg-purple-500/20 border border-purple-500/30 font-medium" href="./">Avanzado</a>
+<button class="ml-2 p-2 rounded hover:bg-dark-700 text-neutral-400" onclick="document.documentElement.classList.toggle('dark')" title="Cambiar tema">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+</div>
+</div>
+</nav>
+<main class="max-w-4xl mx-auto px-4 pt-24 pb-16">
+<!-- BREADCRUMB -->
+<nav aria-label="Breadcrumb" class="flex items-center gap-2 text-sm text-neutral-500 mb-8">
+<a class="hover:text-neutral-300 transition-colors" href="../../">Inicio</a>
+<span>/</span>
+<a class="hover:text-purple-400 transition-colors" href="./">Avanzado</a>
+<span>/</span>
+<span class="text-purple-400 font-medium">Módulo 3.3</span>
+</nav>
+<!-- HEADER -->
+<header class="mb-12">
+<div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-500/20 border border-purple-500/30 mb-6">
+<span class="text-purple-400 font-bold text-sm">MÓDULO 3.3</span>
+<span class="text-neutral-500">·</span>
+<span class="text-neutral-400 text-sm">Avanzado</span>
+</div>
+<h1 class="text-3xl sm:text-4xl font-extrabold mb-4">🤖 Generalización Cross-Embodiment</h1>
+<p class="text-neutral-400 text-lg max-w-2xl mb-8">Entrenar una vez y desplegar en varios robots con morfologías diferentes. Entiende por qué la diversidad de cuerpos es el mayor desafío —y la mayor ventaja— de los foundation models robóticos.</p>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-4 text-center">
+<div class="text-2xl font-bold text-purple-400">6</div>
+<div class="text-xs text-neutral-500 mt-1">Temas</div>
+</div>
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-4 text-center">
+<div class="text-2xl font-bold text-purple-400">45</div>
+<div class="text-xs text-neutral-500 mt-1">Minutos</div>
+</div>
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-4 text-center">
+<div class="text-2xl font-bold text-purple-400">Avanzado</div>
+<div class="text-xs text-neutral-500 mt-1">Nivel</div>
+</div>
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-4 text-center">
+<div class="text-2xl font-bold text-purple-400">Teórico</div>
+<div class="text-xs text-neutral-500 mt-1">Tipo</div>
+</div>
+</div>
+</header>
+<!-- HERO SVG: Um modelo, muitos corpos -->
+<div class="mb-12 rounded-2xl border border-purple-500/30 bg-dark-900/40 p-4">
+<svg aria-label="Diagrama hero: una única política cross-embodiment controla un brazo fijo, un humanoide y una base móvil con positive transfer" class="w-full h-auto" fill="none" font-family="Inter,sans-serif" role="img" viewbox="0 0 760 240" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<filter id="m33-hero-glow"><fegaussianblur result="blur" stddeviation="1.8"></fegaussianblur><femerge><femergenode in="blur"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge></filter>
+<pattern height="18" id="m33-hero-grid" patternunits="userSpaceOnUse" width="18"><path d="M 18 0 L 0 0 0 18" fill="none" stroke="#c084fc" stroke-opacity="0.05" stroke-width="0.5"></path></pattern>
+</defs>
+<rect fill="url(#m33-hero-grid)" height="240" rx="12" width="760"></rect>
+<!-- Label título -->
+<text fill="#c084fc" font-size="11" font-weight="600" opacity="0.6" text-anchor="middle" x="380" y="22">Cross-Embodiment — Una política, múltiples cuerpos</text>
+<!-- Política central -->
+<g filter="url(#m33-hero-glow)">
+<rect fill="#a855f7" fill-opacity="0.18" height="80" rx="14" stroke="#c084fc" stroke-width="2" width="220" x="270" y="80"></rect>
+<text fill="#c084fc" font-size="14" font-weight="600" text-anchor="middle" x="380" y="113">Política unificada</text>
+<text fill="#c084fc" font-size="10" opacity="0.65" text-anchor="middle" x="380" y="131">OXE · RT-X · acción normalizada</text>
+<text fill="#c084fc" font-size="9" opacity="0.45" text-anchor="middle" x="380" y="148">acondicionamiento por embodiment</text>
+</g>
+<!-- Robô 1: Braço -->
+<g>
+<rect fill="#38bdf8" fill-opacity="0.10" height="50" rx="10" stroke="#38bdf8" stroke-width="1.5" width="180" x="28" y="40"></rect>
+<text fill="#38bdf8" font-size="11" font-weight="600" text-anchor="middle" x="118" y="62">Brazo fijo · 6 DoF</text>
+<text fill="#38bdf8" font-size="9" opacity="0.6" text-anchor="middle" x="118" y="78">pinza paralela</text>
+</g>
+<!-- Robô 2: Humanoide -->
+<g filter="url(#m33-hero-glow)">
+<rect fill="#38bdf8" fill-opacity="0.14" height="50" rx="10" stroke="#38bdf8" stroke-width="2" width="180" x="28" y="110"></rect>
+<text fill="#38bdf8" font-size="11" font-weight="600" text-anchor="middle" x="118" y="132">Humanoide · 40+ DoF</text>
+<text fill="#38bdf8" font-size="9" opacity="0.6" text-anchor="middle" x="118" y="148">manos diestras</text>
+</g>
+<!-- Robô 3: Móvel -->
+<g>
+<rect fill="#38bdf8" fill-opacity="0.10" height="50" rx="10" stroke="#38bdf8" stroke-width="1.5" width="180" x="28" y="180"></rect>
+<text fill="#38bdf8" font-size="11" font-weight="600" text-anchor="middle" x="118" y="202">Base móvil + brazo</text>
+<text fill="#38bdf8" font-size="9" opacity="0.6" text-anchor="middle" x="118" y="218">navegación + manipulación</text>
+</g>
+<!-- Setas esquerda → política -->
+<line stroke="#c084fc" stroke-opacity="0.4" stroke-width="1.5" x1="208" x2="268" y1="65" y2="105"></line>
+<polygon fill="#c084fc" fill-opacity="0.4" points="264,100 272,106 263,111"></polygon>
+<line stroke="#c084fc" stroke-opacity="0.4" stroke-width="1.5" x1="208" x2="268" y1="135" y2="120"></line>
+<polygon fill="#c084fc" fill-opacity="0.4" points="264,115 274,120 264,126"></polygon>
+<line stroke="#c084fc" stroke-opacity="0.4" stroke-width="1.5" x1="208" x2="268" y1="205" y2="155"></line>
+<polygon fill="#c084fc" fill-opacity="0.4" points="264,150 274,156 263,161"></polygon>
+<!-- Saídas política → embodiments -->
+<g>
+<rect fill="#a855f7" fill-opacity="0.10" height="50" rx="10" stroke="#c084fc" stroke-width="1.5" width="176" x="556" y="40"></rect>
+<text fill="#c084fc" font-size="11" font-weight="600" text-anchor="middle" x="644" y="62">Acciones cartesianas</text>
+<text fill="#c084fc" font-size="9" opacity="0.6" text-anchor="middle" x="644" y="78">pose del efector final</text>
+</g>
+<g filter="url(#m33-hero-glow)">
+<rect fill="#a855f7" fill-opacity="0.14" height="50" rx="10" stroke="#c084fc" stroke-width="2" width="176" x="556" y="110"></rect>
+<text fill="#c084fc" font-size="11" font-weight="600" text-anchor="middle" x="644" y="132">Joint targets</text>
+<text fill="#c084fc" font-size="9" opacity="0.6" text-anchor="middle" x="644" y="148">IK por embodiment</text>
+</g>
+<g>
+<rect fill="#a855f7" fill-opacity="0.10" height="50" rx="10" stroke="#c084fc" stroke-width="1.5" width="176" x="556" y="180"></rect>
+<text fill="#c084fc" font-size="11" font-weight="600" text-anchor="middle" x="644" y="202">Velocidad + twist</text>
+<text fill="#c084fc" font-size="9" opacity="0.6" text-anchor="middle" x="644" y="218">base + manipulador</text>
+</g>
+<!-- Setas política → saídas -->
+<line stroke="#c084fc" stroke-opacity="0.4" stroke-width="1.5" x1="490" x2="554" y1="105" y2="67"></line>
+<polygon fill="#c084fc" fill-opacity="0.4" points="550,63 559,68 549,73"></polygon>
+<line stroke="#c084fc" stroke-opacity="0.4" stroke-width="1.5" x1="490" x2="554" y1="120" y2="135"></line>
+<polygon fill="#c084fc" fill-opacity="0.4" points="550,131 560,136 550,141"></polygon>
+<line stroke="#c084fc" stroke-opacity="0.4" stroke-width="1.5" x1="490" x2="554" y1="145" y2="200"></line>
+<polygon fill="#c084fc" fill-opacity="0.4" points="550,196 560,201 550,207"></polygon>
+<text fill="#c084fc" font-size="9" opacity="0.4" text-anchor="middle" x="380" y="228">Transferencia positiva · Open X-Embodiment</text>
+</svg>
+</div>
+<!-- CONTEÚDO DETALHADO -->
+<h2 class="text-2xl font-bold mb-6">Contenido detallado</h2>
+<!-- ── TÓPICO 1: O problema do embodiment ── -->
+<section class="mb-10" id="topico-1">
+<div class="flex items-start gap-4 mb-4">
+<span class="w-12 h-12 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-lg font-bold text-purple-400 shrink-0">1</span>
+<div>
+<h2 class="text-2xl font-bold">🦾 El problema del Embodiment</h2>
+<p class="text-neutral-400 mt-2">Por qué un brazo industrial de 6 DoF y un humanoide de 40+ DoF son mundos separados, y cuánto le cuesta eso a la robótica moderna.</p>
+</div>
+</div>
+<!-- Box conceito principal -->
+<div class="bg-gradient-to-br from-purple-900/40 to-dark-800 border border-purple-500/30 rounded-xl p-6 mb-4">
+<h3 class="text-purple-400 font-semibold mb-2">Definición central</h3>
+<p class="text-neutral-300">La encarnación es la forma física del robot: número de grados de libertad (DoF), cinemática de las articulaciones, tipo de pinza o mano y conjunto de sensores. Un brazo industrial de 6 DoF con pinza paralela es radicalmente distinto de un humanoide con 40+ DoF y manos diestras, incluso cuando ambos ejecutan la misma tarea abstracta, como "agarrar un objeto".</p>
+</div>
+<!-- Grid conceitos-chave -->
+<div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-4">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3">
+<div class="text-purple-400 font-semibold text-sm mb-1">DoF</div>
+<div class="text-neutral-400 text-xs">Grados de libertad: cuántos ejes independientes puede mover el robot. Más DoF = más destreza, más complejidad.</div>
+</div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3">
+<div class="text-purple-400 font-semibold text-sm mb-1">Cinemática</div>
+<div class="text-neutral-400 text-xs">Directa: posición de cada articulación → pose del end-effector. Inversa: pose deseada → ángulos de articulación (ambigua, costosa).</div>
+</div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3">
+<div class="text-purple-400 font-semibold text-sm mb-1">Brecha morfológica</div>
+<div class="text-neutral-400 text-xs">Distancia estructural entre dos robots. Cuanto mayor es, más difícil resulta la transferencia directa de la política.</div>
+</div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3">
+<div class="text-purple-400 font-semibold text-sm mb-1">Sensores heterogéneos</div>
+<div class="text-neutral-400 text-xs">RGB-D, force-torque, propiocepción, táctil — cada robot tiene un conjunto diferente, lo que genera observaciones incompatibles.</div>
+</div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3">
+<div class="text-purple-400 font-semibold text-sm mb-1">Espacio de configuración</div>
+<div class="text-neutral-400 text-xs">Conjunto de todos los estados válidos del robot (q₁…qₙ). Los distintos robots tienen espacios con dimensiones y topologías diferentes.</div>
+</div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3">
+<div class="text-purple-400 font-semibold text-sm mb-1">Costo tradicional</div>
+<div class="text-neutral-400 text-xs">Cada robot nuevo = nuevo dataset + nuevo entrenamiento desde cero. No escala. Es el problema que resuelve cross-embodiment.</div>
+</div>
+</div>
+<!-- Tip box -->
+<div class="bg-primary/10 border border-primary/30 rounded-xl p-4">
+<div class="flex items-start gap-3">
+<span class="text-primary text-lg">💡</span>
+<div>
+<div class="text-primary font-semibold text-sm mb-1">Por qué importa ahora</div>
+<p class="text-neutral-300 text-sm">Con los LLM, un modelo entrenado con texto en inglés se transfiere al francés de forma natural. El desafío de la robótica es análogo: queremos que el conocimiento adquirido con un brazo fijo se transfiera a un humanoide. El embodiment es el «idioma» del robot — y necesitamos un traductor universal.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- ── TÓPICO 2: Normalização do espaço de ações ── -->
+<section class="mb-10" id="topico-2">
+<div class="flex items-start gap-4 mb-4">
+<span class="w-12 h-12 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-lg font-bold text-purple-400 shrink-0">2</span>
+<div>
+<h2 class="text-2xl font-bold">📐 Normalización del espacio de acciones</h2>
+<p class="text-neutral-400 mt-2">La ingeniería que permite que un modelo genere acciones válidas para robots radicalmente diferentes, sin reinventar la rueda para cada nuevo hardware.</p>
+</div>
+</div>
+<p class="text-neutral-300 mb-4">Para que un modelo controle distintos robots, las acciones deben estar en un espacio común y normalizado. Sin esto, la misma salida numérica significa cosas distintas en cada robot, y el gradiente de un embodiment contamina el aprendizaje de otro.</p>
+<!-- Grid Fazer vs Evitar -->
+<div class="grid md:grid-cols-2 gap-4 mb-4">
+<div class="bg-purple-900/20 border border-purple-500/30 rounded-xl p-5">
+<h3 class="text-purple-400 font-semibold mb-3 flex items-center gap-2"><span>✓</span> Buenas prácticas</h3>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-purple-400 mt-0.5 shrink-0">✓</span><span>Expresar acciones en el <strong>espacio cartesiano</strong> del end-effector (posición + rotación relativa), no en ángulos de articulación absolutos</span></li>
+<li class="flex items-start gap-2"><span class="text-purple-400 mt-0.5 shrink-0">✓</span><span><strong>Normalizar por cuantiles</strong> del dataset por dimensión de acción — elimina las diferencias de escala entre robots</span></li>
+<li class="flex items-start gap-2"><span class="text-purple-400 mt-0.5 shrink-0">✓</span><span>Estandarizar la representación de <strong>gripper</strong> como valor continuo [0,1] en todos los embodiments</span></li>
+<li class="flex items-start gap-2"><span class="text-purple-400 mt-0.5 shrink-0">✓</span><span>Usar <strong>frames de referencia comunes</strong> — Base del robot o cámara de muñeca como origen</span></li>
+</ul>
+</div>
+<div class="bg-red-900/20 border border-red-500/30 rounded-xl p-5">
+<h3 class="text-red-400 font-semibold mb-3 flex items-center gap-2"><span>✗</span> Errores comunes</h3>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5 shrink-0">✗</span><span>Mezclar acciones en <strong>joint-space</strong> de robots diferentes: los mismos índices, con significados opuestos</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5 shrink-0">✗</span><span>Ignorar <strong>unidades inconsistentes</strong> (rad vs. grado, mm vs. cm) entre datasets de distintos laboratorios</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5 shrink-0">✗</span><span>Usar <strong>action spaces de dimensión fija</strong> que fuerzan el padding para robots con menos DoF</span></li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5 shrink-0">✗</span><span>Concatenar frames de referencia <strong>sin alineación</strong> — el modelo aprende transformaciones espurias</span></li>
+</ul>
+</div>
+</div>
+<!-- Box dados -->
+<div class="bg-blue-900/20 border border-blue-500/30 rounded-xl p-4">
+<div class="flex items-start gap-3">
+<span class="text-blue-400 text-lg">📊</span>
+<div>
+<div class="text-blue-400 font-semibold text-sm mb-1">Dato de referencia — OXE</div>
+<p class="text-neutral-300 text-sm">Open X-Embodiment estandarizó acciones de <strong>22 robots diferentes</strong> en un formato único usando poses cartesianas 6D (3 de traslación + 3 de rotación) + estado del gripper. Esa estandarización fue una condición necesaria para la transferencia positiva observada en RT-X.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- ── TÓPICO 3: RT-X e positive transfer ── -->
+<section class="mb-10" id="topico-3">
+<div class="flex items-start gap-4 mb-4">
+<span class="w-12 h-12 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-lg font-bold text-purple-400 shrink-0">3</span>
+<div>
+<h2 class="text-2xl font-bold">🚀 RT-X y las ganancias de Positive Transfer</h2>
+<p class="text-neutral-400 mt-2">La prueba empírica de que entrenar con datos de muchos robots mejora a cada uno de ellos —el punto de inflexión que abrió la era de los foundation models robóticos.</p>
+</div>
+</div>
+<!-- Timeline -->
+<div class="space-y-4 mb-6">
+<div class="flex gap-4">
+<div class="flex flex-col items-center">
+<div class="w-10 h-10 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-purple-400 font-bold text-sm shrink-0">2022</div>
+<div class="w-px flex-1 bg-dark-600 mt-2"></div>
+</div>
+<div class="bg-dark-800 border border-dark-600 rounded-xl p-4 flex-1 mb-2">
+<h4 class="font-semibold text-neutral-100 mb-1">RT-1 — Robótica con datos a escala</h4>
+<p class="text-neutral-400 text-sm">Google recopila 130k episodios con un solo robot. Muestra que el escalamiento de datos mejora la generalización. Limitado a un tipo de hardware.</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="flex flex-col items-center">
+<div class="w-10 h-10 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-purple-400 font-bold text-sm shrink-0">2023</div>
+<div class="w-px flex-1 bg-dark-600 mt-2"></div>
+</div>
+<div class="bg-dark-800 border border-dark-600 rounded-xl p-4 flex-1 mb-2">
+<h4 class="font-semibold text-neutral-100 mb-1">RT-2 — política vía VLM</h4>
+<p class="text-neutral-400 text-sm">Sustitución del backbone por un VLM preentrenado (PaLI-X). Aparición de razonamiento de varios pasos y generalización mediante lenguaje. Aún principalmente single-embodiment.</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="flex flex-col items-center">
+<div class="w-10 h-10 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-purple-400 font-bold text-sm shrink-0">2023</div>
+<div class="w-px flex-1 bg-dark-600 mt-2"></div>
+</div>
+<div class="bg-dark-800 border border-dark-600 rounded-xl p-4 flex-1 mb-2">
+<h4 class="font-semibold text-neutral-100 mb-1">Open X-Embodiment — 22 robots, 500+ tasks</h4>
+<p class="text-neutral-400 text-sm">Consorcio de 33 laboratorios que reúne datasets de 22 robots diferentes en un único repositorio estandarizado. Base para el entrenamiento cross-embodiment a escala.</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="flex flex-col items-center">
+<div class="w-10 h-10 rounded-full bg-purple-600 border border-purple-400 flex items-center justify-center text-white font-bold text-sm shrink-0">RT-X</div>
+</div>
+<div class="bg-gradient-to-br from-purple-900/40 to-dark-800 border border-purple-500/30 rounded-xl p-4 flex-1">
+<h4 class="font-semibold text-purple-400 mb-1">RT-X — positive transfer comprobado</h4>
+<p class="text-neutral-300 text-sm">Modelos entrenados con el conjunto combinado de 22 robots <strong>superaron a los especialistas</strong> entrenados en cada robot por separado. Aparición de skills que no se vieron durante el entrenamiento individual. La prueba definitiva de que el cross-embodiment funciona.</p>
+</div>
+</div>
+</div>
+<!-- Tip box -->
+<div class="bg-primary/10 border border-primary/30 rounded-xl p-4">
+<div class="flex items-start gap-3">
+<span class="text-primary text-lg">💡</span>
+<div>
+<div class="text-primary font-semibold text-sm mb-1">Analogía con LLMs</div>
+<p class="text-neutral-300 text-sm">Al igual que un LLM entrenado en 100 idiomas es mejor en inglés que uno entrenado solo en inglés (cross-lingual transfer), un VLA entrenado en 22 robots es mejor en cada uno de ellos que los especialistas aislados. La diversidad de distribuciones actúa como regularizador implícito.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- ── TÓPICO 4: Representação unificada de ações ── -->
+<section class="mb-10" id="topico-4">
+<div class="flex items-start gap-4 mb-4">
+<span class="w-12 h-12 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-lg font-bold text-purple-400 shrink-0">4</span>
+<div>
+<h2 class="text-2xl font-bold">🧩 Representación Unificada de Acciones</h2>
+<p class="text-neutral-400 mt-2">La pieza de ingeniería que transforma datasets incompatibles en un único problema de aprendizaje —y determina cuánta transferencia es posible.</p>
+</div>
+</div>
+<p class="text-neutral-300 mb-6">Una representación unificada codifica las acciones de todos los robots en un formato compartido que el modelo aprende a decodificar según el embodiment objetivo. La elección de la representación determina cuánto conocimiento se puede compartir y con qué facilidad se agrega un nuevo robot.</p>
+<!-- SVG 2: Fluxo de representação unificada -->
+<div class="mb-6 rounded-2xl border border-purple-500/30 bg-dark-900/40 p-4">
+<svg aria-label="Flujo de representación unificada: datasets heterogéneos → tokenización de acciones → modelo compartido → decodificadores específicos por embodiment" class="w-full h-auto" fill="none" font-family="Inter,sans-serif" role="img" viewbox="0 0 720 180" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<filter id="m33-rep-glow"><fegaussianblur result="blur" stddeviation="1.8"></fegaussianblur><femerge><femergenode in="blur"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge></filter>
+<pattern height="16" id="m33-rep-grid" patternunits="userSpaceOnUse" width="16"><path d="M 16 0 L 0 0 0 16" fill="none" stroke="#c084fc" stroke-opacity="0.05" stroke-width="0.5"></path></pattern>
+</defs>
+<rect fill="url(#m33-rep-grid)" height="180" rx="10" width="720"></rect>
+<!-- Bloco 1: Dados heterogêneos -->
+<g>
+<rect fill="#1a1230" height="116" rx="10" stroke="#374151" stroke-width="1.2" width="138" x="16" y="32"></rect>
+<text fill="#9ca3af" font-size="10" font-weight="600" text-anchor="middle" x="85" y="56">Datasets</text>
+<rect fill="#38bdf8" fill-opacity="0.10" height="22" rx="5" stroke="#38bdf8" stroke-width="1" width="114" x="28" y="66"></rect>
+<text fill="#38bdf8" font-size="9" text-anchor="middle" x="85" y="81">Robot A · espacio articular</text>
+<rect fill="#38bdf8" fill-opacity="0.10" height="22" rx="5" stroke="#38bdf8" stroke-width="1" width="114" x="28" y="94"></rect>
+<text fill="#38bdf8" font-size="9" text-anchor="middle" x="85" y="109">Robot B · efector final</text>
+<rect fill="#38bdf8" fill-opacity="0.07" height="18" rx="5" stroke="#38bdf8" stroke-width="0.8" width="114" x="28" y="122"></rect>
+<text fill="#38bdf8" font-size="9" opacity="0.7" text-anchor="middle" x="85" y="135">Robot C · vel. base</text>
+</g>
+<!-- Seta 1 -->
+<line stroke="#c084fc" stroke-opacity="0.4" stroke-width="1.5" x1="154" x2="192" y1="90" y2="90"></line>
+<polygon fill="#c084fc" fill-opacity="0.4" points="189,85 198,90 189,95"></polygon>
+<!-- Bloco 2: Normalização -->
+<g filter="url(#m33-rep-glow)">
+<rect fill="#a855f7" fill-opacity="0.14" height="76" rx="10" stroke="#c084fc" stroke-width="2" width="128" x="198" y="52"></rect>
+<text fill="#c084fc" font-size="11" font-weight="600" text-anchor="middle" x="262" y="80">Normalización</text>
+<text fill="#c084fc" font-size="9" opacity="0.65" text-anchor="middle" x="262" y="96">cuantiles · cartesiano</text>
+<text fill="#c084fc" font-size="9" opacity="0.65" text-anchor="middle" x="262" y="112">action tokens</text>
+</g>
+<!-- Seta 2 -->
+<line stroke="#c084fc" stroke-opacity="0.4" stroke-width="1.5" x1="326" x2="364" y1="90" y2="90"></line>
+<polygon fill="#c084fc" fill-opacity="0.4" points="361,85 370,90 361,95"></polygon>
+<!-- Bloco 3: Modelo compartilhado -->
+<g filter="url(#m33-rep-glow)">
+<rect fill="#a855f7" fill-opacity="0.20" height="96" rx="12" stroke="#c084fc" stroke-width="2" width="148" x="370" y="42"></rect>
+<text fill="#c084fc" font-size="12" font-weight="600" text-anchor="middle" x="444" y="80">Backbone</text>
+<text fill="#c084fc" font-size="10" opacity="0.7" text-anchor="middle" x="444" y="96">compartido</text>
+<text fill="#c084fc" font-size="9" opacity="0.5" text-anchor="middle" x="444" y="114">+ emb. conditioning</text>
+</g>
+<!-- Seta 3 -->
+<line stroke="#c084fc" stroke-opacity="0.4" stroke-width="1.5" x1="518" x2="556" y1="90" y2="90"></line>
+<polygon fill="#c084fc" fill-opacity="0.4" points="553,85 562,90 553,95"></polygon>
+<!-- Bloco 4: Decoders -->
+<g>
+<rect fill="#1a1230" height="116" rx="10" stroke="#374151" stroke-width="1.2" width="142" x="562" y="32"></rect>
+<text fill="#9ca3af" font-size="10" font-weight="600" text-anchor="middle" x="633" y="56">Decodificadores</text>
+<rect fill="#a855f7" fill-opacity="0.10" height="22" rx="5" stroke="#c084fc" stroke-width="1" width="118" x="574" y="66"></rect>
+<text fill="#c084fc" font-size="9" text-anchor="middle" x="633" y="81">Head A · 6 DoF</text>
+<rect fill="#a855f7" fill-opacity="0.10" height="22" rx="5" stroke="#c084fc" stroke-width="1" width="118" x="574" y="94"></rect>
+<text fill="#c084fc" font-size="9" text-anchor="middle" x="633" y="109">Head B · 40+ DoF</text>
+<rect fill="#a855f7" fill-opacity="0.07" height="18" rx="5" stroke="#c084fc" stroke-width="0.8" width="118" x="574" y="122"></rect>
+<text fill="#c084fc" font-size="9" opacity="0.7" text-anchor="middle" x="633" y="135">Head C · base móvil</text>
+</g>
+<text fill="#c084fc" font-size="9" opacity="0.4" text-anchor="middle" x="360" y="170">Espacio de acción compartido → decodificadores específicos por embodiment</text>
+</svg>
+</div>
+<!-- Grid conceitos -->
+<div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3">
+<div class="text-purple-400 font-semibold text-sm mb-1">Action tokenization</div>
+<div class="text-neutral-400 text-xs">Discretizar acciones continuas en tokens, como hace GPT con el texto. Permite usar la misma infraestructura de transformer para todas las salidas.</div>
+</div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3">
+<div class="text-purple-400 font-semibold text-sm mb-1">Acondicionamiento de la encarnación</div>
+<div class="text-neutral-400 text-xs">Inyectar en el contexto del modelo un identificador del robot (ID, URDF, propiocepción) para modular el comportamiento de la política.</div>
+</div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3">
+<div class="text-purple-400 font-semibold text-sm mb-1">Decodificadores específicos</div>
+<div class="text-neutral-400 text-xs">Cabezas de salida separadas por tipo de robot, mientras que el backbone es compartido. Equilibra transferencia y especialización.</div>
+</div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3">
+<div class="text-purple-400 font-semibold text-sm mb-1">URDF como contexto</div>
+<div class="text-neutral-400 text-xs">Descripción cinemática del robot incorporada como tokens de texto. Permite la generalización zero-shot a nuevo hardware.</div>
+</div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3">
+<div class="text-purple-400 font-semibold text-sm mb-1">Contexto propioceptivo</div>
+<div class="text-neutral-400 text-xs">El estado interno del robot (posición/velocidad de las articulaciones) como entrada adicional informa al modelo sobre las capacidades del cuerpo actual.</div>
+</div>
+<div class="bg-dark-800 border border-dark-600 rounded-lg p-3">
+<div class="text-purple-400 font-semibold text-sm mb-1">Espacio compartido</div>
+<div class="text-neutral-400 text-xs">Representación latente donde coexisten todos los embodiments. Cuanto más rica, mayor transferencia; cuanto más pequeña, menor capacidad.</div>
+</div>
+</div>
+</section>
+<!-- ── TÓPICO 5: Embodiment-aware training ── -->
+<section class="mb-10" id="topico-5">
+<div class="flex items-start gap-4 mb-4">
+<span class="w-12 h-12 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-lg font-bold text-purple-400 shrink-0">5</span>
+<div>
+<h2 class="text-2xl font-bold">🎯 Entrenamiento consciente de la encarnación</h2>
+<p class="text-neutral-400 mt-2">Hacer que el modelo sea explícitamente consciente del cuerpo que controla, acelerando la adaptación, reduciendo la interferencia y habilitando few-shot para hardware nuevo.</p>
+</div>
+</div>
+<p class="text-neutral-300 mb-6">El entrenamiento consciente de la encarnación proporciona al modelo información explícita sobre qué cuerpo se está controlando durante el entrenamiento y la inferencia. Puede ser un identificador de robot, vectores de propiocepción o parámetros cinemáticos, lo que permite que la política module su comportamiento según las capacidades del hardware.</p>
+<!-- Grid fazer vs evitar -->
+<div class="grid md:grid-cols-2 gap-4 mb-6">
+<div class="bg-purple-900/20 border border-purple-500/30 rounded-xl p-5">
+<h3 class="text-purple-400 font-semibold mb-3">✓ Técnicas eficaces</h3>
+<ul class="space-y-3 text-sm text-neutral-300">
+<li class="flex items-start gap-2">
+<span class="text-purple-400 mt-0.5 shrink-0">✓</span>
+<div><strong>FiLM layers</strong> — Feature-wise Linear Modulation condiciona cada capa del modelo con el embedding del embodiment y adapta las representaciones sin duplicar parámetros</div>
+</li>
+<li class="flex items-start gap-2">
+<span class="text-purple-400 mt-0.5 shrink-0">✓</span>
+<div><strong>Hypernetworks</strong> — una red secundaria genera los pesos de la política principal según el ID del embodiment: máxima adaptabilidad con sobrecarga controlada</div>
+</li>
+<li class="flex items-start gap-2">
+<span class="text-purple-400 mt-0.5 shrink-0">✓</span>
+<div><strong>Curriculum multi-embodiment</strong> — secuenciar los robots del más simple al más complejo durante el entrenamiento, lo que facilita la transferencia progresiva</div>
+</li>
+<li class="flex items-start gap-2">
+<span class="text-purple-400 mt-0.5 shrink-0">✓</span>
+<div><strong>Balanceo del conjunto de datos</strong> — los pesos de muestreo por robot evitan que los robots con más datos dominen el gradiente</div>
+</li>
+</ul>
+</div>
+<div class="bg-red-900/20 border border-red-500/30 rounded-xl p-5">
+<h3 class="text-red-400 font-semibold mb-3">✗ Errores de diseño</h3>
+<ul class="space-y-3 text-sm text-neutral-300">
+<li class="flex items-start gap-2">
+<span class="text-red-400 mt-0.5 shrink-0">✗</span>
+<div>Tratar a todos los robots de forma <strong>idéntica</strong> sin conditioning — el modelo no aprende a distinguir capacidades y genera acciones inválidas</div>
+</li>
+<li class="flex items-start gap-2">
+<span class="text-red-400 mt-0.5 shrink-0">✗</span>
+<div>Usar solo <strong>one-hot encoding</strong> de la identidad del robot — captura la identidad, pero no la estructura morfológica, lo que impide generalizar a nuevo hardware</div>
+</li>
+<li class="flex items-start gap-2">
+<span class="text-red-400 mt-0.5 shrink-0">✗</span>
+<div>Dataset desbalanceado sin compensación: los robots con 10x más datos dominan el entrenamiento y <strong>se degradan</strong> los más pequeños</div>
+</li>
+<li class="flex items-start gap-2">
+<span class="text-red-400 mt-0.5 shrink-0">✗</span>
+<div>Ajuste fino de <strong>todos los parámetros</strong> para un robot nuevo: destruye el conocimiento adquirido en el preentrenamiento cross-embodiment</div>
+</li>
+</ul>
+</div>
+</div>
+<!-- Tip box -->
+<div class="bg-primary/10 border border-primary/30 rounded-xl p-4">
+<div class="flex items-start gap-3">
+<span class="text-primary text-lg">💡</span>
+<div>
+<div class="text-primary font-semibold text-sm mb-1">Few-shot para hardware nuevo</div>
+<p class="text-neutral-300 text-sm">Un modelo cross-embodiment bien entrenado puede adaptarse a un robot nunca visto con solo 10–50 demostraciones, frente a los miles que se necesitan para entrenar desde cero. El conditioning aporta el «vocabulario morfológico» — las demos enseñan el «acento» del nuevo cuerpo.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- ── TÓPICO 6: Limites — quando a transferência falha ── -->
+<section class="mb-10" id="topico-6">
+<div class="flex items-start gap-4 mb-4">
+<span class="w-12 h-12 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-lg font-bold text-purple-400 shrink-0">6</span>
+<div>
+<h2 class="text-2xl font-bold">⚠️ Límites: cuando falla la transferencia</h2>
+<p class="text-neutral-400 mt-2">El negative transfer, el gradient conflict y el capacity bottleneck: entender dónde falla el cross-embodiment es tan importante como saber dónde funciona.</p>
+</div>
+</div>
+<p class="text-neutral-300 mb-6">La transferencia no siempre ayuda: el negative transfer ocurre cuando los datos de un robot perjudican el desempeño de otro, típicamente entre morfologías muy distintas, dinámicas incompatibles o datasets desbalanceados. Creer que "más datos siempre ayudan" conduce a sistemas peores.</p>
+<!-- Box alerta -->
+<div class="bg-red-900/20 border border-red-500/30 rounded-xl p-5 mb-6">
+<div class="flex items-start gap-3">
+<span class="text-red-400 text-xl">⚠</span>
+<div>
+<div class="text-red-400 font-semibold mb-2">Caso real: manos vs. pinzas</div>
+<p class="text-neutral-300 text-sm">Las manos diestras (30+ DoF, control de fuerza por dedo) y las pinzas simples (1 DoF, apertura binaria) presentan demandas tan diferentes que mezclarlas ingenuamente puede <strong>degradar ambas</strong>. Los gradientes entran en conflicto: lo que optimiza la pinza perjudica la mano y viceversa. Solución: agrupar por similitud morfológica antes de compartir.</p>
+</div>
+</div>
+</div>
+<!-- Grid conceitos negative transfer -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+<div class="bg-dark-800 border border-dark-600 rounded-xl p-4">
+<h4 class="font-semibold text-neutral-100 mb-2">🔴 Negative transfer</h4>
+<p class="text-neutral-400 text-sm mb-3">Los datos del robot A perjudican el rendimiento en el robot B. Esto ocurre cuando las distribuciones de observación/acción son ortogonales o conflictivas.</p>
+<div class="text-xs text-neutral-500 font-mono bg-dark-900/60 rounded p-2">Diagnóstico: el rendimiento por separado &gt; el rendimiento conjunto</div>
+</div>
+<div class="bg-dark-800 border border-dark-600 rounded-xl p-4">
+<h4 class="font-semibold text-neutral-100 mb-2">⚡ Conflicto de gradientes</h4>
+<p class="text-neutral-400 text-sm mb-3">Los gradientes de distintos embodiments apuntan en direcciones opuestas en el espacio de parámetros. El modelo oscila en lugar de converger.</p>
+<div class="text-xs text-neutral-500 font-mono bg-dark-900/60 rounded p-2">Detección: cosine similarity entre gradientes &lt; 0</div>
+</div>
+<div class="bg-dark-800 border border-dark-600 rounded-xl p-4">
+<h4 class="font-semibold text-neutral-100 mb-2">🗜️ Capacity bottleneck</h4>
+<p class="text-neutral-400 text-sm mb-3">Modelo demasiado pequeño para representar todos los embodiments al mismo tiempo. Agregar robots empeora a todos porque compiten por capacidad.</p>
+<div class="text-xs text-neutral-500 font-mono bg-dark-900/60 rounded p-2">Solución: aumentar el modelo o usar mixture-of-experts</div>
+</div>
+<div class="bg-dark-800 border border-dark-600 rounded-xl p-4">
+<h4 class="font-semibold text-neutral-100 mb-2">📐 Interferencia entre tareas</h4>
+<p class="text-neutral-400 text-sm mb-3">Las tareas de un robot (p. ej., fuerza bruta industrial) interfieren con las políticas de otro (p. ej., manipulación delicada quirúrgica). Mismo embodiment, objetivos conflictivos.</p>
+<div class="text-xs text-neutral-500 font-mono bg-dark-900/60 rounded p-2">Solución: cabezales de tarea separados + backbone compartido</div>
+</div>
+</div>
+<!-- Timeline de mitigações -->
+<div class="bg-gradient-to-br from-purple-900/40 to-dark-800 border border-purple-500/30 rounded-xl p-6">
+<h3 class="text-purple-400 font-semibold mb-4">Estrategias de mitigación: de la más simple a la más robusta</h3>
+<div class="space-y-3">
+<div class="flex items-start gap-3">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-xs font-bold text-purple-400 shrink-0">1</span>
+<div>
+<span class="font-semibold text-neutral-100 text-sm">Pesos de muestreo por robot</span>
+<span class="text-neutral-400 text-sm"> — reduce el peso de los robots con muchos datos y aumenta el de los subrepresentados. Simple y eficaz para el desbalance.</span>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-xs font-bold text-purple-400 shrink-0">2</span>
+<div>
+<span class="font-semibold text-neutral-100 text-sm">Clustering de embodiments</span>
+<span class="text-neutral-400 text-sm"> — Agrupar robots similares (brazos fijos juntos, humanoides juntos) antes de entrenar. Transferencia dentro del grupo y aislamiento entre grupos.</span>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-xs font-bold text-purple-400 shrink-0">3</span>
+<div>
+<span class="font-semibold text-neutral-100 text-sm">Cirugía de gradientes</span>
+<span class="text-neutral-400 text-sm"> — proyectar gradientes en conflicto para eliminar los componentes conflictivos antes de la actualización. Mantiene las direcciones concordantes.</span>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-xs font-bold text-purple-400 shrink-0">4</span>
+<div>
+<span class="font-semibold text-neutral-100 text-sm">Aislar vs. compartir parámetros</span>
+<span class="text-neutral-400 text-sm"> — cuando la brecha morfológica es demasiado grande, aislar los parámetros en conflicto (cabezas separadas, adaptadores por robot) y compartir solo el backbone visual.</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- RESUMO -->
+<section class="mb-12">
+<div class="bg-gradient-to-br from-purple-900/40 via-dark-800 to-dark-800 rounded-xl border border-purple-500/30 p-8">
+<h2 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">✅</span> Resumen del módulo</h2>
+<div class="space-y-4 mb-8">
+<div class="flex items-start gap-3">
+<span class="text-purple-400 mt-1">✓</span>
+<div><strong>El problema del embodiment</strong><span class="text-neutral-400"> — morfologías radicalmente distintas requieren espacios de acción incompatibles; la brecha morfológica es el mayor obstáculo para la transferencia directa.</span></div>
+</div>
+<div class="flex items-start gap-3">
+<span class="text-purple-400 mt-1">✓</span>
+<div><strong>Normalización y representación unificada</strong><span class="text-neutral-400"> — Las acciones cartesianas normalizadas por cuantiles + decoders específicos por robot forman la arquitectura que permite el entrenamiento conjunto.</span></div>
+</div>
+<div class="flex items-start gap-3">
+<span class="text-purple-400 mt-1">✓</span>
+<div><strong>RT-X comprobó el positive transfer</strong><span class="text-neutral-400"> — 22 robots, 500+ tareas, 33 laboratorios: los modelos conjuntos superan a los especialistas aislados y abren la era de los foundation models robóticos.</span></div>
+</div>
+<div class="flex items-start gap-3">
+<span class="text-purple-400 mt-1">✓</span>
+<div><strong>El negative transfer es real y se puede diagnosticar</strong><span class="text-neutral-400"> — el conflicto de gradientes, el cuello de botella de capacidad y la interferencia entre tareas requieren clustering, ponderaciones de muestreo y cirugía de gradientes para mitigarse.</span></div>
+</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+<h3 class="font-semibold text-purple-400 mb-2">Siguiente módulo</h3>
+<p class="text-neutral-300">3.4 — Aplicaciones sectoriales: dónde las VLA ya generan valor en el mundo real</p>
+</div>
+<div class="flex flex-col sm:flex-row gap-4">
+<a class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors" href="./">← Volver a la Ruta</a>
+<a class="flex-1 text-center px-6 py-3 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-500 transition-colors" href="modulo-3-4.html">Siguiente módulo →</a>
+</div>
+</div>
+</section>
+</main>
+<footer class="border-t border-dark-600 py-8">
+<div class="max-w-6xl mx-auto px-4 text-center text-neutral-500 text-sm">
+<p>VLA Course — Vision-Language-Action · <a class="text-sky-400 hover:text-sky-300" href="https://ARCKHÉ AI" target="_blank">ARCKHÉ AI</a></p>
+</div>
+</footer>
+</body>
+</html>

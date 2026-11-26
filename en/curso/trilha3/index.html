@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Learning Path 3 — Advanced &amp; Planning | VLA Course</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: { 600:'#374151', 700:'#1f2937', 800:'#1a1a2e', 900:'#111827' },
+                        primary: '#eab308',
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .dark body { background-color: #111827; }
+        html:not(.dark) body { background-color: #f8fafc; }
+        html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+        html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+        html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+        html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+        html:not(.dark) .text-neutral-100 { color: #111827; }
+        html:not(.dark) .text-neutral-300 { color: #4b5563; }
+        html:not(.dark) .text-neutral-400 { color: #6b7280; }
+        html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+        html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+        html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+        html:not(.dark) .text-purple-400 { color: #7c3aed; }
+        html:not(.dark) .text-emerald-400 { color: #059669; }
+        html:not(.dark) .text-blue-400 { color: #2563eb; }
+        html:not(.dark) .bg-purple-500\/20 { background-color: rgba(124, 58, 237, 0.12); }
+        html:not(.dark) .bg-emerald-500\/20 { background-color: rgba(5, 150, 105, 0.12); }
+        html:not(.dark) .bg-blue-500\/20 { background-color: rgba(37, 99, 235, 0.12); }
+        html:not(.dark) .border-purple-500\/30 { border-color: rgba(124, 58, 237, 0.25); }
+        html:not(.dark) .border-emerald-500\/30 { border-color: rgba(5, 150, 105, 0.25); }
+        html:not(.dark) .border-blue-500\/30 { border-color: rgba(37, 99, 235, 0.25); }
+        html:not(.dark) .hover\:border-purple-500\/50:hover { border-color: rgba(124, 58, 237, 0.4); }
+        html:not(.dark) .hover\:border-emerald-500\/50:hover { border-color: rgba(5, 150, 105, 0.4); }
+        html:not(.dark) .hover\:border-blue-500\/50:hover { border-color: rgba(37, 99, 235, 0.4); }
+        html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+        html:not(.dark) .text-primary { color: #a16207; }
+        html:not(.dark) .bg-primary\/10 { background-color: rgba(161, 98, 7, 0.08); }
+        html:not(.dark) .border-primary\/40 { border-color: rgba(161, 98, 7, 0.25); }
+        html:not(.dark) .text-sky-400 { color: #0369a1; }
+        html:not(.dark) .text-yellow-400 { color: #a16207; }
+        html:not(.dark) .text-red-400 { color: #dc2626; }
+        html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+        html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255, 255, 255, 0.95); }
+        .dark .border-dark-600 { border-color: #374151; }
+        .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+        @keyframes wf-pulse { 0%,100% { opacity:.55 } 50% { opacity:1 } }
+        @media (prefers-reduced-motion: no-preference) {
+          .wf-a { animation: wf-pulse 2.6s ease-in-out infinite; }
+          .wf-a:nth-child(2){animation-delay:.25s} .wf-a:nth-child(3){animation-delay:.5s}
+          .wf-a:nth-child(4){animation-delay:.75s} .wf-a:nth-child(5){animation-delay:1s}
+        }
+    </style>
+<link href="https://linnoff88-dev.github.io/arckhe-vla/curso/trilha3/" hreflang="pt-BR" rel="alternate"/><link href="https://linnoff88-dev.github.io/arckhe-vla/en/curso/trilha3/" hreflang="en" rel="alternate"/><link href="https://linnoff88-dev.github.io/arckhe-vla/es/curso/trilha3/" hreflang="es" rel="alternate"/></head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="ARCKHÉ-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../../../curso/trilha3/" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="./" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">EN</a><a href="../../../es/curso/trilha3/" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">ES</a></div>
+<!-- NAV -->
+<nav class="fixed top-0 w-full bg-dark-900/95 backdrop-blur border-b border-dark-600 z-50">
+<div class="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<a class="text-primary font-bold text-lg" href="../../">VLA</a>
+<span class="text-neutral-500">|</span>
+<a class="text-sky-400 hover:text-sky-300 text-sm font-medium" href="https://ARCKHÉ AI" target="_blank">ARCKHÉ AI</a>
+</div>
+<div class="flex items-center gap-2">
+<a class="px-3 py-1.5 rounded text-sm text-emerald-400 hover:bg-emerald-500/10" href="../trilha1/">Fundamentals</a>
+<a class="px-3 py-1.5 rounded text-sm text-blue-400 hover:bg-blue-500/10" href="../trilha2/">Technical</a>
+<a class="px-3 py-1.5 rounded text-sm text-purple-400 bg-purple-500/20 border border-purple-500/30 font-medium" href="./">Advanced</a>
+<button class="ml-2 p-2 rounded hover:bg-dark-700 text-neutral-400" onclick="document.documentElement.classList.toggle('dark')" title="Switch theme">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+</div>
+</div>
+</nav>
+<main class="max-w-4xl mx-auto px-4 pt-24 pb-16">
+<!-- HEADER -->
+<header class="text-center mb-12">
+<div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-purple-500/20 border border-purple-500/30 mb-6">
+<span class="text-purple-400 font-bold text-sm">TRACK 3</span>
+<span class="text-neutral-500">·</span>
+<span class="text-neutral-400 text-sm">Advanced &amp; Planning</span>
+</div>
+<h1 class="text-4xl md:text-5xl font-extrabold mb-4 bg-gradient-to-r from-purple-400 to-fuchsia-400 bg-clip-text text-transparent">Advanced &amp; Planning</h1>
+<p class="text-neutral-400 text-lg max-w-2xl mx-auto">From dual-system architecture to the 2030 roadmap: master advanced concepts, understand the market, and plan your career in intelligent robotics.</p>
+</header>
+<!-- HERO SVG -->
+<div class="mb-16 flex justify-center">
+<svg aria-label="Track 3 progression diagram: from advanced theory to the future of robotics" class="w-full h-auto max-w-3xl" fill="none" role="img" viewbox="0 0 800 220" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<filter id="hero-glow"><fegaussianblur result="blur" stddeviation="6"></fegaussianblur><femerge><femergenode in="blur"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge></filter>
+<pattern height="20" id="hero-grid" patternunits="userSpaceOnUse" width="20"><path d="M 20 0 L 0 0 0 20" fill="none" stroke="#c084fc" stroke-opacity="0.06" stroke-width="0.5"></path></pattern>
+</defs>
+<rect fill="url(#hero-grid)" height="220" rx="12" width="800"></rect>
+<!-- Nodes -->
+<g filter="url(#hero-glow)">
+<circle cx="100" cy="110" fill="#a855f7" fill-opacity="0.15" r="38" stroke="#c084fc" stroke-width="1.5"></circle>
+<text fill="#c084fc" font-size="11" font-weight="600" text-anchor="middle" x="100" y="105">Dual</text>
+<text fill="#c084fc" font-size="11" font-weight="600" text-anchor="middle" x="100" y="120">System</text>
+</g>
+<g filter="url(#hero-glow)">
+<circle cx="260" cy="110" fill="#a855f7" fill-opacity="0.15" r="38" stroke="#c084fc" stroke-width="1.5"></circle>
+<text fill="#c084fc" font-size="11" font-weight="600" text-anchor="middle" x="260" y="105">World</text>
+<text fill="#c084fc" font-size="11" font-weight="600" text-anchor="middle" x="260" y="120">Models</text>
+</g>
+<g filter="url(#hero-glow)">
+<circle cx="420" cy="110" fill="#a855f7" fill-opacity="0.15" r="38" stroke="#c084fc" stroke-width="1.5"></circle>
+<text fill="#c084fc" font-size="11" font-weight="600" text-anchor="middle" x="420" y="105">Cross</text>
+<text fill="#c084fc" font-size="11" font-weight="600" text-anchor="middle" x="420" y="120">Embodiment</text>
+</g>
+<g filter="url(#hero-glow)">
+<circle cx="540" cy="110" fill="#38bdf8" fill-opacity="0.15" r="38" stroke="#38bdf8" stroke-width="1.5"></circle>
+<text fill="#38bdf8" font-size="11" font-weight="600" text-anchor="middle" x="540" y="105">Sectors</text>
+<text fill="#38bdf8" font-size="11" font-weight="600" text-anchor="middle" x="540" y="120">Reals</text>
+</g>
+<g filter="url(#hero-glow)">
+<circle cx="660" cy="110" fill="#38bdf8" fill-opacity="0.15" r="38" stroke="#38bdf8" stroke-width="1.5"></circle>
+<text fill="#38bdf8" font-size="11" font-weight="600" text-anchor="middle" x="660" y="105">Market</text>
+<text fill="#38bdf8" font-size="11" font-weight="600" text-anchor="middle" x="660" y="120">$7.2B</text>
+</g>
+<g filter="url(#hero-glow)">
+<rect fill="#a855f7" fill-opacity="0.2" height="64" rx="8" stroke="#c084fc" stroke-width="1.5" width="55" x="735" y="78"></rect>
+<text fill="#c084fc" font-size="11" font-weight="700" text-anchor="middle" x="762" y="106">2030</text>
+<text fill="#c084fc" font-size="9" text-anchor="middle" x="762" y="122">Future</text>
+</g>
+<!-- Arrows -->
+<line marker-end="url(#hero-arrow)" stroke="#c084fc" stroke-opacity="0.5" stroke-width="1.5" x1="138" x2="222" y1="110" y2="110"></line>
+<line stroke="#c084fc" stroke-opacity="0.5" stroke-width="1.5" x1="298" x2="382" y1="110" y2="110"></line>
+<line stroke="#c084fc" stroke-opacity="0.4" stroke-width="1.5" x1="458" x2="502" y1="110" y2="110"></line>
+<line stroke="#38bdf8" stroke-opacity="0.4" stroke-width="1.5" x1="578" x2="622" y1="110" y2="110"></line>
+<line stroke="#c084fc" stroke-opacity="0.4" stroke-width="1.5" x1="698" x2="735" y1="110" y2="110"></line>
+<!-- Label -->
+<text fill="#c084fc" font-size="13" font-weight="600" opacity="0.7" text-anchor="middle" x="400" y="195">Advanced Theory → Real-World Applications → Future</text>
+</svg>
+</div>
+<!-- MAPA DA TRILHA -->
+<section class="mb-16">
+<h2 class="text-2xl font-bold mb-6 text-purple-400">Learning Path Map</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+<a class="block p-4 rounded-xl bg-dark-800 border border-purple-500/30 hover:border-purple-500/50 transition-colors" href="#modulo-3-1">
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs font-bold text-purple-400 bg-purple-500/20 px-2 py-0.5 rounded">M3.1</span>
+<span class="text-neutral-500 text-xs">6 topics</span>
+</div>
+<h3 class="font-semibold text-sm">Dual-System Architecture (S1/S2)</h3>
+<p class="text-neutral-400 text-xs mt-1">Fast reflexes + slow planning working together.</p>
+</a>
+<a class="block p-4 rounded-xl bg-dark-800 border border-purple-500/30 hover:border-purple-500/50 transition-colors" href="#modulo-3-2">
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs font-bold text-purple-400 bg-purple-500/20 px-2 py-0.5 rounded">M3.2</span>
+<span class="text-neutral-500 text-xs">6 topics</span>
+</div>
+<h3 class="font-semibold text-sm">World Models and Predictive Simulation</h3>
+<p class="text-neutral-400 text-xs mt-1">Generative models as prediction engines.</p>
+</a>
+<a class="block p-4 rounded-xl bg-dark-800 border border-purple-500/30 hover:border-purple-500/50 transition-colors" href="#modulo-3-3">
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs font-bold text-purple-400 bg-purple-500/20 px-2 py-0.5 rounded">M3.3</span>
+<span class="text-neutral-500 text-xs">6 topics</span>
+</div>
+<h3 class="font-semibold text-sm">Cross-Embodiment Generalization</h3>
+<p class="text-neutral-400 text-xs mt-1">Train once, deploy on multiple robots.</p>
+</a>
+<a class="block p-4 rounded-xl bg-dark-800 border border-purple-500/30 hover:border-purple-500/50 transition-colors" href="#modulo-3-4">
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs font-bold text-purple-400 bg-purple-500/20 px-2 py-0.5 rounded">M3.4</span>
+<span class="text-neutral-500 text-xs">6 topics</span>
+</div>
+<h3 class="font-semibold text-sm">Sector Applications</h3>
+<p class="text-neutral-400 text-xs mt-1">Logistics, healthcare, agriculture: where VLA is already creating value.</p>
+</a>
+<a class="block p-4 rounded-xl bg-dark-800 border border-purple-500/30 hover:border-purple-500/50 transition-colors" href="#modulo-3-5">
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs font-bold text-purple-400 bg-purple-500/20 px-2 py-0.5 rounded">M3.5</span>
+<span class="text-neutral-500 text-xs">6 topics</span>
+</div>
+<h3 class="font-semibold text-sm">Market and Opportunities: $7.2B</h3>
+<p class="text-neutral-400 text-xs mt-1">The boom in intelligent robotics and new careers.</p>
+</a>
+<a class="block p-4 rounded-xl bg-dark-800 border border-purple-500/30 hover:border-purple-500/50 transition-colors" href="#modulo-3-6">
+<div class="flex items-center justify-between mb-2">
+<span class="text-xs font-bold text-purple-400 bg-purple-500/20 px-2 py-0.5 rounded">M3.6</span>
+<span class="text-neutral-500 text-xs">6 topics</span>
+</div>
+<h3 class="font-semibold text-sm">Roadmap 2027-2030</h3>
+<p class="text-neutral-400 text-xs mt-1">The future of embodied AI and commercial humanoids.</p>
+</a>
+</div>
+</section>
+<!-- CONTEÚDO DETALHADO -->
+<h2 class="text-2xl font-bold mb-10 text-purple-400">Detailed content</h2>
+<!-- ══════════════════════════════════════════════════════════════ -->
+<!-- M3.1 — Arquitetura Dual-System (S1/S2)                       -->
+<!-- ══════════════════════════════════════════════════════════════ -->
+<div class="mb-16 scroll-mt-20" id="modulo-3-1">
+<div class="flex items-center gap-3 mb-1">
+<span class="text-xs font-bold text-purple-400 bg-purple-500/20 px-2 py-0.5 rounded">M3.1</span>
+<span class="text-neutral-500 text-sm">Module 1 of 6</span>
+</div>
+<h3 class="text-xl font-bold mb-2">Dual-System Architecture (S1/S2)</h3>
+<p class="text-neutral-400 mb-6">Kahneman applied to robots: fast reflexes (S1) and slow planning (S2) working together.</p>
+<!-- SVG M3.1: Dual-System Architecture -->
+<div class="mb-8 flex justify-center">
+<svg aria-label="Dual-system architecture diagram: fast System 1 and slow System 2" class="w-full h-auto max-w-2xl" fill="none" role="img" viewbox="0 0 700 200" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<filter id="m31-glow"><fegaussianblur result="blur" stddeviation="4"></fegaussianblur><femerge><femergenode in="blur"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge></filter>
+<pattern height="16" id="m31-grid" patternunits="userSpaceOnUse" width="16"><path d="M 16 0 L 0 0 0 16" fill="none" stroke="#c084fc" stroke-opacity="0.05" stroke-width="0.5"></path></pattern>
+</defs>
+<rect fill="url(#m31-grid)" height="200" rx="10" width="700"></rect>
+<!-- System 2 (slow) -->
+<g filter="url(#m31-glow)">
+<rect fill="#a855f7" fill-opacity="0.1" height="140" rx="12" stroke="#c084fc" stroke-width="1.5" width="200" x="30" y="30"></rect>
+<text fill="#c084fc" font-size="13" font-weight="700" text-anchor="middle" x="130" y="60">System 2 (Slow)</text>
+<text fill="#c084fc" font-size="10" opacity="0.7" text-anchor="middle" x="130" y="82">VLM Planner</text>
+<text fill="#c084fc" font-size="10" opacity="0.7" text-anchor="middle" x="130" y="100">7-9 Hz</text>
+<rect fill="#a855f7" fill-opacity="0.15" height="28" rx="6" stroke="#c084fc" stroke-opacity="0.4" stroke-width="1" width="130" x="65" y="115"></rect>
+<text fill="#c084fc" font-size="10" text-anchor="middle" x="130" y="134">Action plan</text>
+</g>
+<!-- System 1 (fast) -->
+<g filter="url(#m31-glow)">
+<rect fill="#38bdf8" fill-opacity="0.1" height="140" rx="12" stroke="#38bdf8" stroke-width="1.5" width="200" x="310" y="30"></rect>
+<text fill="#38bdf8" font-size="13" font-weight="700" text-anchor="middle" x="410" y="60">System 1 (Fast)</text>
+<text fill="#38bdf8" font-size="10" opacity="0.7" text-anchor="middle" x="410" y="82">Visuomotor Policy</text>
+<text fill="#38bdf8" font-size="10" opacity="0.7" text-anchor="middle" x="410" y="100">200 Hz</text>
+<rect fill="#38bdf8" fill-opacity="0.15" height="28" rx="6" stroke="#38bdf8" stroke-opacity="0.4" stroke-width="1" width="130" x="345" y="115"></rect>
+<text fill="#38bdf8" font-size="10" text-anchor="middle" x="410" y="134">Motor torques</text>
+</g>
+<!-- Arrow S2 -> S1 -->
+<line stroke="#c084fc" stroke-opacity="0.5" stroke-width="1.5" x1="230" x2="310" y1="80" y2="80"></line>
+<polygon fill="#c084fc" fill-opacity="0.5" points="308,75 318,80 308,85"></polygon>
+<text fill="#c084fc" font-size="9" opacity="0.6" text-anchor="middle" x="270" y="72">goals</text>
+<!-- Arrow S1 -> S2 (feedback) -->
+<line stroke="#38bdf8" stroke-dasharray="4 3" stroke-opacity="0.4" stroke-width="1" x1="310" x2="230" y1="130" y2="130"></line>
+<polygon fill="#38bdf8" fill-opacity="0.4" points="232,125 222,130 232,135"></polygon>
+<text fill="#38bdf8" font-size="9" opacity="0.6" text-anchor="middle" x="270" y="148">feedback</text>
+<!-- Robot output -->
+<g filter="url(#m31-glow)">
+<rect fill="#a855f7" fill-opacity="0.12" height="80" rx="10" stroke="#c084fc" stroke-width="1.2" width="110" x="570" y="60"></rect>
+<text fill="#c084fc" font-size="12" font-weight="600" text-anchor="middle" x="625" y="95">Robot</text>
+<text fill="#c084fc" font-size="9" opacity="0.6" text-anchor="middle" x="625" y="115">Continuous action</text>
+</g>
+<line stroke="#38bdf8" stroke-opacity="0.5" stroke-width="1.5" x1="510" x2="570" y1="100" y2="100"></line>
+<polygon fill="#38bdf8" fill-opacity="0.5" points="568,95 578,100 568,105"></polygon>
+</svg>
+</div>
+<div class="space-y-1 divide-y divide-dark-600">
+<!-- Topic 1 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-xs font-bold text-purple-400 shrink-0">1</span>
+<span class="font-medium">Kahneman and the Thinking Fast and Slow framework</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-purple-400 font-semibold mb-1">What it is</h4><p>Daniel Kahneman proposed that human thought operates in two modes: System 1 (fast, intuitive, automatic) and System 2 (slow, deliberate, analytical). In robotics, this framework inspires architectures where one reactive module controls movements in real time while another plans at a high level.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Why learn</h4><p>Understanding the S1/S2 duality is the foundation for designing robots that combine quick reactions with strategic intelligence. Without this separation, the robot is either too slow for the real world or fast but unable to handle new situations.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Key concepts</h4><p>Cognitive heuristics, availability bias, parallel vs. serial processing, decision latency, speed-accuracy trade-off, bounded rationality.</p></div>
+</div>
+</details>
+<!-- Topic 2 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-xs font-bold text-purple-400 shrink-0">2</span>
+<span class="font-medium">System 2: VLM as a planner at 7-9 Hz</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-purple-400 font-semibold mb-1">What it is</h4><p>Robotic System 2 uses a Vision-Language Model (VLM) that processes images and natural language to generate high-level action plans. It typically runs at 7–9 Hz because it is computationally expensive, but it produces a rich semantic understanding of the environment and objectives.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Why learn</h4><p>The VLM gives the robot the ability to understand natural language instructions and break complex tasks down into subgoals. Without it, the robot can execute individual skills but cannot reason about what to do next.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Key concepts</h4><p>Vision-Language Model, multimodal inference, task decomposition, subgoal generation, planning frequency, acceptable replanning latency.</p></div>
+</div>
+</details>
+<!-- Topic 3 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-xs font-bold text-purple-400 shrink-0">3</span>
+<span class="font-medium">System 1: visuomotor policy at 200 Hz</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-purple-400 font-semibold mb-1">What it is</h4><p>System 1 is a lightweight neural network (typically a diffusion policy or MLP) that converts visual observations into motor commands at 200+ Hz. It doesn’t “understand” the overall goal; it simply executes the motor behavior corresponding to the subgoal it received from S2.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Why learn</h4><p>Motor control speed is critical for smooth, safe manipulation. A robot that generates actions at just 10 Hz produces jerky, imprecise movements, while 200 Hz enables natural compliance and responses to disturbances.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Key concepts</h4><p>Visuomotor policy, diffusion policy, action chunking, closed-loop control, sensor-actuator latency, control frequency vs. perception frequency.</p></div>
+</div>
+</details>
+<!-- Topic 4 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-xs font-bold text-purple-400 shrink-0">4</span>
+<span class="font-medium">GR00T, Helix, and π0: real implementations</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-purple-400 font-semibold mb-1">What it is</h4><p>GR00T (NVIDIA) uses a VLM for planning and a diffusion policy for control. Helix (Figure) combines Gemini as S2 with a proprietary policy as S1. π0 (Physical Intelligence) integrates a unified vision-language-action model that operates at both frequencies via a dual-head architecture.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Why learn</h4><p>These are the industry's reference systems in 2025-2026. Understanding how each implements the S1/S2 duality makes it possible to evaluate design trade-offs and identify the most promising approaches for each use case.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Key concepts</h4><p>Foundation model for robotics, dual-head architecture, sim-to-real transfer, policy distillation, unified model vs. modular pipeline.</p></div>
+</div>
+</details>
+<!-- Topic 5 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-xs font-bold text-purple-400 shrink-0">5</span>
+<span class="font-medium">Embedded GPU: why no cloud</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-purple-400 font-semibold mb-1">What it is</h4><p>Autonomous robots need onboard GPUs (such as Jetson Thor or Orin) to run inference locally. Network latency (50-200ms) makes the cloud impractical for real-time motor control, where every millisecond counts for stability and safety.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Why learn</h4><p>The choice of embedded hardware determines what is computationally possible on the robot. Understanding TOPS, memory, and power consumption limits is essential for sizing models that run at 200 Hz within the thermal envelope.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Key concepts</h4><p>Edge inference, TOPS (tera operations per second), Jetson Thor/Orin, TDP and thermal throttling, INT8/INT4 quantization, end-to-end latency, selective offloading.</p></div>
+</div>
+</details>
+<!-- Topic 6 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-xs font-bold text-purple-400 shrink-0">6</span>
+<span class="font-medium">S1↔S2 orchestration: frequencies and interfaces</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-purple-400 font-semibold mb-1">What it is</h4><p>Orchestration defines how S1 and S2 communicate: S2 sends subgoals (embeddings or tokens) to S1, which executes them and reports status. The challenge is to synchronize a slow pipeline (7 Hz) with a fast one (200 Hz) without bottlenecks, using asynchronous buffers and message prioritization.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Why learn</h4><p>Poor orchestration design is the most common failure point in dual systems. If S1 runs out of updated subgoals, the robot "freezes." If S2 interrupts S1 every frame, smooth operation is lost. The balance is subtle and critical.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Key concepts</h4><p>Asynchronous message passing, double buffering, subgoal embedding, interrupt vs. polling, watchdog timer, graceful degradation when S2 fails.</p></div>
+</div>
+</details>
+</div>
+</div>
+<!-- ══════════════════════════════════════════════════════════════ -->
+<div class="-mt-10 mb-10 flex justify-start">
+<a class="px-5 py-2.5 text-sm font-semibold bg-purple-600 hover:bg-purple-500 text-white rounded-lg transition-colors" href="modulo-3-1.html">View full module →</a>
+</div>
+<!-- M3.2 — World Models e Simulação Preditiva                    -->
+<!-- ══════════════════════════════════════════════════════════════ -->
+<div class="mb-16 scroll-mt-20" id="modulo-3-2">
+<div class="flex items-center gap-3 mb-1">
+<span class="text-xs font-bold text-purple-400 bg-purple-500/20 px-2 py-0.5 rounded">M3.2</span>
+<span class="text-neutral-500 text-sm">Module 2 of 6</span>
+</div>
+<h3 class="text-xl font-bold mb-2">World Models and Predictive Simulation</h3>
+<p class="text-neutral-400 mb-6">Robots that imagine the future before acting: generative models as a prediction engine.</p>
+<!-- SVG M3.2: World Model prediction loop -->
+<div class="mb-8 flex justify-center">
+<svg aria-label="World model diagram: observation, imagination, and action" class="w-full h-auto max-w-2xl" fill="none" role="img" viewbox="0 0 700 220" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<filter id="m32-glow"><fegaussianblur result="blur" stddeviation="4"></fegaussianblur><femerge><femergenode in="blur"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge></filter>
+<pattern height="16" id="m32-grid" patternunits="userSpaceOnUse" width="16"><path d="M 16 0 L 0 0 0 16" fill="none" stroke="#c084fc" stroke-opacity="0.05" stroke-width="0.5"></path></pattern>
+</defs>
+<rect fill="url(#m32-grid)" height="220" rx="10" width="700"></rect>
+<!-- Observation -->
+<g filter="url(#m32-glow)">
+<rect fill="#a855f7" fill-opacity="0.12" height="80" rx="10" stroke="#c084fc" stroke-width="1.5" width="130" x="30" y="70"></rect>
+<text fill="#c084fc" font-size="12" font-weight="600" text-anchor="middle" x="95" y="100">Observation</text>
+<text fill="#c084fc" font-size="9" opacity="0.6" text-anchor="middle" x="95" y="118">Current state</text>
+<text fill="#c084fc" font-size="9" opacity="0.6" text-anchor="middle" x="95" y="132">camera + sensors</text>
+</g>
+<!-- World Model (center, larger) -->
+<g filter="url(#m32-glow)">
+<rect fill="#a855f7" fill-opacity="0.15" height="150" rx="14" stroke="#c084fc" stroke-width="2" width="180" x="220" y="35"></rect>
+<text fill="#c084fc" font-size="14" font-weight="700" text-anchor="middle" x="310" y="65">World Model</text>
+<text fill="#c084fc" font-size="10" opacity="0.7" text-anchor="middle" x="310" y="88">"What if I do X?"</text>
+<rect fill="#38bdf8" fill-opacity="0.12" height="24" rx="5" stroke="#38bdf8" stroke-opacity="0.4" stroke-width="1" width="130" x="245" y="100"></rect>
+<text fill="#38bdf8" font-size="9" text-anchor="middle" x="310" y="116">Simulates future t+1..t+n</text>
+<rect fill="#38bdf8" fill-opacity="0.12" height="24" rx="5" stroke="#38bdf8" stroke-opacity="0.4" stroke-width="1" width="130" x="245" y="132"></rect>
+<text fill="#38bdf8" font-size="9" text-anchor="middle" x="310" y="148">Assesses consequences</text>
+</g>
+<!-- Action selection -->
+<g filter="url(#m32-glow)">
+<rect fill="#38bdf8" fill-opacity="0.12" height="80" rx="10" stroke="#38bdf8" stroke-width="1.5" width="130" x="470" y="70"></rect>
+<text fill="#38bdf8" font-size="12" font-weight="600" text-anchor="middle" x="535" y="100">Best Action</text>
+<text fill="#38bdf8" font-size="9" opacity="0.6" text-anchor="middle" x="535" y="118">Selection by</text>
+<text fill="#38bdf8" font-size="9" opacity="0.6" text-anchor="middle" x="535" y="132">estimated reward</text>
+</g>
+<!-- Arrows -->
+<line stroke="#c084fc" stroke-opacity="0.5" stroke-width="1.5" x1="160" x2="220" y1="110" y2="110"></line>
+<polygon fill="#c084fc" fill-opacity="0.5" points="218,105 228,110 218,115"></polygon>
+<line stroke="#38bdf8" stroke-opacity="0.5" stroke-width="1.5" x1="400" x2="470" y1="110" y2="110"></line>
+<polygon fill="#38bdf8" fill-opacity="0.5" points="468,105 478,110 468,115"></polygon>
+<!-- Feedback loop -->
+<path d="M535 150 L535 195 L95 195 L95 150" fill="none" stroke="#c084fc" stroke-dasharray="4 3" stroke-opacity="0.3" stroke-width="1"></path>
+<polygon fill="#c084fc" fill-opacity="0.3" points="91,152 95,142 99,152"></polygon>
+<text fill="#c084fc" font-size="10" opacity="0.5" text-anchor="middle" x="310" y="210">Continuous prediction loop</text>
+</svg>
+</div>
+<div class="space-y-1 divide-y divide-dark-600">
+<!-- Topic 1 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-xs font-bold text-purple-400 shrink-0">1</span>
+<span class="font-medium">What World Models are</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-purple-400 font-semibold mb-1">What it is</h4><p>World Models are internal representations an agent builds of its environment, allowing it to “imagine” what will happen in the future given a sequence of actions. Instead of acting through trial and error in the real world, the robot mentally simulates scenarios and chooses the best trajectory.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Why learn</h4><p>World Models are considered one of the most promising paths to general robotics because they drastically reduce the number of real-world interactions needed to learn. Yann LeCun positions them as a central component of his proposed architecture for advanced intelligence.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Key concepts</h4><p>Internal world model, latent space dynamics, forward model, computational imagination, planning through mental rollouts, JEPA (Joint Embedding Predictive Architecture).</p></div>
+</div>
+</details>
+<!-- Topic 2 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-xs font-bold text-purple-400 shrink-0">2</span>
+<span class="font-medium">Generative video models: Sora, UniSim, Genie2</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-purple-400 font-semibold mb-1">What it is</h4><p>Models such as Sora (OpenAI), UniSim (Google), and Genie2 (DeepMind) generate realistic videos of the future conditioned on actions. In robotics, they function as visual world models: given the current frame and a proposed action, they generate the next frames showing the likely result.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Why learn</h4><p>These models represent the frontier between video generation and physics simulation. If they can predict with sufficient fidelity, they can replace traditional simulators such as Isaac Sim, making robot training faster and more scalable.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Key concepts</h4><p>Video diffusion models, action-conditioned generation, physics consistency, temporal coherence, UniSim as a universal simulator, Genie2 as an environment generator.</p></div>
+</div>
+</details>
+<!-- Topic 3 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-xs font-bold text-purple-400 shrink-0">3</span>
+<span class="font-medium">Consequence prediction: "What if I do X?"</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-purple-400 font-semibold mb-1">What it is</h4><p>The robot evaluates multiple candidate actions by simulating their consequences in the world model. For each action, it generates a trajectory of future states and calculates a reward function for the predicted outcome. It executes the action with the best estimated outcome in the real world.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Why learn</h4><p>This “look-ahead” mechanism is what separates reactive robots from truly intelligent robots. It makes it possible to avoid irreversible actions (such as knocking over a fragile object) by predicting the consequence before acting.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Key concepts</h4><p>Action sampling, reward prediction, tree search in continuous space, planning horizon, model predictive control (MPC), parallel rollout on GPU.</p></div>
+</div>
+</details>
+<!-- Topic 4 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-xs font-bold text-purple-400 shrink-0">4</span>
+<span class="font-medium">Imagination-based planning (model-based RL)</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-purple-400 font-semibold mb-1">What it is</h4><p>Model-based reinforcement learning trains a policy using experiences generated by the world model instead of real interactions. Algorithms such as Dreamer and TD-MPC learn in the model’s "dream," then transfer the behavior to the physical robot. This reduces training cost and risk by orders of magnitude.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Why learn</h4><p>Model-based RL is orders of magnitude more data-efficient than model-free RL. In robotics, where every real interaction costs time, causes wear, and risks damage, training in imagination is often the only economically viable approach.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Key concepts</h4><p>Dreamer, DreamerV3, TD-MPC, MBPO, Dyna architecture, imagination rollouts, model error propagation, background planning.</p></div>
+</div>
+</details>
+<!-- Topic 5 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-xs font-bold text-purple-400 shrink-0">5</span>
+<span class="font-medium">Training with synthetic world model data</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-purple-400 font-semibold mb-1">What it is</h4><p>In addition to online planning, world models can generate massive synthetic datasets to pretrain policies. The model generates millions of plausible trajectories with variations in objects, lighting, and configurations, creating training data that would be impossible to collect manually.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Why learn</h4><p>The scarcity of robotic data is the field’s main bottleneck. World models as synthetic data generators may be the solution to the “data bottleneck” that keeps robotics from scaling the way LLMs scaled with text from the internet.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Key concepts</h4><p>Synthetic data generation, domain randomization via generative model, implicit data augmentation, scaling laws for robotic data, fidelity vs. diversity.</p></div>
+</div>
+</details>
+<!-- Topic 6 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-xs font-bold text-purple-400 shrink-0">6</span>
+<span class="font-medium">Limitations: when the model gets the prediction wrong</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-purple-400 font-semibold mb-1">What it is</h4><p>World models aren’t perfect: prediction errors accumulate over the time horizon (compound error), deformable objects are difficult to model, and complex multi-body interactions often diverge from reality. The robot needs detection and recovery mechanisms for when the real world diverges from its imagination.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Why learn</h4><p>Blindly trusting a world model is as dangerous as having none. Understanding where and why the model fails is essential to designing robust systems that know when to stop imagining and observe the real world again.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Key concepts</h4><p>Compound prediction error, model uncertainty estimation, ensemble disagreement, horizon truncation, fallback to reactive control, out-of-distribution detection.</p></div>
+</div>
+</details>
+</div>
+</div>
+<!-- ══════════════════════════════════════════════════════════════ -->
+<div class="-mt-10 mb-10 flex justify-start">
+<a class="px-5 py-2.5 text-sm font-semibold bg-purple-600 hover:bg-purple-500 text-white rounded-lg transition-colors" href="modulo-3-2.html">View full module →</a>
+</div>
+<!-- M3.3 — Generalização Cross-Embodiment                        -->
+<!-- ══════════════════════════════════════════════════════════════ -->
+<div class="mb-16 scroll-mt-20" id="modulo-3-3">
+<div class="flex items-center gap-3 mb-1">
+<span class="text-xs font-bold text-purple-400 bg-purple-500/20 px-2 py-0.5 rounded">M3.3</span>
+<span class="text-neutral-500 text-sm">Module 3 of 6</span>
+</div>
+<h3 class="text-xl font-bold mb-2">Cross-Embodiment Generalization</h3>
+<p class="text-neutral-400 mb-6">Train once, deploy on multiple robots with different morphologies.</p>
+<!-- SVG M3.3: One model, many embodiments -->
+<div class="mb-8 flex justify-center">
+<svg aria-label="Cross-embodiment diagram: one model controlling an arm, a humanoid, and a quadruped" class="w-full h-auto max-w-2xl" fill="none" role="img" viewbox="0 0 700 220" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<filter id="m33-glow"><fegaussianblur result="blur" stddeviation="4"></fegaussianblur><femerge><femergenode in="blur"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge></filter>
+<pattern height="16" id="m33-grid" patternunits="userSpaceOnUse" width="16"><path d="M 16 0 L 0 0 0 16" fill="none" stroke="#c084fc" stroke-opacity="0.05" stroke-width="0.5"></path></pattern>
+</defs>
+<rect fill="url(#m33-grid)" height="220" rx="10" width="700"></rect>
+<!-- Shared model -->
+<g filter="url(#m33-glow)">
+<rect fill="#a855f7" fill-opacity="0.15" height="80" rx="12" stroke="#c084fc" stroke-width="2" width="170" x="40" y="70"></rect>
+<text fill="#c084fc" font-size="13" font-weight="700" text-anchor="middle" x="125" y="100">Single Policy</text>
+<text fill="#c084fc" font-size="9" opacity="0.7" text-anchor="middle" x="125" y="120">Normalized actions</text>
+<text fill="#c084fc" font-size="9" opacity="0.7" text-anchor="middle" x="125" y="134">RT-X / OXE</text>
+</g>
+<!-- Embodiment 1: arm -->
+<g filter="url(#m33-glow)">
+<rect fill="#38bdf8" fill-opacity="0.12" height="48" rx="10" stroke="#38bdf8" stroke-width="1.5" width="240" x="420" y="22"></rect>
+<text fill="#38bdf8" font-size="11" font-weight="600" text-anchor="middle" x="540" y="42">Fixed arm · 6 DoF</text>
+<text fill="#38bdf8" font-size="9" opacity="0.6" text-anchor="middle" x="540" y="58">parallel gripper</text>
+</g>
+<!-- Embodiment 2: humanoid -->
+<g filter="url(#m33-glow)">
+<rect fill="#38bdf8" fill-opacity="0.12" height="48" rx="10" stroke="#38bdf8" stroke-width="1.5" width="240" x="420" y="86"></rect>
+<text fill="#38bdf8" font-size="11" font-weight="600" text-anchor="middle" x="540" y="106">Humanoid · 40+ DoF</text>
+<text fill="#38bdf8" font-size="9" opacity="0.6" text-anchor="middle" x="540" y="122">dexterous hands</text>
+</g>
+<!-- Embodiment 3: mobile -->
+<g filter="url(#m33-glow)">
+<rect fill="#38bdf8" fill-opacity="0.12" height="48" rx="10" stroke="#38bdf8" stroke-width="1.5" width="240" x="420" y="150"></rect>
+<text fill="#38bdf8" font-size="11" font-weight="600" text-anchor="middle" x="540" y="170">Mobile base + arm</text>
+<text fill="#38bdf8" font-size="9" opacity="0.6" text-anchor="middle" x="540" y="186">navigation + manipulation</text>
+</g>
+<!-- Arrows -->
+<line stroke="#c084fc" stroke-opacity="0.45" stroke-width="1.5" x1="210" x2="420" y1="100" y2="46"></line>
+<polygon fill="#c084fc" fill-opacity="0.45" points="416,40 426,46 414,51"></polygon>
+<line stroke="#c084fc" stroke-opacity="0.45" stroke-width="1.5" x1="210" x2="420" y1="110" y2="110"></line>
+<polygon fill="#c084fc" fill-opacity="0.45" points="418,105 428,110 418,115"></polygon>
+<line stroke="#c084fc" stroke-opacity="0.45" stroke-width="1.5" x1="210" x2="420" y1="120" y2="174"></line>
+<polygon fill="#c084fc" fill-opacity="0.45" points="416,169 426,174 414,180"></polygon>
+<text fill="#c084fc" font-size="10" opacity="0.5" text-anchor="middle" x="315" y="210">Positive transfer across morphologies</text>
+</svg>
+</div>
+<div class="space-y-1 divide-y divide-dark-600">
+<!-- Topic 1 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-xs font-bold text-purple-400 shrink-0">1</span>
+<span class="font-medium">The embodiment problem</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-purple-400 font-semibold mb-1">What it is</h4><p>Embodiment is the robot’s physical form: number of degrees of freedom (DoF), joint kARCKHÉtics, gripper or hand type, and sensor suite. A 6 DoF industrial arm with a parallel gripper is radically different from a humanoid with 40+ DoF and dexterous hands, even when performing the same abstract task.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Why learn</h4><p>Each traditional robot-task combination requires collecting data and training from scratch, which doesn't scale. Understanding why different morphologies break direct transfer is the first step toward designing models that generalize across bodies.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Key concepts</h4><p>Degrees of freedom (DoF), forward and inverse kARCKHÉtics, configuration space, heterogeneous sensor modalities, morphology gap, embodiment-specific vs. embodiment-agnostic.</p></div>
+</div>
+</details>
+<!-- Topic 2 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-xs font-bold text-purple-400 shrink-0">2</span>
+<span class="font-medium">Action space normalization</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-purple-400 font-semibold mb-1">What it is</h4><p>For a model to control different robots, actions need to be in a common, normalized space. Techniques include expressing actions in the end-effector’s Cartesian space (instead of joint angles), normalizing by dataset quantiles, and standardizing the representation of the gripper, position, and rotation across embodiments.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Why learn</h4><p>Without normalization, the same numerical output means different things on each robot, and gradients from one embodiment pollute another's learning. The right normalization allows heterogeneous data to reinforce rather than cancel each other out.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Key concepts</h4><p>End-effector pose, quantile normalization, Cartesian vs. joint-space action, gripper standardization, action tokenization, unit and reference-frame alignment.</p></div>
+</div>
+</details>
+<!-- Topic 3 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-xs font-bold text-purple-400 shrink-0">3</span>
+<span class="font-medium">RT-X and the gains from positive transfer</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-purple-400 font-semibold mb-1">What it is</h4><p>RT-X (Google DeepMind) trained policies on the Open X-Embodiment dataset, which brings together data from 22 different robots and more than 500 skills collected by dozens of labs. The result: models trained on the combined dataset outperformed specialists trained on each robot individually.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Why learn</h4><p>RT-X was empirical proof that positive transfer between embodiments is real and significant. It showed that mixing data from many robots improves performance on each one, paving the way for robotics foundation models trained at scale.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Key concepts</h4><p>Open X-Embodiment (OXE), RT-1/RT-2/RT-X, positive transfer, generalist vs specialist, emergent skills, multi-robot data scaling, co-training with web data.</p></div>
+</div>
+</details>
+<!-- Topic 4 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-xs font-bold text-purple-400 shrink-0">4</span>
+<span class="font-medium">Unified action representation</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-purple-400 font-semibold mb-1">What it is</h4><p>A unified representation encodes actions from all robots in a shared format that the model learns to decode based on the target embodiment. Approaches include discretized action tokens, action heads conditioned on robot type, and body descriptions (URDF/proprioceptive) injected into the context.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Why learn</h4><p>It’s the engineering piece that turns “many incompatible datasets” into “a single learning problem.” The choice of representation determines how much knowledge can be shared and how easily a new robot can be added.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Key concepts</h4><p>Action tokenization, embodiment conditioning, morphology embedding, description via URDF, proprioceptive context, robot-specific decoders, shared action space.</p></div>
+</div>
+</details>
+<!-- Topic 5 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-xs font-bold text-purple-400 shrink-0">5</span>
+<span class="font-medium">Embodiment-aware training</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-purple-400 font-semibold mb-1">What it is</h4><p>Embodiment-aware training provides the model with explicit information about which body is being controlled during training and inference. This could be a robot identifier, proprioception vectors, or kARCKHÉtic parameters, allowing the policy to adjust its behavior to the hardware’s capabilities.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Why learn</h4><p>Making the model aware of the embodiment reduces negative interference and speeds up adaptation to new robots through few-shot learning. It’s the difference between a policy that “ignores” body differences and one that actively uses them to act better.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Key concepts</h4><p>Embodiment conditioning, hypernetworks, FiLM layers, few-shot adaptation, dataset balancing by robot, multi-embodiment curriculum, fine-tuning for new hardware.</p></div>
+</div>
+</details>
+<!-- Topic 6 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-xs font-bold text-purple-400 shrink-0">6</span>
+<span class="font-medium">Limits: when transfer fails</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-purple-400 font-semibold mb-1">What it is</h4><p>Transfer doesn't always help: negative transfer occurs when data from one robot hurts performance on another, typically across very different morphologies, conflicting dynamics, or imbalanced datasets. Dexterous hands and simple grippers, for example, have such different demands that mixing their data naively can degrade both.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Why learn</h4><p>Believing that “more data always helps” leads to worse systems. Knowing how to diagnose and mitigate negative transfer — through sampling weights, similarity-based grouping, or separate heads — is what separates a robust pipeline from a fragile one.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Key concepts</h4><p>Negative transfer, gradient conflict, sampling weights, embodiment clustering, capacity bottlenecks, task interference, when to isolate vs. share parameters.</p></div>
+</div>
+</details>
+</div>
+</div>
+<!-- ══════════════════════════════════════════════════════════════ -->
+<div class="-mt-10 mb-10 flex justify-start">
+<a class="px-5 py-2.5 text-sm font-semibold bg-purple-600 hover:bg-purple-500 text-white rounded-lg transition-colors" href="modulo-3-3.html">View full module →</a>
+</div>
+<!-- M3.4 — Aplicações Setoriais: Logística, Saúde, Agro          -->
+<!-- ══════════════════════════════════════════════════════════════ -->
+<div class="mb-16 scroll-mt-20" id="modulo-3-4">
+<div class="flex items-center gap-3 mb-1">
+<span class="text-xs font-bold text-purple-400 bg-purple-500/20 px-2 py-0.5 rounded">M3.4</span>
+<span class="text-neutral-500 text-sm">Module 4 of 6</span>
+</div>
+<h3 class="text-xl font-bold mb-2">Sector Applications: Logistics, Healthcare, Agriculture</h3>
+<p class="text-neutral-400 mb-6">Where VLA is already delivering real-world value.</p>
+<!-- SVG M3.4: Sectors fed by VLA -->
+<div class="mb-8 flex justify-center">
+<svg aria-label="VLA industry applications diagram: logistics, manufacturing, healthcare, agriculture, retail" class="w-full h-auto max-w-2xl" fill="none" role="img" viewbox="0 0 700 220" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<filter id="m34-glow"><fegaussianblur result="blur" stddeviation="4"></fegaussianblur><femerge><femergenode in="blur"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge></filter>
+<pattern height="16" id="m34-grid" patternunits="userSpaceOnUse" width="16"><path d="M 16 0 L 0 0 0 16" fill="none" stroke="#c084fc" stroke-opacity="0.05" stroke-width="0.5"></path></pattern>
+</defs>
+<rect fill="url(#m34-grid)" height="220" rx="10" width="700"></rect>
+<!-- Core VLA -->
+<g filter="url(#m34-glow)">
+<circle cx="350" cy="110" fill="#a855f7" fill-opacity="0.15" r="48" stroke="#c084fc" stroke-width="2"></circle>
+<text fill="#c084fc" font-size="14" font-weight="700" text-anchor="middle" x="350" y="106">VLA</text>
+<text fill="#c084fc" font-size="9" opacity="0.7" text-anchor="middle" x="350" y="124">in the field</text>
+</g>
+<!-- Sector nodes -->
+<g filter="url(#m34-glow)">
+<rect fill="#38bdf8" fill-opacity="0.12" height="44" rx="9" stroke="#38bdf8" stroke-width="1.4" width="150" x="40" y="30"></rect>
+<text fill="#38bdf8" font-size="11" font-weight="600" text-anchor="middle" x="115" y="50">Logistics</text>
+<text fill="#38bdf8" font-size="8" opacity="0.6" text-anchor="middle" x="115" y="65">picking · warehouses</text>
+</g>
+<g filter="url(#m34-glow)">
+<rect fill="#38bdf8" fill-opacity="0.12" height="44" rx="9" stroke="#38bdf8" stroke-width="1.4" width="150" x="40" y="146"></rect>
+<text fill="#38bdf8" font-size="11" font-weight="600" text-anchor="middle" x="115" y="166">Manufacturing</text>
+<text fill="#38bdf8" font-size="8" opacity="0.6" text-anchor="middle" x="115" y="181">assembly line</text>
+</g>
+<g filter="url(#m34-glow)">
+<rect fill="#38bdf8" fill-opacity="0.12" height="44" rx="9" stroke="#38bdf8" stroke-width="1.4" width="150" x="510" y="30"></rect>
+<text fill="#38bdf8" font-size="11" font-weight="600" text-anchor="middle" x="585" y="50">Healthcare</text>
+<text fill="#38bdf8" font-size="8" opacity="0.6" text-anchor="middle" x="585" y="65">surgery · care</text>
+</g>
+<g filter="url(#m34-glow)">
+<rect fill="#38bdf8" fill-opacity="0.12" height="44" rx="9" stroke="#38bdf8" stroke-width="1.4" width="150" x="510" y="146"></rect>
+<text fill="#38bdf8" font-size="11" font-weight="600" text-anchor="middle" x="585" y="166">Agro</text>
+<text fill="#38bdf8" font-size="8" opacity="0.6" text-anchor="middle" x="585" y="181">selective harvesting</text>
+</g>
+<g filter="url(#m34-glow)">
+<rect fill="#a855f7" fill-opacity="0.12" height="30" rx="8" stroke="#c084fc" stroke-width="1.2" width="150" x="275" y="186"></rect>
+<text fill="#c084fc" font-size="10" font-weight="600" text-anchor="middle" x="350" y="206">Retail &amp; Services</text>
+</g>
+<!-- Connectors -->
+<line stroke="#c084fc" stroke-opacity="0.4" stroke-width="1.4" x1="190" x2="308" y1="58" y2="92"></line>
+<line stroke="#c084fc" stroke-opacity="0.4" stroke-width="1.4" x1="190" x2="308" y1="162" y2="128"></line>
+<line stroke="#c084fc" stroke-opacity="0.4" stroke-width="1.4" x1="510" x2="392" y1="58" y2="92"></line>
+<line stroke="#c084fc" stroke-opacity="0.4" stroke-width="1.4" x1="510" x2="392" y1="162" y2="128"></line>
+<line stroke="#c084fc" stroke-opacity="0.4" stroke-width="1.4" x1="350" x2="350" y1="158" y2="186"></line>
+</svg>
+</div>
+<div class="space-y-1 divide-y divide-dark-600">
+<!-- Topic 1 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-xs font-bold text-purple-400 shrink-0">1</span>
+<span class="font-medium">Logistics and warehouses</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-purple-400 font-semibold mb-1">What it is</h4><p>Logistics is the most mature application: picking varied items, package induction, palletizing, and order sorting. Amazon operates hundreds of thousands of robots and is testing humanoids in its facilities; Covariant built manipulation policies that generalize to unseen SKUs, handling the enormous variety of products in a warehouse.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Why learn</h4><p>It’s the sector where ROI is already proven and deployment volume is highest. Understanding the requirements for general-purpose picking—speed, success rate, and handling deformable and reflective items—shows what a VLA needs to deliver to succeed in production.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Key concepts</h4><p>Bin picking, generalization to new SKUs, Covariant Brain, Amazon Robotics, induction and palletizing, cycle time, picks per hour, deformable object manipulation.</p></div>
+</div>
+</details>
+<!-- Topic 2 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-xs font-bold text-purple-400 shrink-0">2</span>
+<span class="font-medium">Manufacturing and assembly line</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-purple-400 font-semibold mb-1">What it is</h4><p>In manufacturing, VLA enables flexible robots for low-volume, high-variety assembly, part insertion, kitting, and quality inspection. Figure and Apptronik are testing humanoids on automotive production lines (BMW, Mercedes), performing tasks that previously required manual reprogramming every time the product changed.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Why learn</h4><p>Traditional manufacturing uses rigid robots that are expensive to program. VLA promises the “flexible factory” that adapts to new products without reengineering, tackling the bottleneck of low-volume production lines where conventional automation isn’t worthwhile.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Key concepts</h4><p>High-mix low-volume, tight-tolerance assembly, peg-in-hole, force/torque control, visual inspection, reconfiguration without reprogramming, humanoids on the factory floor.</p></div>
+</div>
+</details>
+<!-- Topic 3 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-xs font-bold text-purple-400 shrink-0">3</span>
+<span class="font-medium">Healthcare: assisted surgery, care, rehabilitation</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-purple-400 font-semibold mb-1">What it is</h4><p>In healthcare, VLA appears in assisted surgery (with systems like da Vinci gaining autonomy in subtasks such as suturing), care robots and assistance for older adults, hospital logistics, and rehabilitation with adaptive exoskeletons. Safety requirements are extreme, so autonomy is introduced gradually and under supervision.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Why learn</h4><p>It’s a high-value sector with extremely high barriers: errors have serious consequences. Understanding how a VLA can be introduced with a human in the loop and rigorous validation shows the standard for safety-critical applications in general.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Key concepts</h4><p>Teleoperated and semi-autonomous surgery, autonomy in subtasks, assistive robots, exoskeletons, human-in-the-loop, regulation (FDA/Anvisa), zero failure tolerance.</p></div>
+</div>
+</details>
+<!-- Topic 4 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-xs font-bold text-purple-400 shrink-0">4</span>
+<span class="font-medium">Agro: selective harvesting, phenotyping, spraying</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-purple-400 font-semibold mb-1">What it is</h4><p>In agriculture, VLA enables selective harvesting (identifying and picking only ripe fruit without damaging the plant), automated phenotyping for genetic improvement, and precision spraying that applies inputs only where needed. The environment is unstructured, variable, and outdoors, demanding extreme robustness.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Why learn</h4><p>Labor shortages in agriculture and pressure for sustainability make this a huge market. It’s also one of the toughest environments for robotics—mastering it demonstrates technical maturity under adverse conditions.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Key concepts</h4><p>Selective harvesting, ripeness detection, handling fragile and deformable objects, high-throughput phenotyping, precision spraying, unstructured environments, outdoor lighting variation.</p></div>
+</div>
+</details>
+<!-- Topic 5 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-xs font-bold text-purple-400 shrink-0">5</span>
+<span class="font-medium">Retail and services</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-purple-400 font-semibold mb-1">What it is</h4><p>In retail and services, VLA enables shelf restocking, autonomous inventory management, cleaning, food preparation in kitchens, and service in public spaces. These tasks take place in environments with people, adding requirements for social navigation, safety, and natural language interaction.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Why learn</h4><p>It’s the most visible sector to consumers and has the greatest diversity of tasks. It shows how a VLA must combine manipulation, mobility, and human interaction—the complete package that defines general-purpose robots.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Key concepts</h4><p>Restocking and inventory, cleaning robots, food prep, social navigation, human-robot interaction (HRI), safety in public environments, natural-language instruction.</p></div>
+</div>
+</details>
+<!-- Topic 6 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-xs font-bold text-purple-400 shrink-0">6</span>
+<span class="font-medium">Sector-specific adoption barriers</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-purple-400 font-semibold mb-1">What it is</h4><p>Adoption runs up against uncertain ROI (robot cost versus productivity gains), safety and certification requirements, integration with legacy infrastructure, maintenance and reliability, as well as regulation and workforce acceptance. Each sector weighs these factors differently.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Why learn</h4><p>A technology working in a demo isn't enough: the business case determines whether it gets deployed. Understanding the real barriers helps you avoid projects that impress in videos but never make it to production.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Key concepts</h4><p>ROI and payback period, safety certification (ISO 10218 / 15066), integration with legacy systems, MTBF and reliability, industry regulations, Robots-as-a-Service (RaaS), workforce acceptance.</p></div>
+</div>
+</details>
+</div>
+</div>
+<!-- ══════════════════════════════════════════════════════════════ -->
+<div class="-mt-10 mb-10 flex justify-start">
+<a class="px-5 py-2.5 text-sm font-semibold bg-purple-600 hover:bg-purple-500 text-white rounded-lg transition-colors" href="modulo-3-4.html">View full module →</a>
+</div>
+<!-- M3.5 — Mercado e Oportunidades: $7.2B                        -->
+<!-- ══════════════════════════════════════════════════════════════ -->
+<div class="mb-16 scroll-mt-20" id="modulo-3-5">
+<div class="flex items-center gap-3 mb-1">
+<span class="text-xs font-bold text-purple-400 bg-purple-500/20 px-2 py-0.5 rounded">M3.5</span>
+<span class="text-neutral-500 text-sm">Module 5 of 6</span>
+</div>
+<h3 class="text-xl font-bold mb-2">Market and Opportunities: $7.2B</h3>
+<p class="text-neutral-400 mb-6">The boom in intelligent robotics and new careers.</p>
+<!-- SVG M3.5: Market growth + players -->
+<div class="mb-8 flex justify-center">
+<svg aria-label="Growth chart for the intelligent robotics market and key players" class="w-full h-auto max-w-2xl" fill="none" role="img" viewbox="0 0 700 220" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<filter id="m35-glow"><fegaussianblur result="blur" stddeviation="4"></fegaussianblur><femerge><femergenode in="blur"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge></filter>
+<pattern height="16" id="m35-grid" patternunits="userSpaceOnUse" width="16"><path d="M 16 0 L 0 0 0 16" fill="none" stroke="#c084fc" stroke-opacity="0.05" stroke-width="0.5"></path></pattern>
+</defs>
+<rect fill="url(#m35-grid)" height="220" rx="10" width="700"></rect>
+<!-- Axes -->
+<line stroke="#c084fc" stroke-opacity="0.4" stroke-width="1.2" x1="60" x2="420" y1="180" y2="180"></line>
+<line stroke="#c084fc" stroke-opacity="0.4" stroke-width="1.2" x1="60" x2="60" y1="40" y2="180"></line>
+<!-- Growth curve -->
+<path d="M70 168 Q180 158 250 120 T410 50" fill="none" filter="url(#m35-glow)" stroke="#c084fc" stroke-width="2.5"></path>
+<circle cx="70" cy="168" fill="#c084fc" r="4"></circle>
+<circle cx="410" cy="50" fill="#38bdf8" filter="url(#m35-glow)" r="5"></circle>
+<text fill="#c084fc" font-size="10" opacity="0.7" text-anchor="middle" x="70" y="200">2024</text>
+<text fill="#38bdf8" font-size="10" opacity="0.7" text-anchor="middle" x="410" y="200">2030</text>
+<text fill="#38bdf8" font-size="12" font-weight="700" text-anchor="middle" x="408" y="40">$7.2B+</text>
+<text fill="#c084fc" font-size="10" opacity="0.6" text-anchor="middle" x="240" y="100">High CAGR</text>
+<!-- Players panel -->
+<g filter="url(#m35-glow)">
+<rect fill="#a855f7" fill-opacity="0.12" height="140" rx="12" stroke="#c084fc" stroke-width="1.5" width="190" x="470" y="40"></rect>
+<text fill="#c084fc" font-size="11" font-weight="700" text-anchor="middle" x="565" y="62">Key players</text>
+<text fill="#c084fc" font-size="9" opacity="0.75" text-anchor="middle" x="565" y="85">Figure · Physical Intelligence</text>
+<text fill="#c084fc" font-size="9" opacity="0.75" text-anchor="middle" x="565" y="103">Tesla · NVIDIA</text>
+<text fill="#c084fc" font-size="9" opacity="0.75" text-anchor="middle" x="565" y="121">1X · Skild</text>
+<text fill="#38bdf8" font-size="9" opacity="0.75" text-anchor="middle" x="565" y="148">Billionaire VC</text>
+<text fill="#38bdf8" font-size="9" opacity="0.75" text-anchor="middle" x="565" y="164">new careers</text>
+</g>
+</svg>
+</div>
+<div class="space-y-1 divide-y divide-dark-600">
+<!-- Topic 1 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-xs font-bold text-purple-400 shrink-0">1</span>
+<span class="font-medium">Market size and projection</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-purple-400 font-semibold mb-1">What it is</h4><p>The AI-enabled robotics / humanoid market is estimated at around US$ 7.2 billion in the current window, with high double-digit CAGR projections reaching tens of billions by 2030 and long-term estimates (Goldman Sachs, Morgan Stanley) reaching hundreds of billions in the following decade. Figures vary widely depending on how the market is defined.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Why learn</h4><p>Sizing the market puts the investment race in context and helps separate hype from real opportunity. Knowing how to read the assumptions behind each number helps you avoid treating optimistic projections as certainties.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Key concepts</h4><p>TAM/SAM/SOM, CAGR, current ~US$ 7.2B, projections for 2030, sensitivity to assumptions, humanoids vs. industrial robotics, Goldman Sachs and Morgan Stanley reports.</p></div>
+</div>
+</details>
+<!-- Topic 2 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-xs font-bold text-purple-400 shrink-0">2</span>
+<span class="font-medium">Key players</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-purple-400 font-semibold mb-1">What it is</h4><p>The ecosystem brings together humanoid manufacturers (Figure, Tesla with Optimus, 1X, Apptronik), robotics foundation model labs (Physical Intelligence, Skild AI), and platform and compute providers (NVIDIA with Isaac and GR00T). Each bets on a different part of the stack: hardware, models, or infrastructure.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Why learn</h4><p>Knowing who does what reveals where innovation is happening and where jobs and partnerships may emerge. Mapping the stack (hardware/model/infrastructure) helps you understand each company’s theses and where you fit in.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Key concepts</h4><p>Figure, Physical Intelligence (π0), Tesla Optimus, NVIDIA Isaac/GR00T, 1X, Skild AI, hardware/model/infrastructure stack, vertical integration vs. specialization.</p></div>
+</div>
+</details>
+<!-- Topic 3 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-xs font-bold text-purple-400 shrink-0">3</span>
+<span class="font-medium">Investment and VC dynamics</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-purple-400 font-semibold mb-1">What it is</h4><p>Billions in venture capital have flowed into embodied robotics since 2024: Figure and Physical Intelligence raised rounds at billion-dollar valuations, and tech giants (NVIDIA, OpenAI, Microsoft) are participating as strategic investors. Capital is looking for whoever solves the data and generalization bottleneck first.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Why learn</h4><p>Where the money goes points to where the jobs, products, and consolidation will be. Understanding investors’ thesis helps you predict which approaches will have staying power and which will run out of funding.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Key concepts</h4><p>Valuation, seed/A/B rounds, strategic investors, burn rate vs. revenue, race to build a robotic foundation model, bubble risk, consolidation, and M&amp;A.</p></div>
+</div>
+</details>
+<!-- Topic 4 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-xs font-bold text-purple-400 shrink-0">4</span>
+<span class="font-medium">Emerging careers</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-purple-400 font-semibold mb-1">What it is</h4><p>New roles are emerging: robotics ML engineer (trains VLA policies), data teleoperator (collects demonstrations that become training data), sim engineer (builds environments and domain randomization), robot deployment / field engineer, and robotics safety engineer. Many combine ML skills with physical engineering.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Why learn</h4><p>Knowing which roles exist helps guide your learning path and portfolio. Some of these jobs, such as data teleoperation, are accessible entry points for those starting out in the field.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Key concepts</h4><p>Robotics ML engineer, data teleoperator, simulation engineer, deployment/field engineer, safety engineer, hybrid ML + hardware roles, MLOps for robotics.</p></div>
+</div>
+</details>
+<!-- Topic 5 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-xs font-bold text-purple-400 shrink-0">5</span>
+<span class="font-medium">In-demand skills</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-purple-400 font-semibold mb-1">What it is</h4><p>The most in-demand skills combine deep learning fundamentals (transformers, diffusion), imitation learning and RL, 3D perception, control and kARCKHÉtics, simulation (Isaac Sim, MuJoCo), and data engineering. Proficiency in PyTorch, ROS2, and large-scale data pipelines is commonly requested in job listings.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Why learn</h4><p>Mapping the skills in demand directs your study effort toward what the market actually values, rather than scattering your energy. It’s a practical guide to building a learning plan with a payoff.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Key concepts</h4><p>PyTorch, transformers and diffusion policies, imitation learning and RL, ROS2, simulation (Isaac Sim/MuJoCo), 3D perception, data engineering, sim-to-real.</p></div>
+</div>
+</details>
+<!-- Topic 6 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-xs font-bold text-purple-400 shrink-0">6</span>
+<span class="font-medium">Opportunities for beginners</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-purple-400 font-semibold mb-1">What it is</h4><p>Beginners have unprecedented access to open-source resources: LeRobot (Hugging Face) offers datasets, models, and code for training policies with affordable hardware; public datasets such as Open X-Embodiment; and active communities on Discord, GitHub, and open papers make it possible to learn and contribute without an expensive lab.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Why learn</h4><p>The barrier to entry has never been lower. Building a portfolio with open-source projects and visible contributions is now a concrete path into the field, even without formal credentials.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Key concepts</h4><p>LeRobot, Hugging Face Hub, Open X-Embodiment, affordable hardware (SO-ARM100, low-cost arms), paper reproduction, open-source contributions, community, and public portfolio.</p></div>
+</div>
+</details>
+</div>
+</div>
+<!-- ══════════════════════════════════════════════════════════════ -->
+<div class="-mt-10 mb-10 flex justify-start">
+<a class="px-5 py-2.5 text-sm font-semibold bg-purple-600 hover:bg-purple-500 text-white rounded-lg transition-colors" href="modulo-3-5.html">View full module →</a>
+</div>
+<!-- M3.6 — Roadmap 2027-2030: O Futuro da IA Incorporada         -->
+<!-- ══════════════════════════════════════════════════════════════ -->
+<div class="mb-16 scroll-mt-20" id="modulo-3-6">
+<div class="flex items-center gap-3 mb-1">
+<span class="text-xs font-bold text-purple-400 bg-purple-500/20 px-2 py-0.5 rounded">M3.6</span>
+<span class="text-neutral-500 text-sm">Module 6 of 6</span>
+</div>
+<h3 class="text-xl font-bold mb-2">Roadmap 2027-2030: The Future of Embodied AI</h3>
+<p class="text-neutral-400 mb-6">Commercial humanoids, scaling, and open challenges.</p>
+<!-- SVG M3.6: Timeline to 2030 -->
+<div class="mb-8 flex justify-center">
+<svg aria-label="Timeline from 2025 to 2030 toward generalist foundation models for robotics" class="w-full h-auto max-w-2xl" fill="none" role="img" viewbox="0 0 700 200" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<filter id="m36-glow"><fegaussianblur result="blur" stddeviation="4"></fegaussianblur><femerge><femergenode in="blur"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge></filter>
+<pattern height="16" id="m36-grid" patternunits="userSpaceOnUse" width="16"><path d="M 16 0 L 0 0 0 16" fill="none" stroke="#c084fc" stroke-opacity="0.05" stroke-width="0.5"></path></pattern>
+</defs>
+<rect fill="url(#m36-grid)" height="200" rx="10" width="700"></rect>
+<!-- Timeline axis -->
+<line stroke="#c084fc" stroke-opacity="0.45" stroke-width="2" x1="50" x2="650" y1="100" y2="100"></line>
+<polygon fill="#c084fc" fill-opacity="0.5" points="648,93 662,100 648,107"></polygon>
+<!-- Milestones -->
+<g filter="url(#m36-glow)">
+<circle cx="110" cy="100" fill="#c084fc" r="7"></circle>
+<text fill="#c084fc" font-size="11" font-weight="700" text-anchor="middle" x="110" y="78">2025</text>
+<text fill="#c084fc" font-size="9" opacity="0.7" text-anchor="middle" x="110" y="130">pilots</text>
+<text fill="#c084fc" font-size="9" opacity="0.7" text-anchor="middle" x="110" y="143">industrial</text>
+</g>
+<g filter="url(#m36-glow)">
+<circle cx="290" cy="100" fill="#c084fc" r="7"></circle>
+<text fill="#c084fc" font-size="11" font-weight="700" text-anchor="middle" x="290" y="78">2027</text>
+<text fill="#c084fc" font-size="9" opacity="0.7" text-anchor="middle" x="290" y="130">deployment on</text>
+<text fill="#c084fc" font-size="9" opacity="0.7" text-anchor="middle" x="290" y="143">scale</text>
+</g>
+<g filter="url(#m36-glow)">
+<circle cx="470" cy="100" fill="#38bdf8" r="7"></circle>
+<text fill="#38bdf8" font-size="11" font-weight="700" text-anchor="middle" x="470" y="78">2028-29</text>
+<text fill="#38bdf8" font-size="9" opacity="0.7" text-anchor="middle" x="470" y="130">foundation</text>
+<text fill="#38bdf8" font-size="9" opacity="0.7" text-anchor="middle" x="470" y="143">general models</text>
+</g>
+<g filter="url(#m36-glow)">
+<circle cx="620" cy="100" fill="#38bdf8" r="9"></circle>
+<text fill="#38bdf8" font-size="12" font-weight="700" text-anchor="middle" x="620" y="76">2030</text>
+<text fill="#38bdf8" font-size="9" opacity="0.7" text-anchor="middle" x="620" y="132">general use</text>
+</g>
+<text fill="#c084fc" font-size="11" font-weight="600" opacity="0.6" text-anchor="middle" x="350" y="180">Scaling data, compute, and models</text>
+</svg>
+</div>
+<div class="space-y-1 divide-y divide-dark-600">
+<!-- Topic 1 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-xs font-bold text-purple-400 shrink-0">1</span>
+<span class="font-medium">Trajectory of commercial humanoids (2025→2030)</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-purple-400 font-semibold mb-1">What it is</h4><p>The expected trajectory runs from controlled industrial pilots (2025), through large-scale deployment in warehouses and factories (2027), to the first units in general-purpose and potentially home environments around 2030. Each stage depends on reliability, unit cost, and the maturity of control software.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Why learn</h4><p>Having a realistic map of the phases prevents both excessive skepticism and hype. It helps calibrate expectations and position projects and careers within the windows when each capability matures.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Key concepts</h4><p>Adoption curve, unit cost and economies of scale, reliability (MTBF), from industrial to domestic, software vs. hardware dependence, milestones from Figure/Tesla/1X.</p></div>
+</div>
+</details>
+<!-- Topic 2 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-xs font-bold text-purple-400 shrink-0">2</span>
+<span class="font-medium">Scaling laws for robotics</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-purple-400 font-semibold mb-1">What it is</h4><p>As with LLMs, researchers seek to understand how performance scales with data, compute, and model size in robotics. The critical difference is that action data is expensive and scarce, so the central question is whether world models, simulation, and web video data can overcome the bottleneck that text solved for LLMs.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Why learn</h4><p>Knowing whether robotics has favorable scaling laws determines whether the path is "just scale up" or requires new algorithmic ideas. It is the most consequential research question for the field this decade.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Key concepts</h4><p>Scaling laws, the robotic data bottleneck, compute vs. data vs. parameters, synthetic and simulation data, learning from human video, the law of diminishing returns.</p></div>
+</div>
+</details>
+<!-- Topic 3 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-xs font-bold text-purple-400 shrink-0">3</span>
+<span class="font-medium">Toward truly generalist foundation models</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-purple-400 font-semibold mb-1">What it is</h4><p>The goal is a single model that controls any robot on any task with minimal adaptation—the "GPT of robotics." This requires combining cross-embodiment, language reasoning, robust perception, and fine control in one model trained on massive, heterogeneous data from many sources.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Why learn</h4><p>It’s the thesis guiding much of today’s investment and research. Understanding what it will take to get there clarifies which advances to watch and where the biggest leaps in value may occur.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Key concepts</h4><p>Generalist robot policy, zero-shot transfer, modality unification, emergence of capabilities with scale, web + robot co-training, generalization to unseen tasks.</p></div>
+</div>
+</details>
+<!-- Topic 4 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-xs font-bold text-purple-400 shrink-0">4</span>
+<span class="font-medium">Open challenges</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-purple-400 font-semibold mb-1">What it is</h4><p>Still unresolved: fine dexterity comparable to the human hand, reasoning over long horizons (tasks with many steps), safety guarantees in environments with people, and reducing hardware and energy costs. None of these are solved, and each could be the dominant bottleneck.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Why learn</h4><p>Unsolved problems are exactly where the opportunities for research, products, and differentiation lie. Knowing where the frontier really is prevents you from reinventing what already works and focuses your effort on what matters.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Key concepts</h4><p>Fine dexterity, long-horizon reasoning, verifiable safety, out-of-distribution robustness, hardware and energy costs, failure recovery, alignment, and control.</p></div>
+</div>
+</details>
+<!-- Topic 5 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-xs font-bold text-purple-400 shrink-0">5</span>
+<span class="font-medium">Socioeconomic impact and work</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-purple-400 font-semibold mb-1">What it is</h4><p>Physical automation at scale raises questions about job displacement and transformation, workforce reskilling, productivity gains and income distribution, as well as regulatory and ethical debates. The impact varies by sector and region, and tends to transform tasks more than uniformly eliminate entire occupations.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Why learn</h4><p>Technology doesn’t exist in a vacuum: professionals in the field need to understand the social consequences to build and deploy systems responsibly and anticipate regulatory pressures.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Key concepts</h4><p>Job displacement vs. job transformation, reskilling, productivity gains, income distribution, labor regulation, automation ethics, just transition.</p></div>
+</div>
+</details>
+<!-- Topic 6 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center text-xs font-bold text-purple-400 shrink-0">6</span>
+<span class="font-medium">How to prepare—long-term career outlook</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-purple-400 font-semibold mb-1">What it is</h4><p>Preparing for the long term means building a solid foundation (ML, control, simulation), continuing to learn by following papers and releases, building a public portfolio with reproducible projects, and choosing a niche to specialize in (perception, control, data, or deploy) without losing sight of the system as a whole.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Why learn</h4><p>A rapidly changing field rewards those who combine durable fundamentals with adaptability. Having a deliberate career plan is what turns interest in the learning path into a relevant position in the market taking shape.</p></div>
+<div><h4 class="text-purple-400 font-semibold mb-1">Key concepts</h4><p>Durable fundamentals vs. passing tools, continuous learning, reproducible portfolio, specialization with a systems view, networking and community, T-shaped skills.</p></div>
+</div>
+</details>
+</div>
+</div>
+<div class="-mt-10 mb-10 flex justify-start">
+<a class="px-5 py-2.5 text-sm font-semibold bg-purple-600 hover:bg-purple-500 text-white rounded-lg transition-colors" href="modulo-3-6.html">View full module →</a>
+</div>
+</main>
+</body>
+</html>

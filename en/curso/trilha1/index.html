@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Track 1 — Fundamentals | VLA Course</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: { 600:'#374151', 700:'#1f2937', 800:'#1a1a2e', 900:'#111827' },
+                        primary: '#f59e0b'
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .dark body { background-color: #111827; }
+        html:not(.dark) body { background-color: #f8fafc; }
+        html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+        html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+        html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+        html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+        html:not(.dark) .text-neutral-100 { color: #111827; }
+        html:not(.dark) .text-neutral-300 { color: #4b5563; }
+        html:not(.dark) .text-neutral-400 { color: #6b7280; }
+        html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+        html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+        html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+        html:not(.dark) .text-emerald-400 { color: #059669; }
+        html:not(.dark) .text-blue-400 { color: #2563eb; }
+        html:not(.dark) .text-purple-400 { color: #7c3aed; }
+        html:not(.dark) .bg-emerald-500\/20 { background-color: rgba(5, 150, 105, 0.12); }
+        html:not(.dark) .bg-blue-500\/20 { background-color: rgba(37, 99, 235, 0.12); }
+        html:not(.dark) .bg-purple-500\/20 { background-color: rgba(124, 58, 237, 0.12); }
+        html:not(.dark) .border-emerald-500\/30 { border-color: rgba(5, 150, 105, 0.25); }
+        html:not(.dark) .border-blue-500\/30 { border-color: rgba(37, 99, 235, 0.25); }
+        html:not(.dark) .border-purple-500\/30 { border-color: rgba(124, 58, 237, 0.25); }
+        html:not(.dark) .hover\:border-emerald-500\/50:hover { border-color: rgba(5, 150, 105, 0.4); }
+        html:not(.dark) .hover\:border-blue-500\/50:hover { border-color: rgba(37, 99, 235, 0.4); }
+        html:not(.dark) .hover\:border-purple-500\/50:hover { border-color: rgba(124, 58, 237, 0.4); }
+        html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+        html:not(.dark) .text-primary { color: #a16207; }
+        html:not(.dark) .bg-primary\/10 { background-color: rgba(161, 98, 7, 0.08); }
+        html:not(.dark) .border-primary\/40 { border-color: rgba(161, 98, 7, 0.25); }
+        html:not(.dark) .text-sky-400 { color: #0369a1; }
+        html:not(.dark) .text-yellow-400 { color: #a16207; }
+        html:not(.dark) .text-red-400 { color: #dc2626; }
+        html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+        html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255, 255, 255, 0.95); }
+        .dark .border-dark-600 { border-color: #374151; }
+        .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+        @keyframes wf-pulse { 0%,100% { opacity:.55 } 50% { opacity:1 } }
+        @media (prefers-reduced-motion: no-preference) {
+          .wf-a { animation: wf-pulse 2.6s ease-in-out infinite; }
+          .wf-a:nth-child(2){animation-delay:.25s} .wf-a:nth-child(3){animation-delay:.5s}
+          .wf-a:nth-child(4){animation-delay:.75s} .wf-a:nth-child(5){animation-delay:1s}
+        }
+    </style>
+<link href="https://linnoff88-dev.github.io/arckhe-vla/curso/trilha1/" hreflang="pt-BR" rel="alternate"/><link href="https://linnoff88-dev.github.io/arckhe-vla/en/curso/trilha1/" hreflang="en" rel="alternate"/><link href="https://linnoff88-dev.github.io/arckhe-vla/es/curso/trilha1/" hreflang="es" rel="alternate"/></head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="ARCKHÉ-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../../../curso/trilha1/" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="./" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">EN</a><a href="../../../es/curso/trilha1/" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">ES</a></div>
+<!-- NAV -->
+<nav class="fixed top-0 w-full bg-dark-900/95 backdrop-blur border-b border-dark-600 z-50">
+<div class="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<a class="text-primary font-bold text-lg" href="../../">VLA</a>
+<span class="text-neutral-500">|</span>
+<a class="text-sky-400 hover:text-sky-300 text-sm font-medium" href="https://ARCKHÉ AI" target="_blank">ARCKHÉ AI</a>
+</div>
+<div class="flex items-center gap-2">
+<a class="px-3 py-1.5 rounded text-sm text-emerald-400 bg-emerald-500/20 border border-emerald-500/30 font-medium" href="./">Fundamentals</a>
+<a class="px-3 py-1.5 rounded text-sm text-blue-400 hover:bg-blue-500/10" href="../trilha2/">Technical</a>
+<a class="px-3 py-1.5 rounded text-sm text-purple-400 hover:bg-purple-500/10" href="../trilha3/">Advanced</a>
+<button class="ml-2 p-2 rounded hover:bg-dark-700 text-neutral-400" onclick="document.documentElement.classList.toggle('dark')" title="Switch theme">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+</div>
+</div>
+</nav>
+<main class="max-w-4xl mx-auto px-4 pt-24 pb-16">
+<!-- HEADER -->
+<div class="text-center mb-12">
+<span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 mb-4">TRACK 1</span>
+<h1 class="text-4xl md:text-5xl font-extrabold mb-4">Fundamentals</h1>
+<p class="text-lg text-neutral-400 max-w-2xl mx-auto">From LLMs to robots that act: understand the VLA revolution, from essential concepts to the safety standards that govern human-robot collaboration.</p>
+</div>
+<!-- HERO SVG -->
+<div class="mb-16">
+<svg aria-label="Track 1 diagram: flow of the 6 Fundamentals modules" class="w-full h-auto" role="img" viewbox="0 0 800 200" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<pattern height="20" id="heroGrid" patternunits="userSpaceOnUse" width="20">
+<path d="M 20 0 L 0 0 0 20" fill="none" stroke="#34d399" stroke-opacity="0.06" stroke-width="0.5"></path>
+</pattern>
+<filter id="heroGlow">
+<fegaussianblur result="blur" stddeviation="3"></fegaussianblur>
+<fecomposite in="SourceGraphic" in2="blur" operator="over"></fecomposite>
+</filter>
+<lineargradient id="heroLine" x1="0" x2="1" y1="0" y2="0">
+<stop offset="0%" stop-color="#34d399" stop-opacity="0.3"></stop>
+<stop offset="50%" stop-color="#34d399" stop-opacity="0.8"></stop>
+<stop offset="100%" stop-color="#38bdf8" stop-opacity="0.3"></stop>
+</lineargradient>
+<marker id="heroArrow" markerheight="6" markerwidth="8" orient="auto" refx="8" refy="3">
+<path d="M0,0 L8,3 L0,6" fill="#34d399" fill-opacity="0.6"></path>
+</marker>
+</defs>
+<rect fill="url(#heroGrid)" height="200" width="800"></rect>
+<!-- Connection lines -->
+<line marker-end="url(#heroArrow)" stroke="url(#heroLine)" stroke-width="2" x1="130" x2="210" y1="100" y2="100"></line>
+<line marker-end="url(#heroArrow)" stroke="url(#heroLine)" stroke-width="2" x1="260" x2="340" y1="100" y2="100"></line>
+<line marker-end="url(#heroArrow)" stroke="url(#heroLine)" stroke-width="2" x1="390" x2="470" y1="100" y2="100"></line>
+<line marker-end="url(#heroArrow)" stroke="url(#heroLine)" stroke-width="2" x1="520" x2="600" y1="100" y2="100"></line>
+<line marker-end="url(#heroArrow)" stroke="url(#heroLine)" stroke-width="2" x1="650" x2="730" y1="100" y2="100"></line>
+<!-- Module nodes -->
+<g filter="url(#heroGlow)">
+<circle cx="100" cy="100" fill="#111827" r="28" stroke="#34d399" stroke-opacity="0.6" stroke-width="2"></circle>
+<text fill="#34d399" font-size="10" font-weight="700" text-anchor="middle" x="100" y="96">M1.1</text>
+<text fill="#9ca3af" font-size="7" text-anchor="middle" x="100" y="110">Scenario</text>
+</g>
+<g filter="url(#heroGlow)">
+<circle cx="230" cy="100" fill="#111827" r="28" stroke="#34d399" stroke-opacity="0.6" stroke-width="2"></circle>
+<text fill="#34d399" font-size="10" font-weight="700" text-anchor="middle" x="230" y="96">M1.2</text>
+<text fill="#9ca3af" font-size="7" text-anchor="middle" x="230" y="110">Anatomy</text>
+</g>
+<g filter="url(#heroGlow)">
+<circle cx="360" cy="100" fill="#111827" r="28" stroke="#34d399" stroke-opacity="0.6" stroke-width="2"></circle>
+<text fill="#34d399" font-size="10" font-weight="700" text-anchor="middle" x="360" y="96">M1.3</text>
+<text fill="#9ca3af" font-size="7" text-anchor="middle" x="360" y="110">Models</text>
+</g>
+<g filter="url(#heroGlow)">
+<circle cx="490" cy="100" fill="#111827" r="28" stroke="#38bdf8" stroke-opacity="0.6" stroke-width="2"></circle>
+<text fill="#38bdf8" font-size="10" font-weight="700" text-anchor="middle" x="490" y="96">M1.4</text>
+<text fill="#9ca3af" font-size="7" text-anchor="middle" x="490" y="110">Datasets</text>
+</g>
+<g filter="url(#heroGlow)">
+<circle cx="620" cy="100" fill="#111827" r="28" stroke="#38bdf8" stroke-opacity="0.6" stroke-width="2"></circle>
+<text fill="#38bdf8" font-size="10" font-weight="700" text-anchor="middle" x="620" y="96">M1.5</text>
+<text fill="#9ca3af" font-size="7" text-anchor="middle" x="620" y="110">Hardware</text>
+</g>
+<g filter="url(#heroGlow)">
+<circle cx="750" cy="100" fill="#111827" r="28" stroke="#34d399" stroke-opacity="0.6" stroke-width="2"></circle>
+<text fill="#34d399" font-size="10" font-weight="700" text-anchor="middle" x="750" y="96">M1.6</text>
+<text fill="#9ca3af" font-size="7" text-anchor="middle" x="750" y="110">Safety</text>
+</g>
+<!-- Labels -->
+<text fill="#34d399" font-size="11" font-weight="600" opacity="0.7" text-anchor="middle" x="230" y="30">CONCEPTS</text>
+<text fill="#38bdf8" font-size="11" font-weight="600" opacity="0.7" text-anchor="middle" x="490" y="30">INFRASTRUCTURE</text>
+<text fill="#34d399" font-size="11" font-weight="600" opacity="0.7" text-anchor="middle" x="750" y="30">STANDARDS</text>
+<line stroke="#34d399" stroke-opacity="0.15" stroke-width="1" x1="100" x2="390" y1="42" y2="42"></line>
+<line stroke="#38bdf8" stroke-opacity="0.15" stroke-width="1" x1="430" x2="650" y1="42" y2="42"></line>
+<line stroke="#34d399" stroke-opacity="0.15" stroke-width="1" x1="690" x2="780" y1="42" y2="42"></line>
+</svg>
+</div>
+<!-- MAPA DA TRILHA -->
+<section class="mb-16">
+<h2 class="text-2xl font-bold mb-6">Learning Path Map</h2>
+<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+<!-- Card M1.1 -->
+<a class="block p-4 rounded-xl bg-dark-800 border border-dark-700 hover:border-emerald-500/50 transition-colors" href="#modulo-1-1">
+<div class="flex justify-between items-center mb-2">
+<span class="text-xs font-mono text-emerald-400">1.1</span>
+<span class="text-xs text-neutral-500">~45 min</span>
+</div>
+<h3 class="font-semibold mb-1">🌍 The Big Picture</h3>
+<p class="text-xs text-neutral-400">From LLMs to autonomous robots: the complete evolution</p>
+</a>
+<!-- Card M1.2 -->
+<a class="block p-4 rounded-xl bg-dark-800 border border-dark-700 hover:border-emerald-500/50 transition-colors" href="#modulo-1-2">
+<div class="flex justify-between items-center mb-2">
+<span class="text-xs font-mono text-emerald-400">1.2</span>
+<span class="text-xs text-neutral-500">~60 min</span>
+</div>
+<h3 class="font-semibold mb-1">🔬 Anatomy of a VLA</h3>
+<p class="text-xs text-neutral-400">Vision + language + action: breaking down the architecture</p>
+</a>
+<!-- Card M1.3 -->
+<a class="block p-4 rounded-xl bg-dark-800 border border-dark-700 hover:border-emerald-500/50 transition-colors" href="#modulo-1-3">
+<div class="flex justify-between items-center mb-2">
+<span class="text-xs font-mono text-emerald-400">1.3</span>
+<span class="text-xs text-neutral-500">~50 min</span>
+</div>
+<h3 class="font-semibold mb-1">🗺️ Model Overview</h3>
+<p class="text-xs text-neutral-400">RT-2, OpenVLA, pi0, Qwen-VLA, and 8 more models</p>
+</a>
+<!-- Card M1.4 -->
+<a class="block p-4 rounded-xl bg-dark-800 border border-dark-700 hover:border-emerald-500/50 transition-colors" href="#modulo-1-4">
+<div class="flex justify-between items-center mb-2">
+<span class="text-xs font-mono text-emerald-400">1.4</span>
+<span class="text-xs text-neutral-500">~40 min</span>
+</div>
+<h3 class="font-semibold mb-1">📦 Datasets</h3>
+<p class="text-xs text-neutral-400">1M+ trajectories: Open X-Embodiment and DROID</p>
+</a>
+<!-- Card M1.5 -->
+<a class="block p-4 rounded-xl bg-dark-800 border border-dark-700 hover:border-emerald-500/50 transition-colors" href="#modulo-1-5">
+<div class="flex justify-between items-center mb-2">
+<span class="text-xs font-mono text-emerald-400">1.5</span>
+<span class="text-xs text-neutral-500">~45 min</span>
+</div>
+<h3 class="font-semibold mb-1">🤖 Hardware</h3>
+<p class="text-xs text-neutral-400">Cobots, humanoids, and accessible platforms</p>
+</a>
+<!-- Card M1.6 -->
+<a class="block p-4 rounded-xl bg-dark-800 border border-dark-700 hover:border-emerald-500/50 transition-colors" href="#modulo-1-6">
+<div class="flex justify-between items-center mb-2">
+<span class="text-xs font-mono text-emerald-400">1.6</span>
+<span class="text-xs text-neutral-500">~35 min</span>
+</div>
+<h3 class="font-semibold mb-1">🛡️ Safety and Standards</h3>
+<p class="text-xs text-neutral-400">ISO 10218:2025 and safety-by-design for VLAs</p>
+</a>
+</div>
+</section>
+<!-- CONTEÚDO DETALHADO -->
+<h2 class="text-2xl font-bold mb-10">Detailed content</h2>
+<!-- ============================================================ -->
+<!-- M1.1 — De LLMs a Robôs que Agem: O Grande Cenário            -->
+<!-- ============================================================ -->
+<div class="mb-16 scroll-mt-20" id="modulo-1-1">
+<div class="mb-6">
+<span class="text-xs font-mono text-emerald-400 bg-emerald-500/20 px-2 py-0.5 rounded border border-emerald-500/30">MODULE 1.1</span>
+<h3 class="text-xl font-bold mt-3 mb-1">From LLMs to Robots That Act: The Big Picture</h3>
+<p class="text-neutral-400 text-sm">The evolution of AI: from text models to agents that manipulate the physical world.</p>
+</div>
+<!-- SVG M1.1: Evolution timeline LLM → VLM → VLA -->
+<div class="mb-8 p-4 rounded-xl bg-dark-800 border border-dark-700">
+<svg aria-label="Evolution of AI: from LLM to VLM to VLA" class="w-full h-auto" role="img" viewbox="0 0 760 220" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<pattern height="24" id="g11" patternunits="userSpaceOnUse" width="24">
+<path d="M 24 0 L 0 0 0 24" fill="none" stroke="#34d399" stroke-opacity="0.05" stroke-width="0.5"></path>
+</pattern>
+<filter id="gl11"><fegaussianblur result="b" stddeviation="4"></fegaussianblur><fecomposite in="SourceGraphic" in2="b" operator="over"></fecomposite></filter>
+<marker id="a11" markerheight="6" markerwidth="8" orient="auto" refx="8" refy="3">
+<path d="M0,0 L8,3 L0,6" fill="#34d399" fill-opacity="0.7"></path>
+</marker>
+</defs>
+<rect fill="url(#g11)" height="220" width="760"></rect>
+<!-- Timeline base -->
+<line stroke="#34d399" stroke-opacity="0.2" stroke-width="2" x1="60" x2="700" y1="130" y2="130"></line>
+<!-- Era markers -->
+<g filter="url(#gl11)">
+<rect fill="#111827" height="60" rx="12" stroke="#34d399" stroke-opacity="0.5" stroke-width="1.5" width="140" x="40" y="80"></rect>
+<text fill="#34d399" font-size="14" font-weight="700" text-anchor="middle" x="110" y="105">LLM</text>
+<text fill="#9ca3af" font-size="9" text-anchor="middle" x="110" y="125">Text → Text</text>
+</g>
+<line marker-end="url(#a11)" stroke="#34d399" stroke-opacity="0.5" stroke-width="2" x1="185" x2="265" y1="110" y2="110"></line>
+<g filter="url(#gl11)">
+<rect fill="#111827" height="60" rx="12" stroke="#34d399" stroke-opacity="0.6" stroke-width="1.5" width="140" x="270" y="80"></rect>
+<text fill="#34d399" font-size="14" font-weight="700" text-anchor="middle" x="340" y="105">VLM</text>
+<text fill="#9ca3af" font-size="9" text-anchor="middle" x="340" y="125">Image+Text → Text</text>
+</g>
+<line marker-end="url(#a11)" stroke="#38bdf8" stroke-opacity="0.5" stroke-width="2" x1="415" x2="495" y1="110" y2="110"></line>
+<g filter="url(#gl11)">
+<rect fill="#111827" height="70" rx="12" stroke="#38bdf8" stroke-opacity="0.7" stroke-width="2" width="160" x="500" y="75"></rect>
+<text fill="#38bdf8" font-size="16" font-weight="800" text-anchor="middle" x="580" y="103">VLA</text>
+<text fill="#9ca3af" font-size="9" text-anchor="middle" x="580" y="123">Image+Text → Action</text>
+</g>
+<!-- Timeline dates -->
+<text fill="#6b7280" font-size="10" text-anchor="middle" x="110" y="165">2020-2022</text>
+<text fill="#6b7280" font-size="10" text-anchor="middle" x="340" y="165">2023-2024</text>
+<text fill="#6b7280" font-size="10" text-anchor="middle" x="580" y="165">2024-2026</text>
+<!-- Key models -->
+<text fill="#34d399" font-size="8" opacity="0.6" text-anchor="middle" x="110" y="185">GPT-3, LLaMA</text>
+<text fill="#34d399" font-size="8" opacity="0.6" text-anchor="middle" x="340" y="185">GPT-4V, LLaVA</text>
+<text fill="#38bdf8" font-size="8" opacity="0.6" text-anchor="middle" x="580" y="185">RT-2, OpenVLA, pi0</text>
+<!-- Title -->
+<text fill="#34d399" font-size="13" font-weight="600" opacity="0.8" text-anchor="middle" x="380" y="30">Evolution: Text → Vision → Physical Action</text>
+</svg>
+</div>
+<div class="space-y-1 divide-y divide-dark-600">
+<!-- Topic 1 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-xs font-bold text-emerald-400 shrink-0">1</span>
+<span class="font-medium">From language to action: LLM → VLM → VLA</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-emerald-400 font-semibold mb-1">What it is</h4><p>The progression from models that process only text (LLMs) to models that also see (VLMs), and finally to models that generate motor actions in the real world (VLAs). Each leap adds a modality: first vision as input, then motor control as output.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Why learn</h4><p>Understanding this progression is the foundation for everything that comes later in the course. Without clarity on what changed between GPT-4V and RT-2, it is impossible to evaluate VLA architectures or decide which model to use in a real project.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Key concepts</h4><p>An LLM (Large Language Model) processes sequences of text tokens. A VLM (Vision-Language Model) adds a visual encoder to process images alongside text. A VLA (Vision-Language-Action) extends the VLM with an action head that decodes tokens into continuous motor commands such as position (x,y,z) and gripper rotation.</p></div>
+</div>
+</details>
+<!-- Topic 2 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-xs font-bold text-emerald-400 shrink-0">2</span>
+<span class="font-medium">The gap between understanding and acting</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-emerald-400 font-semibold mb-1">What it is</h4><p>The fundamental gap between semantic understanding (knowing what a cup is) and motor competence (being able to pick up the cup without dropping it). VLMs understand visual scenes accurately, but cannot translate that understanding into coordinated physical actions.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Why learn</h4><p>This gap defines the central problem VLAs try to solve. Recognizing it helps you understand why simply connecting ChatGPT to a robotic arm doesn't work, and which training techniques are needed to close this gap.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Key concepts</h4><p>Grounding is the process of anchoring abstract concepts in concrete sensory perceptions. The sim-to-real gap refers to the difference between performance in simulation and in the real world. Closed-loop control is the system's ability to continuously adjust actions based on sensory feedback.</p></div>
+</div>
+</details>
+<!-- Topic 3 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-xs font-bold text-emerald-400 shrink-0">3</span>
+<span class="font-medium">Foundation models for robotics</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-emerald-400 font-semibold mb-1">What it is</h4><p>Applying the foundation model paradigm (large-scale pretraining + fine-tuning) to robotics. Instead of training a model from scratch for each task and robot, a base model trained on massive datasets from multiple robots and environments is adapted.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Why learn</h4><p>Foundation models are why VLAs became viable. Pretraining on diverse internet data (vision, language) provides rich representations that transfer surprisingly well to robotic control, even with few demonstration data points.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Key concepts</h4><p>Transfer learning lets you reuse knowledge from data-rich domains (the internet) in data-scarce domains (robotics). Multimodal pretraining combines vision and language in a unified representation. Cross-embodiment generalization lets a single model control robots with different morphologies.</p></div>
+</div>
+</details>
+<!-- Topic 4 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-xs font-bold text-emerald-400 shrink-0">4</span>
+<span class="font-medium">Affordances: what the robot CAN do</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-emerald-400 font-semibold mb-1">What it is</h4><p>A concept from J.J. Gibson's ecological psychology adapted for robotics: affordances are the action possibilities that an object or environment offers a specific agent. A cup “affords” being grasped; a door “affords” being opened. For a VLA, detecting affordances means identifying which actions are physically feasible in the current scene.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Why learn</h4><p>VLAs need not only to understand natural language instructions, but also to assess whether the requested action is possible given the current state of the world. Affordance detection is what distinguishes a robot that tries blindly from one that plans feasible actions.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Key concepts</h4><p>Visual affordances map image regions to possible actions (graspable surfaces, navigable areas). Google's SayCan combines an LLM that proposes actions with a value function that filters for physically feasible actions. Task and Motion Planning (TAMP) integrates symbolic planning with continuous motion planning.</p></div>
+</div>
+</details>
+<!-- Topic 5 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-xs font-bold text-emerald-400 shrink-0">5</span>
+<span class="font-medium">Embodied AI vs. disembodied AI</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-emerald-400 font-semibold mb-1">What it is</h4><p>The distinction between AI that exists only in digital space (chatbots, image generators) and AI embodied in physical bodies that interact with the real world. Embodied AI faces challenges absent from traditional AI: Newtonian physics, sensory latency, mechanical wear, and irreversible consequences of errors.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Why learn</h4><p>Working with VLAs requires a shift in mindset compared with conventional AI. Errors aren’t just wrong answers in a chat; they’re collisions, dropped objects, or safety risks. Understanding this fundamental difference is a prerequisite for designing responsible robotic systems.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Key concepts</h4><p>The embodiment hypothesis holds that true intelligence requires a physical body that interacts with the environment. Sensorimotor contingencies are the regularities between actions and sensory changes that an embodied agent learns. The reality gap is the mismatch between simulation and the real world that makes deploying embodied AI much more difficult.</p></div>
+</div>
+</details>
+<!-- Topic 6 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-xs font-bold text-emerald-400 shrink-0">6</span>
+<span class="font-medium">Timeline: from GPT to autonomous humanoids</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-emerald-400 font-semibold mb-1">What it is</h4><p>The timeline of milestones from the first modern LLMs (GPT-3, 2020) to today’s autonomous humanoids (Figure 02, GR00T, 2025-2026). It includes the release of RT-2 (2023), the founding of Physical Intelligence (2024), OpenVLA (2024), and the explosion of robotics startups in 2025.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Why learn</h4><p>The pace of progress is crucial for calibrating expectations. In just 3 years, we went from "LLMs can't control robots" to "generalist VLAs control multiple embodiments." Knowing the timeline helps you project where we'll be in 2027-2028.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Key concepts</h4><p>Scaling laws for robotics investigate whether more data and parameters improve motor performance the way they improve language performance. Emergent capabilities in VLAs refer to skills that arise with scale without being explicitly trained. The open-source ecosystem (LeRobot, OpenVLA, Octo) democratizes access that was previously limited to labs with millions in hardware.</p></div>
+</div>
+</details>
+</div>
+</div>
+<div class="-mt-10 mb-10 flex justify-start">
+<a class="px-5 py-2.5 text-sm font-semibold bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg transition-colors" href="modulo-1-1.html">View full module →</a>
+</div>
+<!-- ============================================================ -->
+<!-- M1.2 — Anatomia de um VLA: Visão + Linguagem + Ação           -->
+<!-- ============================================================ -->
+<div class="mb-16 scroll-mt-20" id="modulo-1-2">
+<div class="mb-6">
+<span class="text-xs font-mono text-emerald-400 bg-emerald-500/20 px-2 py-0.5 rounded border border-emerald-500/30">MODULE 1.2</span>
+<h3 class="text-xl font-bold mt-3 mb-1">Anatomy of a VLA: Vision + Language + Action</h3>
+<p class="text-neutral-400 text-sm">Breaking down the architecture: visual encoder, language backbone, and action decoder.</p>
+</div>
+<!-- SVG M1.2: VLA Architecture diagram -->
+<div class="mb-8 p-4 rounded-xl bg-dark-800 border border-dark-700">
+<svg aria-label="VLA architecture: visual encoder, LLM backbone, and action head" class="w-full h-auto" role="img" viewbox="0 0 760 280" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<pattern height="20" id="g12" patternunits="userSpaceOnUse" width="20">
+<path d="M 20 0 L 0 0 0 20" fill="none" stroke="#34d399" stroke-opacity="0.05" stroke-width="0.5"></path>
+</pattern>
+<filter id="gl12"><fegaussianblur result="b" stddeviation="3"></fegaussianblur><fecomposite in="SourceGraphic" in2="b" operator="over"></fecomposite></filter>
+<marker id="a12" markerheight="6" markerwidth="8" orient="auto" refx="8" refy="3">
+<path d="M0,0 L8,3 L0,6" fill="#34d399" fill-opacity="0.7"></path>
+</marker>
+<marker id="a12c" markerheight="6" markerwidth="8" orient="auto" refx="8" refy="3">
+<path d="M0,0 L8,3 L0,6" fill="#38bdf8" fill-opacity="0.7"></path>
+</marker>
+</defs>
+<rect fill="url(#g12)" height="280" width="760"></rect>
+<text fill="#34d399" font-size="13" font-weight="600" opacity="0.8" text-anchor="middle" x="380" y="28">VLA Architecture: 3 Fundamental Components</text>
+<!-- Input: Camera image -->
+<rect fill="#1a2332" height="80" rx="8" stroke="#34d399" stroke-opacity="0.3" stroke-width="1" width="90" x="20" y="100"></rect>
+<text fill="#9ca3af" font-size="9" text-anchor="middle" x="65" y="135">📷 Camera</text>
+<text fill="#6b7280" font-size="8" text-anchor="middle" x="65" y="150">224×224 RGB</text>
+<!-- Input: Text instruction -->
+<rect fill="#1a2332" height="50" rx="8" stroke="#34d399" stroke-opacity="0.3" stroke-width="1" width="90" x="20" y="195"></rect>
+<text fill="#9ca3af" font-size="9" text-anchor="middle" x="65" y="218">💬 Instruction</text>
+<text fill="#6b7280" font-size="8" text-anchor="middle" x="65" y="232">"Pick up the cup"</text>
+<!-- Visual Encoder -->
+<line marker-end="url(#a12)" stroke="#34d399" stroke-opacity="0.5" stroke-width="1.5" x1="115" x2="155" y1="140" y2="140"></line>
+<g filter="url(#gl12)">
+<rect fill="#111827" height="130" rx="12" stroke="#34d399" stroke-opacity="0.5" stroke-width="2" width="140" x="160" y="70"></rect>
+<text fill="#34d399" font-size="12" font-weight="700" text-anchor="middle" x="230" y="100">Vision Encoder</text>
+<text fill="#9ca3af" font-size="9" text-anchor="middle" x="230" y="120">SigLIP / DINOv2</text>
+<line stroke="#34d399" stroke-opacity="0.15" x1="180" x2="280" y1="135" y2="135"></line>
+<text fill="#6b7280" font-size="8" text-anchor="middle" x="230" y="155">Patch embeddings</text>
+<text fill="#6b7280" font-size="8" text-anchor="middle" x="230" y="170">→ Visual tokens</text>
+</g>
+<!-- LLM Backbone -->
+<line marker-end="url(#a12)" stroke="#34d399" stroke-opacity="0.5" stroke-width="1.5" x1="305" x2="355" y1="135" y2="135"></line>
+<line stroke="#34d399" stroke-dasharray="4,3" stroke-opacity="0.3" stroke-width="1" x1="115" x2="360" y1="220" y2="175"></line>
+<g filter="url(#gl12)">
+<rect fill="#111827" height="150" rx="12" stroke="#059669" stroke-opacity="0.6" stroke-width="2" width="160" x="360" y="60"></rect>
+<text fill="#34d399" font-size="12" font-weight="700" text-anchor="middle" x="440" y="92">LLM Backbone</text>
+<text fill="#9ca3af" font-size="9" text-anchor="middle" x="440" y="112">Llama / Gemma / Qwen</text>
+<line stroke="#059669" stroke-opacity="0.15" x1="380" x2="500" y1="125" y2="125"></line>
+<text fill="#6b7280" font-size="8" text-anchor="middle" x="440" y="145">Visual tokens</text>
+<text fill="#6b7280" font-size="8" text-anchor="middle" x="440" y="158">+ Text tokens</text>
+<text fill="#6b7280" font-size="8" text-anchor="middle" x="440" y="171">→ Fused representation</text>
+<text fill="#059669" font-size="9" opacity="0.5" text-anchor="middle" x="440" y="196">7B params</text>
+</g>
+<!-- Action Head -->
+<line marker-end="url(#a12c)" stroke="#38bdf8" stroke-opacity="0.5" stroke-width="1.5" x1="525" x2="575" y1="135" y2="135"></line>
+<g filter="url(#gl12)">
+<rect fill="#111827" height="110" rx="12" stroke="#38bdf8" stroke-opacity="0.6" stroke-width="2" width="150" x="580" y="80"></rect>
+<text fill="#38bdf8" font-size="12" font-weight="700" text-anchor="middle" x="655" y="108">Action Head</text>
+<text fill="#9ca3af" font-size="9" text-anchor="middle" x="655" y="128">MLP / Diffusion / Flow</text>
+<line stroke="#38bdf8" stroke-opacity="0.15" x1="600" x2="710" y1="140" y2="140"></line>
+<text fill="#6b7280" font-size="8" text-anchor="middle" x="655" y="158">→ (x, y, z, rx, ry, rz, grip)</text>
+<text fill="#6b7280" font-size="8" text-anchor="middle" x="655" y="173">7-DoF action tokens</text>
+</g>
+<!-- Output: Robot arm -->
+<text fill="#38bdf8" font-size="10" opacity="0.6" text-anchor="middle" x="655" y="220">🦾 Robotic Arm</text>
+<!-- Legend -->
+<rect fill="#34d399" height="10" opacity="0.5" rx="2" width="10" x="200" y="240"></rect>
+<text fill="#9ca3af" font-size="9" x="216" y="249">Perception</text>
+<rect fill="#059669" height="10" opacity="0.5" rx="2" width="10" x="310" y="240"></rect>
+<text fill="#9ca3af" font-size="9" x="326" y="249">Reasoning</text>
+<rect fill="#38bdf8" height="10" opacity="0.5" rx="2" width="10" x="420" y="240"></rect>
+<text fill="#9ca3af" font-size="9" x="436" y="249">Action</text>
+</svg>
+</div>
+<div class="space-y-1 divide-y divide-dark-600">
+<!-- Topic 1 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-xs font-bold text-emerald-400 shrink-0">1</span>
+<span class="font-medium">Visual encoder: SigLIP, DINOv2, ViT</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-emerald-400 font-semibold mb-1">What it is</h4><p>The component that converts camera images into vector representations (visual tokens) that the LLM backbone can process. SigLIP uses contrastive learning with sigmoid loss, DINOv2 uses self-supervised learning without labels, and ViT (Vision Transformer) divides the image into 14x14 or 16x16 pixel patches.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Why learn</h4><p>The quality of the visual encoder determines what the VLA "sees." A weak encoder misses crucial details such as object edges or textures that indicate fragility. The choice between SigLIP and DINOv2 directly affects performance on fine manipulation tasks.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Key concepts</h4><p>Patch embeddings divide the image into blocks and project each one into a dense vector. Contrastive learning (SigLIP) aligns images and text in the same vector space. Self-supervised features (DINOv2) capture geometric structures without human supervision, making them especially good for estimating depth and segmenting objects.</p></div>
+</div>
+</details>
+<!-- Topic 2 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-xs font-bold text-emerald-400 shrink-0">2</span>
+<span class="font-medium">LLM backbone: Llama, Gemma, Qwen</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-emerald-400 font-semibold mb-1">What it is</h4><p>The VLA’s central brain: a pretrained LLM that fuses visual tokens with text tokens in a unified representation space. Models such as Llama 3 (Meta), Gemma 2 (Google), and Qwen 2.5 (Alibaba) serve as backbones because they already have reasoning capabilities and world knowledge from billions of text tokens.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Why learn</h4><p>The LLM backbone gives the VLA the ability to understand complex natural language instructions and reason about scenes. The choice of backbone defines the trade-off between capacity (7B, 13B, 72B parameters) and inference latency, which is critical for real-time control.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Key concepts</h4><p>The projection layer maps visual tokens to the LLM embedding space (typically a simple MLP). Instruction tuning adapts the backbone to follow robotic commands. LoRA (Low-Rank Adaptation) enables efficient fine-tuning of the backbone without retraining all 7B+ parameters.</p></div>
+</div>
+</details>
+<!-- Topic 3 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-xs font-bold text-emerald-400 shrink-0">3</span>
+<span class="font-medium">Action head: tokenization of continuous actions</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-emerald-400 font-semibold mb-1">What it is</h4><p>The final component that converts the LLM’s internal representation into executable motor commands. A robot’s actions are continuous (position x=0.342m, torque=1.7Nm), but LLMs operate with discrete tokens. The action head resolves this incompatibility through discretization or generative models.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Why learn</h4><p>The action head is where VLA diverges radically from a standard VLM. It is the architectural innovation that makes it possible to generate physical actions. Different designs (MLP, diffusion, flow matching) produce qualitatively different behavior in terms of smoothness, multimodality, and precision.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Key concepts</h4><p>Discretization bins divide the continuous action space into N bins (typically 256) and treat each action as a categorical token. A diffusion action head uses an iterative denoising process to generate smooth, multimodal actions. Flow matching (used in pi0) learns a vector field that transforms noise into actions via an ODE.</p></div>
+</div>
+</details>
+<!-- Topic 4 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-xs font-bold text-emerald-400 shrink-0">4</span>
+<span class="font-medium">Trajectory Tokenization: Discrete vs. Continuous Bins</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-emerald-400 font-semibold mb-1">What it is</h4><p>Two fundamental approaches to representing robotic trajectories as processable sequences. In bin discretization, each action dimension (x, y, z, rotations, gripper) is quantized into buckets. In the continuous approach, the model directly generates real-valued vectors through regression or generative models.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Why learn</h4><p>This choice directly affects control accuracy. Discrete bins are simple and compatible with the LLM vocabulary, but lose resolution. Continuous approaches are more accurate, but require specialized architectures. Understanding the trade-off is essential for evaluating VLA models.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Key concepts</h4><p>Action tokenization with 256 bins per dimension provides ~0.4mm resolution in a 10cm workspace, sufficient for most tasks. Action chunking predicts multiple future actions at once (typically 4-16 steps), improving temporal consistency. De-tokenization converts the predicted tokens back into continuous commands for the robot controller.</p></div>
+</div>
+</details>
+<!-- Topic 5 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-xs font-bold text-emerald-400 shrink-0">5</span>
+<span class="font-medium">Co-fine-tuning: vision + language together</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-emerald-400 font-semibold mb-1">What it is</h4><p>The process of training the visual and language components of a VLA simultaneously on robotic demonstration data. Instead of freezing the visual encoder and training only the action head, co-fine-tuning updates all components together so they learn representations optimized for motor control.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Why learn</h4><p>Co-fine-tuning is what enables VLAs to outperform modular pipelines (perception separated from control). OpenVLA demonstrated that training vision and language together improves performance by up to 16.5% compared with fine-tuning only the action head, justifying the extra computational cost.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Key concepts</h4><p>End-to-end training propagates gradients from the action loss back to the visual encoder, adapting visual features to the task. Catastrophic forgetting is the risk of losing original language capabilities during fine-tuning, mitigated by regularization and a low learning rate. Multi-task fine-tuning trains on multiple tasks simultaneously to maintain generality.</p></div>
+</div>
+</details>
+<!-- Topic 6 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-xs font-bold text-emerald-400 shrink-0">6</span>
+<span class="font-medium">Latency and throughput: token budget</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-emerald-400 font-semibold mb-1">What it is</h4><p>The real-time constraints VLAs face: a robot needs to choose actions at 5-50 Hz, but a 7B-parameter LLM can take hundreds of milliseconds per token. The token budget determines how many visual tokens and action tokens the system can process within the available control time.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Why learn</h4><p>Latency is the most critical practical bottleneck in real VLAs. A brilliant model that takes 500ms per action is useless for dynamic manipulation. Understanding the token budget helps you choose between larger models (better, but slower) and compact models (faster, but limited).</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Key concepts</h4><p>Control frequency determines how many times per second the model needs to generate actions (5 Hz for slow tasks, 50 Hz for dexterous manipulation). KV-cache lets you reuse computations from previous tokens, speeding up inference. Quantization (INT8, INT4) reduces model size by 2-4x with minimal performance loss, enabling deployment on embedded GPUs such as Jetson Orin.</p></div>
+</div>
+</details>
+</div>
+</div>
+<div class="-mt-10 mb-10 flex justify-start">
+<a class="px-5 py-2.5 text-sm font-semibold bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg transition-colors" href="modulo-1-2.html">View full module →</a>
+</div>
+<!-- ============================================================ -->
+<!-- M1.3 — Panorama dos Modelos: RT-2, OpenVLA, pi0, Qwen-VLA     -->
+<!-- ============================================================ -->
+<div class="mb-16 scroll-mt-20" id="modulo-1-3">
+<div class="mb-6">
+<span class="text-xs font-mono text-emerald-400 bg-emerald-500/20 px-2 py-0.5 rounded border border-emerald-500/30">MODULE 1.3</span>
+<h3 class="text-xl font-bold mt-3 mb-1">Model Overview: RT-2, OpenVLA, π0, Qwen-VLA</h3>
+<p class="text-neutral-400 text-sm">The VLA model ecosystem, from closed pioneers to open source.</p>
+</div>
+<!-- SVG M1.3: Landscape of VLA models -->
+<div class="mb-8 p-4 rounded-xl bg-dark-800 border border-dark-700">
+<svg aria-label="Overview of VLA models: RT-2, OpenVLA, pi0, Octo, and compact models" class="w-full h-auto" role="img" viewbox="0 0 760 250" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<pattern height="20" id="g13" patternunits="userSpaceOnUse" width="20">
+<path d="M 20 0 L 0 0 0 20" fill="none" stroke="#34d399" stroke-opacity="0.05" stroke-width="0.5"></path>
+</pattern>
+<filter id="gl13"><fegaussianblur result="b" stddeviation="3"></fegaussianblur><fecomposite in="SourceGraphic" in2="b" operator="over"></fecomposite></filter>
+<marker id="a13" markerheight="6" markerwidth="8" orient="auto" refx="8" refy="3">
+<path d="M0,0 L8,3 L0,6" fill="#34d399" fill-opacity="0.7"></path>
+</marker>
+</defs>
+<rect fill="url(#g13)" height="250" width="760"></rect>
+<text fill="#34d399" font-size="13" font-weight="600" opacity="0.8" text-anchor="middle" x="380" y="28">VLA ecosystem: Closed → Open-Source → Compact</text>
+<!-- Axis labels -->
+<text fill="#6b7280" font-size="9" x="60" y="60">+ open</text>
+<text fill="#6b7280" font-size="9" x="60" y="225">- open</text>
+<text fill="#6b7280" font-size="9" text-anchor="middle" x="660" y="240">+ size →</text>
+<line stroke="#34d399" stroke-opacity="0.2" stroke-width="1" x1="55" x2="55" y1="70" y2="215"></line>
+<line stroke="#34d399" stroke-opacity="0.2" stroke-width="1" x1="55" x2="710" y1="215" y2="215"></line>
+<!-- RT-2: closed, large -->
+<g filter="url(#gl13)">
+<rect fill="#111827" height="32" rx="8" stroke="#059669" stroke-opacity="0.5" stroke-width="1.5" width="120" x="430" y="180"></rect>
+<text fill="#34d399" font-size="10" font-weight="700" text-anchor="middle" x="490" y="195">RT-2 / RT-X</text>
+<text fill="#6b7280" font-size="7" text-anchor="middle" x="490" y="206">55B · closed · Google</text>
+</g>
+<!-- pi0: open-ish, large -->
+<g filter="url(#gl13)">
+<rect fill="#111827" height="34" rx="8" stroke="#38bdf8" stroke-opacity="0.6" stroke-width="1.5" width="120" x="560" y="90"></rect>
+<text fill="#38bdf8" font-size="11" font-weight="700" text-anchor="middle" x="620" y="106">π0 (pi0)</text>
+<text fill="#6b7280" font-size="7" text-anchor="middle" x="620" y="118">flow · 50Hz · Phys. Int.</text>
+</g>
+<!-- OpenVLA: open, mid -->
+<g filter="url(#gl13)">
+<rect fill="#111827" height="34" rx="8" stroke="#34d399" stroke-opacity="0.7" stroke-width="2" width="120" x="300" y="95"></rect>
+<text fill="#34d399" font-size="11" font-weight="700" text-anchor="middle" x="360" y="111">OpenVLA</text>
+<text fill="#6b7280" font-size="7" text-anchor="middle" x="360" y="123">7B · open · Stanford</text>
+</g>
+<!-- Octo: open, mid-small -->
+<g filter="url(#gl13)">
+<rect fill="#111827" height="32" rx="8" stroke="#34d399" stroke-opacity="0.6" stroke-width="1.5" width="110" x="180" y="125"></rect>
+<text fill="#34d399" font-size="10" font-weight="700" text-anchor="middle" x="235" y="140">Octo</text>
+<text fill="#6b7280" font-size="7" text-anchor="middle" x="235" y="151">93M · open · Berkeley</text>
+</g>
+<!-- Compact models -->
+<g filter="url(#gl13)">
+<rect fill="#111827" height="34" rx="8" stroke="#38bdf8" stroke-opacity="0.6" stroke-width="1.5" width="110" x="80" y="150"></rect>
+<text fill="#38bdf8" font-size="9" font-weight="700" text-anchor="middle" x="135" y="166">SmolVLA / Qwen</text>
+<text fill="#6b7280" font-size="7" text-anchor="middle" x="135" y="178">&lt;1-3B · edge</text>
+</g>
+</svg>
+</div>
+<div class="space-y-1 divide-y divide-dark-600">
+<!-- Topic 1 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-xs font-bold text-emerald-400 shrink-0">1</span>
+<span class="font-medium">RT-2 and RT-X: Google DeepMind's pioneers</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-emerald-400 font-semibold mb-1">What it is</h4><p>RT-2 (Robotics Transformer 2) was the first VLA to co-train robotic data with large-scale web data, demonstrating that knowledge from the internet transfers to motor control. RT-X extended this idea by training on the Open X-Embodiment dataset with multiple robots, creating a generalist cross-embodiment model.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Why learn</h4><p>RT-2 defined the paradigm that virtually all VLAs follow today. Understanding its design choices and limitations (closed model, 55B parameters, slow inference) provides context for why the community sought open and efficient alternatives like OpenVLA and Octo.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Key concepts</h4><p>Web-scale knowledge transfer reuses the semantic knowledge of VLMs trained on internet data to recognize objects never seen in demonstrations. Co-fine-tuning mixes batches of web and robotics data in the same training run. RT-2 represents actions as text tokens, reusing the LLM’s vocabulary to issue commands.</p></div>
+</div>
+</details>
+<!-- Topic 2 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-xs font-bold text-emerald-400 shrink-0">2</span>
+<span class="font-medium">OpenVLA: Stanford’s open-source standard</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-emerald-400 font-semibold mb-1">What it is</h4><p>OpenVLA is a fully open-source 7B-parameter VLA model, trained on 970 thousand Open X-Embodiment trajectories. It combines two vision encoders (SigLIP and DINOv2) with the Llama 2 backbone, achieving performance competitive with RT-2-X using a fraction of the parameters.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Why learn</h4><p>OpenVLA is probably the model you’ll use in practice to experiment and fine-tune. Because it’s open, with weights and code available, it has become the reference baseline for academic research and the natural starting point for real projects with limited budgets.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Key concepts</h4><p>The dual visual encoder (SigLIP + DINOv2) combines semantic and geometric features, improving fine manipulation. Llama 2 7B serves as the reasoning backbone. Efficient fine-tuning via LoRA runs on a single consumer GPU, and quantization enables inference at ~6 Hz.</p></div>
+</div>
+</details>
+<!-- Topic 3 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-xs font-bold text-emerald-400 shrink-0">3</span>
+<span class="font-medium">π0 (pi0): flow matching from Physical Intelligence</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-emerald-400 font-semibold mb-1">What it is</h4><p>π0 is Physical Intelligence’s flagship VLA, built on the PaliGemma backbone and using flow matching to generate high-frequency continuous actions (up to 50 Hz). It’s designed for complex dexterous manipulation, such as folding clothes and assembling boxes, across multiple embodiments.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Why learn</h4><p>π0 represents the state of the art in smoothness and control frequency, areas where models based on discrete tokenization fall short. Studying it shows how modern generative techniques (flow matching) unlock fine manipulation that was previously impractical with VLAs.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Key concepts</h4><p>Flow matching learns a vector field that transports Gaussian noise to the action distribution via an ODE, generating smooth trajectories. Action experts are subnetworks dedicated to action generation, coupled to the VLM backbone. Control at 50 Hz enables high-dexterity tasks with nearly continuous feedback.</p></div>
+</div>
+</details>
+<!-- Topic 4 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-xs font-bold text-emerald-400 shrink-0">4</span>
+<span class="font-medium">Octo: Berkeley's generalist transformer</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-emerald-400 font-semibold mb-1">What it is</h4><p>Octo is a compact generalist model (27M to 93M parameters) based on a transformer, trained on 800 thousand trajectories from Open X-Embodiment. Unlike giant VLAs, it was designed to be modular: new sensors and action heads can be added without retraining everything.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Why learn</h4><p>Octo shows that not every VLA needs billions of parameters. Its flexible, lightweight architecture is ideal for rapid research and deployment on modest hardware, making it a practical alternative when OpenVLA is too large for the compute budget.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Key concepts</h4><p>The architecture uses a transformer with attention blocks over observation and task tokens. Modular design makes it possible to plug in new input heads (cameras, proprioception) and output heads without rewriting the core. A diffusion action head generates smooth multimodal actions, and the model supports conditioning by language or by goal image.</p></div>
+</div>
+</details>
+<!-- Topic 5 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-xs font-bold text-emerald-400 shrink-0">5</span>
+<span class="font-medium">Qwen-VLA, SmolVLA, and compact models</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-emerald-400 font-semibold mb-1">What it is</h4><p>A new generation of compact VLAs optimized to run on low-cost embedded hardware. SmolVLA (from Hugging Face/LeRobot) has fewer than 500M parameters and runs on a CPU; Qwen-VLA takes advantage of Alibaba’s efficient Qwen-VL backbones to balance capability and latency in 1-3B models.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Why learn</h4><p>Compact models make VLA accessible: you can train and run them on a single consumer GPU or even on a Jetson. For anyone learning or prototyping with accessible platforms such as SO-100, these models are the most realistic entry point without giving up fundamental capabilities.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Key concepts</h4><p>Knowledge distillation transfers capabilities from large models to small ones. SmolVLA uses async inference to separate perception and action, improving throughput. Aggressive quantization (INT4) and efficient backbones (Qwen2-VL) enable on-device inference at frequencies useful for control.</p></div>
+</div>
+</details>
+<!-- Topic 6 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-xs font-bold text-emerald-400 shrink-0">6</span>
+<span class="font-medium">Comparison: size, license, embodiments, performance</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-emerald-400 font-semibold mb-1">What it is</h4><p>A comparative analysis of the dimensions that matter when choosing a VLA: number of parameters, license type (closed vs. open vs. permissive), supported embodiments, control frequency, and success rate on benchmarks. There is no single best model; there is a best model for each set of constraints.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Why learn</h4><p>Model selection is one of the most consequential decisions in a VLA project. Knowing how to compare trade-offs between RT-2 (powerful, closed), OpenVLA (balanced, open), π0 (high dexterity), and compact models (inexpensive, limited) avoids costly choices and rework.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Key concepts</h4><p>Benchmarks such as LIBERO, SimplerEnv, and real-robot evaluations measure success rates on standardized tasks. Licenses range from proprietary (RT-2) to Apache 2.0 (OpenVLA, Octo). Embodiment coverage determines whether the model transfers to your specific robot without extensive fine-tuning.</p></div>
+</div>
+</details>
+</div>
+</div>
+<div class="-mt-10 mb-10 flex justify-start">
+<a class="px-5 py-2.5 text-sm font-semibold bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg transition-colors" href="modulo-1-3.html">View full module →</a>
+</div>
+<!-- ============================================================ -->
+<!-- M1.4 — Datasets: Open X-Embodiment e DROID                   -->
+<!-- ============================================================ -->
+<div class="mb-16 scroll-mt-20" id="modulo-1-4">
+<div class="mb-6">
+<span class="text-xs font-mono text-emerald-400 bg-emerald-500/20 px-2 py-0.5 rounded border border-emerald-500/30">MODULE 1.4</span>
+<h3 class="text-xl font-bold mt-3 mb-1">Datasets: Open X-Embodiment and DROID</h3>
+<p class="text-neutral-400 text-sm">The data that powers VLAs — scale, diversity, and format.</p>
+</div>
+<!-- SVG M1.4: Datasets funnel into a VLA -->
+<div class="mb-8 p-4 rounded-xl bg-dark-800 border border-dark-700">
+<svg aria-label="Robotics datasets converging on the RLDS format to train a VLA" class="w-full h-auto" role="img" viewbox="0 0 760 240" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<pattern height="20" id="g14" patternunits="userSpaceOnUse" width="20">
+<path d="M 20 0 L 0 0 0 20" fill="none" stroke="#34d399" stroke-opacity="0.05" stroke-width="0.5"></path>
+</pattern>
+<filter id="gl14"><fegaussianblur result="b" stddeviation="3"></fegaussianblur><fecomposite in="SourceGraphic" in2="b" operator="over"></fecomposite></filter>
+<marker id="a14" markerheight="6" markerwidth="8" orient="auto" refx="8" refy="3">
+<path d="M0,0 L8,3 L0,6" fill="#34d399" fill-opacity="0.7"></path>
+</marker>
+</defs>
+<rect fill="url(#g14)" height="240" width="760"></rect>
+<text fill="#34d399" font-size="13" font-weight="600" opacity="0.8" text-anchor="middle" x="380" y="28">Data Pipeline: Trajectories → RLDS → Training</text>
+<!-- Source datasets -->
+<g filter="url(#gl14)">
+<rect fill="#111827" height="40" rx="8" stroke="#34d399" stroke-opacity="0.6" stroke-width="1.5" width="150" x="30" y="55"></rect>
+<text fill="#34d399" font-size="10" font-weight="700" text-anchor="middle" x="105" y="73">Open X-Embodiment</text>
+<text fill="#6b7280" font-size="8" text-anchor="middle" x="105" y="87">1M+ trajectories · 22 robots</text>
+</g>
+<g filter="url(#gl14)">
+<rect fill="#111827" height="40" rx="8" stroke="#34d399" stroke-opacity="0.6" stroke-width="1.5" width="150" x="30" y="105"></rect>
+<text fill="#34d399" font-size="10" font-weight="700" text-anchor="middle" x="105" y="123">DROID</text>
+<text fill="#6b7280" font-size="8" text-anchor="middle" x="105" y="137">76k trajectories · in-the-wild</text>
+</g>
+<g filter="url(#gl14)">
+<rect fill="#111827" height="40" rx="8" stroke="#34d399" stroke-opacity="0.6" stroke-width="1.5" width="150" x="30" y="155"></rect>
+<text fill="#34d399" font-size="10" font-weight="700" text-anchor="middle" x="105" y="173">BridgeData V2</text>
+<text fill="#6b7280" font-size="8" text-anchor="middle" x="105" y="187">60k+ trajectories · kitchen</text>
+</g>
+<!-- Arrows to RLDS -->
+<line marker-end="url(#a14)" stroke="#34d399" stroke-opacity="0.4" stroke-width="1.5" x1="185" x2="310" y1="75" y2="115"></line>
+<line marker-end="url(#a14)" stroke="#34d399" stroke-opacity="0.4" stroke-width="1.5" x1="185" x2="310" y1="125" y2="125"></line>
+<line marker-end="url(#a14)" stroke="#34d399" stroke-opacity="0.4" stroke-width="1.5" x1="185" x2="310" y1="175" y2="135"></line>
+<!-- RLDS format -->
+<g filter="url(#gl14)">
+<rect fill="#111827" height="60" rx="12" stroke="#059669" stroke-opacity="0.7" stroke-width="2" width="130" x="315" y="95"></rect>
+<text fill="#34d399" font-size="12" font-weight="700" text-anchor="middle" x="380" y="120">RLDS / TFDS</text>
+<text fill="#6b7280" font-size="8" text-anchor="middle" x="380" y="138">unified format</text>
+</g>
+<!-- Arrow to VLA -->
+<line marker-end="url(#a14)" stroke="#38bdf8" stroke-opacity="0.5" stroke-width="2" x1="450" x2="565" y1="125" y2="125"></line>
+<!-- VLA -->
+<g filter="url(#gl14)">
+<rect fill="#111827" height="70" rx="12" stroke="#38bdf8" stroke-opacity="0.7" stroke-width="2" width="160" x="570" y="90"></rect>
+<text fill="#38bdf8" font-size="14" font-weight="800" text-anchor="middle" x="650" y="120">VLA</text>
+<text fill="#6b7280" font-size="8" text-anchor="middle" x="650" y="140">generalist training</text>
+</g>
+<text fill="#6b7280" font-size="9" text-anchor="middle" x="380" y="215">21 institutions · teleoperation · data scaling laws</text>
+</svg>
+</div>
+<div class="space-y-1 divide-y divide-dark-600">
+<!-- Topic 1 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-xs font-bold text-emerald-400 shrink-0">1</span>
+<span class="font-medium">Open X-Embodiment: the dataset that changed everything</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-emerald-400 font-semibold mb-1">What it is</h4><p>Open X-Embodiment (OXE) is a collaborative effort bringing together more than 1 million robotic trajectories across 22 different embodiments, collected by 21 institutions around the world. It is the largest open robotics manipulation dataset and the training foundation for models like RT-X and OpenVLA.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Why learn</h4><p>OXE is the dataset that made generalist VLAs possible. Without it, each lab would train isolated models on small, proprietary datasets. Understanding its structure and diversity is essential for knowing what a pretrained VLA already “knows” and where it is likely to fail.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Key concepts</h4><p>Cross-embodiment means mixing data from robots with different morphologies (6- and 7-DoF arms, varied grippers) in a single training run. Differences in cameras, frequencies, and action spaces require normalization. This diverse scale is what enables generalization, but it also introduces noise and imbalance across sources.</p></div>
+</div>
+</details>
+<!-- Topic 2 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-xs font-bold text-emerald-400 shrink-0">2</span>
+<span class="font-medium">DROID: in-the-wild diversity</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-emerald-400 font-semibold mb-1">What it is</h4><p>DROID (Distributed Robot Interaction Dataset) includes about 76,000 trajectories collected across 564 scenes and 86 tasks, in highly diverse real-world environments (offices, kitchens, bathrooms). All use the same standardized Franka arm setup, making it easier to maintain consistency despite the diversity of scenes.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Why learn</h4><p>DROID complements OXE by emphasizing environmental diversity, not robot diversity. This variety of scenes is exactly what VLAs need to generalize to new places. Understanding DROID helps you assess a model’s robustness outside the lab.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Key concepts</h4><p>In-the-wild collection captures variations in lighting, backgrounds, and distractors that lab environments don’t have. Standardized hardware (Franka + fixed cameras) reduces confounding variables. Scene diversity improves spatial generalization, while the moderate number of tasks limits semantic generalization.</p></div>
+</div>
+</details>
+<!-- Topic 3 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-xs font-bold text-emerald-400 shrink-0">3</span>
+<span class="font-medium">BridgeData V2: kitchen-scale manipulation</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-emerald-400 font-semibold mb-1">What it is</h4><p>BridgeData V2 is a dataset with more than 60 thousand manipulation trajectories collected using a low-cost WidowX arm, focused on household kitchen tasks (moving objects, opening drawers, stacking). It is widely used as a benchmark for transfer and VLA fine-tuning.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Why learn</h4><p>BridgeData shows that valuable data does not require expensive hardware. Because it uses an affordable arm and realistic tasks, it is frequently referenced in papers and is an excellent target for fine-tuning experiments when you do not have millions of your own trajectories.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Key concepts</h4><p>Task diversity in a home environment provides a rich language-action signal. The low-cost WidowX arm demonstrates accessible and reproducible data collection. BridgeData is part of OXE, but is also used on its own as a benchmark for cross-model evaluation.</p></div>
+</div>
+</details>
+<!-- Topic 4 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-xs font-bold text-emerald-400 shrink-0">4</span>
+<span class="font-medium">RLDS / TFDS format</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-emerald-400 font-semibold mb-1">What it is</h4><p>RLDS (Reinforcement Learning Datasets) is the standardized format for storing robotic trajectories as sequences of episodes, each containing steps with an observation, action, reward, and metadata. It is built on TFDS (TensorFlow Datasets), enabling efficient streaming of enormous datasets.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Why learn</h4><p>To train or fine-tune any modern VLA, you’ll need to read and write data in RLDS. It’s the format that brings OXE, DROID, and BridgeData together under a common interface, and mastering it is a practical prerequisite for any hands-on work with data.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Key concepts</h4><p>The episode → steps structure naturally organizes sequential data for imitation learning. TFDS provides read pipelines with shuffling, prefetching, and parallelism. Normalizing action spaces and standardizing observation keys are critical steps for combining heterogeneous datasets.</p></div>
+</div>
+</details>
+<!-- Topic 5 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-xs font-bold text-emerald-400 shrink-0">5</span>
+<span class="font-medium">Collection via teleoperation</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-emerald-400 font-semibold mb-1">What it is</h4><p>The main way to generate robotic demonstration data: a human operator remotely controls the robot (via joystick, leader-follower arm, or VR) while the system records synchronized observations and actions. Each teleoperated demonstration becomes a labeled trajectory for imitation learning.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Why learn</h4><p>Teleoperation is the cost and time bottleneck in building VLA datasets. Understanding its modes and limitations reveals why robotic data is so much scarcer than text data, and why data-efficiency techniques are so highly valued in the field.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Key concepts</h4><p>Leader-follower (master-slave), as in ALOHA, replicates the movements of a manually operated leader arm on a follower arm. VR teleoperation maps the operator's hand to the end-effector. Demonstration quality (smoothness, lack of hesitation) directly affects the learned policy.</p></div>
+</div>
+</details>
+<!-- Topic 6 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-xs font-bold text-emerald-400 shrink-0">6</span>
+<span class="font-medium">Quality vs. quantity and scaling laws</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-emerald-400 font-semibold mb-1">What it is</h4><p>The debate over whether VLAs improve more with more data (quantity) or better-curated data (quality), and how performance scales with dataset size. For robotics, it is still unclear whether the same scaling laws observed in language and vision apply.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Why learn</h4><p>This question determines where to invest resources: collect more trajectories, filter existing ones, or diversify sources. For a real project with a limited budget, knowing that quality often outweighs quantity can save months of teleoperation.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Key concepts</h4><p>Data scaling laws relate dataset size to success rate, with diminishing returns. Data curation filters out low-quality demonstrations and rebalances overrepresented sources. Diversity (of tasks, objects, and scenes) often matters more than raw volume for generalization.</p></div>
+</div>
+</details>
+</div>
+</div>
+<div class="-mt-10 mb-10 flex justify-start">
+<a class="px-5 py-2.5 text-sm font-semibold bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg transition-colors" href="modulo-1-4.html">View full module →</a>
+</div>
+<!-- ============================================================ -->
+<!-- M1.5 — Hardware: Cobots, Humanoides e Plataformas            -->
+<!-- ============================================================ -->
+<div class="mb-16 scroll-mt-20" id="modulo-1-5">
+<div class="mb-6">
+<span class="text-xs font-mono text-emerald-400 bg-emerald-500/20 px-2 py-0.5 rounded border border-emerald-500/30">MODULE 1.5</span>
+<h3 class="text-xl font-bold mt-3 mb-1">Hardware: Cobots, Humanoids, and Platforms</h3>
+<p class="text-neutral-400 text-sm">From collaborative arms to humanoids — and accessible platforms for learning.</p>
+</div>
+<!-- SVG M1.5: Hardware spectrum -->
+<div class="mb-8 p-4 rounded-xl bg-dark-800 border border-dark-700">
+<svg aria-label="Robotic hardware spectrum: cobots, humanoids, affordable platforms, and onboard compute" class="w-full h-auto" role="img" viewbox="0 0 760 240" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<pattern height="20" id="g15" patternunits="userSpaceOnUse" width="20">
+<path d="M 20 0 L 0 0 0 20" fill="none" stroke="#34d399" stroke-opacity="0.05" stroke-width="0.5"></path>
+</pattern>
+<filter id="gl15"><fegaussianblur result="b" stddeviation="3"></fegaussianblur><fecomposite in="SourceGraphic" in2="b" operator="over"></fecomposite></filter>
+<marker id="a15" markerheight="6" markerwidth="8" orient="auto" refx="8" refy="3">
+<path d="M0,0 L8,3 L0,6" fill="#38bdf8" fill-opacity="0.7"></path>
+</marker>
+</defs>
+<rect fill="url(#g15)" height="240" width="760"></rect>
+<text fill="#34d399" font-size="13" font-weight="600" opacity="0.8" text-anchor="middle" x="380" y="28">From Industrial Arm to Humanoid — and the Compute That Powers Them</text>
+<!-- Cobots -->
+<g filter="url(#gl15)">
+<rect fill="#111827" height="70" rx="12" stroke="#34d399" stroke-opacity="0.6" stroke-width="1.5" width="160" x="30" y="60"></rect>
+<text fill="#34d399" font-size="11" font-weight="700" text-anchor="middle" x="110" y="85">Cobots</text>
+<text fill="#6b7280" font-size="8" text-anchor="middle" x="110" y="103">Franka · UR · KUKA</text>
+<text fill="#6b7280" font-size="8" text-anchor="middle" x="110" y="117">collaborative arms</text>
+</g>
+<!-- Humanoids -->
+<g filter="url(#gl15)">
+<rect fill="#111827" height="70" rx="12" stroke="#34d399" stroke-opacity="0.6" stroke-width="1.5" width="160" x="210" y="60"></rect>
+<text fill="#34d399" font-size="11" font-weight="700" text-anchor="middle" x="290" y="85">Humanoids</text>
+<text fill="#6b7280" font-size="8" text-anchor="middle" x="290" y="103">Figure · Unitree</text>
+<text fill="#6b7280" font-size="8" text-anchor="middle" x="290" y="117">Optimus · 1X</text>
+</g>
+<!-- Accessible platforms -->
+<g filter="url(#gl15)">
+<rect fill="#111827" height="70" rx="12" stroke="#34d399" stroke-opacity="0.7" stroke-width="2" width="160" x="390" y="60"></rect>
+<text fill="#34d399" font-size="11" font-weight="700" text-anchor="middle" x="470" y="85">Accessible</text>
+<text fill="#6b7280" font-size="8" text-anchor="middle" x="470" y="103">SO-100 · Koch</text>
+<text fill="#6b7280" font-size="8" text-anchor="middle" x="470" y="117">ALOHA · LeRobot</text>
+</g>
+<!-- Sensors -->
+<g filter="url(#gl15)">
+<rect fill="#111827" height="70" rx="12" stroke="#34d399" stroke-opacity="0.6" stroke-width="1.5" width="160" x="570" y="60"></rect>
+<text fill="#34d399" font-size="11" font-weight="700" text-anchor="middle" x="650" y="85">Sensors</text>
+<text fill="#6b7280" font-size="8" text-anchor="middle" x="650" y="103">RGB-D · force/torque</text>
+<text fill="#6b7280" font-size="8" text-anchor="middle" x="650" y="117">tactile</text>
+</g>
+<!-- Arrows down to compute -->
+<line marker-end="url(#a15)" stroke="#38bdf8" stroke-opacity="0.4" stroke-width="1.5" x1="110" x2="350" y1="135" y2="175"></line>
+<line marker-end="url(#a15)" stroke="#38bdf8" stroke-opacity="0.4" stroke-width="1.5" x1="290" x2="370" y1="135" y2="170"></line>
+<line marker-end="url(#a15)" stroke="#38bdf8" stroke-opacity="0.4" stroke-width="1.5" x1="470" x2="400" y1="135" y2="170"></line>
+<line marker-end="url(#a15)" stroke="#38bdf8" stroke-opacity="0.4" stroke-width="1.5" x1="650" x2="420" y1="135" y2="175"></line>
+<!-- Embedded compute -->
+<g filter="url(#gl15)">
+<rect fill="#111827" height="48" rx="12" stroke="#38bdf8" stroke-opacity="0.7" stroke-width="2" width="180" x="290" y="180"></rect>
+<text fill="#38bdf8" font-size="11" font-weight="700" text-anchor="middle" x="380" y="200">Embedded Compute</text>
+<text fill="#6b7280" font-size="8" text-anchor="middle" x="380" y="216">Jetson Orin · latency &lt;100ms</text>
+</g>
+</svg>
+</div>
+<div class="space-y-1 divide-y divide-dark-600">
+<!-- Topic 1 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-xs font-bold text-emerald-400 shrink-0">1</span>
+<span class="font-medium">Industrial cobots: Franka, UR, KUKA</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-emerald-400 font-semibold mb-1">What it is</h4><p>Cobots (collaborative robots) are arms designed to operate safely alongside humans, without safety cages. Franka Emika (7 DoF, torque-sensitive), Universal Robots (UR3/UR5/UR10), and KUKA (LBR iiwa) are the most widely used platforms in research and light industry.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Why learn</h4><p>Cobots are the most common hardware in VLA datasets and research (Franka dominates DROID). Knowing their capabilities, payload limits, and control interfaces is essential to understanding how demonstrations were collected and how to deploy a policy.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Key concepts</h4><p>Degrees of freedom (DoF) define the arm's mobility; 7 DoF allow it to avoid singularities. Torque sensing at each joint enables force control and collision safety. Interfaces such as ROS, libfranka, and the real-time control protocol connect the arm to the AI model.</p></div>
+</div>
+</details>
+<!-- Topic 2 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-xs font-bold text-emerald-400 shrink-0">2</span>
+<span class="font-medium">Humanoids: Figure, Unitree, Optimus, 1X</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-emerald-400 font-semibold mb-1">What it is</h4><p>Bipedal humanoid robots designed to operate in environments built for humans. Figure 02, Unitree G1/H1, Tesla Optimus, and 1X's robots are the most advanced commercial platforms, combining bipedal locomotion, hand manipulation, and increasingly, control via VLAs.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Why learn</h4><p>Humanoids are the most visible and ambitious frontier of VLA robotics. Understanding their challenges (balance, whole-body control, cost) helps separate hype from real capabilities and calibrate expectations about what VLAs can control today versus in a few years.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Key concepts</h4><p>Whole-body control coordinates locomotion and manipulation simultaneously. Bipedal locomotion requires real-time dynamic balance control, typically delegated to controllers separate from the VLA. The Unitree G1 has drastically lowered the cost of entry, making humanoids accessible to research labs.</p></div>
+</div>
+</details>
+<!-- Topic 3 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-xs font-bold text-emerald-400 shrink-0">3</span>
+<span class="font-medium">Grippers and end-effectors</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-emerald-400 font-semibold mb-1">What it is</h4><p>The end-effector is the robot’s "hand," its final interface with the world. Options range from simple parallel grippers (two jaws that open and close) to anthropomorphic dexterous hands with multiple fingers and dozens of degrees of freedom, as well as suction cups and specialized tools.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Why learn</h4><p>The end-effector determines which tasks are physically possible. A parallel gripper is enough for pick-and-place, but dexterous tasks (manipulating fabric, using tools) require complex hands. This choice directly affects the action space the VLA needs to control.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Key concepts</h4><p>Parallel grippers have 1 DoF (open/close) and are robust and inexpensive. Dexterous hands (such as the Shadow Hand) have 20+ DoF, enabling fine manipulation but making control much harder. The end-effector's dimensionality determines the size of the action space at the VLA output.</p></div>
+</div>
+</details>
+<!-- Topic 4 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-xs font-bold text-emerald-400 shrink-0">4</span>
+<span class="font-medium">Sensors: RGB-D, force/torque, tactile</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-emerald-400 font-semibold mb-1">What it is</h4><p>The robot’s senses. RGB-D cameras (such as Intel RealSense) provide color and depth; force/torque sensors at the wrist measure interactions with objects; tactile sensors (GelSight, DIGIT) capture texture and contact at the fingertips. Together, they form the VLA’s perceptual input.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Why learn</h4><p>Most current VLAs use only RGB, but fine-contact tasks (inserting a connector, handling a fragile object) depend on force and touch. Knowing what sensors are available reveals both the limitations of current models and directions for multimodal research.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Key concepts</h4><p>RGB-D adds a depth channel that helps with 3D pose estimation. Force/torque sensing enables impedance control and contact detection. Tactile sensors provide high-resolution local feedback, which is crucial for dexterous manipulation but is still rarely integrated into mainstream VLAs.</p></div>
+</div>
+</details>
+<!-- Topic 5 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-xs font-bold text-emerald-400 shrink-0">5</span>
+<span class="font-medium">Accessible platforms: SO-100, Koch, ALOHA</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-emerald-400 font-semibold mb-1">What it is</h4><p>Low-cost, open-source robotic arms created to democratize robotics learning. SO-100/SO-101 (from Hugging Face's LeRobot project) cost a few hundred dollars; Koch and ALOHA use leader-follower setups for accessible teleoperation and data collection.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Why learn</h4><p>These platforms are the realistic way for most people to start practicing VLA for real, with physical hardware rather than only in simulation. SO-100 + LeRobot is currently the recommended entry-level setup, integrated with ready-to-use models and datasets.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Key concepts</h4><p>LeRobot is Hugging Face's library that brings together affordable hardware, datasets, and trainable policies. The leader-follower setup lets you teleoperate by moving a twin arm by hand. Its low cost makes it possible to collect your own data and fine-tune locally without an industrial investment.</p></div>
+</div>
+</details>
+<!-- Topic 6 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-xs font-bold text-emerald-400 shrink-0">6</span>
+<span class="font-medium">Embedded compute: Jetson and latency</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-emerald-400 font-semibold mb-1">What it is</h4><p>The compute hardware that runs the VLA, often embedded in the robot itself. The NVIDIA Jetson line (Orin Nano, AGX Orin) is the standard for on-device inference, offering a compact, low-power GPU suitable for autonomous deployment without an external server.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Why learn</h4><p>The choice of compute determines whether the VLA runs in real time on the robot. A model that requires a datacenter GPU can’t go on an autonomous humanoid. Understanding Jetson’s latency and memory requirements is critical to designing systems that can actually be deployed.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Key concepts</h4><p>Inference latency must fit within the control period (e.g., &lt;100 ms for 10 Hz). Quantization (INT8/INT4) and TensorRT optimize the model for Jetson. The edge vs. cloud trade-off pits autonomy and low on-device latency against the greater capacity of remote servers, with the risk of network delays.</p></div>
+</div>
+</details>
+</div>
+</div>
+<div class="-mt-10 mb-10 flex justify-start">
+<a class="px-5 py-2.5 text-sm font-semibold bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg transition-colors" href="modulo-1-5.html">View full module →</a>
+</div>
+<!-- ============================================================ -->
+<!-- M1.6 — Segurança e Normas: ISO 10218:2025                    -->
+<!-- ============================================================ -->
+<div class="mb-16 scroll-mt-20" id="modulo-1-6">
+<div class="mb-6">
+<span class="text-xs font-mono text-emerald-400 bg-emerald-500/20 px-2 py-0.5 rounded border border-emerald-500/30">MODULE 1.6</span>
+<h3 class="text-xl font-bold mt-3 mb-1">Safety and Standards: ISO 10218:2025</h3>
+<p class="text-neutral-400 text-sm">Safety-by-design and the standards governing human-robot collaboration.</p>
+</div>
+<!-- SVG M1.6: Safety layers -->
+<div class="mb-8 p-4 rounded-xl bg-dark-800 border border-dark-700">
+<svg aria-label="Safety layers: ISO standards, safety by design, guardrails, and verification" class="w-full h-auto" role="img" viewbox="0 0 760 240" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<pattern height="20" id="g16" patternunits="userSpaceOnUse" width="20">
+<path d="M 20 0 L 0 0 0 20" fill="none" stroke="#34d399" stroke-opacity="0.05" stroke-width="0.5"></path>
+</pattern>
+<filter id="gl16"><fegaussianblur result="b" stddeviation="3"></fegaussianblur><fecomposite in="SourceGraphic" in2="b" operator="over"></fecomposite></filter>
+<marker id="a16" markerheight="6" markerwidth="8" orient="auto" refx="8" refy="3">
+<path d="M0,0 L8,3 L0,6" fill="#34d399" fill-opacity="0.7"></path>
+</marker>
+</defs>
+<rect fill="url(#g16)" height="240" width="760"></rect>
+<text fill="#34d399" font-size="13" font-weight="600" opacity="0.8" text-anchor="middle" x="380" y="28">Safety Layers Around the Robot</text>
+<!-- Concentric safety layers -->
+<g filter="url(#gl16)">
+<rect fill="none" height="160" rx="16" stroke="#059669" stroke-opacity="0.4" stroke-width="1.5" width="520" x="120" y="55"></rect>
+<text fill="#34d399" font-size="9" font-weight="600" text-anchor="middle" x="380" y="72">ISO 10218:2025 · ISO/TS 15066 (standards)</text>
+</g>
+<g filter="url(#gl16)">
+<rect fill="none" height="110" rx="14" stroke="#34d399" stroke-opacity="0.5" stroke-width="1.5" width="420" x="170" y="85"></rect>
+<text fill="#34d399" font-size="9" font-weight="600" text-anchor="middle" x="380" y="102">Safety-by-design · risk analysis</text>
+</g>
+<g filter="url(#gl16)">
+<rect fill="none" height="64" rx="12" stroke="#38bdf8" stroke-opacity="0.6" stroke-width="1.5" width="320" x="220" y="115"></rect>
+<text fill="#38bdf8" font-size="9" font-weight="600" text-anchor="middle" x="380" y="132">Guardrails · fail-safe · SSM / PFL</text>
+</g>
+<!-- Robot at core -->
+<g filter="url(#gl16)">
+<circle cx="380" cy="155" fill="#111827" r="22" stroke="#38bdf8" stroke-opacity="0.7" stroke-width="2"></circle>
+<text fill="#38bdf8" font-size="11" font-weight="800" text-anchor="middle" x="380" y="159">🦾</text>
+</g>
+<!-- Side labels -->
+<text fill="#6b7280" font-size="8" x="60" y="120">stopping at</text>
+<text fill="#6b7280" font-size="8" x="60" y="132">emergency</text>
+<text fill="#6b7280" font-size="8" x="660" y="120">verification</text>
+<text fill="#6b7280" font-size="8" x="660" y="132">and validation</text>
+</svg>
+</div>
+<div class="space-y-1 divide-y divide-dark-600">
+<!-- Topic 1 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-xs font-bold text-emerald-400 shrink-0">1</span>
+<span class="font-medium">ISO 10218:2025: the industrial robot standard</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-emerald-400 font-semibold mb-1">What it is</h4><p>ISO 10218:2025 is the international standard that defines safety requirements for industrial robots and their integration. The 2025 revision unified and updated parts 1 (robot) and 2 (system/cell integration), explicitly incorporating collaborative operation and modern human-robot interaction scenarios.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Why learn</h4><p>Any real-world robot deployment in a production environment must comply with this standard. For those working with VLAs, it defines the safety envelope within which the model can operate, making it a legal and ethical prerequisite before putting a robot near people.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Key concepts</h4><p>The standard specifies design requirements, protective stops, and safety functions with a performance level (PL) defined by ISO 13849. It distinguishes between a robot (Part 1) and an integrated cell (Part 2). The 2025 edition aligns with the evolution of cobots and continuous collaborative operation.</p></div>
+</div>
+</details>
+<!-- Topic 2 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-xs font-bold text-emerald-400 shrink-0">2</span>
+<span class="font-medium">ISO/TS 15066: force and pressure limits</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-emerald-400 font-semibold mb-1">What it is</h4><p>ISO/TS 15066 is the technical specification that supplements ISO 10218 with a specific focus on collaborative robots. It defines biomechanical force and pressure limits for different regions of the human body, ensuring that robot-human contact does not cause injury.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Why learn</h4><p>It’s the standard that makes human-robot collaboration physically safe. Any VLA controlling a cobot operating near people must respect these limits, which in practice restrict the maximum speed and force of the actions the model can issue.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Key concepts</h4><p>Biomechanical limits are tabulated by body part (e.g., maximum pressure on the hand vs. the face). Defines the four modes of collaboration, including power-and-force limiting (PFL) and speed-and-separation monitoring (SSM). It is a technical specification (TS), intended as guidance, but referenced by ISO 10218.</p></div>
+</div>
+</details>
+<!-- Topic 3 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-xs font-bold text-emerald-400 shrink-0">3</span>
+<span class="font-medium">Safety-by-design for VLA</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-emerald-400 font-semibold mb-1">What it is</h4><p>The philosophy of embedding safety from the system’s design stage, instead of adding it as a patch later. For VLAs, this means designing the architecture, action space, and model limits so that dangerous behaviors are structurally difficult or impossible.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Why learn</h4><p>VLAs are unpredictable generative models; you cannot simply trust that they "will behave well." Safety by design is what makes it possible to use probabilistic models in physical systems without exposing people to risk, making it a core competency for any responsible robotics engineer.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Key concepts</h4><p>Action clamping physically limits the model's output to safe speed and force ranges. Model-independent safety layers (deterministic safety controllers) act as a safety net. The principle of defense-in-depth combines multiple redundant barriers so that no single failure causes harm.</p></div>
+</div>
+</details>
+<!-- Topic 4 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-xs font-bold text-emerald-400 shrink-0">4</span>
+<span class="font-medium">Emergency stop and zones: SSM and PFL</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-emerald-400 font-semibold mb-1">What it is</h4><p>The physical and logical mechanisms that stop or modulate a robot’s movement in the presence of humans. Includes emergency stop buttons (e-stop), monitored safety zones, and the two main collaborative modes: SSM (speed and separation monitoring) and PFL (power and force limiting).</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Why learn</h4><p>These are the last-resort safeguards that protect people regardless of what the VLA decides to do. Understanding how SSM and PFL work reveals where the AI model ends and the deterministic safety system takes over.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Key concepts</h4><p>Speed-and-separation monitoring (SSM) reduces speed as a human approaches, stopping before contact. Power-and-force limiting (PFL) allows contact, but within the biomechanical limits of TS 15066. Category 0/1 emergency stop safely cuts power, independently of the control software.</p></div>
+</div>
+</details>
+<!-- Topic 5 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-xs font-bold text-emerald-400 shrink-0">5</span>
+<span class="font-medium">Risk analysis and mitigation</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-emerald-400 font-semibold mb-1">What it is</h4><p>The systematic process of identifying potential hazards in a robotic system, estimating the severity and likelihood of each, and defining measures to reduce them to acceptable levels. It is a mandatory step required by standards before any deployment.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Why learn</h4><p>Every compliant robotics integration starts with a risk assessment. For systems with VLA, it needs to account for the model’s unpredictability, broadening the scope of hazards to evaluate. Knowing how to conduct one is a prerequisite for any serious project.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Key concepts</h4><p>The mitigation hierarchy prioritizes eliminating hazards, followed by engineering protections, then warnings and PPE. Methods such as HAZOP and FMEA structure failure identification. Risk reduction is iterative: assess, mitigate, and reassess until the residual risk is acceptable.</p></div>
+</div>
+</details>
+<!-- Topic 6 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex items-center justify-center text-xs font-bold text-emerald-400 shrink-0">6</span>
+<span class="font-medium">Guardrails, fail-safe, and VLA validation</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-emerald-400 font-semibold mb-1">What it is</h4><p>The set of safeguards specific to generative models in physical control: guardrails that filter or block unsafe actions proposed by the VLA, fail-safe behaviors that bring the robot to a safe state in the event of a failure, and verification and validation (V&amp;V) processes that demonstrate the system’s behavior.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Why learn</h4><p>It’s the boundary between experimental and deployable VLAs. Since generative models can hallucinate actions, guardrails and fail-safes are what make them trustworthy in production. Without robust V&amp;V, no VLA system should operate near people.</p></div>
+<div><h4 class="text-emerald-400 font-semibold mb-1">Key concepts</h4><p>Guardrails validate each action against safety constraints before execution, rejecting commands outside the envelope. Fail-safe behaviors define the default safe state (stop, gently release the load) when something goes wrong. Verification and validation combine simulation tests, runtime monitoring, and statistical evaluation of behavior at scale.</p></div>
+</div>
+</details>
+</div>
+</div>
+<div class="-mt-10 mb-10 flex justify-start">
+<a class="px-5 py-2.5 text-sm font-semibold bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg transition-colors" href="modulo-1-6.html">View full module →</a>
+</div>
+</main>
+</body>
+</html>

@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Módulo 3.5 — Mercado e Oportunidades: $7.2B | VLA Course</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: { 600:'#374151', 700:'#1f2937', 800:'#1a1a2e', 900:'#111827' },
+                        primary: '#f59e0b'
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .dark body { background-color: #111827; }
+        html:not(.dark) body { background-color: #f8fafc; }
+        html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+        html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+        html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+        html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+        html:not(.dark) .text-neutral-100 { color: #111827; }
+        html:not(.dark) .text-neutral-300 { color: #4b5563; }
+        html:not(.dark) .text-neutral-400 { color: #6b7280; }
+        html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+        html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+        html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+        html:not(.dark) .text-purple-400 { color: #7c3aed; }
+        html:not(.dark) .text-emerald-400 { color: #059669; }
+        html:not(.dark) .text-blue-400 { color: #2563eb; }
+        html:not(.dark) .bg-purple-500\/20 { background-color: rgba(124, 58, 237, 0.12); }
+        html:not(.dark) .bg-purple-500\/10 { background-color: rgba(124, 58, 237, 0.08); }
+        html:not(.dark) .bg-purple-900\/20 { background-color: rgba(124, 58, 237, 0.08); }
+        html:not(.dark) .bg-emerald-500\/20 { background-color: rgba(5, 150, 105, 0.12); }
+        html:not(.dark) .bg-blue-500\/20 { background-color: rgba(37, 99, 235, 0.12); }
+        html:not(.dark) .bg-red-900\/20 { background-color: rgba(220, 38, 38, 0.07); }
+        html:not(.dark) .border-purple-500\/30 { border-color: rgba(124, 58, 237, 0.25); }
+        html:not(.dark) .border-emerald-500\/30 { border-color: rgba(5, 150, 105, 0.25); }
+        html:not(.dark) .border-blue-500\/30 { border-color: rgba(37, 99, 235, 0.25); }
+        html:not(.dark) .border-red-500\/30 { border-color: rgba(220, 38, 38, 0.25); }
+        html:not(.dark) .hover\:border-purple-500\/50:hover { border-color: rgba(124, 58, 237, 0.4); }
+        html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+        html:not(.dark) .text-primary { color: #a16207; }
+        html:not(.dark) .bg-primary\/10 { background-color: rgba(161, 98, 7, 0.08); }
+        html:not(.dark) .border-primary\/30 { border-color: rgba(161, 98, 7, 0.25); }
+        html:not(.dark) .border-primary\/40 { border-color: rgba(161, 98, 7, 0.25); }
+        html:not(.dark) .text-sky-400 { color: #0369a1; }
+        html:not(.dark) .text-yellow-400 { color: #a16207; }
+        html:not(.dark) .text-red-400 { color: #dc2626; }
+        html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+        html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255, 255, 255, 0.95); }
+        html:not(.dark) svg[role="img"] { filter: saturate(0.82) brightness(0.96); }
+        .dark .border-dark-600 { border-color: #374151; }
+        .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+        @keyframes wf-pulse { 0%,100% { opacity:.55 } 50% { opacity:1 } }
+        @media (prefers-reduced-motion: no-preference) {
+          .wf-a { animation: wf-pulse 2.6s ease-in-out infinite; }
+          .wf-a:nth-child(2){animation-delay:.25s} .wf-a:nth-child(3){animation-delay:.5s}
+          .wf-a:nth-child(4){animation-delay:.75s} .wf-a:nth-child(5){animation-delay:1s}
+        }
+    </style>
+<link href="https://linnoff88-dev.github.io/arckhe-vla/curso/trilha3/modulo-3-5.html" hreflang="pt-BR" rel="alternate"/><link href="https://linnoff88-dev.github.io/arckhe-vla/en/curso/trilha3/modulo-3-5.html" hreflang="en" rel="alternate"/><link href="https://linnoff88-dev.github.io/arckhe-vla/es/curso/trilha3/modulo-3-5.html" hreflang="es" rel="alternate"/></head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="ARCKHÉ-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="modulo-3-5.html" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">PT</a><a href="../../en/curso/trilha3/modulo-3-5.html" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">EN</a><a href="../../es/curso/trilha3/modulo-3-5.html" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">ES</a></div>
+<!-- NAV -->
+<nav class="fixed top-0 w-full bg-dark-900/95 backdrop-blur border-b border-dark-600 z-50">
+<div class="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<a class="text-primary font-bold text-lg" href="../../">VLA</a>
+<span class="text-neutral-500">|</span>
+<a class="text-sky-400 hover:text-sky-300 text-sm font-medium" href="https://ARCKHÉ AI" target="_blank">ARCKHÉ AI</a>
+</div>
+<div class="flex items-center gap-2">
+<a class="px-3 py-1.5 rounded text-sm text-emerald-400 hover:bg-emerald-500/10" href="../trilha1/">Fundamentos</a>
+<a class="px-3 py-1.5 rounded text-sm text-blue-400 hover:bg-blue-500/10" href="../trilha2/">Técnico</a>
+<a class="px-3 py-1.5 rounded text-sm text-purple-400 bg-purple-500/20 border border-purple-500/30 font-medium" href="./">Avançado</a>
+<button class="ml-2 p-2 rounded hover:bg-dark-700 text-neutral-400" onclick="document.documentElement.classList.toggle('dark')" title="Alternar tema">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+</div>
+</div>
+</nav>
+<!-- BREADCRUMB -->
+<div class="max-w-4xl mx-auto px-4 pt-20">
+<div class="flex items-center gap-2 text-sm text-neutral-400">
+<a class="hover:text-purple-400" href="../../">Início</a>
+<span>/</span>
+<a class="hover:text-purple-400" href="./">Avançado</a>
+<span>/</span>
+<span class="text-purple-400">Módulo 3.5</span>
+</div>
+</div>
+<main class="max-w-4xl mx-auto px-4 pt-6 pb-16">
+<!-- HEADER -->
+<header class="mb-12">
+<span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-purple-500/20 text-purple-400 border border-purple-500/30 mb-4">MÓDULO 3.5</span>
+<h1 class="text-3xl sm:text-4xl font-extrabold mb-4">💰 Mercado e Oportunidades: $7.2B</h1>
+<p class="text-lg text-neutral-400 max-w-3xl">O boom da robótica inteligente, os players que estão moldando o setor e as novas carreiras que estão surgindo para quem domina VLA. Do tamanho do mercado ao seu plano de entrada.</p>
+<!-- Stats -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-8">
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-purple-400">6</div>
+<div class="text-xs text-neutral-400">Tópicos</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-purple-400">~55</div>
+<div class="text-xs text-neutral-400">Minutos</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-purple-400">Avançado</div>
+<div class="text-xs text-neutral-400">Nível</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-purple-400">Trilha 3</div>
+<div class="text-xs text-neutral-400">Módulo 5 de 6</div>
+</div>
+</div>
+</header>
+<!-- SVG HERO: Ecossistema de mercado VLA -->
+<div class="mb-12 rounded-2xl border border-purple-500/30 bg-dark-900/40 p-4">
+<svg aria-label="Ecossistema do mercado de robótica inteligente: crescimento de $7.2B, players e oportunidades de carreira" class="w-full h-auto" role="img" viewbox="0 0 900 260">
+<defs>
+<lineargradient id="m35-grad" x1="0" x2="1" y1="0" y2="1">
+<stop offset="0" stop-color="#c084fc"></stop>
+<stop offset="1" stop-color="#a855f7"></stop>
+</lineargradient>
+<filter height="160%" id="m35-glow" width="160%" x="-30%" y="-30%">
+<fegaussianblur result="b" stddeviation="1.8"></fegaussianblur>
+<femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge>
+</filter>
+<pattern height="28" id="m35-grid" patternunits="userSpaceOnUse" width="28">
+<circle cx="1.4" cy="1.4" fill="#c084fc" opacity="0.10" r="1.4"></circle>
+</pattern>
+<marker id="m35-ah" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5">
+<path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#c084fc"></path>
+</marker>
+<marker id="m35-ahc" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5">
+<path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#38bdf8"></path>
+</marker>
+</defs>
+<rect fill="url(#m35-grid)" height="260" rx="14" width="900" x="0" y="0"></rect>
+<!-- Mercado central -->
+<g filter="url(#m35-glow)">
+<rect fill="#1a1230" height="80" rx="14" stroke="url(#m35-grad)" stroke-width="2.5" width="200" x="350" y="90"></rect>
+</g>
+<text fill="#c084fc" font-family="Inter,sans-serif" font-size="18" font-weight="700" text-anchor="middle" x="450" y="126">Robótica VLA</text>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="14" font-weight="600" text-anchor="middle" x="450" y="148">$7.2B → 2030</text>
+<!-- Players esquerda -->
+<g class="wf-a">
+<rect fill="#0e1020" height="36" rx="9" stroke="#c084fc" stroke-width="1.5" width="140" x="40" y="40"></rect>
+<text fill="#c084fc" font-family="Inter,sans-serif" font-size="11" font-weight="600" text-anchor="middle" x="110" y="62">Figure / 1X</text>
+</g>
+<g class="wf-a">
+<rect fill="#0e1020" height="36" rx="9" stroke="#c084fc" stroke-width="1.5" width="140" x="40" y="112"></rect>
+<text fill="#c084fc" font-family="Inter,sans-serif" font-size="11" font-weight="600" text-anchor="middle" x="110" y="134">Physical Intel.</text>
+</g>
+<g class="wf-a">
+<rect fill="#0e1020" height="36" rx="9" stroke="#c084fc" stroke-width="1.5" width="140" x="40" y="184"></rect>
+<text fill="#c084fc" font-family="Inter,sans-serif" font-size="11" font-weight="600" text-anchor="middle" x="110" y="206">Tesla / NVIDIA</text>
+</g>
+<!-- Setas players → mercado -->
+<path d="M180,58 C260,58 300,120 350,125" fill="none" marker-end="url(#m35-ah)" stroke="#c084fc" stroke-opacity="0.6" stroke-width="1.6"></path>
+<path d="M180,130 L350,130" fill="none" marker-end="url(#m35-ah)" stroke="#c084fc" stroke-opacity="0.6" stroke-width="1.6"></path>
+<path d="M180,202 C260,202 300,150 350,145" fill="none" marker-end="url(#m35-ah)" stroke="#c084fc" stroke-opacity="0.6" stroke-width="1.6"></path>
+<!-- Oportunidades direita -->
+<g class="wf-a">
+<rect fill="#061018" height="36" rx="9" stroke="#38bdf8" stroke-width="1.5" width="150" x="720" y="40"></rect>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="11" font-weight="600" text-anchor="middle" x="795" y="62">ML Engineer</text>
+</g>
+<g class="wf-a">
+<rect fill="#061018" height="36" rx="9" stroke="#38bdf8" stroke-width="1.5" width="150" x="720" y="112"></rect>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="11" font-weight="600" text-anchor="middle" x="795" y="134">Sim Engineer</text>
+</g>
+<g class="wf-a">
+<rect fill="#061018" height="36" rx="9" stroke="#38bdf8" stroke-width="1.5" width="150" x="720" y="184"></rect>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="11" font-weight="600" text-anchor="middle" x="795" y="206">Data Teleop.</text>
+</g>
+<!-- Setas mercado → oportunidades -->
+<path d="M550,125 C630,125 670,58 720,58" fill="none" marker-end="url(#m35-ahc)" stroke="#38bdf8" stroke-opacity="0.6" stroke-width="1.6"></path>
+<path d="M550,130 L720,130" fill="none" marker-end="url(#m35-ahc)" stroke="#38bdf8" stroke-opacity="0.6" stroke-width="1.6"></path>
+<path d="M550,145 C630,145 670,202 720,202" fill="none" marker-end="url(#m35-ahc)" stroke="#38bdf8" stroke-opacity="0.6" stroke-width="1.6"></path>
+<!-- Labels -->
+<text fill="#c084fc" font-family="Inter,sans-serif" font-size="10" opacity="0.65" text-anchor="middle" x="240" y="20">Players</text>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="10" opacity="0.65" text-anchor="middle" x="660" y="20">Carreiras</text>
+</svg>
+</div>
+<!-- TÓPICO 1: Tamanho e projeção do mercado -->
+<section class="mb-12" id="topico-1">
+<div class="flex items-start gap-4 mb-6">
+<div class="w-12 h-12 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center shrink-0">
+<span class="text-purple-400 font-bold text-lg">1</span>
+</div>
+<div>
+<h2 class="text-2xl font-bold">Tamanho e Projeção do Mercado</h2>
+<p class="text-neutral-400 mt-1">De US$ 7.2B hoje a centenas de bilhões na próxima década — o que os números dizem e o que escondem.</p>
+</div>
+</div>
+<!-- Conceito principal -->
+<div class="bg-gradient-to-br from-purple-900/40 via-dark-800 to-dark-800 rounded-xl border border-purple-500/30 p-6 mb-6">
+<h3 class="text-lg font-semibold text-purple-400 mb-3 flex items-center"><span class="mr-2">📊</span> O mercado em números</h3>
+<p class="text-neutral-300">O mercado de robótica habilitada por IA é estimado em <strong class="text-purple-400">~US$ 7.2 bilhões</strong> na janela atual, com CAGR de dois dígitos altos projetando dezenas de bilhões até 2030. Goldman Sachs e Morgan Stanley chegam a estimativas de centenas de bilhões na próxima década se humanoides de uso geral se tornarem viáveis. As cifras variam muito conforme o escopo — robótica industrial clássica vs. habilitada por IA vs. apenas humanoides.</p>
+</div>
+<!-- Grid TAM/SAM/SOM -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+<div class="bg-dark-800 rounded-xl border border-purple-500/30 p-5">
+<div class="text-2xl font-bold text-purple-400 mb-1">TAM</div>
+<div class="text-sm font-semibold text-neutral-200 mb-2">Total Addressable Market</div>
+<p class="text-xs text-neutral-400">Toda automação física possível: manufatura, logística, serviços, saúde, agro. Estimativas chegam a trilhões em 10–15 anos.</p>
+</div>
+<div class="bg-dark-800 rounded-xl border border-purple-500/30 p-5">
+<div class="text-2xl font-bold text-purple-400 mb-1">SAM</div>
+<div class="text-sm font-semibold text-neutral-200 mb-2">Serviceable Addressable Market</div>
+<p class="text-xs text-neutral-400">Tarefas que VLA pode executar hoje com confiança: picking, montagem de baixo mix, cirurgia assistida. Dezenas de bilhões até 2030.</p>
+</div>
+<div class="bg-dark-800 rounded-xl border border-purple-500/30 p-5">
+<div class="text-2xl font-bold text-purple-400 mb-1">SOM</div>
+<div class="text-sm font-semibold text-neutral-200 mb-2">Serviceable Obtainable Market</div>
+<p class="text-xs text-neutral-400">O que players atuais conseguem capturar agora dado capital, maturidade técnica e ciclos de venda. Poucos bilhões no curto prazo.</p>
+</div>
+</div>
+<!-- Tip box -->
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-5 mb-6">
+<h3 class="text-base font-semibold text-primary mb-2 flex items-center"><span class="mr-2">💡</span> Leia as premissas</h3>
+<p class="text-neutral-300 text-sm">Cada projeção de mercado tem premissas ocultas: quão rápido humanoides atingem 90% de confiabilidade? Qual o custo de hardware em 2028? Antes de citar US$ X bilhões, pergunte: qual o escopo, qual o CAGR pressuposto e quem está pagando o relatório.</p>
+</div>
+<!-- Conceitos-chave -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6">
+<h3 class="text-base font-semibold text-purple-400 mb-3">Conceitos-chave</h3>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-neutral-300">
+<div><strong>TAM/SAM/SOM</strong> — hierarquia de estimativas de mercado.</div>
+<div><strong>CAGR</strong> — taxa composta de crescimento anual.</div>
+<div><strong>~US$ 7.2B</strong> — estimativa atual do mercado habilitado por IA.</div>
+<div><strong>Goldman/Morgan Stanley</strong> — principais relatórios de referência.</div>
+<div><strong>Sensibilidade a premissas</strong> — pequena mudança de hipótese muda as estimativas em 10×.</div>
+<div><strong>Humanoides vs. robótica industrial</strong> — o escopo define o número.</div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 2: Players-chave -->
+<section class="mb-12" id="topico-2">
+<div class="flex items-start gap-4 mb-6">
+<div class="w-12 h-12 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center shrink-0">
+<span class="text-purple-400 font-bold text-lg">2</span>
+</div>
+<div>
+<h2 class="text-2xl font-bold">Players-chave do Ecossistema</h2>
+<p class="text-neutral-400 mt-1">Quem está construindo o futuro da robótica inteligente e onde cada um aposta na pilha.</p>
+</div>
+</div>
+<p class="text-neutral-300 mb-6">O ecossistema se divide em três camadas: fabricantes de <strong>hardware/humanoides</strong>, labs de <strong>foundation models robóticos</strong> e provedores de <strong>plataforma e compute</strong>. Entender quem ocupa cada camada revela onde estão as apostas e onde podem surgir vagas e parcerias.</p>
+<!-- Grid players por camada -->
+<div class="space-y-4 mb-6">
+<div class="bg-dark-800 rounded-xl border border-purple-500/30 p-5">
+<h4 class="font-semibold text-purple-400 mb-3 text-sm uppercase tracking-wide">Hardware / Humanoides</h4>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+<div class="bg-purple-900/20 rounded-lg p-3">
+<div class="font-semibold text-sm text-white mb-1">Figure</div>
+<p class="text-xs text-neutral-400">Humanoide de uso geral. Parceria com BMW para chão de fábrica. Forte em fundArising de VC.</p>
+</div>
+<div class="bg-purple-900/20 rounded-lg p-3">
+<div class="font-semibold text-sm text-white mb-1">Tesla Optimus</div>
+<p class="text-xs text-neutral-400">Integração vertical total: hardware + IA + dados de frota. Meta: produção em massa a baixo custo.</p>
+</div>
+<div class="bg-purple-900/20 rounded-lg p-3">
+<div class="font-semibold text-sm text-white mb-1">1X / Apptronik</div>
+<p class="text-xs text-neutral-400">Humanoides com foco em ergonomia e trabalho colaborativo com humanos em ambientes industriais.</p>
+</div>
+</div>
+</div>
+<div class="bg-dark-800 rounded-xl border border-purple-500/30 p-5">
+<h4 class="font-semibold text-purple-400 mb-3 text-sm uppercase tracking-wide">Foundation Models Robóticos</h4>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+<div class="bg-purple-900/20 rounded-lg p-3">
+<div class="font-semibold text-sm text-white mb-1">Physical Intelligence (π0)</div>
+<p class="text-xs text-neutral-400">Lab fundado por ex-OpenAI/Google. Foco em foundation models generalistas treinados em dados de teleoperação massivos.</p>
+</div>
+<div class="bg-purple-900/20 rounded-lg p-3">
+<div class="font-semibold text-sm text-white mb-1">Skild AI</div>
+<p class="text-xs text-neutral-400">Arquitetura cross-embodiment: um modelo para múltiplas morfologias de robô. Criado por pesquisadores de CMU.</p>
+</div>
+</div>
+</div>
+<div class="bg-dark-800 rounded-xl border border-purple-500/30 p-5">
+<h4 class="font-semibold text-purple-400 mb-3 text-sm uppercase tracking-wide">Plataforma e Compute</h4>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+<div class="bg-purple-900/20 rounded-lg p-3">
+<div class="font-semibold text-sm text-white mb-1">NVIDIA Isaac + GR00T</div>
+<p class="text-xs text-neutral-400">Simulação (Isaac Sim), geração de dados sintéticos e foundation model GR00T. NVIDIA é o "picks and shovels" da robótica.</p>
+</div>
+<div class="bg-purple-900/20 rounded-lg p-3">
+<div class="font-semibold text-sm text-white mb-1">Hugging Face LeRobot</div>
+<p class="text-xs text-neutral-400">Plataforma open-source: datasets, modelos e código para pesquisa em políticas VLA com hardware acessível.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Tip box -->
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-5">
+<h3 class="text-base font-semibold text-primary mb-2 flex items-center"><span class="mr-2">🗺️</span> Integração vertical vs. especialização</h3>
+<p class="text-neutral-300 text-sm">Tesla aposta em integração vertical (hardware + modelo + dados de frota). Physical Intelligence aposta em especialização — vender o foundation model para quem quiser construir hardware por cima. Histórico de tech sugere que a camada de modelo tende a capturar mais valor no longo prazo, como aconteceu com Android vs. fabricantes de celular.</p>
+</div>
+</section>
+<!-- TÓPICO 3: Dinâmica de investimento e VC -->
+<section class="mb-12" id="topico-3">
+<div class="flex items-start gap-4 mb-6">
+<div class="w-12 h-12 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center shrink-0">
+<span class="text-purple-400 font-bold text-lg">3</span>
+</div>
+<div>
+<h2 class="text-2xl font-bold">Dinâmica de Investimento e VC</h2>
+<p class="text-neutral-400 mt-1">Para onde o capital de risco está indo — e o que isso sinaliza sobre o futuro do setor.</p>
+</div>
+</div>
+<!-- Timeline de rodadas -->
+<div class="space-y-6 mb-6">
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center">
+<span class="text-purple-400 font-bold text-sm">24</span>
+</div>
+<div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600">
+<h4 class="font-semibold text-white mb-1">2024 — O ano das mega-rodadas</h4>
+<p class="text-sm text-neutral-400 mb-2">Figure levanta US$ 675M a valuation de US$ 2.6B com Microsoft, OpenAI, NVIDIA e Jeff Bezos como investidores. Physical Intelligence levanta US$ 400M. O sinal: capital estratégico (não só financeiro) entra pesado.</p>
+<p class="text-sm text-neutral-300">Gigantes de tech participam como investidores <em>estratégicos</em> — eles querem acesso à tecnologia, não só retorno financeiro.</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center">
+<span class="text-purple-400 font-bold text-sm">25</span>
+</div>
+<div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600">
+<h4 class="font-semibold text-white mb-1">2025–2026 — Corrida pelo foundation model robótico</h4>
+<p class="text-sm text-neutral-400 mb-2">O capital busca quem resolver primeiro o gargalo de dados e generalização. A tese: o primeiro foundation model generalista para robótica captura uma posição de plataforma difícil de disputar.</p>
+<p class="text-sm text-neutral-300">Paralelo com LLMs: quem treinou na maior escala de dados primeiro criou uma vantagem de rede self-reinforcing.</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center">
+<span class="text-purple-400 font-bold text-sm">28+</span>
+</div>
+<div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600">
+<h4 class="font-semibold text-white mb-1">2028+ — Consolidação esperada</h4>
+<p class="text-sm text-neutral-400 mb-2">Histórico de tech (cloud, mobile, LLMs) sugere que players com mais dados e maior escala de deploy tenderão a consolidar. Empresas menores sem produto em produção enfrentarão pressão de burn rate.</p>
+<p class="text-sm text-neutral-300">M&amp;A provável: grandes players comprando labs de modelos ou empresas com datasets únicos.</p>
+</div>
+</div>
+</div>
+<!-- Grid fazer vs evitar -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+<div class="bg-purple-900/20 rounded-xl border border-purple-500/30 p-5">
+<h4 class="font-semibold text-purple-400 mb-3 flex items-center"><span class="mr-2">✓</span> Sinais positivos no mercado</h4>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-purple-400 mt-0.5 shrink-0">✓</span>Capital estratégico (NVIDIA, Microsoft) valida a tese técnica</li>
+<li class="flex items-start gap-2"><span class="text-purple-400 mt-0.5 shrink-0">✓</span>Clientes pagantes (BMW, Amazon) — receita real, não só demos</li>
+<li class="flex items-start gap-2"><span class="text-purple-400 mt-0.5 shrink-0">✓</span>Open-source ativo (LeRobot, Open X) acelera pesquisa</li>
+<li class="flex items-start gap-2"><span class="text-purple-400 mt-0.5 shrink-0">✓</span>Hardware em queda de preço: sensores, atuadores e compute</li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-5">
+<h4 class="font-semibold text-red-400 mb-3 flex items-center"><span class="mr-2">✗</span> Riscos e sinais de alerta</h4>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5 shrink-0">✗</span>Burn rate alto sem receita recorrente — risco de "demo-ware"</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5 shrink-0">✗</span>Ciclos de venda B2B longos: pilotos viram receita em 2–4 anos</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5 shrink-0">✗</span>Hype inflaciona valuations: comparar com tração real</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5 shrink-0">✗</span>Dependência de compute caro — margem pressionada no início</li>
+</ul>
+</div>
+</div>
+<!-- Conceitos-chave -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6">
+<h3 class="text-base font-semibold text-purple-400 mb-3">Conceitos-chave</h3>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-neutral-300">
+<div><strong>Valuation</strong> — preço de mercado implícito em rodada de VC.</div>
+<div><strong>Rodadas seed/A/B</strong> — estágios de financiamento com diferentes teses de risco.</div>
+<div><strong>Investidores estratégicos</strong> — buscam acesso, não só retorno financeiro.</div>
+<div><strong>Burn rate</strong> — velocidade de consumo de capital antes de receita.</div>
+<div><strong>M&amp;A</strong> — fusões e aquisições como estratégia de consolidação.</div>
+<div><strong>RaaS</strong> — Robots-as-a-Service como modelo de receita recorrente.</div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 4: Carreiras emergentes -->
+<section class="mb-12" id="topico-4">
+<div class="flex items-start gap-4 mb-6">
+<div class="w-12 h-12 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center shrink-0">
+<span class="text-purple-400 font-bold text-lg">4</span>
+</div>
+<div>
+<h2 class="text-2xl font-bold">Carreiras Emergentes em Robótica VLA</h2>
+<p class="text-neutral-400 mt-1">Novos papéis que estão surgindo — e como cada um contribui para o ciclo de treino e deploy de políticas.</p>
+</div>
+</div>
+<p class="text-neutral-300 mb-6">A robótica VLA criou funções que não existiam há 3 anos. Muitas combinam habilidades de ML com engenharia física — um perfil híbrido que o mercado paga prêmio. Entender cada papel ajuda a mapear sua trajetória e montar um portfólio direcionado.</p>
+<!-- Cards de carreiras -->
+<div class="space-y-4 mb-6">
+<div class="bg-dark-800 rounded-xl border border-purple-500/30 p-5 flex items-start gap-4">
+<div class="w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center shrink-0 text-purple-400 font-bold">ML</div>
+<div>
+<h4 class="font-semibold text-white mb-1">Robotics ML Engineer</h4>
+<p class="text-sm text-neutral-400">Treina políticas VLA: cuida do pipeline de dados de teleoperação, ajusta arquiteturas (diffusion policy, ACT), avalia em simulação e valida no robô físico. Requer PyTorch + ROS2 + entendimento de controle.</p>
+<div class="mt-2 flex flex-wrap gap-2">
+<span class="text-xs bg-purple-500/20 text-purple-400 px-2 py-0.5 rounded">PyTorch</span>
+<span class="text-xs bg-purple-500/20 text-purple-400 px-2 py-0.5 rounded">Diffusion Policy</span>
+<span class="text-xs bg-purple-500/20 text-purple-400 px-2 py-0.5 rounded">ROS2</span>
+</div>
+</div>
+</div>
+<div class="bg-dark-800 rounded-xl border border-purple-500/30 p-5 flex items-start gap-4">
+<div class="w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center shrink-0 text-purple-400 font-bold">SIM</div>
+<div>
+<h4 class="font-semibold text-white mb-1">Simulation Engineer</h4>
+<p class="text-sm text-neutral-400">Constrói ambientes virtuais e domain randomization para gerar dados sintéticos em escala. Usa Isaac Sim, MuJoCo ou Genesis. Crítico para reduzir custo de coleta de dados no mundo físico.</p>
+<div class="mt-2 flex flex-wrap gap-2">
+<span class="text-xs bg-purple-500/20 text-purple-400 px-2 py-0.5 rounded">Isaac Sim</span>
+<span class="text-xs bg-purple-500/20 text-purple-400 px-2 py-0.5 rounded">MuJoCo</span>
+<span class="text-xs bg-purple-500/20 text-purple-400 px-2 py-0.5 rounded">Domain Randomization</span>
+</div>
+</div>
+</div>
+<div class="bg-dark-800 rounded-xl border border-purple-500/30 p-5 flex items-start gap-4">
+<div class="w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center shrink-0 text-purple-400 font-bold">OP</div>
+<div>
+<h4 class="font-semibold text-white mb-1">Teleoperador de Dados / Data Teleoperator</h4>
+<p class="text-sm text-neutral-400">Coleta demonstrações humanas de alta qualidade via teleoperação — o combustível do imitation learning. Papel de entrada, mas com enorme impacto: dados ruins = políticas ruins. Portais como LeRobot abrem o acesso a hardware barato para essa função.</p>
+<div class="mt-2 flex flex-wrap gap-2">
+<span class="text-xs bg-purple-500/20 text-purple-400 px-2 py-0.5 rounded">LeRobot</span>
+<span class="text-xs bg-purple-500/20 text-purple-400 px-2 py-0.5 rounded">Imitation Learning</span>
+<span class="text-xs bg-purple-500/20 text-purple-400 px-2 py-0.5 rounded">Porta de entrada</span>
+</div>
+</div>
+</div>
+<div class="bg-dark-800 rounded-xl border border-purple-500/30 p-5 flex items-start gap-4">
+<div class="w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center shrink-0 text-purple-400 font-bold">DEP</div>
+<div>
+<h4 class="font-semibold text-white mb-1">Robot Deployment / Field Engineer</h4>
+<p class="text-sm text-neutral-400">Garante que a política treinada funcione no ambiente do cliente: calibra sensores, adapta o pipeline sim-to-real, monitora falhas em produção e fecha o loop de feedback para retreino. Combina engenharia de sistemas com MLOps.</p>
+<div class="mt-2 flex flex-wrap gap-2">
+<span class="text-xs bg-purple-500/20 text-purple-400 px-2 py-0.5 rounded">Sim-to-real</span>
+<span class="text-xs bg-purple-500/20 text-purple-400 px-2 py-0.5 rounded">MLOps</span>
+<span class="text-xs bg-purple-500/20 text-purple-400 px-2 py-0.5 rounded">Calibração</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Tip box -->
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-5">
+<h3 class="text-base font-semibold text-primary mb-2 flex items-center"><span class="mr-2">🎯</span> Perfis híbridos são o prêmio</h3>
+<p class="text-neutral-300 text-sm">O profissional que entende tanto de ML quanto de controle e hardware físico é raro e muito bem remunerado. Se você vem de software, aprenda cinemática e controle. Se vem de mecânica, aprenda PyTorch e imitation learning. A interseção é onde está o valor.</p>
+</div>
+</section>
+<!-- TÓPICO 5: Skills demandadas -->
+<section class="mb-12" id="topico-5">
+<div class="flex items-start gap-4 mb-6">
+<div class="w-12 h-12 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center shrink-0">
+<span class="text-purple-400 font-bold text-lg">5</span>
+</div>
+<div>
+<h2 class="text-2xl font-bold">Skills Demandadas pelo Mercado</h2>
+<p class="text-neutral-400 mt-1">O que as vagas de robótica VLA realmente pedem — e o que separa candidatos comuns dos contratados.</p>
+</div>
+</div>
+<!-- SVG de mapa de skills -->
+<div class="mb-6 rounded-2xl border border-purple-500/30 bg-dark-900/40 p-4">
+<svg aria-label="Mapa de competências: foundation ML no centro, conectado a percepção, controle, simulação e dados" class="w-full h-auto" role="img" viewbox="0 0 800 200">
+<defs>
+<lineargradient id="m35b-grad" x1="0" x2="1" y1="0" y2="1">
+<stop offset="0" stop-color="#c084fc"></stop>
+<stop offset="1" stop-color="#a855f7"></stop>
+</lineargradient>
+<filter height="160%" id="m35b-glow" width="160%" x="-30%" y="-30%">
+<fegaussianblur result="b" stddeviation="1.8"></fegaussianblur>
+<femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge>
+</filter>
+<pattern height="24" id="m35b-grid" patternunits="userSpaceOnUse" width="24">
+<circle cx="1.2" cy="1.2" fill="#c084fc" opacity="0.09" r="1.2"></circle>
+</pattern>
+</defs>
+<rect fill="url(#m35b-grid)" height="200" rx="12" width="800" x="0" y="0"></rect>
+<!-- Centro: Foundation ML -->
+<g filter="url(#m35b-glow)">
+<rect fill="#1a1230" height="60" rx="12" stroke="url(#m35b-grad)" stroke-width="2" width="200" x="300" y="70"></rect>
+</g>
+<text fill="#c084fc" font-family="Inter,sans-serif" font-size="13" font-weight="700" text-anchor="middle" x="400" y="96">Foundation ML</text>
+<text fill="#c084fc" font-family="Inter,sans-serif" font-size="10" opacity="0.75" text-anchor="middle" x="400" y="115">Transformers · Diffusion</text>
+<!-- Percepção 3D -->
+<rect fill="#061018" height="40" rx="9" stroke="#38bdf8" stroke-width="1.4" width="140" x="30" y="20"></rect>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="11" font-weight="600" text-anchor="middle" x="100" y="44">Percepção 3D</text>
+<line stroke="#38bdf8" stroke-opacity="0.4" stroke-width="1.2" x1="170" x2="300" y1="40" y2="90"></line>
+<!-- Controle -->
+<rect fill="#061018" height="40" rx="9" stroke="#38bdf8" stroke-width="1.4" width="140" x="30" y="140"></rect>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="11" font-weight="600" text-anchor="middle" x="100" y="164">Controle / ROS2</text>
+<line stroke="#38bdf8" stroke-opacity="0.4" stroke-width="1.2" x1="170" x2="300" y1="160" y2="120"></line>
+<!-- Simulação -->
+<rect fill="#061018" height="40" rx="9" stroke="#38bdf8" stroke-width="1.4" width="140" x="630" y="20"></rect>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="11" font-weight="600" text-anchor="middle" x="700" y="44">Simulação</text>
+<line stroke="#38bdf8" stroke-opacity="0.4" stroke-width="1.2" x1="630" x2="500" y1="40" y2="90"></line>
+<!-- Eng. de Dados -->
+<rect fill="#061018" height="40" rx="9" stroke="#38bdf8" stroke-width="1.4" width="140" x="630" y="140"></rect>
+<text fill="#38bdf8" font-family="Inter,sans-serif" font-size="11" font-weight="600" text-anchor="middle" x="700" y="164">Eng. de Dados</text>
+<line stroke="#38bdf8" stroke-opacity="0.4" stroke-width="1.2" x1="630" x2="500" y1="160" y2="120"></line>
+</svg>
+</div>
+<!-- Grid fazer vs evitar: o que estudar -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+<div class="bg-purple-900/20 rounded-xl border border-purple-500/30 p-5">
+<h4 class="font-semibold text-purple-400 mb-3">✓ Skills que o mercado pede</h4>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-purple-400 shrink-0">✓</span>PyTorch fluente — treinar e debugar políticas de ponta</li>
+<li class="flex items-start gap-2"><span class="text-purple-400 shrink-0">✓</span>Diffusion Policies e ACT — arquiteturas dominantes hoje</li>
+<li class="flex items-start gap-2"><span class="text-purple-400 shrink-0">✓</span>ROS2 — middleware padrão de robótica</li>
+<li class="flex items-start gap-2"><span class="text-purple-400 shrink-0">✓</span>Isaac Sim / MuJoCo — simulação para geração de dados</li>
+<li class="flex items-start gap-2"><span class="text-purple-400 shrink-0">✓</span>Cinemática e controle básico — entender o hardware</li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-5">
+<h4 class="font-semibold text-red-400 mb-3">✗ Armadilhas comuns no estudo</h4>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-red-400 shrink-0">✗</span>Focar só em teoria sem projeto prático com hardware</li>
+<li class="flex items-start gap-2"><span class="text-red-400 shrink-0">✗</span>Ignorar o pipeline de dados — a maioria dos bugs está aqui</li>
+<li class="flex items-start gap-2"><span class="text-red-400 shrink-0">✗</span>Pulsar entre frameworks sem profundidade em nenhum</li>
+<li class="flex items-start gap-2"><span class="text-red-400 shrink-0">✗</span>Não publicar projetos — portfólio visível é decisivo</li>
+<li class="flex items-start gap-2"><span class="text-red-400 shrink-0">✗</span>Esperar dominar tudo antes de contribuir open-source</li>
+</ul>
+</div>
+</div>
+<!-- Conceitos-chave -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6">
+<h3 class="text-base font-semibold text-purple-400 mb-3">Conceitos-chave</h3>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-neutral-300">
+<div><strong>PyTorch</strong> — framework dominante em pesquisa de robótica.</div>
+<div><strong>Diffusion Policy / ACT</strong> — arquiteturas líderes para políticas motoras.</div>
+<div><strong>ROS2</strong> — middleware padrão para comunicação entre componentes.</div>
+<div><strong>Isaac Sim / MuJoCo</strong> — simuladores para geração de dados em escala.</div>
+<div><strong>Percepção 3D</strong> — point clouds, depth estimation, pose estimation.</div>
+<div><strong>MLOps para robótica</strong> — gerenciar retreino, versionamento e deploy.</div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 6: Oportunidades para quem está começando -->
+<section class="mb-12" id="topico-6">
+<div class="flex items-start gap-4 mb-6">
+<div class="w-12 h-12 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center shrink-0">
+<span class="text-purple-400 font-bold text-lg">6</span>
+</div>
+<div>
+<h2 class="text-2xl font-bold">Oportunidades para Quem Está Começando</h2>
+<p class="text-neutral-400 mt-1">A barreira de entrada nunca foi tão baixa. Como construir um portfólio real sem laboratório caro.</p>
+</div>
+</div>
+<p class="text-neutral-300 mb-6">Iniciantes têm acesso sem precedentes a recursos open-source. O ecosistema aberto de robótica VLA — datasets públicos, modelos pré-treinados e hardware barato — cria um caminho concreto para entrar na área mesmo sem credenciais formais ou equipamento de laboratório.</p>
+<!-- Timeline de onboarding -->
+<div class="space-y-5 mb-6">
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center">
+<span class="text-purple-400 font-bold">1</span>
+</div>
+<div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600">
+<h4 class="font-semibold text-white mb-2">Comece com LeRobot (Hugging Face)</h4>
+<p class="text-sm text-neutral-300">LeRobot oferece datasets curados, modelos pré-treinados e código de treino pronto. Você pode reproduzir papers e treinar políticas no seu computador sem precisar de um robô físico no início. É o ponto de entrada mais acessível hoje.</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center">
+<span class="text-purple-400 font-bold">2</span>
+</div>
+<div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600">
+<h4 class="font-semibold text-white mb-2">Use Open X-Embodiment</h4>
+<p class="text-sm text-neutral-300">Open X-Embodiment é um dataset com mais de 1 milhão de trajetórias de robôs reais de dezenas de laboratórios. Explorar e treinar nele dá exposição a dados de qualidade de pesquisa sem custo de coleta.</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center">
+<span class="text-purple-400 font-bold">3</span>
+</div>
+<div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600">
+<h4 class="font-semibold text-white mb-2">Hardware acessível: SO-ARM100 e similares</h4>
+<p class="text-sm text-neutral-300">Braços robóticos DIY como o SO-ARM100 custam menos de US$ 300 e são compatíveis com LeRobot. Ter hardware físico muda o nível de aprendizado: você enfrenta erros de calibração, latência e sim-to-real na prática.</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="flex-shrink-0 w-12 h-12 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center">
+<span class="text-purple-400 font-bold">4</span>
+</div>
+<div class="flex-1 bg-dark-800 rounded-xl p-5 border border-dark-600">
+<h4 class="font-semibold text-white mb-2">Portfólio público e contribuição open-source</h4>
+<p class="text-sm text-neutral-300">Reproduza um paper, documente seu processo e publique no GitHub. Abra um PR no LeRobot. Escreva sobre o que aprendeu. Visibilidade técnica pública substitui credenciais formais na avaliação de candidatos em startups de robótica.</p>
+</div>
+</div>
+</div>
+<!-- Tip box final -->
+<div class="bg-primary/10 rounded-xl border border-primary/30 p-5 mb-6">
+<h3 class="text-base font-semibold text-primary mb-2 flex items-center"><span class="mr-2">🚀</span> A janela de oportunidade está aberta agora</h3>
+<p class="text-neutral-300 text-sm">Em áreas maduras como visão computacional tradicional, a comunidade é enorme e é difícil se destacar. Robótica VLA ainda é pequena o suficiente para que uma contribuição genuína seja notada. Entrar agora, mesmo como iniciante, significa crescer junto com a área — e ser um veterano quando o mercado for 10× maior.</p>
+</div>
+<!-- Conceitos-chave -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6">
+<h3 class="text-base font-semibold text-purple-400 mb-3">Conceitos-chave</h3>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-neutral-300">
+<div><strong>LeRobot</strong> — plataforma open-source da Hugging Face para políticas robóticas.</div>
+<div><strong>Open X-Embodiment</strong> — dataset público com +1M trajetórias de robôs reais.</div>
+<div><strong>SO-ARM100</strong> — braço robótico DIY de baixo custo compatível com LeRobot.</div>
+<div><strong>Reprodução de papers</strong> — método comprovado de aprendizado profundo com portfólio gerado.</div>
+<div><strong>Contribuição open-source</strong> — substitui credenciais formais em avaliações de startups.</div>
+<div><strong>Portfólio público</strong> — GitHub + escrita técnica = CV mais forte que diploma isolado.</div>
+</div>
+</div>
+</section>
+<!-- RESUMO -->
+<section class="mb-12">
+<div class="bg-gradient-to-br from-purple-900/40 via-dark-800 to-dark-800 rounded-xl border border-purple-500/30 p-8">
+<h2 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">✅</span> Resumo do Módulo</h2>
+<div class="space-y-4 mb-8">
+<div class="flex items-start gap-3">
+<span class="text-purple-400 mt-1">✓</span>
+<div><strong>Mercado em expansão acelerada</strong><span class="text-neutral-400"> — ~US$ 7.2B hoje, CAGR de dois dígitos rumo a dezenas de bilhões em 2030 com premissas técnicas cumpridas.</span></div>
+</div>
+<div class="flex items-start gap-3">
+<span class="text-purple-400 mt-1">✓</span>
+<div><strong>Ecossistema em três camadas</strong><span class="text-neutral-400"> — hardware/humanoides (Figure, Tesla), foundation models (π0, Skild) e plataforma/compute (NVIDIA, Hugging Face).</span></div>
+</div>
+<div class="flex items-start gap-3">
+<span class="text-purple-400 mt-1">✓</span>
+<div><strong>Carreiras híbridas são o prêmio</strong><span class="text-neutral-400"> — ML engineer, sim engineer, data teleoperator e field engineer combinam software com engenharia física.</span></div>
+</div>
+<div class="flex items-start gap-3">
+<span class="text-purple-400 mt-1">✓</span>
+<div><strong>Barreira de entrada baixa agora</strong><span class="text-neutral-400"> — LeRobot, Open X-Embodiment e hardware barato tornam viável construir portfólio real sem laboratório caro.</span></div>
+</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+<h3 class="font-semibold text-purple-400 mb-2">Próximo módulo</h3>
+<p class="text-neutral-300">3.6 — Roadmap 2027-2030: O Futuro da IA Incorporada</p>
+</div>
+<div class="flex flex-col sm:flex-row gap-4">
+<a class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors" href="./">← Voltar para a Trilha</a>
+<a class="flex-1 text-center px-6 py-3 bg-purple-600 text-white rounded-lg font-semibold hover:bg-purple-500 transition-colors" href="modulo-3-6.html">Próximo módulo →</a>
+</div>
+</div>
+</section>
+</main>
+<footer class="border-t border-dark-600 py-8">
+<div class="max-w-6xl mx-auto px-4 text-center text-neutral-500 text-sm">
+<p>VLA Course — Vision-Language-Action · <a class="text-sky-400 hover:text-sky-300" href="https://ARCKHÉ AI" target="_blank">ARCKHÉ AI</a></p>
+</div>
+</footer>
+</body>
+</html>

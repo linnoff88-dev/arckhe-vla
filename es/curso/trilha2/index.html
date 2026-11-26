@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Ruta 2 — Aplicación técnica VLA | ARCKHÉ AI</title>
+<meta content="Aplicación técnica de Vision-Language-Action: Python, LeRobot, simuladores, ROS2, entrenamiento y sim-to-real. ARCKHÉ AI" name="description"/>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#FACC15',
+            dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' }
+          }
+        }
+      }
+    }
+  </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+    html:not(.dark) .text-emerald-400 { color: #059669; }
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .text-purple-400 { color: #7c3aed; }
+    html:not(.dark) .bg-emerald-500\/20 { background-color: rgba(5, 150, 105, 0.12); }
+    html:not(.dark) .bg-blue-500\/20 { background-color: rgba(37, 99, 235, 0.12); }
+    html:not(.dark) .bg-purple-500\/20 { background-color: rgba(124, 58, 237, 0.12); }
+    html:not(.dark) .border-emerald-500\/30 { border-color: rgba(5, 150, 105, 0.25); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37, 99, 235, 0.25); }
+    html:not(.dark) .border-purple-500\/30 { border-color: rgba(124, 58, 237, 0.25); }
+    html:not(.dark) .hover\:border-emerald-500\/50:hover { border-color: rgba(5, 150, 105, 0.4); }
+    html:not(.dark) .hover\:border-blue-500\/50:hover { border-color: rgba(37, 99, 235, 0.4); }
+    html:not(.dark) .hover\:border-purple-500\/50:hover { border-color: rgba(124, 58, 237, 0.4); }
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161, 98, 7, 0.08); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161, 98, 7, 0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .text-red-400 { color: #dc2626; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255, 255, 255, 0.95); }
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+    @keyframes wf-pulse { 0%,100% { opacity:.55 } 50% { opacity:1 } }
+    @media (prefers-reduced-motion: no-preference) {
+      .wf-a { animation: wf-pulse 2.6s ease-in-out infinite; }
+      .wf-a:nth-child(2){animation-delay:.25s} .wf-a:nth-child(3){animation-delay:.5s}
+      .wf-a:nth-child(4){animation-delay:.75s} .wf-a:nth-child(5){animation-delay:1s}
+    }
+  </style>
+<link href="https://linnoff88-dev.github.io/arckhe-vla/curso/trilha2/" hreflang="pt-BR" rel="alternate"/><link href="https://linnoff88-dev.github.io/arckhe-vla/en/curso/trilha2/" hreflang="en" rel="alternate"/><link href="https://linnoff88-dev.github.io/arckhe-vla/es/curso/trilha2/" hreflang="es" rel="alternate"/></head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="ARCKHÉ-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../../../curso/trilha2/" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="../../../en/curso/trilha2/" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">EN</a><a href="./" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">ES</a></div>
+<!-- NAV -->
+<nav class="fixed top-0 w-full bg-dark-900/95 backdrop-blur border-b border-dark-600 z-50">
+<div class="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<a class="text-primary font-bold text-lg" href="../../">VLA</a>
+<span class="text-neutral-500">|</span>
+<a class="text-sky-400 hover:text-sky-300 text-sm font-medium" href="https://ARCKHÉ AI" target="_blank">ARCKHÉ AI</a>
+</div>
+<div class="flex items-center gap-2">
+<a class="px-3 py-1.5 rounded text-sm text-emerald-400 hover:bg-emerald-500/10" href="../trilha1/">Fundamentos</a>
+<a class="px-3 py-1.5 rounded text-sm text-blue-400 bg-blue-500/20 border border-blue-500/30 font-medium" href="./">Técnico</a>
+<a class="px-3 py-1.5 rounded text-sm text-purple-400 hover:bg-purple-500/10" href="../trilha3/">Avanzado</a>
+<button class="ml-2 p-2 rounded hover:bg-dark-700 text-neutral-400" onclick="document.documentElement.classList.toggle('dark')" title="Cambiar tema">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+</div>
+</div>
+</nav>
+<!-- HERO -->
+<section class="pt-24 pb-12">
+<div class="max-w-4xl mx-auto px-6">
+<div class="flex items-center gap-2 mb-4">
+<a class="text-neutral-500 hover:text-neutral-300 text-sm" href="../../">VLA</a>
+<span class="text-neutral-600 text-sm">/</span>
+<span class="text-blue-400 text-sm font-medium">Ruta 2 — Aplicación técnica</span>
+</div>
+<h1 class="text-3xl md:text-4xl font-extrabold mb-3 leading-tight">
+      Ruta 2 — <span class="text-blue-400">Aplicación técnica</span>
+</h1>
+<p class="text-neutral-300 text-lg max-w-2xl mb-2">De cero al deploy: Python, LeRobot, simuladores, ROS2, entrenamiento y transferencia sim-to-real. Las herramientas y técnicas para construir VLAs que funcionan.</p>
+<p class="text-neutral-500 text-sm">6 módulos · ~18 h estimadas · Prerrequisito: Trilha 1</p>
+<!-- Hero SVG: Pipeline técnico VLA -->
+<div class="rounded-2xl border border-blue-500/30 bg-dark-900/40 p-3 sm:p-4 mt-8 mb-2 overflow-hidden">
+<svg aria-label="Pipeline técnico VLA: los datos recopilados pasan por el entrenamiento en un simulador y se transfieren a un robot real mediante sim-to-real" class="w-full h-auto" font-family="Inter,sans-serif" role="img" viewbox="0 0 700 180">
+<defs>
+<lineargradient id="t2h-grad" x1="0" x2="1" y1="0" y2="1">
+<stop offset="0" stop-color="#3b82f6"></stop><stop offset="1" stop-color="#2563eb"></stop>
+</lineargradient>
+<filter height="180%" id="t2h-glow" width="180%" x="-40%" y="-40%">
+<fegaussianblur result="b" stddeviation="3"></fegaussianblur><femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge>
+</filter>
+<pattern height="32" id="t2h-grid" patternunits="userSpaceOnUse" width="32">
+<circle cx="1.3" cy="1.3" fill="#3b82f6" opacity="0.12" r="1.3"></circle>
+</pattern>
+</defs>
+<rect fill="url(#t2h-grid)" height="180" width="700"></rect>
+<!-- Step 1: Coleta -->
+<rect class="wf-a" fill="#0e1626" filter="url(#t2h-glow)" height="60" rx="10" stroke="#3b82f6" stroke-width="1.5" width="100" x="15" y="55"></rect>
+<text fill="#3b82f6" font-size="11" font-weight="700" text-anchor="middle" x="65" y="78">Recopilación</text>
+<text fill="#9ca3af" font-size="8" text-anchor="middle" x="65" y="95">Teleoperación</text>
+<text fill="#9ca3af" font-size="7" text-anchor="middle" x="65" y="107">LeRobot · RLDS</text>
+<!-- Step 2: Treino -->
+<rect class="wf-a" fill="#0e1626" filter="url(#t2h-glow)" height="70" rx="10" stroke="#3b82f6" stroke-width="2" width="110" x="150" y="35"></rect>
+<text fill="#3b82f6" font-size="12" font-weight="700" text-anchor="middle" x="205" y="60">Entrenamiento</text>
+<text fill="#9ca3af" font-size="8" text-anchor="middle" x="205" y="78">ACT · Diffusion</text>
+<text fill="#38bdf8" font-size="7" text-anchor="middle" x="205" y="90">PyTorch + W&amp;B</text>
+<!-- Step 3: Simulacao -->
+<rect class="wf-a" fill="#0e1626" filter="url(#t2h-glow)" height="80" rx="10" stroke="#2563eb" stroke-width="2.5" width="120" x="300" y="25"></rect>
+<text fill="#2563eb" font-size="13" font-weight="800" text-anchor="middle" x="360" y="52">Simulación</text>
+<text fill="#9ca3af" font-size="8" text-anchor="middle" x="360" y="70">MuJoCo · Isaac Sim</text>
+<text fill="#9ca3af" font-size="7" text-anchor="middle" x="360" y="83">Domain Randomization</text>
+<text fill="#38bdf8" font-size="7" text-anchor="middle" x="360" y="96">94k FPS ray-tracing</text>
+<!-- Step 4: ROS2 -->
+<rect class="wf-a" fill="#0e1626" filter="url(#t2h-glow)" height="65" rx="10" stroke="#3b82f6" stroke-width="2" width="100" x="460" y="40"></rect>
+<text fill="#3b82f6" font-size="11" font-weight="700" text-anchor="middle" x="510" y="63">ROS2</text>
+<text fill="#9ca3af" font-size="8" text-anchor="middle" x="510" y="80">Nav2 · MoveIt2</text>
+<text fill="#9ca3af" font-size="7" text-anchor="middle" x="510" y="92">Middleware DDS</text>
+<!-- Step 5: Deploy -->
+<rect class="wf-a" fill="#0e1626" filter="url(#t2h-glow)" height="60" rx="10" stroke="#60a5fa" stroke-width="2" width="80" x="600" y="50"></rect>
+<text fill="#60a5fa" font-size="11" font-weight="700" text-anchor="middle" x="640" y="73">Deploy</text>
+<text fill="#9ca3af" font-size="8" text-anchor="middle" x="640" y="90">Sim-to-Real</text>
+<text fill="#38bdf8" font-size="7" text-anchor="middle" x="640" y="102">Robot real</text>
+<!-- Arrows -->
+<line opacity="0.7" stroke="#3b82f6" stroke-width="1.5" x1="115" x2="148" y1="82" y2="72"></line>
+<polygon fill="#3b82f6" opacity="0.7" points="146,76 148,68 154,74"></polygon>
+<line opacity="0.7" stroke="#3b82f6" stroke-width="1.5" x1="260" x2="298" y1="68" y2="62"></line>
+<polygon fill="#3b82f6" opacity="0.7" points="296,66 298,58 304,64"></polygon>
+<line opacity="0.8" stroke="#2563eb" stroke-width="2" x1="420" x2="458" y1="65" y2="68"></line>
+<polygon fill="#2563eb" opacity="0.8" points="456,63 456,73 466,68"></polygon>
+<line opacity="0.6" stroke="#60a5fa" stroke-width="1.5" x1="560" x2="598" y1="75" y2="78"></line>
+<polygon fill="#60a5fa" opacity="0.6" points="596,73 596,83 606,78"></polygon>
+<!-- Labels -->
+<text fill="#38bdf8" font-size="8" font-weight="600" text-anchor="middle" x="132" y="150">+ Datos</text>
+<text fill="#38bdf8" font-size="8" font-weight="600" text-anchor="middle" x="280" y="140">+ Política</text>
+<text fill="#38bdf8" font-size="8" font-weight="600" text-anchor="middle" x="440" y="145">+ Validación</text>
+<text fill="#38bdf8" font-size="8" font-weight="600" text-anchor="middle" x="580" y="140">+ Integración</text>
+<!-- Bottom label -->
+<text fill="#3b82f6" font-size="8" opacity="0.8" text-anchor="middle" x="350" y="172">Pipeline completo: desde la recopilación hasta el despliegue en un robot real</text>
+</svg>
+</div>
+</div>
+</section>
+<!-- MAPA DA TRILHA -->
+<section class="py-10 border-t border-dark-600">
+<div class="max-w-4xl mx-auto px-6">
+<h2 class="text-2xl font-bold mb-6">Mapa de la ruta</h2>
+<div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+<!-- Card 2.1 -->
+<a class="bg-dark-800 border border-dark-600 rounded-xl p-5 hover:border-blue-500/50 transition-all block group" href="#modulo-2-1">
+<div class="flex justify-between items-center mb-2">
+<span class="text-blue-400 text-xs font-bold">2.1</span>
+<span class="text-neutral-500 text-xs">~3 h</span>
+</div>
+<h3 class="font-bold text-sm group-hover:text-blue-400 transition-colors">Ecosistema de Python</h3>
+<p class="text-neutral-400 text-xs mt-1">PyTorch, Transformers, Gymnasium</p>
+</a>
+<!-- Card 2.2 -->
+<a class="bg-dark-800 border border-dark-600 rounded-xl p-5 hover:border-blue-500/50 transition-all block group" href="#modulo-2-2">
+<div class="flex justify-between items-center mb-2">
+<span class="text-blue-400 text-xs font-bold">2.2</span>
+<span class="text-neutral-500 text-xs">~3 h</span>
+</div>
+<h3 class="font-bold text-sm group-hover:text-blue-400 transition-colors">LeRobot: Pipeline de extremo a extremo</h3>
+<p class="text-neutral-400 text-xs mt-1">Recopilación, entrenamiento y deploy open-source</p>
+</a>
+<!-- Card 2.3 -->
+<a class="bg-dark-800 border border-dark-600 rounded-xl p-5 hover:border-blue-500/50 transition-all block group" href="#modulo-2-3">
+<div class="flex justify-between items-center mb-2">
+<span class="text-blue-400 text-xs font-bold">2.3</span>
+<span class="text-neutral-500 text-xs">~3 h</span>
+</div>
+<h3 class="font-bold text-sm group-hover:text-blue-400 transition-colors">Simuladores</h3>
+<p class="text-neutral-400 text-xs mt-1">MuJoCo, Isaac Sim, PyBullet</p>
+</a>
+<!-- Card 2.4 -->
+<a class="bg-dark-800 border border-dark-600 rounded-xl p-5 hover:border-blue-500/50 transition-all block group" href="#modulo-2-4">
+<div class="flex justify-between items-center mb-2">
+<span class="text-blue-400 text-xs font-bold">2.4</span>
+<span class="text-neutral-500 text-xs">~3 h</span>
+</div>
+<h3 class="font-bold text-sm group-hover:text-blue-400 transition-colors">ROS2: middleware para robótica</h3>
+<p class="text-neutral-400 text-xs mt-1">Pub/sub, TF2, Nav2 y VLA</p>
+</a>
+<!-- Card 2.5 -->
+<a class="bg-dark-800 border border-dark-600 rounded-xl p-5 hover:border-blue-500/50 transition-all block group" href="#modulo-2-5">
+<div class="flex justify-between items-center mb-2">
+<span class="text-blue-400 text-xs font-bold">2.5</span>
+<span class="text-neutral-500 text-xs">~3 h</span>
+</div>
+<h3 class="font-bold text-sm group-hover:text-blue-400 transition-colors">Entrenamiento: IL, ACT, Diffusion</h3>
+<p class="text-neutral-400 text-xs mt-1">De las demostraciones a la política neuronal</p>
+</a>
+<!-- Card 2.6 -->
+<a class="bg-dark-800 border border-dark-600 rounded-xl p-5 hover:border-blue-500/50 transition-all block group" href="#modulo-2-6">
+<div class="flex justify-between items-center mb-2">
+<span class="text-blue-400 text-xs font-bold">2.6</span>
+<span class="text-neutral-500 text-xs">~3 h</span>
+</div>
+<h3 class="font-bold text-sm group-hover:text-blue-400 transition-colors">Sim-to-Real</h3>
+<p class="text-neutral-400 text-xs mt-1">De lo virtual a lo físico sin romper nada</p>
+</a>
+</div>
+</div>
+</section>
+<!-- CONTEUDO DETALHADO -->
+<section class="py-10 border-t border-dark-600">
+<div class="max-w-4xl mx-auto px-6">
+<h2 class="text-2xl font-bold mb-6">Contenido detallado</h2>
+<!-- ============================================================ -->
+<!-- MODULO 2.1 -->
+<!-- ============================================================ -->
+<div class="mb-16 scroll-mt-20" id="modulo-2-1">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-2xl font-bold"><span class="text-blue-400">2.1</span> Ecosistema de Python: PyTorch, Transformers, Gymnasium</h3>
+</div>
+<p class="text-neutral-300 mb-4">Las herramientas que todo ingeniero VLA necesita dominar: del tensor al environment. PyTorch para autograd, HuggingFace para modelos preentrenados, Gymnasium para entornos estandarizados.</p>
+<!-- SVG: Ecossistema Python para VLA -->
+<div class="rounded-2xl border border-blue-500/30 bg-dark-900/40 p-3 sm:p-4 mb-6 overflow-hidden">
+<svg aria-label="Ecosistema de Python: PyTorch, HuggingFace Transformers y Gymnasium conectados al pipeline VLA" class="w-full h-auto" font-family="Inter,sans-serif" role="img" viewbox="0 0 600 200">
+<defs>
+<filter height="180%" id="t2m1-glow" width="180%" x="-40%" y="-40%">
+<fegaussianblur result="b" stddeviation="2.5"></fegaussianblur><femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge>
+</filter>
+<pattern height="32" id="t2m1-grid" patternunits="userSpaceOnUse" width="32">
+<circle cx="1.3" cy="1.3" fill="#3b82f6" opacity="0.10" r="1.3"></circle>
+</pattern>
+</defs>
+<rect fill="url(#t2m1-grid)" height="200" width="600"></rect>
+<!-- Python central -->
+<rect class="wf-a" fill="#0e1626" filter="url(#t2m1-glow)" height="50" rx="12" stroke="#3b82f6" stroke-width="2.5" width="140" x="230" y="10"></rect>
+<text fill="#3b82f6" font-size="14" font-weight="800" text-anchor="middle" x="300" y="32">Python 3.10+</text>
+<text fill="#9ca3af" font-size="8" text-anchor="middle" x="300" y="48">Lenguaje base del ecosistema VLA</text>
+<!-- PyTorch -->
+<rect class="wf-a" fill="#0e1626" filter="url(#t2m1-glow)" height="55" rx="10" stroke="#3b82f6" stroke-width="1.5" width="130" x="20" y="90"></rect>
+<text fill="#3b82f6" font-size="11" font-weight="700" text-anchor="middle" x="85" y="112">PyTorch</text>
+<text fill="#9ca3af" font-size="8" text-anchor="middle" x="85" y="128">Tensores + Autograd</text>
+<text fill="#38bdf8" font-size="7" text-anchor="middle" x="85" y="140">GPU CUDA nativa</text>
+<!-- HuggingFace -->
+<rect class="wf-a" fill="#0e1626" filter="url(#t2m1-glow)" height="55" rx="10" stroke="#2563eb" stroke-width="1.5" width="130" x="180" y="90"></rect>
+<text fill="#2563eb" font-size="11" font-weight="700" text-anchor="middle" x="245" y="112">Transformers</text>
+<text fill="#9ca3af" font-size="8" text-anchor="middle" x="245" y="128">Modelos preentrenados</text>
+<text fill="#38bdf8" font-size="7" text-anchor="middle" x="245" y="140">Más de 300 mil modelos en el Hub</text>
+<!-- Gymnasium -->
+<rect class="wf-a" fill="#0e1626" filter="url(#t2m1-glow)" height="55" rx="10" stroke="#60a5fa" stroke-width="1.5" width="120" x="340" y="90"></rect>
+<text fill="#60a5fa" font-size="11" font-weight="700" text-anchor="middle" x="400" y="112">Gymnasium</text>
+<text fill="#9ca3af" font-size="8" text-anchor="middle" x="400" y="128">Entornos de RL</text>
+<text fill="#38bdf8" font-size="7" text-anchor="middle" x="400" y="140">API obs/act/reward</text>
+<!-- W&B -->
+<rect class="wf-a" fill="#0e1626" filter="url(#t2m1-glow)" height="55" rx="10" stroke="#3b82f6" stroke-width="1.5" width="90" x="490" y="90"></rect>
+<text fill="#3b82f6" font-size="10" font-weight="700" text-anchor="middle" x="535" y="112">W&amp;B</text>
+<text fill="#9ca3af" font-size="8" text-anchor="middle" x="535" y="128">Tracking</text>
+<text fill="#38bdf8" font-size="7" text-anchor="middle" x="535" y="140">Experimentos</text>
+<!-- Docker -->
+<rect fill="#0e1626" height="30" opacity="0.7" rx="8" stroke="#60a5fa" stroke-width="1" width="140" x="230" y="165"></rect>
+<text fill="#60a5fa" font-size="9" font-weight="600" text-anchor="middle" x="300" y="184">Docker: Reproducibilidad</text>
+<!-- Arrows from Python to tools -->
+<line opacity="0.5" stroke="#3b82f6" stroke-width="1.2" x1="260" x2="110" y1="60" y2="88"></line>
+<line opacity="0.5" stroke="#2563eb" stroke-width="1.2" x1="300" x2="245" y1="60" y2="88"></line>
+<line opacity="0.5" stroke="#60a5fa" stroke-width="1.2" x1="340" x2="390" y1="60" y2="88"></line>
+<line opacity="0.5" stroke="#3b82f6" stroke-width="1.2" x1="360" x2="520" y1="60" y2="88"></line>
+<line opacity="0.3" stroke="#60a5fa" stroke-dasharray="4 3" stroke-width="1" x1="300" x2="300" y1="60" y2="163"></line>
+</svg>
+</div>
+<div class="divide-y divide-dark-600">
+<!-- Topico 1 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-bold text-blue-400 shrink-0">1</span>
+<span class="font-medium">PyTorch para robótica: tensores y autograd</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-blue-400 font-semibold mb-1">Qué es</h4><p>PyTorch es el framework de deep learning dominante en robótica y VLA. Los tensores son arrays multidimensionales con soporte nativo para GPU mediante CUDA. El sistema autograd calcula gradientes automáticamente, algo esencial para la backpropagation durante el entrenamiento de políticas.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Por qué aprender</h4><p>Prácticamente todo VLA (OpenVLA, pi-0, ACT) está implementado en PyTorch. Sin dominar tensores, shapes y autograd, no puedes depurar entrenamientos, personalizar losses ni adaptar arquitecturas existentes.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Conceptos clave</h4><p>torch.Tensor, device (cpu/cuda), dtype (float32/bfloat16), autograd y computational graph, nn.Module y forward(), optim.AdamW, mixed precision (torch.amp), torch.compile para optimización JIT.</p></div>
+</div>
+</details>
+<!-- Topico 2 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-bold text-blue-400 shrink-0">2</span>
+<span class="font-medium">HuggingFace Transformers: modelos preentrenados</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-blue-400 font-semibold mb-1">Qué es</h4><p>Biblioteca que unifica el acceso a más de 300k modelos preentrenados mediante una API estandarizada. Para VLA, es crucial porque modelos como OpenVLA, SmolVLA y Qwen-VL se distribuyen mediante HuggingFace Hub con un pipeline de inferencia listo para usar.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Por qué aprender</h4><p>HuggingFace Hub es el centro del ecosistema open-source de VLA. LeRobot aloja allí más de 58k datasets. Saber usar AutoModel, from_pretrained() y tokenizers es un requisito previo para cualquier trabajo práctico.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Conceptos clave</h4><p>AutoModelForVision2Seq, AutoProcessor, from_pretrained(), model.generate(), LoRA/PEFT para fine-tune eficiente, datasets library, model cards, safetensors format, Hub API.</p></div>
+</div>
+</details>
+<!-- Topico 3 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-bold text-blue-400 shrink-0">3</span>
+<span class="font-medium">Gymnasium (antes Gym): entornos estandarizados</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-blue-400 font-semibold mb-1">Qué es</h4><p>Gymnasium (sucesor de OpenAI Gym) define la interfaz estándar para entornos de RL: observation_space, action_space, step(), reset(). En robótica VLA, funciona como wrapper para simuladores y permite entrenar políticas con una interfaz consistente.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Por qué aprender</h4><p>La API de Gymnasium es el contrato universal entre la política y el entorno. MuJoCo, Isaac Sim y PyBullet implementan esta interfaz. Entender obs/act/reward/done es fundamental para cualquier loop de entrenamiento.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Conceptos clave</h4><p>gym.Env, observation_space (Box, Dict), action_space (Box continuo, Discrete), step() devuelve (obs, reward, terminated, truncated, info), VectorEnv para paralelismo, wrappers para transformaciones.</p></div>
+</div>
+</details>
+<!-- Topico 4 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-bold text-blue-400 shrink-0">4</span>
+<span class="font-medium">Datasets y DataLoaders para trayectorias</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-blue-400 font-semibold mb-1">Qué es</h4><p>Los datos de robótica son trayectorias: secuencias de (observación, acción, recompensa) recopiladas mediante teleoperación o simulación. El formato RLDS (Google) y LeRobot Dataset estandarizan cómo almacenar y cargar estas trayectorias para un entrenamiento eficiente.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Por qué aprender</h4><p>Los datos son el principal cuello de botella en robótica. Saber estructurar conjuntos de datos de trayectorias, aplicar aumento de datos (crop, color jitter) y usar DataLoaders con prefetch es esencial para lograr entrenamientos convergentes.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Conceptos clave</h4><p>RLDS format (TFRecord), LeRobot Dataset (Parquet + video), torch.utils.data.DataLoader, num_workers, pin_memory, collate_fn para batches de trayectorias variables, data augmentation específica de robótica.</p></div>
+</div>
+</details>
+<!-- Topico 5 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-bold text-blue-400 shrink-0">5</span>
+<span class="font-medium">Weights &amp; Biases: seguimiento de experimentos</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-blue-400 font-semibold mb-1">Qué es</h4><p>W&amp;B es la plataforma estándar para rastrear experimentos de ML. Registra métricas (loss, success rate), hiperparámetros y artefactos (checkpoints), y permite comparar runs lado a lado. LeRobot tiene integración nativa con W&amp;B.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Por qué aprender</h4><p>Sin un seguimiento estructurado, los entrenamientos de VLA se convierten en una caja negra. Necesitas comparar ACT vs Diffusion Policy, distintas tasas de aprendizaje e identificar cuándo diverge el modelo. W&amp;B hace que esto sea visual y reproducible.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Conceptos clave</h4><p>wandb.init(), wandb.log(), wandb.config, Sweeps para búsqueda de hiperparámetros, Tables para visualizar trayectorias, model registry para control de versiones, integración con LeRobot mediante config YAML.</p></div>
+</div>
+</details>
+<!-- Topico 6 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-bold text-blue-400 shrink-0">6</span>
+<span class="font-medium">Docker y reproducibilidad en robótica</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-blue-400 font-semibold mb-1">Qué es</h4><p>Docker crea contenedores para el entorno de desarrollo: las versiones exactas de Python, PyTorch, CUDA y las dependencias quedan fijas. En robótica, donde la combinación CUDA driver + PyTorch + MuJoCo puede fallar fácilmente, los contenedores son esenciales.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Por qué aprender</h4><p>La reproducibilidad es uno de los mayores problemas de la investigación en robótica. Un Dockerfile garantiza que cualquiera pueda ejecutar tu entrenamiento. NVIDIA NGC y LeRobot ofrecen contenedores listos para usar.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Conceptos clave</h4><p>Dockerfile multi-stage, nvidia-docker2 (GPU passthrough), NVIDIA NGC containers, docker-compose para múltiples servicios, volúmenes para datasets, devcontainers para VS Code, CI/CD con contenedores.</p></div>
+</div>
+</details>
+</div>
+</div>
+<div class="-mt-10 mb-10 flex justify-start">
+<a class="px-5 py-2.5 text-sm font-semibold bg-blue-600 hover:bg-blue-500 text-white rounded-lg transition-colors" href="modulo-2-1.html">Ver el módulo completo →</a>
+</div>
+<!-- ============================================================ -->
+<!-- MODULO 2.2 -->
+<!-- ============================================================ -->
+<div class="mb-16 scroll-mt-20" id="modulo-2-2">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-2xl font-bold"><span class="text-blue-400">2.2</span> LeRobot: Pipeline de extremo a extremo</h3>
+</div>
+<p class="text-neutral-300 mb-4">El framework open-source de HuggingFace que democratiza la robótica: recolección, entrenamiento y deploy. Con 12k stars en GitHub y más de 58k datasets, LeRobot es el punto de entrada más accesible para trabajar con VLA en la práctica.</p>
+<!-- SVG: LeRobot Pipeline -->
+<div class="rounded-2xl border border-blue-500/30 bg-dark-900/40 p-3 sm:p-4 mb-6 overflow-hidden">
+<svg aria-label="Pipeline de LeRobot: recopilación mediante teleoperación, entrenamiento con políticas ACT/Diffusion, evaluación y despliegue en un robot real" class="w-full h-auto" font-family="Inter,sans-serif" role="img" viewbox="0 0 650 180">
+<defs>
+<filter height="180%" id="t2m2-glow" width="180%" x="-40%" y="-40%">
+<fegaussianblur result="b" stddeviation="2.5"></fegaussianblur><femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge>
+</filter>
+<pattern height="32" id="t2m2-grid" patternunits="userSpaceOnUse" width="32">
+<circle cx="1.3" cy="1.3" fill="#2563eb" opacity="0.10" r="1.3"></circle>
+</pattern>
+</defs>
+<rect fill="url(#t2m2-grid)" height="180" width="650"></rect>
+<!-- Title -->
+<text fill="#3b82f6" font-size="10" font-weight="700" opacity="0.6" text-anchor="middle" x="325" y="20">LeRobot Pipeline</text>
+<!-- Coleta -->
+<rect class="wf-a" fill="#0e1626" filter="url(#t2m2-glow)" height="70" rx="10" stroke="#3b82f6" stroke-width="2" width="120" x="15" y="40"></rect>
+<text fill="#3b82f6" font-size="12" font-weight="700" text-anchor="middle" x="75" y="62">Recopilación</text>
+<text fill="#9ca3af" font-size="8" text-anchor="middle" x="75" y="78">Teleoperación</text>
+<text fill="#38bdf8" font-size="7" text-anchor="middle" x="75" y="92">lerobot/record</text>
+<text fill="#9ca3af" font-size="7" text-anchor="middle" x="75" y="104">SO-100 / Koch</text>
+<!-- Dataset -->
+<rect class="wf-a" fill="#0e1626" filter="url(#t2m2-glow)" height="60" rx="10" stroke="#60a5fa" stroke-width="1.5" width="100" x="170" y="45"></rect>
+<text fill="#60a5fa" font-size="11" font-weight="700" text-anchor="middle" x="220" y="68">Dataset</text>
+<text fill="#9ca3af" font-size="8" text-anchor="middle" x="220" y="84">58k+ en el Hub</text>
+<text fill="#38bdf8" font-size="7" text-anchor="middle" x="220" y="96">Parquet + Video</text>
+<!-- Treinamento -->
+<rect class="wf-a" fill="#0e1626" filter="url(#t2m2-glow)" height="75" rx="10" stroke="#2563eb" stroke-width="2.5" width="120" x="305" y="35"></rect>
+<text fill="#2563eb" font-size="13" font-weight="800" text-anchor="middle" x="365" y="58">Entrenamiento</text>
+<text fill="#9ca3af" font-size="8" text-anchor="middle" x="365" y="75">ACT / Diffusion</text>
+<text fill="#9ca3af" font-size="7" text-anchor="middle" x="365" y="88">TDMPC / VQ-BeT</text>
+<text fill="#38bdf8" font-size="7" text-anchor="middle" x="365" y="101">Configuración YAML</text>
+<!-- Avaliacao -->
+<rect class="wf-a" fill="#0e1626" filter="url(#t2m2-glow)" height="60" rx="10" stroke="#3b82f6" stroke-width="1.5" width="80" x="460" y="45"></rect>
+<text fill="#3b82f6" font-size="10" font-weight="700" text-anchor="middle" x="500" y="68">Evaluación</text>
+<text fill="#9ca3af" font-size="8" text-anchor="middle" x="500" y="84">Tasa de éxito</text>
+<text fill="#38bdf8" font-size="7" text-anchor="middle" x="500" y="96">Benchmarks</text>
+<!-- Deploy -->
+<rect fill="#0e1626" filter="url(#t2m2-glow)" height="60" rx="10" stroke="#60a5fa" stroke-width="2" width="60" x="575" y="45"></rect>
+<text fill="#60a5fa" font-size="10" font-weight="700" text-anchor="middle" x="605" y="68">Deploy</text>
+<text fill="#9ca3af" font-size="8" text-anchor="middle" x="605" y="84">Robot</text>
+<text fill="#38bdf8" font-size="7" text-anchor="middle" x="605" y="96">Tiempo real</text>
+<!-- Arrows -->
+<line opacity="0.7" stroke="#3b82f6" stroke-width="1.5" x1="135" x2="168" y1="72" y2="72"></line>
+<polygon fill="#3b82f6" opacity="0.7" points="166,67 166,77 176,72"></polygon>
+<line opacity="0.7" stroke="#60a5fa" stroke-width="1.5" x1="270" x2="303" y1="72" y2="72"></line>
+<polygon fill="#60a5fa" opacity="0.7" points="301,67 301,77 311,72"></polygon>
+<line opacity="0.7" stroke="#2563eb" stroke-width="1.5" x1="425" x2="458" y1="72" y2="72"></line>
+<polygon fill="#2563eb" opacity="0.7" points="456,67 456,77 466,72"></polygon>
+<line opacity="0.7" stroke="#3b82f6" stroke-width="1.5" x1="540" x2="573" y1="72" y2="72"></line>
+<polygon fill="#3b82f6" opacity="0.7" points="571,67 571,77 581,72"></polygon>
+<!-- Stats -->
+<text fill="#3b82f6" font-size="8" opacity="0.8" text-anchor="middle" x="75" y="135">12k GitHub stars</text>
+<text fill="#2563eb" font-size="8" opacity="0.8" text-anchor="middle" x="365" y="135">GPU A100/H100</text>
+<text fill="#60a5fa" font-size="8" opacity="0.8" text-anchor="middle" x="605" y="135">7-50 Hz</text>
+<!-- Bottom -->
+<text fill="#38bdf8" font-size="8" font-weight="600" text-anchor="middle" x="325" y="165">Open-source: pip install lerobot</text>
+</svg>
+</div>
+<div class="divide-y divide-dark-600">
+<!-- Topico 1 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-bold text-blue-400 shrink-0">1</span>
+<span class="font-medium">Descripción general de LeRobot: 12k stars, más de 58k datasets</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-blue-400 font-semibold mb-1">Qué es</h4><p>LeRobot es el framework open-source de HuggingFace para robótica de extremo a extremo. Lanzado en 2024, ya tiene 12k stars en GitHub y más de 58k datasets en Hub. Abarca la recopilación de datos, el entrenamiento de políticas y el deploy en robots reales con una sola herramienta.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Por qué aprender</h4><p>Es el camino más rápido desde cero hasta tener un robot funcionando. Antes de LeRobot, cada laboratorio tenía su pipeline ad hoc. Ahora existe un estándar de código abierto con una comunidad activa y documentación extensa.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Conceptos clave</h4><p>pip install lerobot, lerobot/scripts/train.py, lerobot/scripts/record.py, clase LeRobotDataset, integración con HuggingFace Hub, modelo de contribución abierta, soporte para múltiples robots (SO-100, Koch, Aloha).</p></div>
+</div>
+</details>
+<!-- Topico 2 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-bold text-blue-400 shrink-0">2</span>
+<span class="font-medium">Recopilación de datos mediante teleoperación</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-blue-400 font-semibold mb-1">Qué es</h4><p>La teleoperación ocurre cuando una persona controla el robot a distancia para generar demostraciones. LeRobot graba de forma sincronizada los videos de las cámaras y las posiciones de los actuadores. Cada demostración se convierte en un episodio del dataset con marcas de tiempo alineadas.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Por qué aprender</h4><p>La calidad y cantidad de los datos de demostración determinan directamente el éxito del entrenamiento. Saber preparar el setup de teleoperación, calibrar cámaras y grabar episodios consistentes es la base de todo.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Conceptos clave</h4><p>Configuración líder-seguidor, calibración intrínseca/extrínseca de la cámara, grabación de episodios, lerobot record --robot-path, 50-100 episodios para tareas simples, filtrado de calidad de datos, replay para validación.</p></div>
+</div>
+</details>
+<!-- Topico 3 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-bold text-blue-400 shrink-0">3</span>
+<span class="font-medium">Políticas: ACT, Diffusion Policy, TDMPC</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-blue-400 font-semibold mb-1">Qué es</h4><p>Las políticas son los modelos neuronales que mapean observaciones a acciones. LeRobot implementa varias: ACT (Action Chunking with Transformers) usa CVAE + transformer; Diffusion Policy usa eliminación iterativa de ruido; TDMPC combina planificación basada en modelos con dinámicas aprendidas.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Por qué aprender</h4><p>Cada política tiene sus tradeoffs: ACT es rápido de entrenar, pero puede ser impreciso en tareas delicadas. Diffusion Policy genera acciones más suaves, pero es más lento durante la inferencia. Saber elegir la política adecuada para la tarea es crucial.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Conceptos clave</h4><p>ACT: encoder CVAE + decoder transformer, action chunks de 100 steps. Diffusion Policy: DDPM con U-Net o transformer, 10-100 denoising steps. TDMPC: world model + planning. VQ-BeT: tokenización discreta de acciones.</p></div>
+</div>
+</details>
+<!-- Topico 4 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-bold text-blue-400 shrink-0">4</span>
+<span class="font-medium">Entrenamiento en GPU: configuración YAML y checkpoints</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-blue-400 font-semibold mb-1">Qué es</h4><p>LeRobot usa configs YAML para definir todo el pipeline de entrenamiento: política, dataset, hiperparámetros, dispositivo. Un solo comando (python lerobot/scripts/train.py) inicia el entrenamiento con logging automático en W&amp;B y checkpoints periódicos.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Por qué aprender</h4><p>La configuración YAML es el «contrato» del experimento. Saber ajustar learning rate, batch size, número de epochs y programación de checkpoints marca la diferencia entre un modelo que converge y uno que diverge.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Conceptos clave</h4><p>Hydra config system, policy.yaml + env.yaml, training_steps, eval_freq, checkpoint_freq, resume_from_checkpoint, GPU memory management (gradient accumulation, mixed precision), multi-GPU con DDP.</p></div>
+</div>
+</details>
+<!-- Topico 5 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-bold text-blue-400 shrink-0">5</span>
+<span class="font-medium">Evaluación: métricas de éxito y benchmarks</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-blue-400 font-semibold mb-1">Qué es</h4><p>La evaluación en robótica es diferente de NLP: no basta con medir el loss en el validation set. Lo que importa es la success rate (% de episodios en los que se completó la tarea) y la generalización a objetos y posiciones nuevos. LeRobot integra la evaluación automática en simuladores.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Por qué aprender</h4><p>Un modelo con una loss baja puede fallar en el robot real. Las métricas de éxito en simulación son el proxy más confiable antes del deploy. Saber configurar evaluaciones periódicas durante el entrenamiento acelera las iteraciones.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Conceptos clave</h4><p>Tasa de éxito, puntuación de finalización parcial, evaluación fuera de distribución (OOD), evaluación de simulación mediante gym env, N_eval_episodes (típicamente 50), grabación de video de episodios, comparaciones con benchmarks (SIMPLER, LIBERO).</p></div>
+</div>
+</details>
+<!-- Topico 6 -->
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-bold text-blue-400 shrink-0">6</span>
+<span class="font-medium">Despliegue en un robot real: SO-100 y Koch</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-blue-400 font-semibold mb-1">Qué es</h4><p>El despliegue consiste en transferir el checkpoint entrenado para controlar un robot real en tiempo real. LeRobot es compatible con robots accesibles como SO-100 (~$300) y Koch v1.1, que ejecutan inferencia en la propia laptop. El ciclo es: capturar un frame, inferir una acción, enviar un comando al actuador.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Por qué aprender</h4><p>El deploy real es donde todo se pone a prueba de verdad. La latencia de la cámara, el ancho de banda del USB, el jitter del sistema operativo: todo importa. Saber diagnosticar problemas de deploy es la habilidad que distingue la simulación de la robótica real.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Conceptos clave</h4><p>lerobot/scripts/control_robot.py, bucle de inferencia en tiempo real, presupuesto de latencia de la cámara, comunicación serial USB, límites de seguridad (velocidad máxima, umbral de fuerza), calibración posterior al deploy, iteración rápida de recopilación-entrenamiento-deploy.</p></div>
+</div>
+</details>
+</div>
+</div>
+<div class="-mt-10 mb-10 flex justify-start">
+<a class="px-5 py-2.5 text-sm font-semibold bg-blue-600 hover:bg-blue-500 text-white rounded-lg transition-colors" href="modulo-2-2.html">Ver el módulo completo →</a>
+</div>
+<!-- ============================================================ -->
+<!-- MODULO 2.3 -->
+<!-- ============================================================ -->
+<div class="mb-16 scroll-mt-20" id="modulo-2-3">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-2xl font-bold"><span class="text-blue-400">2.3</span> Simuladores: MuJoCo, Isaac Sim, PyBullet</h3>
+</div>
+<p class="text-neutral-300 mb-4">Entrena robots sin romper nada: simulación física de alta fidelidad para VLA. MuJoCo a 2.7M steps/s, Isaac Sim con ray-tracing a 94k FPS y PyBullet para prototipado rápido.</p>
+<!-- SVG Diagram -->
+<div class="rounded-xl border border-blue-500/30 bg-dark-800 p-4 mb-6 overflow-hidden">
+<svg aria-label="Comparación de simuladores: MuJoCo (velocidad), Isaac Sim (fidelidad visual), PyBullet (accesibilidad)" class="w-full h-auto" font-family="Inter,sans-serif" role="img" viewbox="0 0 650 200">
+<defs>
+<filter height="180%" id="m23-gl" width="180%" x="-40%" y="-40%"><fegaussianblur result="b" stddeviation="3"></fegaussianblur><femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge></filter>
+<pattern height="32" id="m23-grid" patternunits="userSpaceOnUse" width="32"><circle cx="1.3" cy="1.3" fill="#3b82f6" opacity="0.1" r="1.3"></circle></pattern>
+<marker id="m23-ah" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#60a5fa"></path></marker>
+</defs>
+<rect fill="url(#m23-grid)" height="200" width="650"></rect>
+<!-- MuJoCo -->
+<rect fill="#0c1929" filter="url(#m23-gl)" height="140" rx="12" stroke="#3b82f6" stroke-width="2" width="170" x="20" y="30"></rect>
+<text fill="#60a5fa" font-size="14" font-weight="700" text-anchor="middle" x="105" y="60">MuJoCo</text>
+<text fill="#93c5fd" font-size="10" text-anchor="middle" x="105" y="82">2.7M steps/s</text>
+<text fill="#9ca3af" font-size="9" text-anchor="middle" x="105" y="100">Contacto suave</text>
+<text fill="#9ca3af" font-size="9" text-anchor="middle" x="105" y="116">DeepMind / Google</text>
+<text fill="#9ca3af" font-size="9" text-anchor="middle" x="105" y="136">Estándar académico</text>
+<text fill="#60a5fa" font-size="8" text-anchor="middle" x="105" y="156">Open-source (Apache 2)</text>
+<!-- Isaac Sim -->
+<rect fill="#0c1929" filter="url(#m23-gl)" height="140" rx="12" stroke="#38bdf8" stroke-width="2" width="170" x="240" y="30"></rect>
+<text fill="#38bdf8" font-size="14" font-weight="700" text-anchor="middle" x="325" y="60">Isaac Sim</text>
+<text fill="#7dd3fc" font-size="10" text-anchor="middle" x="325" y="82">94k FPS ray-tracing</text>
+<text fill="#9ca3af" font-size="9" text-anchor="middle" x="325" y="100">PhysX 5 + Omniverse</text>
+<text fill="#9ca3af" font-size="9" text-anchor="middle" x="325" y="116">NVIDIA</text>
+<text fill="#9ca3af" font-size="9" text-anchor="middle" x="325" y="136">Domain randomization</text>
+<text fill="#38bdf8" font-size="8" text-anchor="middle" x="325" y="156">Gratis (NVIDIA dev)</text>
+<!-- PyBullet -->
+<rect fill="#0c1929" filter="url(#m23-gl)" height="140" rx="12" stroke="#a78bfa" stroke-width="2" width="170" x="460" y="30"></rect>
+<text fill="#a78bfa" font-size="14" font-weight="700" text-anchor="middle" x="545" y="60">PyBullet</text>
+<text fill="#c4b5fd" font-size="10" text-anchor="middle" x="545" y="82">Ligero y rápido</text>
+<text fill="#9ca3af" font-size="9" text-anchor="middle" x="545" y="100">pip install pybullet</text>
+<text fill="#9ca3af" font-size="9" text-anchor="middle" x="545" y="116">Bullet Physics</text>
+<text fill="#9ca3af" font-size="9" text-anchor="middle" x="545" y="136">Prototipado rápido</text>
+<text fill="#a78bfa" font-size="8" text-anchor="middle" x="545" y="156">Open-source (zlib)</text>
+<!-- Labels -->
+<text fill="#60a5fa" font-size="9" font-weight="600" text-anchor="middle" x="105" y="190">Velocidad</text>
+<text fill="#38bdf8" font-size="9" font-weight="600" text-anchor="middle" x="325" y="190">Fidelidad</text>
+<text fill="#a78bfa" font-size="9" font-weight="600" text-anchor="middle" x="545" y="190">Accesibilidad</text>
+</svg>
+</div>
+<div class="space-y-3 divide-y divide-dark-600">
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-bold text-blue-400 shrink-0">1</span>
+<span class="font-medium">MuJoCo: 2.7M steps/s, el estándar académico</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-blue-400 font-semibold mb-1">Qué es</h4><p>MuJoCo (Multi-Joint dynamics with Contact) es un motor de física optimizado para simular el contacto entre cuerpos rígidos y articulaciones. Google DeepMind lo adquirió en 2021; ahora es de código abierto y procesa 2.7 millones de steps por segundo en CPU.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Por qué aprender</h4><p>MuJoCo es el simulador estándar de la comunidad académica de robótica y RL. La mayoría de los benchmarks (dm_control, Gymnasium Robotics) se ejecuta en MuJoCo. Dominar MuJoCo es un requisito previo para reproducir papers y entrenar políticas VLA a escala.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Conceptos clave</h4><p>MJCF (formato XML para modelos), qpos/qvel (estado generalizado), solver Newton/CG, contacto suave (soft contacts), integrador Euler semiimplícito, mujoco-py vs. mujoco (binding oficial), MJX (MuJoCo en JAX para GPU).</p></div>
+</div>
+</details>
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-bold text-blue-400 shrink-0">2</span>
+<span class="font-medium">NVIDIA Isaac Sim: 94k FPS, ray-tracing</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-blue-400 font-semibold mb-1">Qué es</h4><p>Isaac Sim es la plataforma de simulación robótica de NVIDIA, construida sobre Omniverse y PhysX 5. Ofrece renderizado fotorrealista con ray tracing en tiempo real y puede simular miles de robots en paralelo usando GPU, alcanzando 94k FPS.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Por qué aprender</h4><p>Para una sim-to-real de alta fidelidad, la calidad visual del simulador importa mucho. Isaac Sim permite la aleatorización de dominio con texturas e iluminación realistas, lo que reduce la brecha entre la realidad y la simulación. Es el simulador elegido por NVIDIA para entrenar GR00T N1.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Conceptos clave</h4><p>Omniverse USD (formato universal de escenas), PhysX 5 (física acelerada por GPU), Isaac Lab (framework de RL/IL), OmniGraph (lógica visual), RTX ray-tracing, Isaac Gym (predecesor, obsoleto), integración con ROS2 mediante bridge.</p></div>
+</div>
+</details>
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-bold text-blue-400 shrink-0">3</span>
+<span class="font-medium">PyBullet: ligero y open source</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-blue-400 font-semibold mb-1">Qué es</h4><p>PyBullet es el wrapper de Python de Bullet Physics Engine. Con un simple pip install, tienes un simulador 3D con detección de colisiones, constraints y URDF loader. Ideal para crear prototipos rápidamente y enseñar.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Por qué aprender</h4><p>La barrera de entrada es mínima: funciona en cualquier laptop sin GPU dedicada. Muchos tutoriales y cursos de RL usan PyBullet. Es la forma más rápida de poner en marcha un robot simulado con una política aprendida.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Conceptos clave</h4><p>URDF (Unified Robot Description Format), p.loadURDF(), stepSimulation(), getJointState/setJointMotorControl2, pybullet_envs (Gymnasium wrappers), modo directo vs GUI, formas de colisión, restricciones.</p></div>
+</div>
+</details>
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-bold text-blue-400 shrink-0">4</span>
+<span class="font-medium">Gazebo + ROS2: integración nativa</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-blue-400 font-semibold mb-1">Qué es</h4><p>Gazebo (ahora "Gz") es el simulador integrado al ecosistema ROS2. A diferencia de MuJoCo (enfocado en la investigación de RL), Gazebo simula sensores reales (LiDAR, cámaras depth, IMU) y se comunica con ROS2 de forma nativa mediante topics.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Por qué aprender</h4><p>Si el deploy final usa ROS2, probar en Gazebo significa que el código del robot real y del simulado es prácticamente idéntico. Esto acelera enormemente el ciclo de desarrollo y reduce las sorpresas en el deploy.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Conceptos clave</h4><p>SDF (Simulation Description Format), gz-sim (nuevo nombre), ros_gz_bridge, plugins de sensores (cámara, LiDAR, IMU), archivos de mundo, generar modelos mediante service, Gazebo Fuel (repositorio de modelos 3D), integración con MoveIt2.</p></div>
+</div>
+</details>
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-bold text-blue-400 shrink-0">5</span>
+<span class="font-medium">Domain randomization: variabilidad para la transferencia</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-blue-400 font-semibold mb-1">Qué es</h4><p>Domain randomization es la técnica de variar aleatoriamente parámetros del simulador (texturas, iluminación, masas, fricción, colores) durante el entrenamiento para que la política aprenda a ser robusta ante las variaciones y se transfiera mejor al mundo real.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Por qué aprender</h4><p>Sin domain randomization, las políticas entrenadas en simulación fallan catastróficamente en el mundo real porque se sobreajustan a los elementos visuales y a la física perfecta del simulador. Es la técnica que hizo posible el primer sim-to-real exitoso (OpenAI Rubik's Cube, 2019).</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Conceptos clave</h4><p>Aleatorización visual (texturas, colores, luz), aleatorización de la física (masa, fricción, damping), aleatorización de la dinámica, muestreo estructurado vs. uniforme, currículo de aleatorización (progresivo), ADR (Automatic Domain Randomization).</p></div>
+</div>
+</details>
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-bold text-blue-400 shrink-0">6</span>
+<span class="font-medium">Sim-to-sim: validación antes del mundo real</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-blue-400 font-semibold mb-1">Qué es</h4><p>Sim-to-sim es la práctica de transferir una política entrenada en un simulador (p. ej., MuJoCo) a otro simulador (p. ej., Isaac Sim) como etapa intermedia antes del robot real. Si la política falla en otro simulador, fallará en el mundo real.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Por qué aprender</h4><p>Es una validación económica y rápida. Probar en 2+ simuladores con físicas distintas revela las debilidades de la política antes de arriesgar hardware costoso. También permite aislar si el problema es visual o de dinámica.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Conceptos clave</h4><p>Transferencia cross-simulator, brecha de fidelidad física entre simuladores, herramientas de conversión URDF/MJCF, estandarización de benchmarks (SIMPLER), evaluación estadística (N episodios, confidence intervals), depuración visual vs dinámica.</p></div>
+</div>
+</details>
+</div>
+</div>
+<div class="-mt-10 mb-10 flex justify-start">
+<a class="px-5 py-2.5 text-sm font-semibold bg-blue-600 hover:bg-blue-500 text-white rounded-lg transition-colors" href="modulo-2-3.html">Ver el módulo completo →</a>
+</div>
+<!-- ============================================================ -->
+<!-- MODULO 2.4 -->
+<!-- ============================================================ -->
+<div class="mb-16 scroll-mt-20" id="modulo-2-4">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-2xl font-bold"><span class="text-blue-400">2.4</span> ROS2: middleware para robótica real</h3>
+</div>
+<p class="text-neutral-300 mb-4">El sistema operativo de los robots: pub/sub, TF2, Nav2 e integración con VLA. ROS2 es el estándar de la industria para la robótica de producción.</p>
+<!-- SVG Diagram -->
+<div class="rounded-xl border border-blue-500/30 bg-dark-800 p-4 mb-6 overflow-hidden">
+<svg aria-label="Arquitectura ROS2: nodos de percepción, VLA inference y control conectados mediante DDS" class="w-full h-auto" font-family="Inter,sans-serif" role="img" viewbox="0 0 650 220">
+<defs>
+<filter height="180%" id="m24-gl" width="180%" x="-40%" y="-40%"><fegaussianblur result="b" stddeviation="3"></fegaussianblur><femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge></filter>
+<pattern height="32" id="m24-grid" patternunits="userSpaceOnUse" width="32"><circle cx="1.3" cy="1.3" fill="#3b82f6" opacity="0.1" r="1.3"></circle></pattern>
+<marker id="m24-ah" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#60a5fa"></path></marker>
+</defs>
+<rect fill="url(#m24-grid)" height="220" width="650"></rect>
+<!-- DDS Bus -->
+<rect fill="#0c1929" height="30" opacity="0.5" rx="6" stroke="#3b82f6" stroke-width="1" width="590" x="30" y="95"></rect>
+<text fill="#60a5fa" font-size="11" font-weight="600" text-anchor="middle" x="325" y="114">Middleware DDS (Topics / Services / Actions)</text>
+<!-- Camera Node -->
+<rect fill="#0c1929" filter="url(#m24-gl)" height="55" rx="10" stroke="#60a5fa" stroke-width="1.5" width="120" x="30" y="20"></rect>
+<text fill="#60a5fa" font-size="10" font-weight="700" text-anchor="middle" x="90" y="42">📷 Camera</text>
+<text fill="#9ca3af" font-size="8" text-anchor="middle" x="90" y="58">/image_raw</text>
+<path d="M90,75 L90,95" fill="none" marker-end="url(#m24-ah)" opacity="0.6" stroke="#60a5fa" stroke-width="1.5"></path>
+<!-- TF2 Node -->
+<rect fill="#0c1929" filter="url(#m24-gl)" height="55" rx="10" stroke="#38bdf8" stroke-width="1.5" width="120" x="175" y="20"></rect>
+<text fill="#38bdf8" font-size="10" font-weight="700" text-anchor="middle" x="235" y="42">🔄 TF2</text>
+<text fill="#9ca3af" font-size="8" text-anchor="middle" x="235" y="58">Transformaciones</text>
+<path d="M235,75 L235,95" fill="none" marker-end="url(#m24-ah)" opacity="0.6" stroke="#38bdf8" stroke-width="1.5"></path>
+<!-- VLA Inference Node -->
+<rect fill="#0c1929" filter="url(#m24-gl)" height="55" rx="10" stroke="#3b82f6" stroke-width="2" width="140" x="345" y="20"></rect>
+<text fill="#3b82f6" font-size="10" font-weight="700" text-anchor="middle" x="415" y="42">🧠 VLA Inference</text>
+<text fill="#9ca3af" font-size="8" text-anchor="middle" x="415" y="58">/vla/actions</text>
+<path d="M415,75 L415,95" fill="none" marker-end="url(#m24-ah)" opacity="0.6" stroke="#3b82f6" stroke-width="1.5"></path>
+<!-- MoveIt2 Node -->
+<rect fill="#0c1929" filter="url(#m24-gl)" height="55" rx="10" stroke="#a78bfa" stroke-width="1.5" width="110" x="510" y="20"></rect>
+<text fill="#a78bfa" font-size="10" font-weight="700" text-anchor="middle" x="565" y="42">🦾 MoveIt2</text>
+<text fill="#9ca3af" font-size="8" text-anchor="middle" x="565" y="58">/joint_trajectory</text>
+<path d="M565,75 L565,95" fill="none" marker-end="url(#m24-ah)" opacity="0.6" stroke="#a78bfa" stroke-width="1.5"></path>
+<!-- Robot HW below bus -->
+<rect fill="#0c1929" filter="url(#m24-gl)" height="55" rx="12" stroke="#60a5fa" stroke-width="2" width="190" x="230" y="145"></rect>
+<text fill="#60a5fa" font-size="13" font-weight="700" text-anchor="middle" x="325" y="170">🤖 Hardware del robot</text>
+<text fill="#9ca3af" font-size="9" text-anchor="middle" x="325" y="188">ros2_control · drivers</text>
+<path d="M325,125 L325,145" fill="none" marker-end="url(#m24-ah)" opacity="0.6" stroke="#60a5fa" stroke-width="1.5"></path>
+</svg>
+</div>
+<div class="space-y-3 divide-y divide-dark-600">
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-bold text-blue-400 shrink-0">1</span>
+<span class="font-medium">ROS2 Humble/Iron: arquitectura DDS</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-blue-400 font-semibold mb-1">Qué es</h4><p>ROS2 es el framework middleware estándar de la industria robótica. A diferencia de ROS1, usa DDS (Data Distribution Service) como capa de transporte, con QoS configurable, descubrimiento automático de nodos y comunicación en tiempo real sin un nodo maestro central.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Por qué aprender</h4><p>Cualquier robot que llega a producción industrial usa ROS2. Es el «Linux de la robótica». Integrar un modelo VLA en ROS2 es obligatorio para un deploy real. Las distribuciones actuales (Humble LTS, Iron) son estables y tienen soporte hasta 2027+.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Conceptos clave</h4><p>DDS (Fast-RTPS, Cyclone DDS), nodos (nodes), ejecutores (single-threaded vs multi-threaded), nodos de ciclo de vida, perfiles QoS (reliability, durability, history), sistema de compilación colcon, ament_cmake/ament_python.</p></div>
+</div>
+</details>
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-bold text-blue-400 shrink-0">2</span>
+<span class="font-medium">Topics, Services y Actions</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-blue-400 font-semibold mb-1">Qué es</h4><p>Los tres patrones de comunicación en ROS2. Los topics son pub/sub asíncronos (streaming de datos, p. ej., imagen de la cámara). Los services son request/reply síncronos (p. ej., cambiar de modo). Las actions son tareas largas con feedback (p. ej., mover el brazo hasta una posición).</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Por qué aprender</h4><p>Elegir el patrón incorrecto causa errores sutiles: usar un topic donde debería haber una action significa perder información sobre el progreso; usar un service donde debería haber un topic bloquea el nodo. La inferencia de VLA suele publicar en un topic (alta frecuencia) y recibir comandos mediante una action.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Conceptos clave</h4><p>Publisher/Subscriber (topic), Client/Server (service), ActionServer/ActionClient, interfaces msg/srv/action, mensajes personalizados, QoS para cada tipo, ros2 topic echo/pub para depurar, rqt_graph para visualizar.</p></div>
+</div>
+</details>
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-bold text-blue-400 shrink-0">3</span>
+<span class="font-medium">TF2: árbol de transformaciones</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-blue-400 font-semibold mb-1">Qué es</h4><p>TF2 (Transform Library 2) mantiene un árbol de transformaciones 3D entre todos los frames de referencia del robot (base_link, cámara, gripper, etc.) actualizado en tiempo real. Permite convertir coordenadas entre cualquier par de frames al instante.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Por qué aprender</h4><p>VLA necesita saber dónde está la cámara con respecto al gripper y al mundo. Sin TF2, tendrías que calcular transformaciones manualmente en cada frame. TF2 lo hace automáticamente con un buffer temporal, esencial para la fusión de sensores.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Conceptos clave</h4><p>Frames (base_link, odom, map, camera_link, tool0), transformaciones estáticas y dinámicas, tf2_ros::Buffer, lookupTransform(), URDF → robot_state_publisher → árbol TF, tf2_echo para depuración, rviz2 para visualizar.</p></div>
+</div>
+</details>
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-bold text-blue-400 shrink-0">4</span>
+<span class="font-medium">Nav2 y MoveIt2: navegación y manipulación</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-blue-400 font-semibold mb-1">Qué es</h4><p>Nav2 es el stack de navegación autónoma (planificación de rutas, obstacle avoidance, costmaps). MoveIt2 es el framework de manipulación (motion planning, cinemática inversa, collision avoidance). Juntos cubren la movilidad y la manipulación.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Por qué aprender</h4><p>VLA puede generar acciones de alto nivel ("ve a la mesa"), pero Nav2/MoveIt2 ejecutan la planificación de una ruta segura. La combinación VLA (qué hacer) + Nav2/MoveIt2 (cómo llegar allí sin chocar) es el estándar para robots manipuladores móviles.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Conceptos clave</h4><p>Nav2: BT (Behavior Trees), costmap2d, planner/controller servers, recovery behaviors. MoveIt2: SRDF, planning scene, OMPL planners (RRT*, PRM), servo (real-time control), grasp planning, pick-and-place pipeline.</p></div>
+</div>
+</details>
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-bold text-blue-400 shrink-0">5</span>
+<span class="font-medium">ROS2 + VLA: nodo de inferencia</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-blue-400 font-semibold mb-1">Qué es</h4><p>El nodo de inferencia VLA en ROS2 es el componente que recibe imágenes y comandos de lenguaje mediante topics, ejecuta el modelo VLA (PyTorch/ONNX) y publica acciones para el controlador del robot. Funciona como un puente entre el mundo ROS2 y el mundo ML.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Por qué aprender</h4><p>Integrar ML en ROS2 presenta desafíos únicos: GIL de Python, latencia de serialización, sincronización cámara-acción, gestión de memoria de GPU. Un nodo bien diseñado marca la diferencia entre 5 Hz y 50 Hz de inferencia.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Conceptos clave</h4><p>nodo rclpy con callback de imagen, message_filters (sincronizar cámara + joint_states), ONNX Runtime para inferencia optimizada, TensorRT vía ROS2, búferes preasignados (evitar malloc), executor multihilo, nodos composables.</p></div>
+</div>
+</details>
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-bold text-blue-400 shrink-0">6</span>
+<span class="font-medium">Launch files y deploy en producción</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-blue-400 font-semibold mb-1">Qué es</h4><p>Los launch files en ROS2 (Python) orquestan el inicio de varios nodos con parámetros, remappings y condicionales. En producción, se combinan con systemd, Docker y monitoreo para garantizar que el sistema robótico se reinicie automáticamente después de fallas.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Por qué aprender</h4><p>El despliegue de robótica en producción es ingeniería de sistemas, no solo ML. Un launch file bien estructurado con lifecycle management, health checks y restart policies es lo que diferencia una demo de un producto. Las empresas pagan un premium por esta experiencia.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Conceptos clave</h4><p>LaunchDescription, Node(), ComposableNodeContainer, lifecycle_node (configure/activate/deactivate), parameters YAML, launch arguments, event handlers, ros2 launch logging, systemd unit files, Docker + ROS2, rosbag2 para replay.</p></div>
+</div>
+</details>
+</div>
+</div>
+<div class="-mt-10 mb-10 flex justify-start">
+<a class="px-5 py-2.5 text-sm font-semibold bg-blue-600 hover:bg-blue-500 text-white rounded-lg transition-colors" href="modulo-2-4.html">Ver el módulo completo →</a>
+</div>
+<!-- ============================================================ -->
+<!-- MODULO 2.5 -->
+<!-- ============================================================ -->
+<div class="mb-16 scroll-mt-20" id="modulo-2-5">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-2xl font-bold"><span class="text-blue-400">2.5</span> Entrenamiento: Imitation Learning, ACT, Diffusion Policy</h3>
+</div>
+<p class="text-neutral-300 mb-4">Cómo aprende el robot observando a humanos: de las demostraciones a la política neuronal. Behavior cloning, Action Chunking Transformers y Diffusion Policy son los 3 paradigmas dominantes.</p>
+<!-- SVG Diagram -->
+<div class="rounded-xl border border-blue-500/30 bg-dark-800 p-4 mb-6 overflow-hidden">
+<svg aria-label="Pipeline de entrenamiento: las demostraciones humanas pasan por behavior cloning o diffusion policy para generar políticas neuronales" class="w-full h-auto" font-family="Inter,sans-serif" role="img" viewbox="0 0 700 200">
+<defs>
+<filter height="180%" id="m25-gl" width="180%" x="-40%" y="-40%"><fegaussianblur result="b" stddeviation="3"></fegaussianblur><femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge></filter>
+<pattern height="32" id="m25-grid" patternunits="userSpaceOnUse" width="32"><circle cx="1.3" cy="1.3" fill="#3b82f6" opacity="0.1" r="1.3"></circle></pattern>
+<marker id="m25-ah" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#60a5fa"></path></marker>
+</defs>
+<rect fill="url(#m25-grid)" height="200" width="700"></rect>
+<!-- Human Demo -->
+<rect fill="#0c1929" filter="url(#m25-gl)" height="80" rx="12" stroke="#60a5fa" stroke-width="2" width="120" x="20" y="60"></rect>
+<text fill="#60a5fa" font-size="20" text-anchor="middle" x="80" y="88">🧑‍🏫</text>
+<text fill="#60a5fa" font-size="10" font-weight="700" text-anchor="middle" x="80" y="110">Demostraciones</text>
+<text fill="#9ca3af" font-size="8" text-anchor="middle" x="80" y="126">pares (s, a)</text>
+<!-- Arrow -->
+<path d="M140,100 L195,100" fill="none" marker-end="url(#m25-ah)" opacity="0.7" stroke="#60a5fa" stroke-width="1.5"></path>
+<!-- Three training approaches -->
+<rect fill="#0c1929" filter="url(#m25-gl)" height="50" rx="10" stroke="#3b82f6" stroke-width="1.5" width="150" x="205" y="15"></rect>
+<text fill="#3b82f6" font-size="10" font-weight="700" text-anchor="middle" x="280" y="36">Behavior Cloning</text>
+<text fill="#9ca3af" font-size="8" text-anchor="middle" x="280" y="52">Pérdida MSE · simple</text>
+<rect fill="#0c1929" filter="url(#m25-gl)" height="50" rx="10" stroke="#38bdf8" stroke-width="2" width="150" x="205" y="75"></rect>
+<text fill="#38bdf8" font-size="10" font-weight="700" text-anchor="middle" x="280" y="96">ACT (Chunking)</text>
+<text fill="#9ca3af" font-size="8" text-anchor="middle" x="280" y="112">Transformer · chunks</text>
+<rect fill="#0c1929" filter="url(#m25-gl)" height="50" rx="10" stroke="#a78bfa" stroke-width="1.5" width="150" x="205" y="135"></rect>
+<text fill="#a78bfa" font-size="10" font-weight="700" text-anchor="middle" x="280" y="156">Diffusion Policy</text>
+<text fill="#9ca3af" font-size="8" text-anchor="middle" x="280" y="172">Denoising · multimodal</text>
+<!-- Arrows to policy -->
+<path d="M355,40 L430,85" fill="none" opacity="0.5" stroke="#3b82f6" stroke-width="1"></path>
+<path d="M355,100 L430,100" fill="none" marker-end="url(#m25-ah)" opacity="0.7" stroke="#38bdf8" stroke-width="1.5"></path>
+<path d="M355,160 L430,115" fill="none" opacity="0.5" stroke="#a78bfa" stroke-width="1"></path>
+<!-- Neural Policy -->
+<rect fill="#0c1929" filter="url(#m25-gl)" height="80" rx="12" stroke="#3b82f6" stroke-width="2" width="120" x="440" y="60"></rect>
+<text fill="#3b82f6" font-size="10" font-weight="700" text-anchor="middle" x="500" y="88">Política neuronal</text>
+<text fill="#9ca3af" font-size="9" text-anchor="middle" x="500" y="106">obs → acción</text>
+<text fill="#9ca3af" font-size="8" text-anchor="middle" x="500" y="122">checkpoint .pt</text>
+<!-- Arrow to robot -->
+<path d="M560,100 L620,100" fill="none" marker-end="url(#m25-ah)" opacity="0.7" stroke="#60a5fa" stroke-width="1.5"></path>
+<!-- Robot -->
+<rect fill="#0c1929" height="60" rx="10" stroke="#60a5fa" stroke-width="1.5" width="55" x="630" y="70"></rect>
+<text fill="#60a5fa" font-size="22" text-anchor="middle" x="657" y="100">🤖</text>
+<text fill="#9ca3af" font-size="7" text-anchor="middle" x="657" y="120">Deploy</text>
+</svg>
+</div>
+<div class="space-y-3 divide-y divide-dark-600">
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-bold text-blue-400 shrink-0">1</span>
+<span class="font-medium">Imitation Learning: clonación básica de comportamiento</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-blue-400 font-semibold mb-1">Qué es</h4><p>Behavior cloning (BC) es la forma más simple de imitation learning: se recopilan demostraciones humanas (pares observación-acción) y se entrena una red neuronal supervisada para asignar acciones a observaciones. Es esencialmente una regresión sobre trayectorias.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Por qué aprender</h4><p>BC es el baseline de toda la robótica VLA. Aunque es simple, funciona sorprendentemente bien con suficientes datos. OpenVLA, RT-2 y Octo usan variantes sofisticadas de BC como punto de partida. Entender sus limitaciones (distribution shift) es esencial.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Conceptos clave</h4><p>Aprendizaje supervisado sobre pares (s,a), función de pérdida MSE/L1 para acciones continuas, desplazamiento de distribución (errores acumulativos), DAgger (Dataset Aggregation) para mitigar la deriva, cambio de covariables, horizonte de demostración frente a horizonte de ejecución.</p></div>
+</div>
+</details>
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-bold text-blue-400 shrink-0">2</span>
+<span class="font-medium">ACT: Action Chunking with Transformers</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-blue-400 font-semibold mb-1">Qué es</h4><p>ACT (Zhao et al., 2023) predice chunks de acciones futuras de una sola vez, en lugar de una acción a la vez. Un encoder CVAE genera un estilo latente y un decoder transformer genera K acciones futuras condicionadas por ese estilo y por la observación actual.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Por qué aprender</h4><p>ACT resuelve dos problemas de BC: el temporal compounding error (al planificar K pasos por adelantado) y la multimodalidad (mediante CVAE). Es la política estándar de LeRobot y la base de ALOHA (brazos bimanuales de Google). Rendimiento de vanguardia con pocas demos.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Conceptos clave</h4><p>Action chunking: predecir K acciones a la vez (K=100 típico). CVAE (Conditional Variational Autoencoder) para capturar múltiples modos. Temporal ensemble: promedio ponderado de chunks superpuestos. kl_weight (regularización del espacio latente).</p></div>
+</div>
+</details>
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-bold text-blue-400 shrink-0">3</span>
+<span class="font-medium">Diffusion Policy: denoising para acciones</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-blue-400 font-semibold mb-1">Qué es</h4><p>Diffusion Policy (Chi et al., 2023) aplica modelos de difusión (como los de generación de imágenes) a la generación de trayectorias robóticas. Comienza con ruido gaussiano y, en T pasos de denoising condicionados por la observación, genera una trayectoria de acciones fluida y multimodal.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Por qué aprender</h4><p>Diffusion Policy supera a BC y ACT en tareas con alta multimodalidad (p. ej., múltiples caminos válidos hacia el mismo objetivo). Es la base de la política S1 de GR00T N1 y de π0. Su capacidad para capturar distribuciones complejas de acciones es incomparable.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Conceptos clave</h4><p>DDPM (Denoising Diffusion Probabilistic Models) aplicado a acciones, noise schedule, conditional denoising (observation-conditioned), U-Net vs transformer backbone, inference steps (DDIM para acelerar), horizonte de acción, observation horizon vs action horizon.</p></div>
+</div>
+</details>
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-bold text-blue-400 shrink-0">4</span>
+<span class="font-medium">Ajuste fino de VLA preentrenados</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-blue-400 font-semibold mb-1">Qué es</h4><p>El ajuste fino adapta un modelo VLA preentrenado con datos generales (p. ej.: OpenVLA entrenado con Open X-Embodiment) a tu tarea y robot específicos usando un dataset mucho más pequeño. Es análogo al ajuste fino de LLM, pero con trayectorias robóticas.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Por qué aprender</h4><p>Entrenar un VLA desde cero requiere millones de trayectorias. El fine-tuning de un modelo preentrenado solo necesita 50-200 demostraciones de tu configuración. OpenVLA 7B con fine-tuning supera a RT-2-X con 10x menos datos. Es el camino práctico para el 99% de los proyectos.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Conceptos clave</h4><p>LoRA / QLoRA para eficiencia de memoria, programación de la tasa de aprendizaje (decaimiento coseno con calentamiento), backbone congelado vs. ajuste fino completo, mezcla de datasets (datos generales + específicos), olvido catastrófico, evaluación en tareas de validación.</p></div>
+</div>
+</details>
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-bold text-blue-400 shrink-0">5</span>
+<span class="font-medium">Post-training de RL: +24% con reinforcement</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-blue-400 font-semibold mb-1">Qué es</h4><p>El post-training con Reinforcement Learning aplica RL (PPO, GRPO) sobre una política inicializada mediante imitation learning. El robot mejora más allá de las demostraciones humanas al optimizar señales de recompensa automáticas. Analogía: RLHF para LLM, pero con recompensas físicas.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Por qué aprender</h4><p>Qwen-VLA mostró una mejora de +24% en la tasa de éxito tras el post-training de RL con GRPO. El modelo supera las demostraciones humanas originales. Es la frontera actual del rendimiento: IL para el bootstrap, RL para la optimización.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Conceptos clave</h4><p>GRPO (Group Relative Policy Optimization), PPO (Proximal Policy Optimization), diseño de recompensas para manipulación, recompensa dispersa basada en el éxito frente a recompensa densa, penalización KL (no desviarse demasiado del IL), eficiencia de muestras, RL online frente a offline.</p></div>
+</div>
+</details>
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-bold text-blue-400 shrink-0">6</span>
+<span class="font-medium">Evaluación: success rate, generalización OOD</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-blue-400 font-semibold mb-1">Qué es</h4><p>La evaluación en robótica VLA mide la success rate (% de tareas completadas) en escenarios in-distribution (los mismos objetos del entrenamiento) y out-of-distribution (objetos, posiciones e iluminación nuevos). La OOD success rate es la métrica que realmente importa.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Por qué aprender</h4><p>Un modelo con un 95% in-distribution puede tener un 30% OOD. Saber diseñar evaluaciones que prueben la generalización real evita sorpresas en el deploy. Benchmarks como SIMPLER y LIBERO estandarizan las comparaciones entre modelos.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Conceptos clave</h4><p>Tasa de éxito (SR), SR OOD, métricas de finalización parcial, N_eval_episodes (50+), intervalos de confianza, benchmark SIMPLER, suite LIBERO, grabación de video de fallas, taxonomía de errores (falla de agarre, falla de alcance, colisión), estudios de ablación.</p></div>
+</div>
+</details>
+</div>
+</div>
+<div class="-mt-10 mb-10 flex justify-start">
+<a class="px-5 py-2.5 text-sm font-semibold bg-blue-600 hover:bg-blue-500 text-white rounded-lg transition-colors" href="modulo-2-5.html">Ver el módulo completo →</a>
+</div>
+<!-- ============================================================ -->
+<!-- MODULO 2.6 -->
+<!-- ============================================================ -->
+<div class="mb-16 scroll-mt-20" id="modulo-2-6">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-2xl font-bold"><span class="text-blue-400">2.6</span> Sim-to-Real: de lo virtual a lo físico</h3>
+</div>
+<p class="text-neutral-300 mb-4">El puente más difícil: cómo transferir habilidades del simulador al robot real. Domain randomization, system identification y el ciclo real-to-sim-to-real.</p>
+<!-- SVG Diagram -->
+<div class="rounded-xl border border-blue-500/30 bg-dark-800 p-4 mb-6 overflow-hidden">
+<svg aria-label="Bucle sim-to-real: entrenar en simulación con aleatorización de dominio, transferir al robot real, recopilar datos reales y refinar" class="w-full h-auto" font-family="Inter,sans-serif" role="img" viewbox="0 0 700 200">
+<defs>
+<filter height="180%" id="m26-gl" width="180%" x="-40%" y="-40%"><fegaussianblur result="b" stddeviation="3"></fegaussianblur><femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge></filter>
+<pattern height="32" id="m26-grid" patternunits="userSpaceOnUse" width="32"><circle cx="1.3" cy="1.3" fill="#3b82f6" opacity="0.1" r="1.3"></circle></pattern>
+<marker id="m26-ah" markerheight="9" markerwidth="9" orient="auto" refx="6.5" refy="4.5"><path d="M0,0 L8,4.5 L0,9 L2.4,4.5 Z" fill="#60a5fa"></path></marker>
+</defs>
+<rect fill="url(#m26-grid)" height="200" width="700"></rect>
+<!-- Sim -->
+<rect fill="#0c1929" filter="url(#m26-gl)" height="120" rx="14" stroke="#3b82f6" stroke-width="2" width="160" x="30" y="40"></rect>
+<text fill="#3b82f6" font-size="14" font-weight="700" text-anchor="middle" x="110" y="68">🖥️ Simulación</text>
+<text fill="#9ca3af" font-size="9" text-anchor="middle" x="110" y="90">Domain Randomization</text>
+<text fill="#9ca3af" font-size="9" text-anchor="middle" x="110" y="106">MuJoCo / Isaac Sim</text>
+<text fill="#9ca3af" font-size="9" text-anchor="middle" x="110" y="122">10K+ episodios</text>
+<text fill="#60a5fa" font-size="8" text-anchor="middle" x="110" y="142">Rápido, seguro, barato</text>
+<!-- Arrow Sim → Transfer -->
+<path d="M190,100 L260,100" fill="none" marker-end="url(#m26-ah)" opacity="0.7" stroke="#60a5fa" stroke-width="2"></path>
+<text fill="#60a5fa" font-size="8" text-anchor="middle" x="225" y="90">transfer</text>
+<!-- Transfer Box -->
+<rect fill="#0c1929" filter="url(#m26-gl)" height="90" rx="12" stroke="#38bdf8" stroke-width="2" width="150" x="270" y="55"></rect>
+<text fill="#38bdf8" font-size="12" font-weight="700" text-anchor="middle" x="345" y="80">🌉 Bridge</text>
+<text fill="#9ca3af" font-size="9" text-anchor="middle" x="345" y="98">System ID</text>
+<text fill="#9ca3af" font-size="9" text-anchor="middle" x="345" y="114">Domain Adaptation</text>
+<text fill="#9ca3af" font-size="8" text-anchor="middle" x="345" y="130">Calibración + ajuste</text>
+<!-- Arrow → Real -->
+<path d="M420,100 L490,100" fill="none" marker-end="url(#m26-ah)" opacity="0.7" stroke="#38bdf8" stroke-width="2"></path>
+<text fill="#38bdf8" font-size="8" text-anchor="middle" x="455" y="90">deploy</text>
+<!-- Real -->
+<rect fill="#0c1929" filter="url(#m26-gl)" height="120" rx="14" stroke="#60a5fa" stroke-width="2" width="170" x="500" y="40"></rect>
+<text fill="#60a5fa" font-size="14" font-weight="700" text-anchor="middle" x="585" y="68">🤖 Real</text>
+<text fill="#9ca3af" font-size="9" text-anchor="middle" x="585" y="90">Hardware real</text>
+<text fill="#9ca3af" font-size="9" text-anchor="middle" x="585" y="106">Física imperfecta</text>
+<text fill="#9ca3af" font-size="9" text-anchor="middle" x="585" y="122">Retroalimentación sensorial</text>
+<text fill="#60a5fa" font-size="8" text-anchor="middle" x="585" y="142">Ground truth final</text>
+<!-- Feedback loop -->
+<path d="M585,160 C585,185 110,185 110,160" fill="none" opacity="0.5" stroke="#a78bfa" stroke-dasharray="5 3" stroke-width="1.5"></path>
+<text fill="#a78bfa" font-size="8" text-anchor="middle" x="345" y="185">real-to-sim feedback (refinar)</text>
+</svg>
+</div>
+<div class="space-y-3 divide-y divide-dark-600">
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-bold text-blue-400 shrink-0">1</span>
+<span class="font-medium">Reality gap: por qué la simulación ≠ la realidad</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-blue-400 font-semibold mb-1">Qué es</h4><p>La brecha entre simulación y realidad es la diferencia entre el comportamiento de un robot en el simulador y en el mundo real. Tiene tres fuentes: visual (texturas, iluminación), dinámica (fricción, masas, compliance) y sensorial (ruido de cámara, latencia, jitter). Una política perfecta en simulación puede fallar el 100% de las veces en el mundo real.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Por qué aprender</h4><p>Ignorar el reality gap es el error más común de los principiantes. Entender sus fuentes permite elegir las técnicas adecuadas: domain randomization para el gap visual, system identification para el gap dinámico, sensor noise injection para el gap sensorial.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Conceptos clave</h4><p>Brecha visual (renderizado vs. cámara real), brecha de dinámica (física simplificada vs. contacto real), brecha de sensores (sensores ideales vs. ruidosos), brecha de actuadores (control perfecto vs. juego mecánico y fricción), métricas de transferibilidad, tasa de éxito de sim-to-real.</p></div>
+</div>
+</details>
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-bold text-blue-400 shrink-0">2</span>
+<span class="font-medium">Domain randomization: texturas, física, luz</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-blue-400 font-semibold mb-1">Qué es</h4><p>Domain randomization varía sistemáticamente los parámetros del simulador (texturas, colores, posición de las luces, masas, coeficientes de fricción) en cada episodio. La política se ve obligada a generalizar porque nunca ve el mismo escenario dos veces.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Por qué aprender</h4><p>Es la técnica de sim-to-real más robusta y más utilizada. OpenAI la usó para resolver el Rubik's Cube (2019), NVIDIA la usa en Isaac Lab, y todos los pipelines VLA modernos incluyen alguna forma de randomization. Sin esto, las políticas se sobreajustan a la apariencia de la simulación.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Conceptos clave</h4><p>DR visual: texturas aleatorias, color de fondo, intensidad de la luz, posición de la cámara. DR de física: masa ±30%, fricción ±50%, damping, retraso de acción (1-3 pasos). ADR (Automatic Domain Randomization): aumenta los rangos automáticamente cuando el rendimiento se estabiliza.</p></div>
+</div>
+</details>
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-bold text-blue-400 shrink-0">3</span>
+<span class="font-medium">Identificación de sistemas: calibrar el simulador</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-blue-400 font-semibold mb-1">Qué es</h4><p>La identificación de sistemas (sysid) es el proceso de medir los parámetros físicos reales del robot (masas, inercias, fricción, rigidez) y configurar el simulador para que coincidan. En lugar de aleatorizar todo, calibras la simulación para que sea lo más parecida posible a la realidad.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Por qué aprender</h4><p>Domain randomization con rangos muy amplios puede degradar el rendimiento (la política se vuelve "mediocre en todo"). System identification permite usar rangos estrechos centrados en los valores reales, combinando lo mejor de ambos mundos: robustez + precisión.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Conceptos clave</h4><p>Estimación de parámetros: registrar una trayectoria real y optimizar los parámetros de la simulación para minimizar el error. Optimización bayesiana para la identificación del sistema. Aprendizaje de física residual: red neuronal que aprende la diferencia entre la simulación y la realidad. Herramientas de calibración de simulación (edición de MuJoCo XML, configuración de Isaac Lab).</p></div>
+</div>
+</details>
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-bold text-blue-400 shrink-0">4</span>
+<span class="font-medium">Sim-to-real transfer: técnicas actuales</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-blue-400 font-semibold mb-1">Qué es</h4><p>Sim-to-real transfer es el pipeline completo para llevar una política entrenada en simulación y hacerla funcionar en el robot real. Incluye: entrenamiento con DR/sysid en la simulación, validación sim-to-sim, deploy inicial con safety constraints e iteración con datos reales.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Por qué aprender</h4><p>Es el cuello de botella de toda la robótica basada en aprendizaje. Dominar sim-to-real es la habilidad más valorada en la industria porque determina si meses de entrenamiento en simulación se traducen en rendimiento real o en horas de GPU desperdiciadas.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Conceptos clave</h4><p>Progressive deployment: sim → sim-to-sim → real con límites de seguridad → real full. Suavizado de acciones (filtro de paso bajo en los comandos). Restricciones de seguridad (límites de fuerza, velocidad y área de trabajo). Adaptación en línea: ajustar la política con datos reales.</p></div>
+</div>
+</details>
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-bold text-blue-400 shrink-0">5</span>
+<span class="font-medium">Real-to-sim-to-real: el ciclo completo</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-blue-400 font-semibold mb-1">Qué es</h4><p>Real-to-sim-to-real es un ciclo iterativo: recopila datos en el robot real, usa esos datos para calibrar/mejorar el simulador, vuelve a entrenar la política en el simulador mejorado y vuelve a implementarla. Cada iteración mejora tanto el simulador como la política.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Por qué aprender</h4><p>Un único pass de sim-to-real rara vez es suficiente. El ciclo iterativo es como se desarrollan los robots comerciales en la práctica. Figure, NVIDIA y Physical Intelligence ejecutan decenas de iteraciones real-to-sim-to-real antes de declarar un comportamiento «production-ready».</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Conceptos clave</h4><p>Volante de inercia de datos: más datos reales → mejor simulación → mejor política → más datos reales. Ajuste automático de la simulación con datos reales (simulación neuronal). Digital twin: réplica exacta de la configuración real en la simulación. Pipeline de continuous deployment: CI/CD para políticas robóticas.</p></div>
+</div>
+</details>
+<details class="group pt-3">
+<summary class="flex items-center gap-3 cursor-pointer list-none py-2 hover:bg-dark-800 rounded-lg px-2 -mx-2">
+<span class="w-6 h-6 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center text-xs font-bold text-blue-400 shrink-0">6</span>
+<span class="font-medium">Casos de éxito: OpenAI Rubik's Cube, NVIDIA</span>
+</summary>
+<div class="pl-9 pb-4 space-y-3 text-sm text-neutral-300">
+<div><h4 class="text-blue-400 font-semibold mb-1">Qué es</h4><p>Los hitos de sim-to-real: OpenAI resolvió el cubo de Rubik con una mano robótica Dexterous (2019) usando ADR a gran escala. NVIDIA entrena la locomoción de humanoides en Isaac Sim con 4096 entornos paralelos. Google RT-2 usó sim-to-real para validar tareas de manipulación.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Por qué aprender</h4><p>Estos casos demuestran que la transferencia de simulación a realidad funciona para tareas extremadamente complejas. Las lecciones aprendidas (escala de aleatorización, importancia de los sensores táctiles, diseño de la recompensa) se aplican directamente a cualquier proyecto VLA.</p></div>
+<div><h4 class="text-blue-400 font-semibold mb-1">Conceptos clave</h4><p>OpenAI Rubik's: ADR con 200+ parámetros aleatorizados, 13K años de experiencia de simulación. Humanoide de NVIDIA: simulación masivamente paralela, PPO con 4096 envs, 45 min de tiempo de ejecución. Google RT-2: benchmark SIMPLER para validación en simulación. Lección: la escala de la simulación compensa.</p></div>
+</div>
+</details>
+</div>
+</div>
+</div>
+<div class="-mt-10 mb-10 flex justify-start">
+<a class="px-5 py-2.5 text-sm font-semibold bg-blue-600 hover:bg-blue-500 text-white rounded-lg transition-colors" href="modulo-2-6.html">Ver el módulo completo →</a>
+</div>
+</section>
+<!-- FOOTER -->
+<footer class="py-12 text-center text-sm text-neutral-500 border-t border-dark-600 space-y-2">
+<p>VLA — <a class="text-sky-400 hover:text-sky-300" href="https://ARCKHÉ AI">ARCKHÉ AI</a></p>
+<p>Investigación profunda: junio 2026 · 50+ fuentes académicas e industriales</p>
+<p class="text-neutral-600">DeepMind · Stanford · Berkeley · NVIDIA · HuggingFace · Physical Intelligence · Alibaba · Figure AI</p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Módulo 2.3 — Simuladores: MuJoCo, Isaac Sim, PyBullet | VLA Course</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#FACC15',
+            dark: { 900: '#111827', 800: '#1f2937', 700: '#374151', 600: '#4b5563' }
+          }
+        }
+      }
+    }
+  </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<style>
+    body { font-family: 'Inter', sans-serif; }
+    .dark body { background-color: #111827; }
+
+    /* Light mode overrides - OBRIGATORIO */
+    html:not(.dark) body { background-color: #f8fafc; }
+    html:not(.dark) .bg-dark-900 { background-color: #ffffff; }
+    html:not(.dark) .bg-dark-800 { background-color: #f9fafb; }
+    html:not(.dark) .bg-dark-700 { background-color: #f3f4f6; }
+    html:not(.dark) .bg-dark-600 { background-color: #e5e7eb; }
+    html:not(.dark) .text-neutral-100 { color: #111827; }
+    html:not(.dark) .text-neutral-300 { color: #4b5563; }
+    html:not(.dark) .text-neutral-400 { color: #6b7280; }
+    html:not(.dark) .text-neutral-500 { color: #9ca3af; }
+    html:not(.dark) .border-dark-600 { border-color: #d1d5db; }
+    html:not(.dark) .border-dark-700 { border-color: #e5e7eb; }
+
+    /* Light mode - cores de acento (trilha blue) */
+    html:not(.dark) .text-blue-400 { color: #2563eb; }
+    html:not(.dark) .bg-blue-500\/20 { background-color: rgba(37, 99, 235, 0.12); }
+    html:not(.dark) .bg-blue-500\/10 { background-color: rgba(37, 99, 235, 0.08); }
+    html:not(.dark) .bg-blue-900\/20 { background-color: rgba(37, 99, 235, 0.08); }
+    html:not(.dark) .border-blue-500\/30 { border-color: rgba(37, 99, 235, 0.25); }
+    html:not(.dark) .hover\:bg-blue-500\/30:hover { background-color: rgba(37, 99, 235, 0.18); }
+
+    /* Light mode - remove gradientes e cores especiais */
+    html:not(.dark) [class*="bg-gradient-to"] { background-image: none !important; }
+    html:not(.dark) .text-primary { color: #a16207; }
+    html:not(.dark) .bg-primary\/10 { background-color: rgba(161, 98, 7, 0.08); }
+    html:not(.dark) .border-primary\/40 { border-color: rgba(161, 98, 7, 0.25); }
+    html:not(.dark) .text-sky-400 { color: #0369a1; }
+    html:not(.dark) .text-yellow-400 { color: #a16207; }
+    html:not(.dark) .hover\:text-sky-300:hover { color: #0284c7; }
+    html:not(.dark) .hover\:text-yellow-300:hover { color: #854d0e; }
+
+    /* Light mode - nav */
+    html:not(.dark) .bg-dark-900\/95 { background-color: rgba(255, 255, 255, 0.95); }
+
+    /* Light mode - SVG */
+    html:not(.dark) svg[role="img"] { filter: saturate(0.82) brightness(0.96); }
+
+    /* Dark mode bordas suavizadas */
+    .dark .border-dark-600 { border-color: #374151; }
+    .dark .divide-dark-600 > :not([hidden]) ~ :not([hidden]) { border-color: #374151; }
+
+    /* Tópicos expansíveis */
+    .topic-content { display: none; }
+    .topic-content.active { display: block; }
+
+    /* Animação SVG */
+    @keyframes wf-pulse { 0%,100% { opacity:.55 } 50% { opacity:1 } }
+    @media (prefers-reduced-motion: no-preference) {
+      .wf-a { animation: wf-pulse 2.6s ease-in-out infinite; }
+      .wf-a:nth-child(2){animation-delay:.25s} .wf-a:nth-child(3){animation-delay:.5s}
+      .wf-a:nth-child(4){animation-delay:.75s}
+    }
+  </style>
+<link href="https://linnoff88-dev.github.io/arckhe-vla/curso/trilha2/modulo-2-3.html" hreflang="pt-BR" rel="alternate"/><link href="https://linnoff88-dev.github.io/arckhe-vla/en/curso/trilha2/modulo-2-3.html" hreflang="en" rel="alternate"/><link href="https://linnoff88-dev.github.io/arckhe-vla/es/curso/trilha2/modulo-2-3.html" hreflang="es" rel="alternate"/></head>
+<body class="bg-dark-900 text-neutral-100 min-h-screen"><div class="ARCKHÉ-lang" style="position:fixed;right:14px;bottom:14px;z-index:9999;display:flex;gap:2px;padding:4px;border-radius:10px;background:rgba(12,12,16,.82);border:1px solid rgba(226,162,59,.45);font:600 12px/1 Sora,Inter,system-ui,sans-serif;backdrop-filter:blur(8px)" translate="no"><a href="../../../curso/trilha2/modulo-2-3.html" hreflang="pt-BR" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">PT</a><a href="../../../en/curso/trilha2/modulo-2-3.html" hreflang="en" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#e9e9ee">EN</a><a href="modulo-2-3.html" hreflang="es" style="padding:6px 8px;border-radius:7px;text-decoration:none;color:#1a1206;background:#E2A23B">ES</a></div>
+<!-- NAV -->
+<nav class="fixed top-0 w-full bg-dark-900/95 backdrop-blur border-b border-dark-600 z-50">
+<div class="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
+<div class="flex items-center gap-3">
+<a class="text-primary font-bold text-lg" href="../../">VLA</a>
+<span class="text-neutral-500">|</span>
+<a class="text-sky-400 hover:text-sky-300 text-sm font-medium" href="https://ARCKHÉ AI" target="_blank">ARCKHÉ AI</a>
+</div>
+<div class="flex items-center gap-2">
+<a class="px-3 py-1.5 rounded text-sm text-emerald-400 hover:bg-emerald-500/10" href="../trilha1/">Fundamentos</a>
+<a class="px-3 py-1.5 rounded text-sm text-blue-400 bg-blue-500/20 border border-blue-500/30 font-medium" href="./">Técnico</a>
+<a class="px-3 py-1.5 rounded text-sm text-purple-400 hover:bg-purple-500/10" href="../trilha3/">Avanzado</a>
+<button class="ml-2 p-2 rounded hover:bg-dark-700 text-neutral-400" onclick="document.documentElement.classList.toggle('dark')" title="Cambiar tema">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" viewbox="0 0 24 24"><path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path></svg>
+</button>
+</div>
+</div>
+</nav>
+<main class="max-w-4xl mx-auto px-4 sm:px-6 pt-24 pb-16">
+<!-- BREADCRUMB -->
+<nav aria-label="Breadcrumb" class="flex items-center gap-2 text-sm mb-8">
+<a class="text-neutral-500 hover:text-neutral-300 transition-colors" href="../../">Inicio</a>
+<span class="text-neutral-600">/</span>
+<a class="text-neutral-500 hover:text-blue-400 transition-colors" href="./">Técnico</a>
+<span class="text-neutral-600">/</span>
+<span class="text-blue-400 font-medium">Módulo 2.3</span>
+</nav>
+<!-- HEADER -->
+<header class="bg-gradient-to-br from-blue-900/40 via-dark-800 to-dark-800 rounded-2xl border border-blue-500/30 p-8 mb-10">
+<span class="inline-block px-3 py-1 bg-blue-500/20 text-blue-400 text-xs font-semibold rounded-full mb-4 tracking-widest">MÓDULO 2.3</span>
+<h1 class="text-3xl sm:text-4xl font-bold mb-4">🖥️ Simuladores: MuJoCo, Isaac Sim, PyBullet</h1>
+<p class="text-lg text-neutral-400 max-w-3xl mb-8">Entrena robots sin romper nada: simulación física de alta fidelidad para VLA. MuJoCo a 2.7M steps/s, Isaac Sim con ray-tracing a 94k FPS y PyBullet para prototipado rápido: cada uno tiene su propio nicho.</p>
+<!-- Hero SVG — comparativo dos 3 simuladores em pipeline -->
+<div class="rounded-2xl border border-blue-500/30 bg-dark-900/40 p-4 mb-8 overflow-hidden">
+<svg aria-label="Tres simuladores para VLA: MuJoCo (velocidad en CPU), Isaac Sim (fidelidad en GPU), PyBullet (prototipado rápido), que convergen en un robot real" class="w-full h-auto" font-family="Inter,sans-serif" role="img" viewbox="0 0 700 210">
+<defs>
+<lineargradient id="m23-grad" x1="0" x2="1" y1="0" y2="1">
+<stop offset="0" stop-color="#3b82f6"></stop><stop offset="1" stop-color="#60a5fa"></stop>
+</lineargradient>
+<filter height="180%" id="m23-glow" width="180%" x="-40%" y="-40%">
+<fegaussianblur result="b" stddeviation="1.8"></fegaussianblur><femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge>
+</filter>
+<filter height="200%" id="m23-glow-focus" width="200%" x="-50%" y="-50%">
+<fegaussianblur result="b" stddeviation="4"></fegaussianblur><femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge>
+</filter>
+<pattern height="28" id="m23-grid" patternunits="userSpaceOnUse" width="28">
+<circle cx="1.2" cy="1.2" fill="#3b82f6" opacity="0.12" r="1.2"></circle>
+</pattern>
+<marker id="m23-ah" markerheight="8" markerwidth="8" orient="auto" refx="6" refy="4">
+<path d="M0,0 L7,4 L0,8 L2,4 Z" fill="#60a5fa"></path>
+</marker>
+</defs>
+<rect fill="url(#m23-grid)" height="210" width="700"></rect>
+<!-- MuJoCo -->
+<g class="wf-a">
+<rect fill="#0c1929" filter="url(#m23-glow)" height="130" rx="12" stroke="#3b82f6" stroke-width="2" width="160" x="18" y="30"></rect>
+<text fill="#60a5fa" font-size="13" font-weight="700" text-anchor="middle" x="98" y="58">MuJoCo</text>
+<text fill="#93c5fd" font-size="9" font-weight="600" text-anchor="middle" x="98" y="76">2.7M steps/s</text>
+<text fill="#9ca3af" font-size="8" text-anchor="middle" x="98" y="92">Contacto suave</text>
+<text fill="#9ca3af" font-size="8" text-anchor="middle" x="98" y="107">DeepMind / Google</text>
+<text fill="#9ca3af" font-size="8" text-anchor="middle" x="98" y="122">Estándar académico</text>
+<text fill="#60a5fa" font-size="7" font-weight="600" text-anchor="middle" x="98" y="148">Apache 2 · Código abierto</text>
+</g>
+<!-- Isaac Sim — caixa-foco com glow maior -->
+<g>
+<rect fill="#0c1b2e" filter="url(#m23-glow-focus)" height="145" rx="14" stroke="url(#m23-grad)" stroke-width="2.5" width="170" x="265" y="18"></rect>
+<text fill="#38bdf8" font-size="14" font-weight="700" text-anchor="middle" x="350" y="48">Isaac Sim</text>
+<text fill="#7dd3fc" font-size="9" font-weight="600" text-anchor="middle" x="350" y="68">94k FPS ray-tracing</text>
+<text fill="#9ca3af" font-size="8" text-anchor="middle" x="350" y="84">PhysX 5 + Omniverse</text>
+<text fill="#9ca3af" font-size="8" text-anchor="middle" x="350" y="99">NVIDIA · Domain random.</text>
+<text fill="#9ca3af" font-size="8" text-anchor="middle" x="350" y="114">Entrenamiento de GR00T N1</text>
+<text fill="#38bdf8" font-size="7" font-weight="600" text-anchor="middle" x="350" y="152">Gratis (NVIDIA developer)</text>
+</g>
+<!-- PyBullet -->
+<g class="wf-a">
+<rect fill="#0c1929" filter="url(#m23-glow)" height="130" rx="12" stroke="#3b82f6" stroke-width="2" width="160" x="522" y="30"></rect>
+<text fill="#60a5fa" font-size="13" font-weight="700" text-anchor="middle" x="602" y="58">PyBullet</text>
+<text fill="#93c5fd" font-size="9" font-weight="600" text-anchor="middle" x="602" y="76">pip install pybullet</text>
+<text fill="#9ca3af" font-size="8" text-anchor="middle" x="602" y="92">Bullet Physics</text>
+<text fill="#9ca3af" font-size="8" text-anchor="middle" x="602" y="107">Sin GPU dedicada</text>
+<text fill="#9ca3af" font-size="8" text-anchor="middle" x="602" y="122">Prototipado rápido</text>
+<text fill="#60a5fa" font-size="7" font-weight="600" text-anchor="middle" x="602" y="148">zlib · Open-source</text>
+</g>
+<!-- Setas para robô -->
+<path d="M178,95 C215,95 230,175 265,175" fill="none" marker-end="url(#m23-ah)" opacity="0.6" stroke="#60a5fa" stroke-width="1.5"></path>
+<path d="M350,163 L350,175" fill="none" marker-end="url(#m23-ah)" opacity="0.7" stroke="#38bdf8" stroke-width="1.5"></path>
+<path d="M522,95 C485,95 470,175 435,175" fill="none" marker-end="url(#m23-ah)" opacity="0.6" stroke="#60a5fa" stroke-width="1.5"></path>
+<!-- Robô real -->
+<rect fill="#0e1622" height="28" rx="8" stroke="#60a5fa" stroke-width="1.5" width="120" x="290" y="175"></rect>
+<text fill="#60a5fa" font-size="10" font-weight="700" text-anchor="middle" x="350" y="194">🤖 Robot real</text>
+<!-- Labels -->
+<text fill="#60a5fa" font-size="8" font-weight="600" text-anchor="middle" x="98" y="195">Velocidad</text>
+<text fill="#38bdf8" font-size="8" font-weight="600" text-anchor="middle" x="350" y="205">Fidelidad</text>
+<text fill="#60a5fa" font-size="8" font-weight="600" text-anchor="middle" x="602" y="195">Accesibilidad</text>
+</svg>
+</div>
+<!-- Stats -->
+<div class="grid grid-cols-4 gap-4 max-w-2xl">
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-blue-400">6</div>
+<div class="text-xs text-neutral-400">Temas</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-blue-400">35</div>
+<div class="text-xs text-neutral-400">Minutos</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-blue-400">Técnico</div>
+<div class="text-xs text-neutral-400">Nivel</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-3 border border-dark-600">
+<div class="text-xl font-bold text-blue-400">Práctica</div>
+<div class="text-xs text-neutral-400">Tipo</div>
+</div>
+</div>
+</header>
+<!-- CONTEÚDO DETALHADO -->
+<h2 class="text-2xl font-bold mb-6">Contenido detallado</h2>
+<!-- TÓPICO 1 — MuJoCo -->
+<section class="mb-10" id="topico-1">
+<div class="flex items-start gap-4 mb-4">
+<div class="w-12 h-12 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center shrink-0">
+<span class="text-blue-400 font-bold text-lg">1</span>
+</div>
+<div>
+<h2 class="text-2xl font-bold">⚡ MuJoCo: 2.7M steps/s, el estándar académico</h2>
+<p class="text-neutral-400 mt-1">El simulador de física más rápido para entrenar RL y políticas VLA en CPU.</p>
+</div>
+</div>
+<!-- Conceito principal -->
+<div class="bg-gradient-to-br from-blue-900/40 to-dark-800 rounded-xl border border-blue-500/30 p-6 mb-4">
+<h3 class="text-blue-400 font-semibold text-sm uppercase tracking-wider mb-3">Concepto principal</h3>
+<p class="text-neutral-300 leading-relaxed">MuJoCo (Multi-Joint dynamics with Contact) es un motor de física optimizado para simular el contacto entre cuerpos rígidos y articulaciones. Google DeepMind lo adquirió en 2021 y lo liberó como open-source (Apache 2); procesa <strong class="text-white">2.7 millones de steps por segundo</strong> en CPU — lo que hace viable entrenar políticas VLA con millones de episodios en horas.</p>
+</div>
+<!-- Grid ✓/✗ -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+<div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-5">
+<h4 class="text-blue-400 font-semibold mb-3 flex items-center gap-2"><span>✓</span> Cuándo usar MuJoCo</h4>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">✓</span> Reproducir papers académicos (dm_control, Gymnasium)</li>
+<li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">✓</span> Entrenar RL a gran escala en CPU</li>
+<li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">✓</span> Simular manipulación con contacto suave y preciso</li>
+<li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">✓</span> Usar MJX para GPU paralela (JAX backend)</li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-5">
+<h4 class="text-red-400 font-semibold mb-3 flex items-center gap-2"><span>✗</span> Cuándo NO usar MuJoCo</h4>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Necesidad de renderizado fotorrealista para sim-to-real visual</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Simular sensores LiDAR/cámara depth nativos</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Integrar directamente con ROS2 sin bridge</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Simular fluidos o materiales deformables</li>
+</ul>
+</div>
+</div>
+<!-- Conceitos-chave grid -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600 text-center">
+<div class="text-blue-400 font-semibold text-sm mb-1">MJCF</div>
+<div class="text-xs text-neutral-400">Formato XML de modelos</div>
+</div>
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600 text-center">
+<div class="text-blue-400 font-semibold text-sm mb-1">qpos/qvel</div>
+<div class="text-xs text-neutral-400">Estado generalizado</div>
+</div>
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600 text-center">
+<div class="text-blue-400 font-semibold text-sm mb-1">MJX</div>
+<div class="text-xs text-neutral-400">MuJoCo en JAX/GPU</div>
+</div>
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600 text-center">
+<div class="text-blue-400 font-semibold text-sm mb-1">Contactos suaves</div>
+<div class="text-xs text-neutral-400">Contacto suave estable</div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 2 — Isaac Sim -->
+<section class="mb-10" id="topico-2">
+<div class="flex items-start gap-4 mb-4">
+<div class="w-12 h-12 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center shrink-0">
+<span class="text-blue-400 font-bold text-lg">2</span>
+</div>
+<div>
+<h2 class="text-2xl font-bold">🎮 NVIDIA Isaac Sim: 94k FPS, trazado de rayos</h2>
+<p class="text-neutral-400 mt-1">Simulación fotorrealista para sim-to-real de alta fidelidad: el entorno de GR00T N1.</p>
+</div>
+</div>
+<!-- Box de dado/pesquisa -->
+<div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-6 mb-4">
+<div class="flex items-start gap-3">
+<span class="text-2xl">📊</span>
+<div>
+<h3 class="font-semibold text-white mb-2">El número que importa: 94.000 FPS</h3>
+<p class="text-neutral-300 text-sm leading-relaxed">Isaac Sim ejecuta la <strong class="text-blue-400">94.000 fotogramas por segundo</strong> con ray tracing en una GPU NVIDIA A100. Esto significa que 1 hora de GPU equivale a ~26 horas de simulación en tiempo real, lo que hace posible la domain randomization con texturas fotorrealistas a gran escala. El GR00T N1 de NVIDIA se entrenó por completo en este entorno.</p>
+</div>
+</div>
+</div>
+<p class="text-neutral-300 mb-4">Isaac Sim es la plataforma de simulación robótica de NVIDIA, construida sobre Omniverse y PhysX 5. Ofrece renderizado fotorrealista en tiempo real y puede simular miles de robots en paralelo usando GPU.</p>
+<!-- Timeline de evolução -->
+<div class="space-y-4 mb-4">
+<h3 class="text-sm font-semibold text-neutral-400 uppercase tracking-wider">Evolución de la plataforma</h3>
+<div class="flex items-start gap-4">
+<div class="w-12 h-12 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center shrink-0">
+<span class="text-blue-400 font-bold text-xs">2020</span>
+</div>
+<div class="flex-1 bg-dark-800 rounded-xl p-4 border border-dark-600">
+<h4 class="font-semibold text-white mb-1">Isaac Gym (descontinuado)</h4>
+<p class="text-sm text-neutral-400">Primer entorno de RL masivamente paralelo en GPU de NVIDIA. Precursor de Isaac Sim, sin renderizado fotorrealista.</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="w-12 h-12 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center shrink-0">
+<span class="text-blue-400 font-bold text-xs">2022</span>
+</div>
+<div class="flex-1 bg-dark-800 rounded-xl p-4 border border-dark-600">
+<h4 class="font-semibold text-white mb-1">Isaac Sim + Omniverse</h4>
+<p class="text-sm text-neutral-400">Integración con USD (Universal Scene Description) y ray tracing RTX en tiempo real. PhysX 5 con simulación acelerada por GPU.</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="w-12 h-12 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center shrink-0">
+<span class="text-blue-400 font-bold text-xs">2024</span>
+</div>
+<div class="flex-1 bg-dark-800 rounded-xl p-4 border border-dark-600">
+<h4 class="font-semibold text-white mb-1">Isaac Lab + GR00T N1</h4>
+<p class="text-sm text-neutral-400">Framework unificado de RL/IL sobre Isaac Sim. Entorno de entrenamiento del modelo GR00T N1 — foundation model humanoide de NVIDIA.</p>
+</div>
+</div>
+</div>
+<!-- Conceitos-chave grid -->
+<div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600">
+<div class="text-blue-400 font-semibold text-sm mb-1">Omniverse USD</div>
+<div class="text-xs text-neutral-400">Formato universal de escenas 3D</div>
+</div>
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600">
+<div class="text-blue-400 font-semibold text-sm mb-1">PhysX 5</div>
+<div class="text-xs text-neutral-400">Física acelerada por GPU</div>
+</div>
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600">
+<div class="text-blue-400 font-semibold text-sm mb-1">Isaac Lab</div>
+<div class="text-xs text-neutral-400">Framework unificado de RL/IL</div>
+</div>
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600">
+<div class="text-blue-400 font-semibold text-sm mb-1">OmniGraph</div>
+<div class="text-xs text-neutral-400">Lógica visual (grafo de nodos)</div>
+</div>
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600">
+<div class="text-blue-400 font-semibold text-sm mb-1">ROS2 bridge</div>
+<div class="text-xs text-neutral-400">Integración nativa con ROS2</div>
+</div>
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600">
+<div class="text-blue-400 font-semibold text-sm mb-1">RTX ray-tracing</div>
+<div class="text-xs text-neutral-400">94k FPS en A100</div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 3 — PyBullet -->
+<section class="mb-10" id="topico-3">
+<div class="flex items-start gap-4 mb-4">
+<div class="w-12 h-12 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center shrink-0">
+<span class="text-blue-400 font-bold text-lg">3</span>
+</div>
+<div>
+<h2 class="text-2xl font-bold">🐍 PyBullet: ligero y de código abierto</h2>
+<p class="text-neutral-400 mt-1">Un simulador funcional en cualquier laptop — el camino más rápido para ejecutar tu primera política.</p>
+</div>
+</div>
+<!-- Box código -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-4">
+<h3 class="text-blue-400 font-semibold text-sm uppercase tracking-wider mb-3">Inicio rápido con PyBullet</h3>
+<pre class="font-mono text-sm text-neutral-300 overflow-x-auto leading-relaxed"><code><span class="text-blue-400">import</span> pybullet <span class="text-blue-400">as</span> p
+<span class="text-blue-400">import</span> pybullet_data
+
+<span class="text-neutral-500"># 1. Conectar ao simulador</span>
+p.connect(p.GUI)  <span class="text-neutral-500"># ou p.DIRECT para headless</span>
+p.setAdditionalSearchPath(pybullet_data.getDataPath())
+
+<span class="text-neutral-500"># 2. Configurar física</span>
+p.setGravity(<span class="text-primary">0</span>, <span class="text-primary">0</span>, <span class="text-primary">-9.81</span>)
+plane = p.loadURDF(<span class="text-emerald-400">"plane.urdf"</span>)
+
+<span class="text-neutral-500"># 3. Carregar robô</span>
+robot = p.loadURDF(<span class="text-emerald-400">"kuka/kuka.urdf"</span>, basePosition=[<span class="text-primary">0</span>, <span class="text-primary">0</span>, <span class="text-primary">0</span>])
+
+<span class="text-neutral-500"># 4. Loop de simulação</span>
+<span class="text-blue-400">for</span> _ <span class="text-blue-400">in</span> range(<span class="text-primary">1000</span>):
+    p.stepSimulation()
+    joint_state = p.getJointState(robot, <span class="text-primary">0</span>)
+
+p.disconnect()</code></pre>
+</div>
+<p class="text-neutral-300 mb-4">PyBullet es el wrapper de Python de Bullet Physics Engine. Con un simple <code class="font-mono text-blue-400 bg-dark-800 px-1.5 py-0.5 rounded text-sm">pip install pybullet</code>, tienes simulación 3D con cargador URDF, detección de colisiones y restricciones: ideal para crear prototipos de políticas antes de migrar a simuladores más pesados.</p>
+<!-- Tip box -->
+<div class="bg-primary/10 border border-primary/40 rounded-xl p-5 mb-4">
+<div class="flex items-start gap-3">
+<span class="text-primary text-xl">💡</span>
+<div>
+<h4 class="font-semibold text-primary mb-1">Consejo: headless para entrenamiento</h4>
+<p class="text-sm text-neutral-300">Usa <code class="font-mono text-blue-400 bg-dark-800 px-1 rounded text-xs">p.connect(p.DIRECT)</code> en lugar de <code class="font-mono text-blue-400 bg-dark-800 px-1 rounded text-xs">p.GUI</code> para entrenar sin pantalla: hasta 10× más rápido porque no renderiza frames. Reserva la GUI para la depuración visual.</p>
+</div>
+</div>
+</div>
+<!-- Conceitos-chave -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600 text-center">
+<div class="text-blue-400 font-semibold text-sm mb-1">URDF</div>
+<div class="text-xs text-neutral-400">Descripción del robot en XML</div>
+</div>
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600 text-center">
+<div class="text-blue-400 font-semibold text-sm mb-1">loadURDF()</div>
+<div class="text-xs text-neutral-400">Carga un modelo 3D</div>
+</div>
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600 text-center">
+<div class="text-blue-400 font-semibold text-sm mb-1">stepSimulation()</div>
+<div class="text-xs text-neutral-400">Avanza 1 timestep</div>
+</div>
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600 text-center">
+<div class="text-blue-400 font-semibold text-sm mb-1">pybullet_envs</div>
+<div class="text-xs text-neutral-400">Wrappers de Gymnasium</div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 4 — Gazebo + ROS2 -->
+<section class="mb-10" id="topico-4">
+<div class="flex items-start gap-4 mb-4">
+<div class="w-12 h-12 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center shrink-0">
+<span class="text-blue-400 font-bold text-lg">4</span>
+</div>
+<div>
+<h2 class="text-2xl font-bold">🔗 Gazebo + ROS2: integración nativa</h2>
+<p class="text-neutral-400 mt-1">El simulador que habla ROS2 de forma nativa: el código de simulación y el del robot real son casi idénticos.</p>
+</div>
+</div>
+<!-- SVG inline — diagrama Gazebo ↔ ROS2 -->
+<div class="rounded-2xl border border-blue-500/30 bg-dark-900/40 p-4 mb-5 overflow-hidden">
+<svg aria-label="Integración de Gazebo con ROS2: los sensores virtuales publican topics mediante ros_gz_bridge, que consumen los nodos VLA y de control" class="w-full h-auto" font-family="Inter,sans-serif" role="img" viewbox="0 0 660 200">
+<defs>
+<filter height="180%" id="m23b-glow" width="180%" x="-40%" y="-40%">
+<fegaussianblur result="b" stddeviation="1.8"></fegaussianblur><femerge><femergenode in="b"></femergenode><femergenode in="SourceGraphic"></femergenode></femerge>
+</filter>
+<pattern height="28" id="m23b-grid" patternunits="userSpaceOnUse" width="28">
+<circle cx="1.2" cy="1.2" fill="#3b82f6" opacity="0.10" r="1.2"></circle>
+</pattern>
+<marker id="m23b-ah" markerheight="8" markerwidth="8" orient="auto" refx="6" refy="4">
+<path d="M0,0 L7,4 L0,8 L2,4 Z" fill="#60a5fa"></path>
+</marker>
+</defs>
+<rect fill="url(#m23b-grid)" height="200" width="660"></rect>
+<!-- Gazebo box -->
+<rect fill="#0c1929" filter="url(#m23b-glow)" height="140" rx="12" stroke="#3b82f6" stroke-width="2" width="170" x="20" y="30"></rect>
+<text fill="#60a5fa" font-size="12" font-weight="700" text-anchor="middle" x="105" y="58">Gazebo (gz-sim)</text>
+<text fill="#9ca3af" font-size="8" text-anchor="middle" x="105" y="78">📷 Camera plugin</text>
+<text fill="#9ca3af" font-size="8" text-anchor="middle" x="105" y="93">📡 Plugin de LiDAR</text>
+<text fill="#9ca3af" font-size="8" text-anchor="middle" x="105" y="108">🧲 IMU plugin</text>
+<text fill="#9ca3af" font-size="8" text-anchor="middle" x="105" y="123">Archivos de mundo SDF</text>
+<text fill="#38bdf8" font-size="7.5" font-weight="600" text-anchor="middle" x="105" y="155">Simulación de sensores reales</text>
+<!-- Bridge -->
+<rect fill="#0c1929" filter="url(#m23b-glow)" height="50" rx="10" stroke="#38bdf8" stroke-width="2" width="140" x="240" y="75"></rect>
+<text fill="#38bdf8" font-size="10" font-weight="700" text-anchor="middle" x="310" y="96">ros_gz_bridge</text>
+<text fill="#9ca3af" font-size="8" text-anchor="middle" x="310" y="113">Gz ↔ ROS2 Topics</text>
+<!-- ROS2 bus -->
+<rect fill="#0c1929" filter="url(#m23b-glow)" height="140" rx="12" stroke="#3b82f6" stroke-width="2" width="210" x="430" y="30"></rect>
+<text fill="#60a5fa" font-size="11" font-weight="700" text-anchor="middle" x="535" y="55">ROS2 Nodes</text>
+<text fill="#9ca3af" font-size="8" text-anchor="middle" x="535" y="75">🧠 nodo de inferencia VLA</text>
+<text fill="#9ca3af" font-size="8" text-anchor="middle" x="535" y="90">🔄 TF2 transformer</text>
+<text fill="#9ca3af" font-size="8" text-anchor="middle" x="535" y="105">🦾 planificador de MoveIt2</text>
+<text fill="#9ca3af" font-size="8" text-anchor="middle" x="535" y="120">🤖 ros2_control</text>
+<text fill="#38bdf8" font-size="7.5" font-weight="600" text-anchor="middle" x="535" y="150">Mismo código → robot real</text>
+<!-- Setas -->
+<path d="M190,100 L240,100" fill="none" marker-end="url(#m23b-ah)" opacity="0.7" stroke="#60a5fa" stroke-width="1.5"></path>
+<path d="M380,100 L430,100" fill="none" marker-end="url(#m23b-ah)" opacity="0.7" stroke="#38bdf8" stroke-width="1.5"></path>
+</svg>
+</div>
+<p class="text-neutral-300 mb-4">Gazebo (ahora "Gz") es el simulador integrado al ecosistema ROS2. A diferencia de MuJoCo (enfocado en RL), Gazebo simula sensores reales —cámaras depth, LiDAR, IMU— y se comunica con ROS2 de forma nativa mediante topics a través de <code class="font-mono text-blue-400 bg-dark-800 px-1.5 py-0.5 rounded text-sm">ros_gz_bridge</code>.</p>
+<!-- Grid ✓/✗ -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+<div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-5">
+<h4 class="text-blue-400 font-semibold mb-3">✓ Ventajas de Gazebo</h4>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">✓</span> Código ROS2 idéntico en la simulación y en el robot real</li>
+<li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">✓</span> Sensores virtuales (cámara, LiDAR, IMU) integrados</li>
+<li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">✓</span> Gazebo Fuel: repositorio de modelos 3D listos para usar</li>
+<li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">✓</span> Integración nativa con Nav2 y MoveIt2</li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-5">
+<h4 class="text-red-400 font-semibold mb-3">✗ Limitaciones</h4>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Más lento que MuJoCo para RL a escala</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Renderizado no fotorrealista (vs Isaac Sim)</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Configuración que requiere más trabajo (SDF + plugins)</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Gzebo clásico vs Gz (incompatibilidades)</li>
+</ul>
+</div>
+</div>
+<!-- Conceitos-chave -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600 text-center">
+<div class="text-blue-400 font-semibold text-sm mb-1">SDF</div>
+<div class="text-xs text-neutral-400">Formato de descripción de simulación</div>
+</div>
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600 text-center">
+<div class="text-blue-400 font-semibold text-sm mb-1">ros_gz_bridge</div>
+<div class="text-xs text-neutral-400">Gz ↔ ROS2 topics</div>
+</div>
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600 text-center">
+<div class="text-blue-400 font-semibold text-sm mb-1">Gz Fuel</div>
+<div class="text-xs text-neutral-400">Repositorio de modelos</div>
+</div>
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600 text-center">
+<div class="text-blue-400 font-semibold text-sm mb-1">iniciar servicio</div>
+<div class="text-xs text-neutral-400">Spawn mediante servicio ROS2</div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 5 — Domain Randomization -->
+<section class="mb-10" id="topico-5">
+<div class="flex items-start gap-4 mb-4">
+<div class="w-12 h-12 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center shrink-0">
+<span class="text-blue-400 font-bold text-lg">5</span>
+</div>
+<div>
+<h2 class="text-2xl font-bold">🎲 Domain Randomization: variabilidad para la transferencia</h2>
+<p class="text-neutral-400 mt-1">La técnica que hizo posible el primer sim-to-real exitoso a gran escala.</p>
+</div>
+</div>
+<!-- Conceito principal -->
+<div class="bg-gradient-to-br from-blue-900/40 to-dark-800 rounded-xl border border-blue-500/30 p-6 mb-4">
+<h3 class="text-blue-400 font-semibold text-sm uppercase tracking-wider mb-3">Concepto central</h3>
+<p class="text-neutral-300 leading-relaxed">Domain randomization varía aleatoriamente parámetros del simulador — texturas, iluminación, masas, fricción, colores — durante el entrenamiento. La política aprende a ser robusta ante las variaciones en vez de memorizar el entorno perfecto de la simulación. Fue la técnica que permitió a OpenAI enseñar a un robot a resolver el cubo de Rubik en 2019.</p>
+</div>
+<!-- Timeline de tipos de randomização -->
+<div class="space-y-4 mb-5">
+<h3 class="text-sm font-semibold text-neutral-400 uppercase tracking-wider">Tipos de aleatorización</h3>
+<div class="flex items-start gap-4">
+<div class="w-12 h-12 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center shrink-0">
+<span class="text-blue-400 text-lg">👁️</span>
+</div>
+<div class="flex-1 bg-dark-800 rounded-xl p-4 border border-dark-600">
+<h4 class="font-semibold text-white mb-1">Aleatorización visual</h4>
+<p class="text-sm text-neutral-400">Varía las texturas de los objetos, el color del fondo, la posición y la intensidad de las luces y el tipo de cámara. La política no debe depender de colores específicos para reconocer un objeto.</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="w-12 h-12 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center shrink-0">
+<span class="text-blue-400 text-lg">⚖️</span>
+</div>
+<div class="flex-1 bg-dark-800 rounded-xl p-4 border border-dark-600">
+<h4 class="font-semibold text-white mb-1">Aleatorización de la física</h4>
+<p class="text-sm text-neutral-400">Varía la masa de los objetos, el coeficiente de fricción, el damping de las articulaciones y la latencia del actuador. Simula la imprecisión del mundo real, donde los parámetros físicos nunca son exactos.</p>
+</div>
+</div>
+<div class="flex items-start gap-4">
+<div class="w-12 h-12 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center shrink-0">
+<span class="text-blue-400 text-lg">📈</span>
+</div>
+<div class="flex-1 bg-dark-800 rounded-xl p-4 border border-dark-600">
+<h4 class="font-semibold text-white mb-1">ADR — Automatic Domain Randomization</h4>
+<p class="text-sm text-neutral-400">Curriculum automático: empieza con variaciones pequeñas y las aumenta progresivamente a medida que mejora la política. Implementado por OpenAI para el proyecto Dactyl (mano robótica).</p>
+</div>
+</div>
+</div>
+<!-- Tip box -->
+<div class="bg-primary/10 border border-primary/40 rounded-xl p-5 mb-4">
+<div class="flex items-start gap-3">
+<span class="text-primary text-xl">💡</span>
+<div>
+<h4 class="font-semibold text-primary mb-1">Consejo: empieza de forma sencilla y escala después</h4>
+<p class="text-sm text-neutral-300">No aleatorices todo de una vez: la política puede no converger. Empieza con una aleatorización visual mínima (color del fondo), valida que la política siga aprendiendo y luego agrega física. Usa ADR para automatizar este curriculum.</p>
+</div>
+</div>
+</div>
+<!-- Conceitos-chave -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600 text-center">
+<div class="text-blue-400 font-semibold text-sm mb-1">Visual aleatorio.</div>
+<div class="text-xs text-neutral-400">Texturas y luz</div>
+</div>
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600 text-center">
+<div class="text-blue-400 font-semibold text-sm mb-1">Aleatorización de la física</div>
+<div class="text-xs text-neutral-400">Masa y fricción</div>
+</div>
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600 text-center">
+<div class="text-blue-400 font-semibold text-sm mb-1">ADR</div>
+<div class="text-xs text-neutral-400">Curriculum automático</div>
+</div>
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600 text-center">
+<div class="text-blue-400 font-semibold text-sm mb-1">Reality gap</div>
+<div class="text-xs text-neutral-400">Diferencia entre simulación y realidad</div>
+</div>
+</div>
+</section>
+<!-- TÓPICO 6 — Sim-to-sim -->
+<section class="mb-10" id="topico-6">
+<div class="flex items-start gap-4 mb-4">
+<div class="w-12 h-12 rounded-full bg-blue-500/20 border border-blue-500/30 flex items-center justify-center shrink-0">
+<span class="text-blue-400 font-bold text-lg">6</span>
+</div>
+<div>
+<h2 class="text-2xl font-bold">🔄 Sim-to-sim: validación antes de llevarlo al mundo real</h2>
+<p class="text-neutral-400 mt-1">Prueba en 2 simuladores diferentes antes de arriesgar hardware costoso: una validación económica y poderosa.</p>
+</div>
+</div>
+<p class="text-neutral-300 mb-4">Sim-to-sim es la práctica de transferir una política entrenada en un simulador (p. ej., MuJoCo) a otro simulador con una física diferente (p. ej., Isaac Sim) como etapa intermedia. Si la política falla en otro simulador, fallará en el robot real, pero lo descubriste sin romper nada.</p>
+<!-- Box código — conversão MJCF → USD -->
+<div class="bg-dark-800 rounded-xl border border-dark-600 p-6 mb-4">
+<h3 class="text-blue-400 font-semibold text-sm uppercase tracking-wider mb-3">Conversión de formatos de robot</h3>
+<pre class="font-mono text-sm text-neutral-300 overflow-x-auto leading-relaxed"><code><span class="text-neutral-500"># URDF → MJCF (MuJoCo)</span>
+python -m mujoco.mjcf.convert robot.urdf robot.xml
+
+<span class="text-neutral-500"># URDF → USD (Isaac Sim / Omniverse)</span>
+<span class="text-blue-400">from</span> omni.isaac.urdf <span class="text-blue-400">import</span> _urdf
+urdf_interface = _urdf.acquire_urdf_interface()
+urdf_interface.parse_urdf(urdf_path, dest_path)
+
+<span class="text-neutral-500"># Benchmark cross-simulator com SIMPLER</span>
+python eval_simpler.py \
+  --policy checkpoint.pt \
+  --env SimplerEnv-MuJoCo \
+  --n_eval_episodes <span class="text-primary">50</span>
+
+<span class="text-neutral-500"># Mesmo benchmark em Isaac Sim</span>
+python eval_simpler.py \
+  --policy checkpoint.pt \
+  --env SimplerEnv-IsaacSim \
+  --n_eval_episodes <span class="text-primary">50</span></code></pre>
+</div>
+<!-- Grid ✓/✗ diagnóstico -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+<div class="bg-blue-900/20 rounded-xl border border-blue-500/30 p-5">
+<h4 class="text-blue-400 font-semibold mb-3">✓ Señales de una política robusta</h4>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">✓</span> Tasa de éxito similar en MuJoCo e Isaac Sim</li>
+<li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">✓</span> Comportamiento consistente con diferentes texturas</li>
+<li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">✓</span> Los intervalos de tolerancia se superponen entre simuladores</li>
+<li class="flex items-start gap-2"><span class="text-blue-400 mt-0.5">✓</span> Los fallos se distribuyen aleatoriamente, no son sistemáticos</li>
+</ul>
+</div>
+<div class="bg-red-900/20 rounded-xl border border-red-500/30 p-5">
+<h4 class="text-red-400 font-semibold mb-3">✗ Señales de sobreajuste a la simulación</h4>
+<ul class="space-y-2 text-sm text-neutral-300">
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> 90% de éxito en MuJoCo, 20% en Isaac Sim</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> La política se detiene en el mismo frame cada vez en la 2.ª simulación</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Fallos consistentes al cambiar la textura del objeto</li>
+<li class="flex items-start gap-2"><span class="text-red-400 mt-0.5">✗</span> Comportamiento diferente con el mismo URDF/MJCF</li>
+</ul>
+</div>
+</div>
+<!-- Tip box -->
+<div class="bg-primary/10 border border-primary/40 rounded-xl p-5 mb-4">
+<div class="flex items-start gap-3">
+<span class="text-primary text-xl">💡</span>
+<div>
+<h4 class="font-semibold text-primary mb-1">Protocolo mínimo de validación</h4>
+<p class="text-sm text-neutral-300">Usa siempre N ≥ 50 episodios por entorno para calcular intervalos de confianza (95%). Con N &lt; 20, la variabilidad es tan alta que puedes confundir la suerte con la robustez. Graba videos de los episodios fallidos: revelan patrones que las métricas no capturan.</p>
+</div>
+</div>
+</div>
+<!-- Conceitos-chave -->
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600 text-center">
+<div class="text-blue-400 font-semibold text-sm mb-1">SIMPLER</div>
+<div class="text-xs text-neutral-400">Benchmark cross-sim</div>
+</div>
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600 text-center">
+<div class="text-blue-400 font-semibold text-sm mb-1">N episodios</div>
+<div class="text-xs text-neutral-400">Mín. 50 para CI</div>
+</div>
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600 text-center">
+<div class="text-blue-400 font-semibold text-sm mb-1">URDF/MJCF</div>
+<div class="text-xs text-neutral-400">Conversión de formatos</div>
+</div>
+<div class="bg-dark-800 rounded-lg p-3 border border-dark-600 text-center">
+<div class="text-blue-400 font-semibold text-sm mb-1">Brecha física</div>
+<div class="text-xs text-neutral-400">Diferencia entre sims</div>
+</div>
+</div>
+</section>
+<!-- RESUMO -->
+<section class="mb-12">
+<div class="bg-gradient-to-br from-blue-900/40 via-dark-800 to-dark-800 rounded-xl border border-blue-500/30 p-8">
+<h2 class="text-2xl font-bold mb-6 flex items-center"><span class="mr-3">✅</span> Resumen del módulo</h2>
+<div class="space-y-4 mb-8">
+<div class="flex items-start gap-3">
+<span class="text-blue-400 mt-1">✓</span>
+<div>
+<strong class="text-white">MuJoCo = velocidad</strong>
+<span class="text-neutral-400"> — 2.7M pasos/s en CPU, estándar académico, requisito previo para reproducir papers de RL y benchmarks Gymnasium.</span>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="text-blue-400 mt-1">✓</span>
+<div>
+<strong class="text-white">Isaac Sim = fidelidad</strong>
+<span class="text-neutral-400"> — 94k FPS con ray-tracing, PhysX 5 e integración nativa con ROS2; la opción para sim-to-real visual de alta calidad.</span>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="text-blue-400 mt-1">✓</span>
+<div>
+<strong class="text-white">Domain randomization es obligatoria</strong>
+<span class="text-neutral-400"> — sin variar texturas, masas e iluminación, las políticas presentan overfitting en la simulación y fallan catastróficamente en el mundo real.</span>
+</div>
+</div>
+<div class="flex items-start gap-3">
+<span class="text-blue-400 mt-1">✓</span>
+<div>
+<strong class="text-white">Sim-to-sim antes del mundo real</strong>
+<span class="text-neutral-400"> — valida en 2+ simuladores con N ≥ 50 episodios antes de arriesgar hardware costoso; las fallas sistemáticas revelan fragilidades.</span>
+</div>
+</div>
+</div>
+<div class="bg-dark-800/50 rounded-lg p-4 mb-8">
+<h3 class="font-semibold text-blue-400 mb-2">Siguiente módulo</h3>
+<p class="text-neutral-300">2.4 — ROS2: middleware para robótica real</p>
+</div>
+<div class="flex flex-col sm:flex-row gap-4">
+<a class="flex-1 text-center px-6 py-3 bg-dark-700 text-neutral-300 rounded-lg font-semibold hover:bg-dark-600 transition-colors" href="./">← Volver a la Ruta</a>
+<a class="flex-1 text-center px-6 py-3 bg-blue-600 text-white rounded-lg font-semibold hover:bg-blue-500 transition-colors" href="modulo-2-4.html">Siguiente módulo →</a>
+</div>
+</div>
+</section>
+</main>
+<footer class="border-t border-dark-600 py-8">
+<div class="max-w-6xl mx-auto px-4 text-center text-neutral-500 text-sm">
+<p>VLA Course — Vision-Language-Action · <a class="text-sky-400 hover:text-sky-300" href="https://ARCKHÉ AI" target="_blank">ARCKHÉ AI</a></p>
+</div>
+</footer>
+</body>
+</html>
